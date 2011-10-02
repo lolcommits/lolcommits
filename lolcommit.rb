@@ -6,9 +6,11 @@ require 'git'
 require 'choice'
 include Magick
 
+#
+# Command line parsing fun
+#
 $VERBOSE = nil
 Choice.options do
-
   option :about do
     long "--about"
     action do
@@ -32,16 +34,19 @@ Choice.options do
   end
 end
 
-# commit_sha = '1fa17f9a68997e41cebffda037e8ab2b528f06c7'
-# commit_msg = Choice.choices[:msg]
 
 #
 # Read the git repo information from the current working directory
 #
 g = Git.open('.')
-commit = g.log.first
-commit_msg = commit.message
-commit_sha = commit.sha[0..10]
+if not Choice.choices[:test]
+  commit = g.log.first
+  commit_msg = commit.message
+  commit_sha = commit.sha[0..10]
+else
+  commit_msg = Choice.choices[:msg]
+  commit_sha = Choice.choices[:sha]
+end
 
 #
 # Create a directory to hold the lolimages
