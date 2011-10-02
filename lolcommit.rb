@@ -97,4 +97,4 @@ canvas << Magick::Image.read("caption:#{commit_sha}") {
 # Squash the images and write the files
 #
 canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
-system("open #{loldir}/#{commit_sha}.jpg")
+#system("open #{loldir}/#{commit_sha}.jpg")
