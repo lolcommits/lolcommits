@@ -7,6 +7,12 @@ require 'choice'
 include Magick
 
 #
+# Variables
+#
+$home = ENV['HOME']
+lolbasedir = "#{$home}/.lolcommits"
+
+#
 # Command line parsing fun
 #
 $VERBOSE = nil
@@ -25,7 +31,7 @@ Choice.options do
   option :sha do
     desc "pass a SHA manually (for test mode only!)"
     short '-s'
-    default "test-123456789"
+    default "test-#{rand(10 ** 10)}"
   end
   option :msg do
     desc "pass a commit message manually (for test mode only!)"
@@ -43,18 +49,18 @@ if not Choice.choices[:test]
   commit = g.log.first
   commit_msg = commit.message
   commit_sha = commit.sha[0..10]
+  loldir = "#{lolbasedir}/#{File.basename(g.dir.to_s)}"
 else
   commit_msg = Choice.choices[:msg]
   commit_sha = Choice.choices[:sha]
+  loldir = "#{lolbasedir}/test"
 end
 
 #
 # Create a directory to hold the lolimages
 #
-loldir = "#{g.dir}/.lolcommits"
-if not File.directory? "#{loldir}/tmp"
-  #FileUtils.mkdir_p loldir
-  FileUtils.mkdir_p "#{loldir}/tmp"
+if not File.directory? loldir
+  FileUtils.mkdir_p loldir
 end
 
 #
@@ -64,12 +70,13 @@ end
 # if this changes on future mac isights.
 #
 puts "*** Preserving this moment in history."
-system("imagesnap -q #{loldir}/tmp/snapshot.jpg")
+snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
+system("imagesnap -q #{snapshot_loc}")
 
 #
 # Process the image with ImageMagick to add loltext
 #
-canvas = ImageList.new.from_blob(open("#{loldir}/tmp/snapshot.jpg") { |f| f.read } )
+canvas = ImageList.new.from_blob(open("#{snapshot_loc}") { |f| f.read } )
 
 canvas << Magick::Image.read("caption:#{commit_msg}") { 
   self.gravity = SouthWestGravity
@@ -97,4 +104,5 @@ canvas << Magick::Image.read("caption:#{commit_sha}") {
 # Squash the images and write the files
 #
 canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
+FileUtils.rm("#{snapshot_loc}")
 #system("open #{loldir}/#{commit_sha}.jpg")
