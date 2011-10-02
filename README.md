@@ -29,4 +29,5 @@ This installs git-hooks which gives you a global user hooks directory so you can
 
 ## Sample images
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
+&nbsp;
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample3.jpg" />
