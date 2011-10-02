@@ -28,6 +28,5 @@ Once this is done, simply run `git hooks --install` in any repository you want t
 This installs git-hooks which gives you a global user hooks directory so you can set up other stuff easily as well.  See their README for more details.
 
 ## Sample images
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample1.jpg" />
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample3.jpg" />
