@@ -1,0 +1,6 @@
+
+
+### Prerequisites
+
+- ImageMagick (`brew install imagemagick` assuming you are on a mac using homebrew)
+- RMagick gem (`bundle install`) when in this directory
