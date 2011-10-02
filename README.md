@@ -1,17 +1,21 @@
+# git + webcam = lol
+
+Takes a snapshot with your Mac's built-in iSight webcam every time you git commit code, and archives a lolcat style image with it.
+
 By default, the lolimages are stored by a Github style SHA in a `.lolcommits` directory within your repository. (You probably will want to add it to your global `.gitignore`, unless your intention is to keep them in source control directly which is even more awesome.)
 
-### Prerequisites
+## Prerequisites
 
-- ImageMagick (`brew install imagemagick` assuming you are on a mac using homebrew)
+- ImageMagick (`brew install imagemagick` assuming you are on a mac using [Homebrew](http://mxcl.github.com/homebrew/))
 - RMagick and ruby-git gems (`bundle install` when in this directory)
-- ImageSnap (included)
+- [ImageSnap](http://www.iharder.net/current/macosx/imagesnap/) (included)
 
-### Installation
+## Installation
 
-#### The boring way
+### The boring way
 Copy `bin/imagesnap` to somewhere in your `$PATH`.  Make `lolcommit.rb` a post-commit hook in the repo you want it to run for.
 
-#### The awesome way (for multiple repos)
+### The awesome way (for multiple repos)
 Run `rake install`. This will do the following:
 
 - Copy `imagesnap` to `/usr/local/bin`
@@ -22,3 +26,8 @@ Run `rake install`. This will do the following:
 Once this is done, simply run `git hooks --install` in any repository you want to use this in.
 
 This installs git-hooks which gives you a global user hooks directory so you can set up other stuff easily as well.  See their README for more details.
+
+## Sample images
+<img width='320' height='240' src="http://mroth.github.com/lolcommits/sample1.jpg" />
+<img width='320' height='240' src="http://mroth.github.com/lolcommits/sample2.jpg" />
+<img width='320' height='240' src="http://mroth.github.com/lolcommits/sample3.jpg" />
