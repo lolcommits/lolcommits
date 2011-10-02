@@ -2,7 +2,7 @@
 
 Takes a snapshot with your Mac's built-in iSight webcam every time you git commit code, and archives a lolcat style image with it.
 
-By default, the lolimages are stored by a Github style SHA in a `~/.lolcommits` directory.
+By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
 ## Prerequisites
 
