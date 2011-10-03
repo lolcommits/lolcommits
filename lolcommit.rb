@@ -44,13 +44,13 @@ end
 #
 # Read the git repo information from the current working directory
 #
-g = Git.open('.')
 if not Choice.choices[:test]
   commit = g.log.first
   commit_msg = commit.message
   commit_sha = commit.sha[0..10]
   loldir = "#{lolbasedir}/#{File.basename(g.dir.to_s)}"
 else
+  g = Git.open('.')
   commit_msg = Choice.choices[:msg]
   commit_sha = Choice.choices[:sha]
   loldir = "#{lolbasedir}/test"
