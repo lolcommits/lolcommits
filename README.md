@@ -22,6 +22,8 @@ Run `rake install`. This will do the following:
 - Clone and install the git-hooks project (adding it to `/usr/local/bin`)
 - Creates your global user `~/.git_hooks` and gives you a few directories to start (pre-commit, commit-msg, and post-commit).
 - Copies the main script here (`lolcommit.rb`) to your new `~./git_hooks/post-commit` directory.
+- Uses `bundler` to install any uninstalled Gem dependencies (assuming bundler is installed, manually `gem install bundler` if not, we don't auto-install it to be polite.)
+- Uses `homebrew` to install ImageMagick (assuming Homebrew is installed, we don't auto-install it here to be polite.)
 
 Once this is done, simply run `git hooks --install` in any repository you want to use this in.
 

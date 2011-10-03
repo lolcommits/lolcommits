@@ -4,11 +4,7 @@ $githooks_userdir = "#{$home}/.git_hooks"
 $srcdir = "#{$home}/.githooks_src"
 $target = "/usr/local/bin/git-hooks"
 
-task :install => [:githooks_install, :imagesnap_install] do
-  # check git global init.templatedir
-  # if exists, die, else, create
-  #token = `git config --global init.templatedir`
-  
+task :install => [:githooks_install, :imagesnap_install, :imagemagick_install, :gems_install] do
   #create user githooks if doesnt exist
   if not File.directory? $githooks_userdir
     FileUtils.mkdir_p $githooks_userdir
@@ -39,6 +35,22 @@ task :githooks_install do
   if not File.exists? $target
     #puts "*** Symlinking git-hooks script to your /usr/local/bin"
     File.symlink("#{$srcdir}/git-hooks", $target)
+  end
+end
+
+task :gems_install do
+  if not File.exists? 'Gemfile.lock' #this gets created when bundle install is run
+    sh "bundle install"
+  end
+end
+
+task :imagemagick_install do
+  if "" == `which convert` #ghetto way to check if ImageMagick is installed
+    if not File.exists? "/usr/local/bin/brew" #does user have homebrew?
+      puts "You need to install ImageMagick!  You don't have homebrew so we can't install it for you."
+    else
+      sh "brew install imagemagick"
+    end
   end
 end
 
