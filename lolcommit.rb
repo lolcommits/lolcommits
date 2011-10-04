@@ -49,7 +49,9 @@ if not Choice.choices[:test]
   commit = g.log.first
   commit_msg = commit.message
   commit_sha = commit.sha[0..10]
-  loldir = "#{lolbasedir}/#{File.basename(g.dir.to_s)}"
+  basename = File.basename(g.dir.to_s)
+  basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
+  loldir = "#{lolbasedir}/#{basename}"
 else
   commit_msg = Choice.choices[:msg]
   commit_sha = Choice.choices[:sha]
