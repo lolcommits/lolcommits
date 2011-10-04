@@ -80,7 +80,7 @@ system("imagesnap -q #{snapshot_loc}")
 #
 canvas = ImageList.new.from_blob(open("#{snapshot_loc}") { |f| f.read } )
 if (canvas.columns > 640 || canvas.rows > 480)
-  canvas.resize!(640,480)
+  canvas.resize_to_fill!(640,480)
 end
 
 canvas << Magick::Image.read("caption:#{commit_msg}") { 
