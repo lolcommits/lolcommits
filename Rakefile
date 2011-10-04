@@ -15,6 +15,7 @@ task :install => [:githooks_install, :imagesnap_install, :imagemagick_install, :
   
   # symlink hook from there to this file
   FileUtils.cp( "#{$srcpath}/lolcommit.rb", "#{$githooks_userdir}/post-commit/lolcommit" )
+  FileUtils.chmod 0755, "#{$githooks_userdir}/post-commit/lolcommit"
 end
 
 desc "Install imagesnap to /usr/local/bin"
