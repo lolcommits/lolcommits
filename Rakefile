@@ -49,7 +49,7 @@ end
 
 task :imagemagick_install do
   if "" == `which convert` #ghetto way to check if ImageMagick is installed
-    if not File.exists? "/usr/local/bin/brew" #does user have homebrew?
+    if "" == `which brew` #does user have homebrew?
       puts "You need to install ImageMagick!  You don't have homebrew so we can't install it for you."
     else
       sh "brew install imagemagick"
