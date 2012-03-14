@@ -29,6 +29,9 @@ Once this is done, simply run `git hooks --install` while in any repository you 
 
 This installs [git-hooks](https://github.com/icefox/git-hooks) which gives you a global user hooks directory so you can set up other stuff easily as well.  See their README for more details.
 
+If you don't want to use `/usr/local/bin` you can provide a different
+dir running `LOCAL_BINDIR=/your/path/of/choice rake install`
+
 ## Sample images
 Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />

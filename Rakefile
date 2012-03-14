@@ -1,8 +1,9 @@
 $home = ENV['HOME']
+$local_bindir = ENV['LOCAL_BIN'] || "/usr/local/bin/"
 $srcpath = File.expand_path(File.dirname( __FILE__ ))
 $githooks_userdir = "#{$home}/.git_hooks"
 $srcdir = "#{$home}/.githooks_src"
-$target = "/usr/local/bin/git-hooks"
+$target = File.join($local_bindir, "git-hooks")
 
 task :install => [:githooks_install, :imagesnap_install, :imagemagick_install, :gems_install] do
   #create user githooks if doesnt exist
@@ -18,15 +19,16 @@ task :install => [:githooks_install, :imagesnap_install, :imagemagick_install, :
   FileUtils.chmod 0755, "#{$githooks_userdir}/post-commit/lolcommit"
 end
 
-desc "Install imagesnap to /usr/local/bin"
+desc "Install imagesnap to #{$local_bindir}"
 task :imagesnap_install do
-  if not File.exists? "/usr/local/bin/imagesnap"
-    FileUtils.cp( "#{$srcpath}/bin/imagesnap", "/usr/local/bin/imagesnap" )
-    FileUtils.chmod 0755, '/usr/local/bin/imagesnap'
+  imagesnap_target = File.join($local_bindir, "imagesnap")
+  if not File.exists? imagesnap_target
+    FileUtils.cp( "#{$srcpath}/bin/imagesnap", imagesnap_target)
+    FileUtils.chmod 0755, imagesnap_target
   end
 end
 
-desc "Clone and install git-hooks to /usr/local/bin"
+desc "Clone and install git-hooks to #{$local_bindir}"
 task :githooks_install do
   if not File.directory? $srcdir
     #puts "*** Checking out git-hooks repository into ~/.githooks_src"
@@ -47,7 +49,7 @@ end
 
 task :imagemagick_install do
   if "" == `which convert` #ghetto way to check if ImageMagick is installed
-    if not File.exists? "/usr/local/bin/brew" #does user have homebrew?
+    if "" == `which brew` #does user have homebrew?
       puts "You need to install ImageMagick!  You don't have homebrew so we can't install it for you."
     else
       sh "brew install imagemagick"
