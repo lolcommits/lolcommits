@@ -23,5 +23,5 @@ Gem::Specification.new do |s|
   # s.add_runtime_dependency "rest-client"
   s.add_runtime_dependency "rmagick"
   s.add_runtime_dependency "git"
-  s.add_runtime_dependency "choice"
+  s.add_runtime_dependency "choice", ">= 0.1.6"
 end
