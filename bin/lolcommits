@@ -2,15 +2,28 @@
 
 begin
   require 'lolcommits'
-  include Lolcommits
 rescue LoadError
   require 'rubygems'
   require 'lolcommits'
 end
 
+include Lolcommits
+
 #
-# CHECK FOR DEPENDENCIES
+# CHECK FOR FURTHER DEPENDENCIES
 #
+
+# which replacement http://stackoverflow.com/q/2108727
+def command?(name)
+  `which #{name}`
+  $?.success?
+end
+
+if not command?('imagesnap')
+  puts "Couldn't find imagesnap in your PATH!"
+  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
+  exit 1
+end
 
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
