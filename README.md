@@ -46,6 +46,7 @@ If you want to get rid of git-hooks entirly (it won't hurt anything, but we dont
 	rm -rf ~/.git_hooks
 	rm -rf ~/.githooks_src
 
+<!--
 # LEGACY README STUFF LIVES BELOW THIS LINE
 
 ## Prerequisites
@@ -76,3 +77,4 @@ This installs [git-hooks](https://github.com/icefox/git-hooks) which gives you a
 If you don't want to use `/usr/local/bin` you can provide a different
 dir running `LOCAL_BINDIR=/your/path/of/choice rake install`
 
+-->
