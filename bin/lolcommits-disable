@@ -6,3 +6,9 @@ rescue LoadError
   require 'rubygems'
   require 'lolcommits'
 end
+
+if File.exists? ".git/hooks/post-commit"
+  #TODO: remove it
+else
+  puts "lolcommits is not enabled for this directory, so there is nothing to uninstall."
+end

@@ -16,6 +16,7 @@ if File.exists? ".git/hooks/post-commit"
   #TODO: disambiguate between OUR post-commit hook and something else
   exit 1
 end
+puts "Do you want to install lolcommits for this git project? [Yn]"
 #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
 #TODO: figure out where gem puts this, copy from there
 # actually we probably shouldnt symlink, but rather install a small stub that calls the one from path
