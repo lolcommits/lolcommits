@@ -68,10 +68,9 @@ end
 #
 def do_capture
   if Choice.choices[:test]
-    puts "capturing in test mode"
+    puts "*** capturing in test mode"
     Lolcommits.capture(true, Choice.choices[:msg], Choice.choices[:sha])
   else
-    puts "capturing in normal mode"
     Lolcommits.capture
   end
 end
