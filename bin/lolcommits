@@ -36,11 +36,12 @@ def do_enable
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
   end
-  puts "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: figure out where gem puts this, copy from there
-  puts "TOO BAD INSTALLING ANYHOW FOR NOW"
-  FileUtils.touch HOOK_PATH
+  #FileUtils.touch HOOK_PATH
+  doc = "#!/bin/sh\nlolcommits --capture\n"
+  File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
+  FileUtils.chmod 0755, HOOK_PATH
   puts "installed lolcommmit hook as:"
   puts "  -> #{File.expand_path(HOOK_PATH)}"
   puts "(to remove later, you can use: lolcommits --disable)"
