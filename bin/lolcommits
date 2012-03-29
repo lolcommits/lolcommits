@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'lolcommits'
+rescue LoadError
+  require 'rubygems'
+  require 'lolcommits'
+end
+
+#
+# CHECK FOR DEPENDENCIES
+#
+
+#
+# NO ARGUMENTS SPECIFIED, HELP THE USER OUT
+#
+#
+# Command line parsing fun
+#
+#$VERBOSE = nil
+Choice.options do
+  option :about do
+    long "--about"
+    action do
+      puts "LOL!!!"
+      exit
+    end
+  end
+  option :test do
+    long "--test"
+    desc "Run in test mode, to be called manually (dont actually read git repo)"
+  end
+  option :sha do
+    desc "pass a SHA manually (for test mode only!)"
+    short '-s'
+    default "test-#{rand(10 ** 10)}"
+  end
+  option :msg do
+    desc "pass a commit message manually (for test mode only!)"
+    short '-m'
+    default "this is a test message i didnt really commit something"
+  end
+end
+
+#
+# IF --ENABLE, DO ENABLE
+#
+
+#
+# IF --DISABLE, DO DISABLE
+#
+
+#
+#IF --CAPTURE, DO CAPTURE
+#
+
