@@ -78,36 +78,47 @@ system("imagesnap -q #{snapshot_loc}")
 #
 # Process the image with ImageMagick to add loltext
 #
-canvas = ImageList.new.from_blob(open("#{snapshot_loc}") { |f| f.read } )
+
+# read in the image, and resize it via the canvas
+canvas = ImageList.new("#{snapshot_loc}")
 if (canvas.columns > 640 || canvas.rows > 480)
   canvas.resize_to_fill!(640,480)
 end
 
-canvas << Magick::Image.read("caption:#{commit_msg}") { 
-  self.gravity = SouthWestGravity
-  self.size = "640x480"
-  self.font = "/Library/Fonts/Impact.ttf"
-  self.pointsize = 48
-  self.fill = 'white'
-  self.stroke = 'black'
-  self.stroke_width = 2
-  self.background_color = 'transparent'
-}.first
+# create a draw object for annotation
+draw = Magick::Draw.new
+draw.font = "/Library/Fonts/Impact.ttf"
+draw.fill = 'white'
+draw.stroke = 'black'
 
-canvas << Magick::Image.read("caption:#{commit_sha}") { 
+# convenience method for word wrapping
+# based on https://github.com/cmdrkeene/memegen/blob/master/lib/meme_generator.rb
+def word_wrap(text, col = 28)
+  wrapped = text.gsub(/(.{1,#{col + 4}})(\s+|\Z)/, "\\1\n")
+  wrapped.chomp!
+end
+
+draw.annotate(canvas, 0, 0, 0, 0, commit_sha) do
   self.gravity = NorthEastGravity
-  self.size = "640x480"
-  self.font = "/Library/Fonts/Impact.ttf"
   self.pointsize = 32
-  self.fill = 'white'
-  self.stroke = 'black'
   self.stroke_width = 2
-  self.background_color = 'transparent'
-}.first
+end
+
+draw.annotate(canvas, 0, 0, 0, 0, word_wrap(commit_msg)) do
+  self.gravity = SouthWestGravity
+  self.pointsize = 48
+  self.interline_spacing = -(48 / 5)
+  self.stroke_width = 2
+end
 
 #
 # Squash the images and write the files
 #
-canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
+#canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
+canvas.write("#{loldir}/#{commit_sha}.jpg")
 FileUtils.rm("#{snapshot_loc}")
-#system("open #{loldir}/#{commit_sha}.jpg")
+
+#if in test mode, open image for inspection
+if Choice.choices[:test]
+  system("open #{loldir}/#{commit_sha}.jpg")
+end
