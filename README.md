@@ -20,6 +20,8 @@ You're all set!  To enable lolcommits for a git repo, go to the base directory o
 
 	lolcommits --enable
 
+Likewise, you can disable it via `lolcommits --disable`.
+
 ## Sample images
 Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
