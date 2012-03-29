@@ -14,7 +14,7 @@ end
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
-def noargs
+def do_noargs
   #TODO: make this a contextual helper to know status of whether lolcommits is enabled
   puts "Do what exactly?"
   puts "Try: lolcommits --enable   (when in a git repository)"
@@ -55,11 +55,17 @@ end
 #
 # IF --CAPTURE, DO CAPTURE
 #
+def do_capture(testmode)
+  if testmode
+    puts "capturing in test mode"
+  else
+    puts "capturing in normal mode"
+  end
+end
 
 #
 # Command line parsing fun
 #
-#$VERBOSE = nil
 Choice.options do
   
   option :disable do
@@ -72,6 +78,10 @@ Choice.options do
     action { do_enable }
   end
   
+  option :capture do
+    long "--capture"
+  end
+  
   option :test do
     long "--test"
     desc "Run in test mode"
@@ -82,6 +92,7 @@ Choice.options do
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
+  
   option :msg do
     desc "Pass commit msg manually (for test only)"
     short '-m'
@@ -89,5 +100,16 @@ Choice.options do
   end
 end
 
+#
+# Handle actions manually since choice seems weird
+#
+if not (Choice.choices[:enable] || Choice.choices[:disable])
+  if Choice.choices[:capture]
+    do_capture(Choice.choices[:test])
+  else
+    do_noargs
+  end
+end
+
 #if here, choice didnt do anything (NOT TRUE)
-noargs
+#noargs
