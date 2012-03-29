@@ -14,43 +14,80 @@ end
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
-#
-# Command line parsing fun
-#
-#$VERBOSE = nil
-Choice.options do
-  option :about do
-    long "--about"
-    action do
-      puts "LOL!!!"
-      exit
-    end
-  end
-  option :test do
-    long "--test"
-    desc "Run in test mode, to be called manually (dont actually read git repo)"
-  end
-  option :sha do
-    desc "pass a SHA manually (for test mode only!)"
-    short '-s'
-    default "test-#{rand(10 ** 10)}"
-  end
-  option :msg do
-    desc "pass a commit message manually (for test mode only!)"
-    short '-m'
-    default "this is a test message i didnt really commit something"
-  end
+def noargs
+  #TODO: make this a contextual helper to know status of whether lolcommits is enabled
+  puts "Do what exactly?"
+  puts "Try: lolcommits --enable   (when in a git repository)"
 end
 
 #
 # IF --ENABLE, DO ENABLE
 #
+def do_enable
+  if not File.directory? ".git/hooks"
+    puts "You don't appear to be in the base directory of a git project."
+    exit 1
+  end
+  if File.exists? ".git/hooks/post-commit"
+    puts "A post-commit hook already exists for this project."
+    #TODO: disambiguate between OUR post-commit hook and something else
+    exit 1
+  end
+  puts "Do you want to install lolcommits for this git project? [Yn]"
+  #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
+  #TODO: figure out where gem puts this, copy from there
+  # actually we probably shouldnt symlink, but rather install a small stub that calls the one from path
+  # that way, as gem version changes, script updates even if new file thus breaking symlink
+  #File.symlink "/Users/mroth/.git_hooks/post-commit/lolcommit", ".git/hooks/post-commit"
+end
 
 #
 # IF --DISABLE, DO DISABLE
 #
+def do_disable
+  if File.exists? ".git/hooks/post-commit"
+    #TODO: remove it
+  else
+    puts "lolcommits is not enabled for this directory, so there is nothing to uninstall."
+  end
+end
 
 #
-#IF --CAPTURE, DO CAPTURE
+# IF --CAPTURE, DO CAPTURE
 #
 
+#
+# Command line parsing fun
+#
+#$VERBOSE = nil
+Choice.options do
+  
+  option :disable do
+    long "--disable"
+    action { do_disable }
+  end
+  
+  option :enable do
+    long "--enable"
+    action { do_enable }
+  end
+  
+  option :test do
+    long "--test"
+    desc "Run in test mode"
+  end
+  
+  option :sha do
+    desc "Pass SHA manually (for test only)"
+    short '-s'
+    default "test-#{rand(10 ** 10)}"
+  end
+  option :msg do
+    desc "Pass commit msg manually (for test only)"
+    short '-m'
+    default "this is a test message i didnt really commit something"
+  end
+end
+
+#if here, choice didnt do anything (NOT TRUE)
+noargs
