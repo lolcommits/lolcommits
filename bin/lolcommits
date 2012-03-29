@@ -20,6 +20,8 @@ def do_noargs
   puts "Try: lolcommits --enable   (when in a git repository)"
 end
 
+HOOK_PATH = ".git/hooks/post-commit"
+
 #
 # IF --ENABLE, DO ENABLE
 #
@@ -28,7 +30,7 @@ def do_enable
     puts "You don't appear to be in the base directory of a git project."
     exit 1
   end
-  if File.exists? ".git/hooks/post-commit"
+  if File.exists? HOOK_PATH
     puts "A post-commit hook already exists for this project."
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
@@ -36,6 +38,11 @@ def do_enable
   puts "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: figure out where gem puts this, copy from there
+  puts "TOO BAD INSTALLING ANYHOW FOR NOW"
+  FileUtils.touch HOOK_PATH
+  puts "installed lolcommmit hook as:"
+  puts "  -> #{File.expand_path(HOOK_PATH)}"
+  puts "(to remove later, you can use: lolcommits --disable)"
   # actually we probably shouldnt symlink, but rather install a small stub that calls the one from path
   # that way, as gem version changes, script updates even if new file thus breaking symlink
   #File.symlink "/Users/mroth/.git_hooks/post-commit/lolcommit", ".git/hooks/post-commit"
@@ -45,8 +52,10 @@ end
 # IF --DISABLE, DO DISABLE
 #
 def do_disable
-  if File.exists? ".git/hooks/post-commit"
-    #TODO: remove it
+  if File.exists? HOOK_PATH
+    #TODO: check if hook file has been modified before removing
+    FileUtils.rm HOOK_PATH
+    puts "removed #{HOOK_PATH}"
   else
     puts "lolcommits is not enabled for this directory, so there is nothing to uninstall."
   end
@@ -68,18 +77,21 @@ end
 #
 Choice.options do
   
-  option :disable do
-    long "--disable"
-    action { do_disable }
-  end
-  
   option :enable do
     long "--enable"
     action { do_enable }
+    desc "install lolcommits for this repo"
+  end
+  
+  option :disable do
+    long "--disable"
+    action { do_disable }
+    desc "uninstall lolcommits for this repo"
   end
   
   option :capture do
     long "--capture"
+    desc "capture lolcommit based on last git commit"
   end
   
   option :test do
