@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'lolcommits'
+rescue LoadError
+  require 'rubygems'
+  require 'lolcommits'
+end
+
+if not File.directory? ".git/hooks"
+  puts "You don't appear to be in the base directory of a git project."
+  exit 1
+end
+if File.exists? ".git/hooks/post-commit"
+  puts "A post-commit hook already exists for this project."
+  #TODO: disambiguate between OUR post-commit hook and something else
+  exit 1
+end
+#TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
+#TODO: figure out where gem puts this, copy from there
+# actually we probably shouldnt symlink, but rather install a small stub that calls the one from path
+# that way, as gem version changes, script updates even if new file thus breaking symlink
+#File.symlink "/Users/mroth/.git_hooks/post-commit/lolcommit", ".git/hooks/post-commit"

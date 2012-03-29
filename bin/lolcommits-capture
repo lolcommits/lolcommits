@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+begin
+  require 'lolcommits'
+rescue LoadError
+  require 'rubygems'
+  require 'lolcommits'
+end
+
