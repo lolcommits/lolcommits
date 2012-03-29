@@ -36,4 +36,7 @@ dir running `LOCAL_BINDIR=/your/path/of/choice rake install`
 Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
 &nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample3.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample5.jpg" />
+<br/>
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample4.jpg" />
+&nbsp;
