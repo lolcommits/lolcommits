@@ -10,7 +10,7 @@ module Lolcommits
   $home = ENV['HOME']
   LOLBASEDIR = "#{$home}/.lolcommits"
   
-  def capture(is_test=False, test_msg=nil, test_sha=nil)
+  def capture(is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
