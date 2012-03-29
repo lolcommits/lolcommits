@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.email       = ["mrothenberg@gmail.com"]
   s.homepage    = ""
   s.summary     = %q{Capture webcam image on git commit}
-  s.description = %q{Capture webcam image on git commit}
+  s.description = %q{Capture webcam image on git commit for lulz}
 
   s.rubyforge_project = "lolcommits"
 
