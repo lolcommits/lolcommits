@@ -2,6 +2,7 @@
 
 begin
   require 'lolcommits'
+  include Lolcommits
 rescue LoadError
   require 'rubygems'
   require 'lolcommits'
@@ -64,11 +65,13 @@ end
 #
 # IF --CAPTURE, DO CAPTURE
 #
-def do_capture(testmode)
-  if testmode
+def do_capture
+  if Choice.choices[:capture]
     puts "capturing in test mode"
+    Lolcommits.capture(true, Choice.choices[:msg], Choice.choices[:sha])
   else
     puts "capturing in normal mode"
+    Lolcommits.capture
   end
 end
 
@@ -117,9 +120,9 @@ end
 #
 if not (Choice.choices[:enable] || Choice.choices[:disable])
   if Choice.choices[:capture]
-    do_capture(Choice.choices[:test])
+    do_capture()
   else
-    do_noargs
+    do_noargs()
   end
 end
 
