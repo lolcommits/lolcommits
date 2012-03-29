@@ -1,6 +1,4 @@
-source :rubygems
+source "http://rubygems.org"
 
-gem 'rmagick'
-gem 'git'
-gem 'choice'
-
+# Specify your gem's dependencies in lolcommits.gemspec
+gemspec
