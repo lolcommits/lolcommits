@@ -149,7 +149,7 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last])
   if Choice.choices[:capture]
     do_capture()
   else
