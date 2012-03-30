@@ -92,39 +92,44 @@ end
 # Command line parsing fun
 #
 Choice.options do
-  
+
   option :enable do
     long "--enable"
     action { do_enable }
     desc "install lolcommits for this repo"
   end
-  
+
   option :disable do
     long "--disable"
     action { do_disable }
     desc "uninstall lolcommits for this repo"
   end
-  
+
   option :capture do
     long "--capture"
     desc "capture lolcommit based on last git commit"
   end
-  
+
   option :test do
     long "--test"
     desc "Run in test mode"
   end
-  
+
   option :sha do
     desc "Pass SHA manually (for test only)"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
-  
+
   option :msg do
     desc "Pass commit msg manually (for test only)"
     short '-m'
     default "this is a test message i didnt really commit something"
+  end
+
+  option :delay do
+    desc "Delay taking of the snapshot by x secconds"
+    short '-d'
   end
 end
 

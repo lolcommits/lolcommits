@@ -9,7 +9,7 @@ module Lolcommits
   # Your code goes here...
   $home = ENV['HOME']
   LOLBASEDIR = "#{$home}/.lolcommits"
-  
+
   def capture(is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
@@ -27,9 +27,9 @@ module Lolcommits
       commit_sha = test_sha #Choice.choices[:sha]
       loldir = "#{LOLBASEDIR}/test"
     end
-    
+
     #puts "#{commit_sha}: #{commit_msg}"
-    
+
     #
     # Create a directory to hold the lolimages
     #
@@ -45,8 +45,12 @@ module Lolcommits
     #
     puts "*** Preserving this moment in history."
     snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
-    system("imagesnap -q #{snapshot_loc}")
-    
+
+
+
+    delay = Choice.choices.fetch(:delay, 0)
+    system("imagesnap -q #{snapshot_loc} -d #{delay}")
+
     #
     # Process the image with ImageMagick to add loltext
     #
@@ -94,8 +98,8 @@ module Lolcommits
     if Choice.choices[:test]
       system("open #{loldir}/#{commit_sha}.jpg")
     end
-    
-    
+
+
   end
-  
+
 end
