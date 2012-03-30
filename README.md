@@ -30,6 +30,7 @@ Please add your own lolcommit to these samples!  Just fork this repo, add it to 
 <br/>
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample4.jpg" />
 &nbsp;
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample6.jpg" />
 
 ## Upgrading from an old (non-gem) version?
 If you used the autoinstaller, here's how to get rid of the old stuff (I think)
