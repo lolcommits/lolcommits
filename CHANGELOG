@@ -1,0 +1,12 @@
+0.0.2 (in development)
+  * add delay of image capture
+  * 
+
+0.0.1 (29 March 2012)
+  * initial release as a gem package, major refactoring for this
+  * refactored to remove git-hooks package dependency, now installs stub hook
+  directly into each git repo
+  * wordwrap commit_msg manually, to switch to use imagemagick annotate
+  instead of compositing multiply image Caption objects (this seems to be more
+  reliable to not glitch.)
+
