@@ -111,6 +111,14 @@ Choice.options do
     long "--capture"
     desc "capture lolcommit based on last git commit"
   end
+
+  option :last do
+    long "--last"
+    desc "view the most recent lolcommit"
+    action do
+      system "open #{Lolcommits.most_recent}"
+    end
+  end
   
   option :test do
     long "--test"

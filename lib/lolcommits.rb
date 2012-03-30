@@ -10,18 +10,28 @@ module Lolcommits
   $home = ENV['HOME']
   LOLBASEDIR = "#{$home}/.lolcommits"
   
+  def most_recent(dir='.')
+    loldir, commit_sha, commit_msg = parse_git
+    Dir.glob("#{loldir}/*").max_by {|f| File.mtime(f)}
+  end
+  
+  def parse_git(dir='.')
+    g = Git.open('.')
+    commit = g.log.first
+    commit_msg = commit.message
+    commit_sha = commit.sha[0..10]
+    basename = File.basename(g.dir.to_s)
+    basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
+    loldir = "#{LOLBASEDIR}/#{basename}"
+    return loldir, commit_sha, commit_msg
+  end
+
   def capture(is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
     if not is_test
-      g = Git.open('.')
-      commit = g.log.first
-      commit_msg = commit.message
-      commit_sha = commit.sha[0..10]
-      basename = File.basename(g.dir.to_s)
-      basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
-      loldir = "#{LOLBASEDIR}/#{basename}"
+      loldir, commit_sha, commit_msg = parse_git
     else
       commit_msg = test_msg #Choice.choices[:msg]
       commit_sha = test_sha #Choice.choices[:sha]
