@@ -5,7 +5,7 @@ Takes a snapshot with your Mac's built-in iSight webcam every time you git commi
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
 ## Installation (for new gem-y version)
-We've gotten rid of most of the dependency chain, yay!  
+We've gotten rid of most of the dependency chain, yay!
 
 You'll need imagesnap and imagemagick installed.  Homebrew makes this easy.  Simply do:
 
@@ -15,9 +15,9 @@ You'll need imagesnap and imagemagick installed.  Homebrew makes this easy.  Sim
 This will take care of the non-Ruby dependencies.  Then do:
 
 	sudo gem install lolcommits
-	
+
 (If you're using rvm or something like that, you can probably omit the sudo, but the default MacOSX ruby install requires it.)
-	
+
 You're all set!  To enable lolcommits for a git repo, go to the base directory of the repository, and run:
 
 	lolcommits --enable
@@ -33,6 +33,8 @@ Please add your own lolcommit to these samples!  Just fork this repo, add it to 
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample4.jpg" />
 &nbsp;
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample6.jpg" />
+<br/>
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample7.jpg" />
 
 ## Upgrading from an old (non-gem) version?
 If you used the autoinstaller, here's how to get rid of the old stuff (I think)
