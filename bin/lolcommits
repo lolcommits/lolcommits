@@ -49,6 +49,8 @@ def do_enable
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
   end
+  
+  
   #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: figure out where gem puts this, copy from there
   #FileUtils.touch HOOK_PATH
@@ -98,29 +100,29 @@ Choice.options do
     action { do_enable }
     desc "install lolcommits for this repo"
   end
-
+  
   option :disable do
     long "--disable"
     action { do_disable }
     desc "uninstall lolcommits for this repo"
   end
-
+  
   option :capture do
     long "--capture"
     desc "capture lolcommit based on last git commit"
   end
-
+  
   option :test do
     long "--test"
     desc "Run in test mode"
   end
-
+  
   option :sha do
     desc "Pass SHA manually (for test only)"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
-
+  
   option :msg do
     desc "Pass commit msg manually (for test only)"
     short '-m'
@@ -128,8 +130,11 @@ Choice.options do
   end
 
   option :delay do
+    long "--delay=SECCONDS"
     desc "Delay taking of the snapshot by x secconds"
+    cast Integer
     short '-d'
+    default 0
   end
 end
 
