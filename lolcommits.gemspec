@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Lolcommits::VERSION
   s.authors     = ["Matthew Rothenberg"]
   s.email       = ["mrothenberg@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "http://github.com/mroth/lolcommits"
   s.summary     = %q{Capture webcam image on git commit}
   s.description = %q{Capture webcam image on git commit for lulz}
 
