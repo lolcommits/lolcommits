@@ -49,6 +49,8 @@ def do_enable
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
   end
+  
+  
   #TODO: prompt "Do you want to install lolcommits for this git project? [Yn]"
   #TODO: figure out where gem puts this, copy from there
   #FileUtils.touch HOOK_PATH
@@ -92,7 +94,7 @@ end
 # Command line parsing fun
 #
 Choice.options do
-  
+
   option :enable do
     long "--enable"
     action { do_enable }
@@ -125,6 +127,14 @@ Choice.options do
     desc "Pass commit msg manually (for test only)"
     short '-m'
     default "this is a test message i didnt really commit something"
+  end
+
+  option :delay do
+    long "--delay=SECCONDS"
+    desc "Delay taking of the snapshot by x secconds"
+    cast Integer
+    short '-d'
+    default 0
   end
 end
 

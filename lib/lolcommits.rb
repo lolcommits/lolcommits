@@ -45,7 +45,8 @@ module Lolcommits
     #
     puts "*** Preserving this moment in history."
     snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
-    system("imagesnap -q #{snapshot_loc}")
+    system("imagesnap -q #{snapshot_loc} -w #{Choice.choices[:delay]}")
+  
     
     #
     # Process the image with ImageMagick to add loltext
