@@ -14,7 +14,9 @@ You'll need imagesnap and imagemagick installed.  Homebrew makes this easy.  Sim
 
 This will take care of the non-Ruby dependencies.  Then do:
 
-	gem install lolcommits
+	sudo gem install lolcommits
+	
+(If you're using rvm or something like that, you can probably omit the sudo, but the default MacOSX ruby install requires it.)
 	
 You're all set!  To enable lolcommits for a git repo, go to the base directory of the repository, and run:
 
