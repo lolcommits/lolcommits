@@ -26,7 +26,7 @@ module Lolcommits
     return loldir, commit_sha, commit_msg
   end
 
-  def capture(is_test=false, test_msg=nil, test_sha=nil)
+  def capture(capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
@@ -55,7 +55,7 @@ module Lolcommits
     #
     puts "*** Preserving this moment in history."
     snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
-    system("imagesnap -q #{snapshot_loc} -w #{Choice.choices[:delay]}")
+    system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
   
     
     #

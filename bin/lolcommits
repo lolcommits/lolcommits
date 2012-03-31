@@ -77,11 +77,13 @@ end
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
+  capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
+
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    Lolcommits.capture(true, Choice.choices[:msg], Choice.choices[:sha])
+    Lolcommits.capture(capture_delay, true, Choice.choices[:msg], Choice.choices[:sha])
   else
-    Lolcommits.capture
+    Lolcommits.capture(capture_delay)
   end
 end
 
@@ -137,7 +139,7 @@ Choice.options do
     desc "delay taking of the snapshot by n seconds"
     cast Integer
     short '-d'
-    default 0
+    #default 0
   end
 end
 
