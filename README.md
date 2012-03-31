@@ -1,6 +1,6 @@
 # git + webcam = lol
 
-Takes a snapshot with your Mac's built-in iSight webcam every time you git commit code, and archives a lolcat style image with it.
+Takes a snapshot with your Mac's built-in iSight/FaceTime webcam every time you git commit code, and archives a lolcat style image with it.
 
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
@@ -14,9 +14,9 @@ You'll need imagesnap and imagemagick installed.  Homebrew makes this easy.  Sim
 
 This will take care of the non-Ruby dependencies.  Then do:
 
-	sudo gem install lolcommits
+	[sudo] gem install lolcommits
 
-(If you're using rvm or something like that, you can probably omit the sudo, but the default MacOSX ruby install requires it.)
+(If you're using rvm or something like that, you can/should probably omit the sudo, but the default MacOSX Ruby install is dumb and requires it.)
 
 You're all set!  To enable lolcommits for a git repo, go to the base directory of the repository, and run:
 
