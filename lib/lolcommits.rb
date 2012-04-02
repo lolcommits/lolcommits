@@ -83,6 +83,11 @@ module Lolcommits
     draw.font = "/Library/Fonts/Impact.ttf"
     draw.fill = 'white'
     draw.stroke = 'black'
+    if executable.downcase.include? "imagesnap"
+      draw.font = "/Library/Fonts/Impact.ttf"
+    else
+      draw.font = "/usr/share/fonts/TTF/impact.ttf"
+    end
 
     # convenience method for word wrapping
     # based on https://github.com/cmdrkeene/memegen/blob/master/lib/meme_generator.rb
