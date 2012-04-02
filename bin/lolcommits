@@ -111,9 +111,19 @@ Choice.options do
 
   option :last do
     long "--last"
+    short "-l"
     desc "view the most recent lolcommit"
     action do
       system "open #{Lolcommits.most_recent}"
+    end
+  end
+  
+  option :browse do
+    long "--browse"
+    short "-b"
+    desc "browse this repo's lolcommits"
+    action do
+      system "open #{Lolcommits.loldir}"
     end
   end
   
@@ -146,11 +156,10 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse])
   if Choice.choices[:capture]
     do_capture()
   else
     do_noargs()
   end
 end
-

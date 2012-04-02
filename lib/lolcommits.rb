@@ -15,6 +15,11 @@ module Lolcommits
     Dir.glob("#{loldir}/*").max_by {|f| File.mtime(f)}
   end
   
+  def loldir(dir='.')
+    loldir, commit_sha, commit_msg = parse_git
+    return loldir
+  end
+  
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
