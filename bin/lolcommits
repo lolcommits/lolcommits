@@ -19,10 +19,17 @@ def command?(name)
   $?.success?
 end
 
-if not command?('imagesnap')
-  puts "Couldn't find imagesnap in your PATH!"
-  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
-  exit 1
+if is_mac?
+  if not command?('imagesnap')
+    puts "Couldn't find imagesnap in your PATH!"
+    puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
+    exit 1
+  end
+elsif is_linux?
+  if not command?('mplayer')
+    puts "Couldn't find mplayer in your PATH!"
+    exit 1
+  end
 end
 
 #
@@ -49,7 +56,7 @@ def do_enable
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
   end
-  
+
   doc = "#!/bin/sh\nlolcommits --capture\n"
   File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
   FileUtils.chmod 0755, HOOK_PATH
@@ -97,13 +104,13 @@ Choice.options do
     action { do_enable }
     desc "install lolcommits for this repo"
   end
-  
+
   option :disable do
     long "--disable"
     action { do_disable }
     desc "uninstall lolcommits for this repo"
   end
-  
+
   option :capture do
     long "--capture"
     desc "capture lolcommit based on last git commit"
@@ -116,18 +123,18 @@ Choice.options do
       system "open #{Lolcommits.most_recent}"
     end
   end
-  
+
   option :test do
     long "--test"
     desc "Run in test mode"
   end
-  
+
   option :sha do
     desc "pass SHA manually (for test only)"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
-  
+
   option :msg do
     desc "pass commit msg manually (for test only)"
     short '-m'

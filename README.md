@@ -1,6 +1,6 @@
 # git + webcam = lol
 
-Takes a snapshot with your Mac's built-in iSight/FaceTime webcam every time you git commit code, and archives a lolcat style image with it.
+Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working webcam on Linux) every time you git commit code, and archives a lolcat style image with it.
 
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
@@ -11,6 +11,8 @@ You'll need imagesnap and imagemagick installed.  Homebrew makes this easy.  Sim
 
 	brew install imagemagick
 	brew install imagesnap
+
+On Linux, you will need imagemagick and mplayer, and you known how to install them.
 
 This will take care of the non-Ruby dependencies.  Then do:
 
