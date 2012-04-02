@@ -9,12 +9,12 @@ module Lolcommits
   # Your code goes here...
   $home = ENV['HOME']
   LOLBASEDIR = "#{$home}/.lolcommits"
-  
+
   def most_recent(dir='.')
     loldir, commit_sha, commit_msg = parse_git
     Dir.glob("#{loldir}/*").max_by {|f| File.mtime(f)}
   end
-  
+
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
@@ -26,7 +26,7 @@ module Lolcommits
     return loldir, commit_sha, commit_msg
   end
 
-  def capture(capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
+  def capture(executable="imagesnap", capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
@@ -37,9 +37,9 @@ module Lolcommits
       commit_sha = test_sha #Choice.choices[:sha]
       loldir = "#{LOLBASEDIR}/test"
     end
-    
+
     #puts "#{commit_sha}: #{commit_msg}"
-    
+
     #
     # Create a directory to hold the lolimages
     #
@@ -54,10 +54,20 @@ module Lolcommits
     # if this changes on future mac isights.
     #
     puts "*** Preserving this moment in history."
-    snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
-    system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
-  
-    
+
+    # Determine system and which executable to use
+    if executable.downcase.include? "imagesnap"
+      snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
+      exec_str = "imagesnap -q #{snapshot_loc} -w #{capture_delay}"
+    elsif executable.downcase.include? "streamer"
+      snapshot_loc = "#{loldir}/tmp_snapshot.jpeg"
+      exec_str = "streamer -s 640x480 -o #{snapshot_loc} -w #{capture_delay}"
+    end
+
+    puts exec_str
+    system(exec_str)
+
+
     #
     # Process the image with ImageMagick to add loltext
     #
@@ -105,8 +115,8 @@ module Lolcommits
     if Choice.choices[:test]
       system("open #{loldir}/#{commit_sha}.jpg")
     end
-    
-    
+
+
   end
-  
+
 end
