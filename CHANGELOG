@@ -1,4 +1,4 @@
-0.0.2 (in development)
+0.0. (2 April 2012)
   * add --delay option to delay image capture (thx JohanB), can be
   persistently set via LOLCOMMITS_DELAY environment variable.
   * add --last command to view most recent lolcommit for a repo
