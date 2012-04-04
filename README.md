@@ -38,6 +38,8 @@ Please add your own lolcommit to these samples!  Just fork this repo, add it to 
 &nbsp;
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample8.jpg" />
 <br/>
+<a href="http://github.com/sfsekaran/"><img width='320' height='240' src="http://cl.ly/252S0o1J3x3n1b1k251N/d5f80e4f88a.jpg" /></a>
+<br/>
 
 <!--
 ## Upgrading from an old (non-gem) version?
