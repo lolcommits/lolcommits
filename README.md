@@ -42,6 +42,7 @@ Please add your own lolcommit to these samples!  Just fork this repo, add it to 
 &nbsp;
 <a href="http://github.com/codegoblin/"><img width='320' height='240' src="http://cl.ly/2R0u040D2E2k0Y03240B/19bda811539.jpg" /></a>
 <br/>
+<img width='320' height='240' src="https://p.twimg.com/AqE73M1CMAAerqL.jpg" />
 
 <!--
 ## Upgrading from an old (non-gem) version?
