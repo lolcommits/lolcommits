@@ -22,7 +22,7 @@ You're all set!  To enable lolcommits for a git repo, go to the base directory o
 
 	lolcommits --enable
 
-Likewise, you can disable it via `lolcommits --disable`.
+Likewise, you can disable it via `lolcommits --disable`.  For a full list of options, you can do `lolcommits --help`.
 
 ## Sample images
 Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
