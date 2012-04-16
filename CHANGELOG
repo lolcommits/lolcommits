@@ -1,5 +1,6 @@
-0.0.3 (in development)
+0.0.3 (16 April 2012)
   * use only first line for multi-line commit msgs (pull req #21)
+  * clean up some command line options
 
 0.0.2 (2 April 2012)
   * add --delay option to delay image capture (thx JohanB), can be
