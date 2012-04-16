@@ -3,6 +3,7 @@ require "choice"
 require "fileutils"
 require "git"
 require "RMagick"
+require "rb_webcam"
 include Magick
 
 module Lolcommits
@@ -60,8 +61,12 @@ module Lolcommits
     #
     puts "*** Preserving this moment in history."
     snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
-    system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
+    # system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
   
+    Webcam.open 0 do |capture|
+      img = capture.grab
+      img.save snapshot_loc
+    end
     
     #
     # Process the image with ImageMagick to add loltext

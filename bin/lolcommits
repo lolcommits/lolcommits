@@ -19,11 +19,15 @@ def command?(name)
   $?.success?
 end
 
-if not command?('imagesnap')
-  puts "Couldn't find imagesnap in your PATH!"
-  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
-  exit 1
-end
+# 
+# Not needed, using rb_webcam and OpenCV to take snapshot
+#
+
+# if not command?('imagesnap')
+#   puts "Couldn't find imagesnap in your PATH!"
+#   puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
+#   exit 1
+# end
 
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
