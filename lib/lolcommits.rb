@@ -3,7 +3,8 @@ require "choice"
 require "fileutils"
 require "git"
 require "RMagick"
-require 'open3'
+require "open3"
+require "launchy"
 include Magick
 
 module Lolcommits
@@ -136,7 +137,7 @@ module Lolcommits
 
     #if in test mode, open image for inspection
     if Choice.choices[:test]
-      system("open #{loldir}/#{commit_sha}.jpg")
+      Launchy.open("#{loldir}/#{commit_sha}.jpg")
     end
     
     

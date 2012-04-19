@@ -124,7 +124,7 @@ Choice.options do
     short "-l"
     desc "view the most recent lolcommit"
     action do
-      system "open #{Lolcommits.most_recent}"
+      Launchy.open Lolcommits.most_recent
     end
   end
   
@@ -133,7 +133,7 @@ Choice.options do
     short "-b"
     desc "browse this repo's lolcommits"
     action do
-      system "open #{Lolcommits.loldir}"
+      Launchy.open Lolcommits.loldir
     end
   end
   
