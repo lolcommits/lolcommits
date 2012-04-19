@@ -12,8 +12,6 @@ You'll need imagesnap and imagemagick installed.  [Homebrew](http://mxcl.github.
 	brew install imagemagick
 	brew install imagesnap
 
-On Linux, you will need imagemagick and mplayer, and you known how to install them.
-
 This will take care of the non-Ruby dependencies.  Then do:
 
 	[sudo] gem install lolcommits
@@ -25,6 +23,17 @@ You're all set!  To enable lolcommits for a git repo, go to the base directory o
 	lolcommits --enable
 
 Likewise, you can disable it via `lolcommits --disable`.  For a full list of options, you can do `lolcommits --help`.
+
+## Installation (for Linux)
+Install dependencies using your package manager of choice, for example in Ubuntu:
+
+    sudo apt-get install ruby1.8 mplayer imagemagick
+
+Then install the lolcommits gem:
+
+    sudo gem install lolcommits
+
+Then you can lolcommits --enable in any git repo as above.
 
 ## Sample images
 Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
