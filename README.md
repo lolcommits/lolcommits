@@ -27,7 +27,7 @@ Likewise, you can disable it via `lolcommits --disable`.  For a full list of opt
 ## Installation (for Linux)
 Install dependencies using your package manager of choice, for example in Ubuntu:
 
-    sudo apt-get install mplayer imagemagick
+    sudo apt-get install mplayer imagemagick libmagick9-dev
 
 Then install the lolcommits gem:
 
