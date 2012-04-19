@@ -100,11 +100,13 @@ module Lolcommits
 
     # create a draw object for annotation
     draw = Magick::Draw.new
-    if is_mac?
-      draw.font = "/Library/Fonts/Impact.ttf"
-    else
-      draw.font = "/usr/share/fonts/TTF/impact.ttf"
-    end
+    #if is_mac?
+    #  draw.font = "/Library/Fonts/Impact.ttf"
+    #else
+    #  draw.font = "/usr/share/fonts/TTF/impact.ttf"
+    #end
+    draw.font = File.join(File.dirname(__FILE__), "..", "fonts", "Impact.ttf")
+
     draw.fill = 'white'
     draw.stroke = 'black'
 
