@@ -1,3 +1,6 @@
+0.1.0 (in development)
+  * Working on adding linux compatibility via mplayer...
+
 0.0.3 (16 April 2012)
   * use only first line for multi-line commit msgs (pull req #21)
   * clean up some command line options
