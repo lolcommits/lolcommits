@@ -28,7 +28,7 @@ module Lolcommits
 
   def most_recent(dir='.')
     loldir, commit_sha, commit_msg = parse_git
-    Dir.glob("#{loldir}/*").max_by {|f| File.mtime(f)}
+    Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
   end
   
   def loldir(dir='.')
@@ -43,7 +43,7 @@ module Lolcommits
     commit_sha = commit.sha[0..10]
     basename = File.basename(g.dir.to_s)
     basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
-    loldir = "#{LOLBASEDIR}/#{basename}"
+    loldir = File.join LOLBASEDIR, basename
     return loldir, commit_sha, commit_msg
   end
 
@@ -56,7 +56,7 @@ module Lolcommits
     else
       commit_msg = test_msg
       commit_sha = test_sha
-      loldir = "#{LOLBASEDIR}/test"
+      loldir = File.join LOLBASEDIR, "test"
     end
     
     #
@@ -73,7 +73,7 @@ module Lolcommits
     # if this changes on future mac isights.
     #
     puts "*** Preserving this moment in history."
-    snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
+    snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
     if is_mac?
       system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
     elsif is_linux?
@@ -120,7 +120,7 @@ module Lolcommits
     #else
     #  draw.font = "/usr/share/fonts/TTF/impact.ttf"
     #end
-    draw.font = File.join(File.dirname(__FILE__), "..", "fonts", "Impact.ttf")
+    draw.font = File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
 
     draw.fill = 'white'
     draw.stroke = 'black'
@@ -149,12 +149,12 @@ module Lolcommits
     # Squash the images and write the files
     #
     #canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
-    canvas.write("#{loldir}/#{commit_sha}.jpg")
-    FileUtils.rm("#{snapshot_loc}")
+    canvas.write(File.join loldir, "#{commit_sha}.jpg")
+    FileUtils.rm(snapshot_loc)
 
     #if in test mode, open image for inspection
     if is_test
-      Launchy.open("#{loldir}/#{commit_sha}.jpg")
+      Launchy.open(File.join loldir, "#{commit_sha}.jpg")
     end
     
     

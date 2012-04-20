@@ -41,13 +41,13 @@ def do_noargs
   puts "Try: lolcommits --enable   (when in a git repository)"
 end
 
-HOOK_PATH = ".git/hooks/post-commit"
+HOOK_PATH = File.join ".git", "hooks", "post-commit"
 
 #
 # IF --ENABLE, DO ENABLE
 #
 def do_enable
-  if not File.directory? ".git/hooks"
+  if not File.directory?(File.join ".git", "hooks")
     puts "You don't appear to be in the base directory of a git project."
     exit 1
   end
