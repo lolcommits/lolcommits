@@ -15,4 +15,10 @@ class LolTest < Test::Unit::TestCase
             Lolcommits.parse_git()
         end
     end
+
+    def test_can_capture
+        assert_nothing_raised do
+            Lolcommits.capture(0,true,'test commit message','test-sha-001')
+        end
+    end
 end
