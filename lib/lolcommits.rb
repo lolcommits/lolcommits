@@ -48,12 +48,10 @@ module Lolcommits
     if not is_test
       loldir, commit_sha, commit_msg = parse_git
     else
-      commit_msg = test_msg #Choice.choices[:msg]
-      commit_sha = test_sha #Choice.choices[:sha]
+      commit_msg = test_msg
+      commit_sha = test_sha
       loldir = "#{LOLBASEDIR}/test"
     end
-    
-    #puts "#{commit_sha}: #{commit_msg}"
     
     #
     # Create a directory to hold the lolimages
@@ -138,7 +136,7 @@ module Lolcommits
     FileUtils.rm("#{snapshot_loc}")
 
     #if in test mode, open image for inspection
-    if Choice.choices[:test]
+    if is_test
       Launchy.open("#{loldir}/#{commit_sha}.jpg")
     end
     
