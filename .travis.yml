@@ -4,3 +4,7 @@ rvm:
  - 1.9.2
  - 1.9.3
 
+before_install:
+ - sudo apt-get update
+ - sudo apt-get install mplayer libmagick9-dev
+
