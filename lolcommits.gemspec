@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
   # s.add_runtime_dependency "rest-client"
-  s.add_runtime_dependency "rake"
+  s.add_development_dependency "rake"
   s.add_runtime_dependency "rmagick"
   s.add_runtime_dependency "git"
   s.add_runtime_dependency "choice", ">= 0.1.6"
