@@ -160,7 +160,7 @@ Choice.options do
     long "--delay=SECONDS"
     desc "delay taking of the snapshot by n seconds"
     cast Integer
-    short '-d'
+    short '-w'
   end
 end
 
