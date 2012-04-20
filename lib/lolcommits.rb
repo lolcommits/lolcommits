@@ -8,16 +8,22 @@ require "launchy"
 include Magick
 
 module Lolcommits
-  # Your code goes here...
   $home = ENV['HOME']
-  LOLBASEDIR = "#{$home}/.lolcommits"
+  LOLBASEDIR = File.join $home, ".lolcommits"
+  LOLCOMMITS_ROOT = Gem.loaded_specs['lolcommits'].full_gem_path
 
   def is_mac?
     RUBY_PLATFORM.downcase.include?("darwin")
   end
 
   def is_linux?
-     RUBY_PLATFORM.downcase.include?("linux")
+    RUBY_PLATFORM.downcase.include?("linux")
+  end
+
+  def is_windows?
+    if RUBY_PLATFORM =~ /(win|w)32$/
+      true
+    end
   end
 
   def most_recent(dir='.')
@@ -83,6 +89,17 @@ module Lolcommits
       r.read
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
       FileUtils.rm_rf( tmpdir )
+    elsif is_windows?
+      commandcam_exe = File.join LOLCOMMITS_ROOT, "ext", "CommandCam.exe"
+      # DirectShow takes a while to show... at least for me anyway
+      delaycmd = " /delay 3000"
+      if capture_delay > 0
+        # CommandCam delay is in milliseconds
+        delaycmd = " /delay #{capture_delay * 1000}"
+      end
+      _, r, _ = Open3.popen3("#{commandcam_exe} /filename #{snapshot_loc}#{delaycmd}")
+      # looks like we still need to read the outpot for something to happen
+      r.read
     end
 
 
