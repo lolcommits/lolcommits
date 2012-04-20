@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/mroth/lolcommits.png?branch=master)](http://travis-ci.org/mroth/lolcommits)
+
 # git + webcam = lol
 
 Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working webcam on Linux) every time you git commit code, and archives a lolcat style image with it.
