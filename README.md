@@ -6,7 +6,7 @@ Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working
 
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
-## Installation (for Mac OS X)
+## Installation (Mac OS X)
 You'll need imagesnap and imagemagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
 
 	brew install imagemagick
@@ -24,7 +24,7 @@ You're all set!  To enable lolcommits for a git repo, go to the base directory o
 
 Likewise, you can disable it via `lolcommits --disable`.  For a full list of options, you can do `lolcommits --help`.
 
-## Installation (for Linux)
+## Installation (Linux)
 Install dependencies using your package manager of choice, for example in Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagick9-dev
@@ -34,6 +34,9 @@ Then install the lolcommits gem:
     gem install lolcommits
 
 Then you can `lolcommits --enable` in any git repo as above.
+
+## Installation (Windows)
+See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
 
 ## Sample images
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
@@ -53,6 +56,7 @@ Then you can `lolcommits --enable` in any git repo as above.
 <a href="http://github.com/codegoblin/"><img width='320' height='240' src="http://cl.ly/2R0u040D2E2k0Y03240B/19bda811539.jpg" /></a>
 <br/>
 <img width='320' height='240' src="https://p.twimg.com/AqE73M1CMAAerqL.jpg" />
+&nbsp;
 <img width='320' height='240' src="https://p.twimg.com/Aq9T0X9CAAAZ8gW.jpg" />
 
 Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
