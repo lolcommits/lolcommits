@@ -1,11 +1,9 @@
 require 'test/unit'
-
-begin
-  require 'lolcommits'
-rescue LoadError
-  require 'rubygems'
-  require 'lolcommits'
-end
+# Loads lolcommits directly from the lib folder so don't have to create
+# a gem before testing
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.dirname(__FILE__))
+require 'lolcommits'
 
 include Lolcommits
 

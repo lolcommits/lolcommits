@@ -8,21 +8,27 @@ require "launchy"
 include Magick
 
 module Lolcommits
-  # Your code goes here...
   $home = ENV['HOME']
-  LOLBASEDIR = "#{$home}/.lolcommits"
+  LOLBASEDIR = File.join $home, ".lolcommits"
+  LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '..')
 
   def is_mac?
     RUBY_PLATFORM.downcase.include?("darwin")
   end
 
   def is_linux?
-     RUBY_PLATFORM.downcase.include?("linux")
+    RUBY_PLATFORM.downcase.include?("linux")
+  end
+
+  def is_windows?
+    if RUBY_PLATFORM =~ /(win|w)32$/
+      true
+    end
   end
 
   def most_recent(dir='.')
     loldir, commit_sha, commit_msg = parse_git
-    Dir.glob("#{loldir}/*").max_by {|f| File.mtime(f)}
+    Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
   end
   
   def loldir(dir='.')
@@ -37,7 +43,7 @@ module Lolcommits
     commit_sha = commit.sha[0..10]
     basename = File.basename(g.dir.to_s)
     basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
-    loldir = "#{LOLBASEDIR}/#{basename}"
+    loldir = File.join LOLBASEDIR, basename
     return loldir, commit_sha, commit_msg
   end
 
@@ -50,7 +56,7 @@ module Lolcommits
     else
       commit_msg = test_msg
       commit_sha = test_sha
-      loldir = "#{LOLBASEDIR}/test"
+      loldir = File.join LOLBASEDIR, "test"
     end
     
     #
@@ -67,7 +73,7 @@ module Lolcommits
     # if this changes on future mac isights.
     #
     puts "*** Preserving this moment in history."
-    snapshot_loc = "#{loldir}/tmp_snapshot.jpg"
+    snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
     if is_mac?
       system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
     elsif is_linux?
@@ -83,6 +89,17 @@ module Lolcommits
       r.read
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
       FileUtils.rm_rf( tmpdir )
+    elsif is_windows?
+      commandcam_exe = File.join LOLCOMMITS_ROOT, "ext", "CommandCam.exe"
+      # DirectShow takes a while to show... at least for me anyway
+      delaycmd = " /delay 3000"
+      if capture_delay > 0
+        # CommandCam delay is in milliseconds
+        delaycmd = " /delay #{capture_delay * 1000}"
+      end
+      _, r, _ = Open3.popen3("#{commandcam_exe} /filename #{snapshot_loc}#{delaycmd}")
+      # looks like we still need to read the outpot for something to happen
+      r.read
     end
 
 
@@ -103,7 +120,7 @@ module Lolcommits
     #else
     #  draw.font = "/usr/share/fonts/TTF/impact.ttf"
     #end
-    draw.font = File.join(File.dirname(__FILE__), "..", "fonts", "Impact.ttf")
+    draw.font = File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
 
     draw.fill = 'white'
     draw.stroke = 'black'
@@ -132,12 +149,12 @@ module Lolcommits
     # Squash the images and write the files
     #
     #canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
-    canvas.write("#{loldir}/#{commit_sha}.jpg")
-    FileUtils.rm("#{snapshot_loc}")
+    canvas.write(File.join loldir, "#{commit_sha}.jpg")
+    FileUtils.rm(snapshot_loc)
 
     #if in test mode, open image for inspection
     if is_test
-      Launchy.open("#{loldir}/#{commit_sha}.jpg")
+      Launchy.open(File.join loldir, "#{commit_sha}.jpg")
     end
     
     
