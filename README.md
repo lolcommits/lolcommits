@@ -36,7 +36,6 @@ Then install the lolcommits gem:
 Then you can `lolcommits --enable` in any git repo as above.
 
 ## Sample images
-Please add your own lolcommit to these samples!  Just fork this repo, add it to this section of the README, and send me a pull request.
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
 &nbsp;
 <img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample5.jpg" />
@@ -55,6 +54,10 @@ Please add your own lolcommit to these samples!  Just fork this repo, add it to 
 <br/>
 <img width='320' height='240' src="https://p.twimg.com/AqE73M1CMAAerqL.jpg" />
 <img width='320' height='240' src="https://p.twimg.com/Aq9T0X9CAAAZ8gW.jpg" />
+
+Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
+
+
 <!--
 ## Upgrading from an old (non-gem) version?
 If you used the autoinstaller, here's how to get rid of the old stuff (I think)
