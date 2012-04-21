@@ -10,7 +10,7 @@ include Magick
 module Lolcommits
   $home = ENV['HOME']
   LOLBASEDIR = File.join $home, ".lolcommits"
-  LOLCOMMITS_ROOT = Gem.loaded_specs['lolcommits'].full_gem_path
+  LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '..')
 
   def is_mac?
     RUBY_PLATFORM.downcase.include?("darwin")
