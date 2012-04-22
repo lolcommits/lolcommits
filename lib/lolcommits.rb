@@ -75,7 +75,8 @@ module Lolcommits
     puts "*** Preserving this moment in history."
     snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
     if is_mac?
-      system("imagesnap -q #{snapshot_loc} -w #{capture_delay}")
+      imagesnap_bin = File.join LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
+      system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay}")
     elsif is_linux?
       tmpdir = File.expand_path "#{loldir}/tmpdir#{rand(1000)}/"
       FileUtils.mkdir_p( tmpdir )
@@ -98,7 +99,7 @@ module Lolcommits
         delaycmd = " /delay #{capture_delay * 1000}"
       end
       _, r, _ = Open3.popen3("#{commandcam_exe} /filename #{snapshot_loc}#{delaycmd}")
-      # looks like we still need to read the outpot for something to happen
+      # looks like we still need to read the output for something to happen
       r.read
     end
 
