@@ -90,7 +90,7 @@ module Lolcommits
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
       FileUtils.rm_rf( tmpdir )
     elsif is_windows?
-      commandcam_exe = File.join LOLCOMMITS_ROOT, "ext", "CommandCam.exe"
+      commandcam_exe = File.join LOLCOMMITS_ROOT, "ext", "CommandCam", "CommandCam.exe"
       # DirectShow takes a while to show... at least for me anyway
       delaycmd = " /delay 3000"
       if capture_delay > 0
