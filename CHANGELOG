@@ -1,3 +1,6 @@
+0.1.3 (in development)
+  * issue with older versions of IM crashing on interline spacing (pull #31 via @german)
+
 0.1.2 (22 April 2012)
   * provide licensing info for CommandCam (Windows)
   * bundle imagesnap as well to remove a dependency on Mac OS X
