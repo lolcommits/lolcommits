@@ -64,6 +64,8 @@ See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommit
 
 Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
 
+## Troubles?
+Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
 
 <!--
 ## Upgrading from an old (non-gem) version?
