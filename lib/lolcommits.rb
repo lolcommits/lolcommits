@@ -86,7 +86,7 @@ module Lolcommits
 
       # mplayer's output is ugly and useless, let's throw it away
       _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} -frames #{frames} tv://")
-      # looks like we still need to read the outpot for something to happen
+      # looks like we still need to read the output for something to happen
       r.read
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
       FileUtils.rm_rf( tmpdir )
