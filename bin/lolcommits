@@ -48,10 +48,17 @@ HOOK_PATH = File.join ".git", "hooks", "post-commit"
 # IF --ENABLE, DO ENABLE
 #
 def do_enable
-  if not File.directory?(File.join ".git", "hooks")
-    puts "You don't appear to be in the base directory of a git project."
-    exit 1
-  end
+  if not File.directory?(File.join ".git", "hooks")
+      if File.directory?(".git") 
+          Dir.mkdir(".git/hooks")
+      end
+  end
+  
+  if not File.directory?(File.join ".git", "hooks")
+    puts "You don't appear to be in the base directory of a git project."
+    exit 1
+  end
+ 
   if File.exists? HOOK_PATH
     puts "A post-commit hook already exists for this project."
     #TODO: disambiguate between OUR post-commit hook and something else
