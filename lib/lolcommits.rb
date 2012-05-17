@@ -5,6 +5,7 @@ require "git"
 require "RMagick"
 require "open3"
 require "launchy"
+require "imgur2"
 include Magick
 
 module Lolcommits
@@ -30,12 +31,12 @@ module Lolcommits
     loldir, commit_sha, commit_msg = parse_git
     Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
   end
-  
+
   def loldir(dir='.')
     loldir, commit_sha, commit_msg = parse_git
     return loldir
   end
-  
+
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
@@ -58,7 +59,7 @@ module Lolcommits
       commit_sha = test_sha
       loldir = File.join LOLBASEDIR, "test"
     end
-    
+
     #
     # Create a directory to hold the lolimages
     #
@@ -157,8 +158,23 @@ module Lolcommits
     if is_test
       Launchy.open(File.join loldir, "#{commit_sha}.jpg")
     end
-    
-    
+
+    # Upload the image to imgur.
+    client = Imgur2.new 'b5ca7b73c0885e3208e1907b3d587f97' # lolcommits API key
+    image = File.open File.join(loldir, "#{commit_sha}.jpg"), 'rb'
+    result = client.upload image
+    image.close
+    if result['error']
+      STDERR.puts "Unable to upload lolcommit: #{result['error']['message']}"
+    elsif result['upload']
+      url = result['upload']['links']['large_thumbnail']
+      if client.paste url
+        puts "*** Image URL: #{url} (copied to your clipboard)"
+      else
+        puts "*** Image URL: #{url}"
+      end
+    end
+
   end
-  
+
 end
