@@ -26,7 +26,7 @@ Likewise, you can disable it via `lolcommits --disable`.  For a full list of opt
 ## Installation (Linux)
 Install dependencies using your package manager of choice, for example in Ubuntu:
 
-    sudo apt-get install mplayer imagemagick libmagick9-dev
+    sudo apt-get install mplayer imagemagick libmagickwand-dev
 
 On Fedora, enable the rpmfusion repository (for mplayer) and run:
 
