@@ -26,4 +26,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "git"
   s.add_runtime_dependency "choice", ">= 0.1.6"
   s.add_runtime_dependency "launchy"
+  s.add_runtime_dependency "imgur2"
 end
