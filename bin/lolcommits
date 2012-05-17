@@ -42,7 +42,7 @@ def do_noargs
   puts "Try: lolcommits --enable   (when in a git repository)"
 end
 
-HOOK_PATH = File.join ".git", "hooks", "post-commit"
+HOOK_PATH = File.join ".git", "hooks", "commit-msg"
 
 #
 # IF --ENABLE, DO ENABLE
@@ -53,12 +53,12 @@ def do_enable
     exit 1
   end
   if File.exists? HOOK_PATH
-    puts "A post-commit hook already exists for this project."
-    #TODO: disambiguate between OUR post-commit hook and something else
+    puts "A commit-msg hook already exists for this project."
+    #TODO: disambiguate between OUR commit-msg hook and something else
     exit 1
   end
   
-  doc = "#!/bin/sh\nlolcommits --capture\n"
+  doc = "#!/bin/sh\nlolcommits --capture=\$1\n"
   File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
   FileUtils.chmod 0755, HOOK_PATH
   puts "installed lolcommmit hook as:"
@@ -87,11 +87,13 @@ end
 def do_capture
   capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
 
+  msg_file = Choice.choices[:capture]
+
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    Lolcommits.capture(capture_delay, true, Choice.choices[:msg], Choice.choices[:sha])
+    Lolcommits.capture(msg_file, capture_delay, true, Choice.choices[:msg], Choice.choices[:sha])
   else
-    Lolcommits.capture(capture_delay)
+    Lolcommits.capture(msg_file, capture_delay)
   end
 end
 
@@ -115,7 +117,8 @@ Choice.options do
   end
   
   option :capture do
-    long "--capture"
+    long "--capture=MSGFILE"
+    cast String
     short 'c'
     desc "capture lolcommit based on last git commit"
   end
