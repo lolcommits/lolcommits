@@ -5,6 +5,8 @@ require "git"
 require "RMagick"
 require "open3"
 require "launchy"
+require 'gyazo'
+require 'tempfile'
 include Magick
 
 module Lolcommits
@@ -47,12 +49,17 @@ module Lolcommits
     return loldir, commit_sha, commit_msg
   end
 
-  def capture(capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
+  def capture(msg_file, capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
     if not is_test
       loldir, commit_sha, commit_msg = parse_git
+
+      # overwrite commit_msg
+      open(msg_file) do |f|
+        commit_msg = f.read
+      end
     else
       commit_msg = test_msg
       commit_sha = test_sha
@@ -150,15 +157,27 @@ module Lolcommits
     # Squash the images and write the files
     #
     #canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
-    canvas.write(File.join loldir, "#{commit_sha}.jpg")
-    FileUtils.rm(snapshot_loc)
+    # canvas.write(File.join loldir, "#{commit_sha}.jpg")
+    # FileUtils.rm(snapshot_loc)
+
+    # img_file = File.join loldir, "#{commit_sha}.jpg"
+
+    file = Tempfile.new('image')
+    canvas.write(file.path)
+
+    g = Gyazo.new('')
+    g.instance_eval { @id = 'lolcommits' }
+    url = g.upload(file.path)
+
+    open(msg_file, 'a') do |f|
+      f.write "\n%s\n" % url
+    end
+
+    file.close
 
     #if in test mode, open image for inspection
     if is_test
-      Launchy.open(File.join loldir, "#{commit_sha}.jpg")
+      Launchy.open(img_file)
     end
-    
-    
   end
-  
 end
