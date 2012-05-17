@@ -28,6 +28,10 @@ Install dependencies using your package manager of choice, for example in Ubuntu
 
     sudo apt-get install mplayer imagemagick libmagick9-dev
 
+On Fedora, enable the rpmfusion repository (for mplayer) and run:
+
+    sudo yum install ImageMagick ImageMagic-devel mplayer
+
 Then install the lolcommits gem:
 
     gem install lolcommits
