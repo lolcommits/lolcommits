@@ -136,7 +136,7 @@ module Lolcommits
 
     # convenience method for word wrapping
     # based on https://github.com/cmdrkeene/memegen/blob/master/lib/meme_generator.rb
-    def word_wrap(text, col = 28)
+    def word_wrap(text, col = 27)
       wrapped = text.gsub(/(.{1,#{col + 4}})(\s+|\Z)/, "\\1\n")
       wrapped.chomp!
     end
