@@ -64,6 +64,13 @@ See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommit
 
 Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
 
+## Options
+lolcommits has some options for additional lulz.  You can enable via
+environment variables.
+
+ * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - set
+   `LOLCOMMITS_TRANZLATE=1`.
+
 ## Troubles?
 Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
 
