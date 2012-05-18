@@ -1,4 +1,7 @@
+$:.unshift File.expand_path('.')
+
 require "lolcommits/version"
+require "tranzlate/lolspeak"
 require "choice"
 require "fileutils"
 require "git"
@@ -39,7 +42,7 @@ module Lolcommits
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
-    commit_msg = commit.message.split("\n").first
+    commit_msg = commit.message.split("\n").first.tranzlate
     commit_sha = commit.sha[0..10]
     basename = File.basename(g.dir.to_s)
     basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
@@ -157,8 +160,5 @@ module Lolcommits
     if is_test
       Launchy.open(File.join loldir, "#{commit_sha}.jpg")
     end
-    
-    
   end
-  
 end
