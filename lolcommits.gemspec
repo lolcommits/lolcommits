@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/mroth/lolcommits"
   s.summary     = %q{Capture webcam image on git commit for lulz.}
   s.description = %q{Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working webcam on Linux or Windows) every time you git commit code, and archives a lolcat style image with it.}
-
+  s.license     = "LGPL-3"
   s.rubyforge_project = "lolcommits"
 
   s.files         = `git ls-files`.split("\n")

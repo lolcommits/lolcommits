@@ -1,4 +1,5 @@
 0.1.3 (in development)
+  * Add LGPLv3 license
   * fix issue with older versions of IM crashing on interline spacing (pull #31 via @german)
   * fix issue with git repos with no hooks directory (pull #43 via @mkmaster)
 
