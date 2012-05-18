@@ -17,6 +17,8 @@ Then simply do:
 
 (If you're using rvm or something like that, you can/should probably omit the sudo, but the default MacOSX Ruby install is dumb and requires it.)
 
+If you get errors while it's trying to build the rmagick dependency along the lines of "Perhaps you should add the directory containing `MagickCore.pc'", follow the instructions [here](http://superuser.com/questions/361435/i-have-compiled-imagemagick-on-my-centos-and-rmagick-wont-install) as modified with the correct paths for your machine. For instance, Homebrew installed ImageMagick in /usr/local/Cellar/imagemagick/6.7.5-7/ for at least one person we've heard from.
+
 You're all set!  To enable lolcommits for a git repo, go to the base directory of the repository, and run:
 
 	lolcommits --enable
