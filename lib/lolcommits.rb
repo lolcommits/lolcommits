@@ -42,7 +42,7 @@ module Lolcommits
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
-    commit_msg = commit.message.split("\n").first.tranzlate
+    commit_msg = commit.message.split("\n").first
     commit_sha = commit.sha[0..10]
     basename = File.basename(g.dir.to_s)
     basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
@@ -62,6 +62,11 @@ module Lolcommits
       loldir = File.join LOLBASEDIR, "test"
     end
     
+    #
+    # lolspeak translate the message
+    #
+    commit_msg = commit_msg.tranzlate
+
     #
     # Create a directory to hold the lolimages
     #
