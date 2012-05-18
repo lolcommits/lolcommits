@@ -65,7 +65,9 @@ module Lolcommits
     #
     # lolspeak translate the message
     #
-    commit_msg = commit_msg.tranzlate
+    if (ENV['LOLCOMMITS_TRANZLATE'] == '1' || false)
+        commit_msg = commit_msg.tranzlate
+    end
 
     #
     # Create a directory to hold the lolimages
