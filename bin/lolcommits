@@ -43,20 +43,20 @@ def do_noargs
 end
 
 HOOK_PATH = File.join ".git", "hooks", "post-commit"
+HOOK_DIR = File.join ".git", "hooks"
 
 #
 # IF --ENABLE, DO ENABLE
 #
 def do_enable
-  if not File.directory?(File.join ".git", "hooks")
-    if File.directory?(".git") 
-      Dir.mkdir(".git/hooks")
-    end
-  end
-  
-  if not File.directory?(File.join ".git", "hooks")
+  if not File.directory?(".git")
     puts "You don't appear to be in the base directory of a git project."
     exit 1
+  end
+  
+  #its possible a hooks dir doesnt exist, so create it if so
+  if not File.directory?(HOOK_DIR)
+    Dir.mkdir(HOOK_DIR)
   end
   
   if File.exists? HOOK_PATH
