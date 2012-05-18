@@ -80,14 +80,15 @@ module Lolspeak
     }
 
     def self.tranzlate(str)
+        lolstr = str.dup
         LOL_DICTIONARY.each do |english, lolspeak|
-            str.gsub!(english, lolspeak.sample)
+            lolstr.gsub!(english, lolspeak.sample)
         end
 
-        str << '!  kthxbye!' if rand(10) == 2
-        str.gsub!(/(\?|!|,|\.)+/, '!')
+        lolstr << '!  kthxbye!' if rand(10) == 2
+        lolstr.gsub!(/(\?|!|,|\.)+/, '!')
 
-        str.upcase
+        lolstr.upcase
     end
 end
 
