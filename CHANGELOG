@@ -1,5 +1,7 @@
 0.1.3 (in development)
-  * Add LGPLv3 license
+  * add LGPLv3 license
+  * add option to translate your commit message to lolspeak! (thx
+    to @DanielleSucher!).  To enable, set `LOLCOMMITS_TRANZLATE=1`.
   * fix issue with older versions of IM crashing on interline spacing (pull #31 via @german)
   * fix issue with git repos with no hooks directory (pull #43 via @mkmaster)
 
