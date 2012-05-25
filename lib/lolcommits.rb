@@ -33,12 +33,12 @@ module Lolcommits
     loldir, commit_sha, commit_msg = parse_git
     Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
   end
-  
+
   def loldir(dir='.')
     loldir, commit_sha, commit_msg = parse_git
     return loldir
   end
-  
+
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
@@ -50,7 +50,7 @@ module Lolcommits
     return loldir, commit_sha, commit_msg
   end
 
-  def capture(capture_delay=0, is_test=false, test_msg=nil, test_sha=nil)
+  def capture(capture_delay=0, capture_device=nil, is_test=false, test_msg=nil, test_sha=nil)
     #
     # Read the git repo information from the current working directory
     #
@@ -61,7 +61,7 @@ module Lolcommits
       commit_sha = test_sha
       loldir = File.join LOLBASEDIR, "test"
     end
-    
+
     #
     # lolspeak translate the message
     #
@@ -86,7 +86,8 @@ module Lolcommits
     snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
     if is_mac?
       imagesnap_bin = File.join LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
-      system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay}")
+      capture_device = "-d '#{capture_device}'" if capture_device
+      system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay} #{capture_device}")
     elsif is_linux?
       tmpdir = File.expand_path "#{loldir}/tmpdir#{rand(1000)}/"
       FileUtils.mkdir_p( tmpdir )
