@@ -53,18 +53,18 @@ def do_enable
     puts "You don't appear to be in the base directory of a git project."
     exit 1
   end
-  
+
   #its possible a hooks dir doesnt exist, so create it if so
   if not File.directory?(HOOK_DIR)
     Dir.mkdir(HOOK_DIR)
   end
-  
+
   if File.exists? HOOK_PATH
     puts "A post-commit hook already exists for this project."
     #TODO: disambiguate between OUR post-commit hook and something else
     exit 1
   end
-  
+
   doc = "#!/bin/sh\nlolcommits --capture\n"
   File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
   FileUtils.chmod 0755, HOOK_PATH
@@ -93,12 +93,13 @@ end
 #
 def do_capture
   capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
+  capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
 
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    Lolcommits.capture(capture_delay, true, Choice.choices[:msg], Choice.choices[:sha])
+    Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
   else
-    Lolcommits.capture(capture_delay)
+    Lolcommits.capture(capture_delay, capture_device)
   end
 end
 
@@ -113,14 +114,14 @@ Choice.options do
     action { do_enable }
     desc "install lolcommits for this repo"
   end
-  
+
   option :disable do
     long "--disable"
     short '-d'
     action { do_disable }
     desc "uninstall lolcommits for this repo"
   end
-  
+
   option :capture do
     long "--capture"
     short '-c'
@@ -135,7 +136,7 @@ Choice.options do
       Launchy.open Lolcommits.most_recent
     end
   end
-  
+
   option :browse do
     long "--browse"
     short "-b"
@@ -144,19 +145,19 @@ Choice.options do
       Launchy.open Lolcommits.loldir
     end
   end
-  
+
   option :test do
     long "--test"
     desc "Run in test mode"
   end
-  
+
   option :sha do
     desc "pass SHA manually (for test only)"
     long "--sha"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
-  
+
   option :msg do
     desc "pass commit msg manually (for test only)"
     long "--msg"
@@ -169,6 +170,11 @@ Choice.options do
     desc "delay taking of the snapshot by n seconds"
     cast Integer
     short '-w'
+  end
+
+  option :device do
+    long "--device=DEVICE"
+    desc "the device name used to take the snapshot (only mac)"
   end
 end
 
