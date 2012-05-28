@@ -1,4 +1,4 @@
-0.1.4 (in development)
+0.1.4 (28 May 2012)
   * set device on mac via --device (or LOLCOMMITS_DEVICE env variable) --
     thanks @pioz (pull #51)
 
