@@ -68,6 +68,9 @@ Please add your own lolcommit! Add to the [People Using Lolcommits](https://gith
 lolcommits has some options for additional lulz.  You can enable via
 environment variables.
 
+ * Set webcam device on mac - set `LOLCOMMITS_DEVICE` environment variable.
+ * Set delay persistently (for slow to warmup webcams) - set
+   `LOLCOMMITS_DELAY` var to time in seconds.
  * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - set
    `LOLCOMMITS_TRANZLATE=1`.
 
