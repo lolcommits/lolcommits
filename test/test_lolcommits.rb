@@ -14,6 +14,11 @@ class LolTest < Test::Unit::TestCase
         end
     end
 
+    def test_tranzlate
+        assert "what the hell".tranzlate.start_with? "WHUT TEH HELL"
+        assert "seriously wtf".tranzlate.start_with? "SRSLEH WTF"
+    end
+
     # Hmm.. webcam capture breaks travis-ci tests
     #def test_can_capture
     #    assert_nothing_raised do
