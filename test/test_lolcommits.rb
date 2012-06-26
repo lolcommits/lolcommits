@@ -15,8 +15,10 @@ class LolTest < Test::Unit::TestCase
     end
 
     def test_tranzlate
-        assert "what the hell".tranzlate.start_with? "WHUT TEH HELL"
-        assert "seriously wtf".tranzlate.start_with? "SRSLEH WTF"
+        [["what the hell","(WH|W)UT TEH HELL"],["seriously wtf", "SRSLEH WTF"]].each do |normal, lol|
+            tranzlated = normal.tranzlate
+            assert_match /^#{lol}/, tranzlated
+        end
     end
 
     # Hmm.. webcam capture breaks travis-ci tests
