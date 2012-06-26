@@ -82,7 +82,7 @@ module Lolspeak
     def self.tranzlate(str)
         lolstr = str.dup
         LOL_DICTIONARY.each do |english, lolspeak|
-            lolstr.gsub!(english, lolspeak.sample)
+            lolstr.gsub!(english, lolspeak.shuffle.first) #ghetto ruby1.8/1.9 agnostic version of choice vs sample
         end
 
         lolstr << '!  kthxbye!' if rand(10) == 2
