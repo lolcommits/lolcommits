@@ -8,6 +8,7 @@ require "git"
 require "RMagick"
 require "open3"
 require "launchy"
+require 'httmultiparty'
 include Magick
 
 module Lolcommits
@@ -164,6 +165,14 @@ module Lolcommits
     canvas.write(File.join loldir, "#{commit_sha}.jpg")
     FileUtils.rm(snapshot_loc)
 
+    HTTMultiParty.post('http://freezing-day-1419.herokuapp.com/git_commits.json', 
+      :body => {
+        :git_commit => {
+          :sha => commit_sha,
+          :repo => 'omg', 
+          :image => File.open(File.join(loldir, "#{commit_sha}.jpg"))
+      }
+    })
     #if in test mode, open image for inspection
     if is_test
       Launchy.open(File.join loldir, "#{commit_sha}.jpg")
