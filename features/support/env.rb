@@ -14,3 +14,12 @@ end
 After do
   ENV['RUBYLIB'] = @original_rubylib
 end
+
+Before('@simulate-capture') do
+  @original_fakecapture = ENV['LOLCOMMITS_FAKECAPTURE']
+  ENV['LOLCOMMITS_FAKECAPTURE'] = "1"
+end
+
+After('@simulate-capture') do
+  ENV['LOLCOMMITS_FAKECAPTURE'] = @original_fakecapture
+end

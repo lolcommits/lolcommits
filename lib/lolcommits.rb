@@ -29,6 +29,10 @@ module Lolcommits
     end
   end
 
+  def is_fakecapture?
+    (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
+  end
+
   def most_recent(dir='.')
     loldir, commit_sha, commit_msg = parse_git
     Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
@@ -84,7 +88,11 @@ module Lolcommits
     #
     puts "*** Preserving this moment in history."
     snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
-    if is_mac?
+    # if (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
+    if is_fakecapture?
+      test_image = File.join LOLCOMMITS_ROOT, "test", "images", "test_image.jpg"
+      FileUtils.cp test_image, snapshot_loc
+    elsif is_mac?
       imagesnap_bin = File.join LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
       capture_device = "-d '#{capture_device}'" if capture_device
       system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay} #{capture_device}")

@@ -30,3 +30,15 @@ Feature: My bootstrapped app kinda works
     Then the output should contain "removed"
     And a file named ".git/hooks/post-commit" should not exist
     And the exit status should be 0
+
+  @simulate-capture
+  Scenario: Commiting in an enabled repo triggers capture
+    Given a git repository named "testcapture"
+    And an empty file named "testcapture/FOOBAR"
+    
+    When I cd to "testcapture"
+    And I successfully run `lolcommits --enable`
+    And I successfully run `git add .`
+    And I successfully run `git commit -m 'can haz commit'`
+    Then the output should contain "*** Preserving this moment in history."
+
