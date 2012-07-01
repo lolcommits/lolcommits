@@ -14,7 +14,7 @@ Feature: My bootstrapped app kinda works
     
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    
+
     Then the output should contain "installed lolcommmit hook as:"
     And the output should contain "(to remove later, you can use: lolcommits --disable)"
     And a file named ".git/hooks/post-commit" should exist
@@ -28,6 +28,5 @@ Feature: My bootstrapped app kinda works
     And I successfully run `lolcommits --disable`
 
     Then the output should contain "removed"
-    Then a file named ".git/hooks/post-commit" should not exist
+    And a file named ".git/hooks/post-commit" should not exist
     And the exit status should be 0
-    
