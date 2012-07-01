@@ -3,4 +3,5 @@
 Gemfile.lock
 pkg/*
 .rvmrc
-
+results.html
+html
