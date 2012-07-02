@@ -1,10 +1,11 @@
-[![Build Status](https://secure.travis-ci.org/mroth/lolcommits.png?branch=master)](http://travis-ci.org/mroth/lolcommits)
-
-# git + webcam = lol
+# lolcommits (git + webcam = lol)
 
 Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working webcam on Linux) every time you git commit code, and archives a lolcat style image with it.
 
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
+
+[![Build Status](https://secure.travis-ci.org/mroth/lolcommits.png?branch=master)](http://travis-ci.org/mroth/lolcommits)
+
 
 ## Installation (Mac OS X)
 You'll need ImageMagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
@@ -74,22 +75,15 @@ environment variables.
  * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - set
    `LOLCOMMITS_TRANZLATE=1`.
 
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
+
+Please, if at all possible, write a passing test for the functionality you added.
+
 ## Troubles?
 Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
-
-<!--
-## Upgrading from an old (non-gem) version?
-If you used the autoinstaller, here's how to get rid of the old stuff (I think)
-
-For all active lolrepos, go into them and do:
-
-	git hooks --uninstall
-
-You might want to get rid of the copied binary for imagesnap and switch over to the homebrew-managed version, if so `rm /usr/local/bin/imagesnap`.
-
-If you want to get rid of git-hooks entirly (it won't hurt anything, but we dont use it anymore), you can also do:
-
-	rm /usr/local/bin/git-hooks
-	rm -rf ~/.git_hooks
-	rm -rf ~/.githooks_src
--->
