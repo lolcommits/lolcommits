@@ -1,7 +1,4 @@
-Feature: My bootstrapped app kinda works
-  In order to get going on coding my awesome app
-  I want to have aruba and cucumber setup
-  So I don't have to do it myself
+Feature: Basic functionality
 
   Scenario: App just runs
     When I get help for "lolcommits"
