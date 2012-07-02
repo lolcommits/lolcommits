@@ -5,7 +5,7 @@ Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
 [![Build Status](https://secure.travis-ci.org/mroth/lolcommits.png?branch=master)](http://travis-ci.org/mroth/lolcommits)
-
+[![Dependency Status](https://gemnasium.com/mroth/lolcommits.png)](https://gemnasium.com/mroth/lolcommits)
 
 ## Installation (Mac OS X)
 You'll need ImageMagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
