@@ -1,3 +1,9 @@
+0.2.0 (in development)
+  * improved build system and testing with cucumber/methadone
+    - goal is to get into a better framework to start doing major feature work
+    - this should lead to increased reliability across systems as we refactor
+  * writing tests (please help!)
+
 0.1.5 (25 June 2012)
   * fix tranzlate on ruby1.8
 
