@@ -2,32 +2,28 @@ $:.unshift File.expand_path('.')
 
 require "lolcommits/version"
 require 'lolcommits/configuration'
+require 'lolcommits/capture_mac'
+require 'lolcommits/capture_linux'
+require 'lolcommits/capture_windows'
+require 'lolcommits/git_info'
+
 require "tranzlate/lolspeak"
 require "choice"
 require "fileutils"
 require "git"
 require "RMagick"
 require "open3"
-require "launchy"
 require 'httmultiparty'
+require 'active_support/inflector'
+
 include Magick
 
 module Lolcommits
 
-  def parse_git(dir='.')
-    g = Git.open('.')
-    commit = g.log.first
-    commit_msg = commit.message.split("\n").first
-    commit_sha = commit.sha[0..10]
-    return commit_sha, commit_msg
-  end
-
   def capture(capture_delay=0, capture_device=nil, is_test=false, test_msg=nil, test_sha=nil)
-    #
-    # Read the git repo information from the current working directory
-    #
     if not is_test
-      commit_sha, commit_msg = parse_git
+      git_info = GitInfo.new
+      commit_sha, commit_msg = git_info.sha, git_info.message
     else
       commit_msg = test_msg
       commit_sha = test_sha
@@ -54,36 +50,14 @@ module Lolcommits
     # if this changes on future mac isights.
     #
     puts "*** Preserving this moment in history."
-    snapshot_loc = File.join Configuration.loldir, "tmp_snapshot.jpg"
-    if Configuration.is_mac?
-      imagesnap_bin = File.join Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
-      capture_device = "-d '#{capture_device}'" if capture_device
-      system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay} #{capture_device}")
-    elsif Configuration.is_linux?
-      tmpdir = File.expand_path "#{Configuration.loldir}/tmpdir#{rand(1000)}/"
-      FileUtils.mkdir_p( tmpdir )
-      # There's no way to give a capture delay in mplayer, but a number of frame
-      # I've found that 6 is a good value for me.
-      frames = if capture_delay != 0 then capture_delay else 6 end
+    snapshot_loc = Configuration.raw_image(commit_sha) 
 
-      # mplayer's output is ugly and useless, let's throw it away
-      _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} -frames #{frames} tv://")
-      # looks like we still need to read the output for something to happen
-      r.read
-      FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
-      FileUtils.rm_rf( tmpdir )
-    elsif Configuration.is_windows?
-      commandcam_exe = File.join Configuration::LOLCOMMITS_ROOT, "ext", "CommandCam", "CommandCam.exe"
-      # DirectShow takes a while to show... at least for me anyway
-      delaycmd = " /delay 3000"
-      if capture_delay > 0
-        # CommandCam delay is in milliseconds
-        delaycmd = " /delay #{capture_delay * 1000}"
-      end
-      _, r, _ = Open3.popen3("#{commandcam_exe} /filename #{snapshot_loc}#{delaycmd}")
-      # looks like we still need to read the output for something to happen
-      r.read
-    end
+    capturer = "Lolcommits::Capture#{Configuration.platform}".constantize.new(
+      :capture_device    => capture_device, 
+      :capture_delay     => capture_delay, 
+      :snapshot_location => snapshot_loc
+    )
+    capturer.capture
 
 
     #
@@ -96,13 +70,7 @@ module Lolcommits
       canvas.resize_to_fill!(640,480)
     end
 
-    # create a draw object for annotation
     draw = Magick::Draw.new
-    #if is_mac?
-    #  draw.font = "/Library/Fonts/Impact.ttf"
-    #else
-    #  draw.font = "/usr/share/fonts/TTF/impact.ttf"
-    #end
     draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
 
     draw.fill = 'white'
@@ -133,7 +101,6 @@ module Lolcommits
     #
     #canvas.flatten_images.write("#{Configuration.loldir}/#{commit_sha}.jpg")
     canvas.write(File.join Configuration.loldir, "#{commit_sha}.jpg")
-    FileUtils.rm(snapshot_loc)
 
     HTTMultiParty.post('http://freezing-day-1419.herokuapp.com/git_commits.json', 
       :body => {
@@ -143,9 +110,7 @@ module Lolcommits
           :image => File.open(File.join(Configuration.loldir, "#{commit_sha}.jpg"))
       }
     })
-    #if in test mode, open image for inspection
-    if is_test
-      Launchy.open(File.join Configuration.loldir, "#{commit_sha}.jpg")
-    end
+    
+    commit_sha
   end
 end

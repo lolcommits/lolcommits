@@ -5,13 +5,13 @@ module Lolcommits
 
     def self.platform
       if is_mac?
-        :mac
+        'Mac'
       elsif is_linux?
-        :linux
+        'Linux'
       elsif is_windows?
-        :windows
+        'Windows'
       else
-        :wtf
+        raise "Unknown / Unsupported Platform."
       end
     end
 
@@ -23,6 +23,10 @@ module Lolcommits
     def self.most_recent(dir='.')
       loldir, commit_sha, commit_msg = parse_git
       Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
+    end
+
+    def self.raw_image(commit_sha)
+      File.join Configuration.loldir, "raw.#{commit_sha}.jpg"
     end
 
     def self.is_mac?

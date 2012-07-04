@@ -8,6 +8,7 @@ rescue LoadError
 end
 
 include Lolcommits
+require "launchy"
 
 #
 # CHECK FOR FURTHER DEPENDENCIES
@@ -97,7 +98,9 @@ def do_capture
 
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
+    commit_sha = Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
+
+    Launchy.open(File.join(Configuration.loldir, "#{commit_sha}.jpg"))
   else
     Lolcommits.capture(capture_delay, capture_device)
   end
