@@ -1,6 +1,7 @@
 $:.unshift File.expand_path('.')
 
 require "lolcommits/version"
+require 'lolcommits/configuration'
 require "tranzlate/lolspeak"
 require "choice"
 require "fileutils"
@@ -12,43 +13,13 @@ require 'httmultiparty'
 include Magick
 
 module Lolcommits
-  $home = ENV['HOME']
-  LOLBASEDIR = File.join $home, ".lolcommits"
-  LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '..')
-
-  def is_mac?
-    RUBY_PLATFORM.downcase.include?("darwin")
-  end
-
-  def is_linux?
-    RUBY_PLATFORM.downcase.include?("linux")
-  end
-
-  def is_windows?
-    if RUBY_PLATFORM =~ /(win|w)32$/
-      true
-    end
-  end
-
-  def most_recent(dir='.')
-    loldir, commit_sha, commit_msg = parse_git
-    Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
-  end
-
-  def loldir(dir='.')
-    loldir, commit_sha, commit_msg = parse_git
-    return loldir
-  end
 
   def parse_git(dir='.')
     g = Git.open('.')
     commit = g.log.first
     commit_msg = commit.message.split("\n").first
     commit_sha = commit.sha[0..10]
-    basename = File.basename(g.dir.to_s)
-    basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
-    loldir = File.join LOLBASEDIR, basename
-    return loldir, commit_sha, commit_msg
+    return commit_sha, commit_msg
   end
 
   def capture(capture_delay=0, capture_device=nil, is_test=false, test_msg=nil, test_sha=nil)
@@ -56,11 +27,10 @@ module Lolcommits
     # Read the git repo information from the current working directory
     #
     if not is_test
-      loldir, commit_sha, commit_msg = parse_git
+      commit_sha, commit_msg = parse_git
     else
       commit_msg = test_msg
       commit_sha = test_sha
-      loldir = File.join LOLBASEDIR, "test"
     end
 
     #
@@ -73,8 +43,8 @@ module Lolcommits
     #
     # Create a directory to hold the lolimages
     #
-    if not File.directory? loldir
-      FileUtils.mkdir_p loldir
+    if not File.directory? Configuration.loldir
+      FileUtils.mkdir_p Configuration.loldir
     end
 
     #
@@ -84,13 +54,13 @@ module Lolcommits
     # if this changes on future mac isights.
     #
     puts "*** Preserving this moment in history."
-    snapshot_loc = File.join loldir, "tmp_snapshot.jpg"
-    if is_mac?
-      imagesnap_bin = File.join LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
+    snapshot_loc = File.join Configuration.loldir, "tmp_snapshot.jpg"
+    if Configuration.is_mac?
+      imagesnap_bin = File.join Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap"
       capture_device = "-d '#{capture_device}'" if capture_device
       system("#{imagesnap_bin} -q #{snapshot_loc} -w #{capture_delay} #{capture_device}")
-    elsif is_linux?
-      tmpdir = File.expand_path "#{loldir}/tmpdir#{rand(1000)}/"
+    elsif Configuration.is_linux?
+      tmpdir = File.expand_path "#{Configuration.loldir}/tmpdir#{rand(1000)}/"
       FileUtils.mkdir_p( tmpdir )
       # There's no way to give a capture delay in mplayer, but a number of frame
       # I've found that 6 is a good value for me.
@@ -102,8 +72,8 @@ module Lolcommits
       r.read
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_loc)
       FileUtils.rm_rf( tmpdir )
-    elsif is_windows?
-      commandcam_exe = File.join LOLCOMMITS_ROOT, "ext", "CommandCam", "CommandCam.exe"
+    elsif Configuration.is_windows?
+      commandcam_exe = File.join Configuration::LOLCOMMITS_ROOT, "ext", "CommandCam", "CommandCam.exe"
       # DirectShow takes a while to show... at least for me anyway
       delaycmd = " /delay 3000"
       if capture_delay > 0
@@ -133,7 +103,7 @@ module Lolcommits
     #else
     #  draw.font = "/usr/share/fonts/TTF/impact.ttf"
     #end
-    draw.font = File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+    draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
 
     draw.fill = 'white'
     draw.stroke = 'black'
@@ -161,8 +131,8 @@ module Lolcommits
     #
     # Squash the images and write the files
     #
-    #canvas.flatten_images.write("#{loldir}/#{commit_sha}.jpg")
-    canvas.write(File.join loldir, "#{commit_sha}.jpg")
+    #canvas.flatten_images.write("#{Configuration.loldir}/#{commit_sha}.jpg")
+    canvas.write(File.join Configuration.loldir, "#{commit_sha}.jpg")
     FileUtils.rm(snapshot_loc)
 
     HTTMultiParty.post('http://freezing-day-1419.herokuapp.com/git_commits.json', 
@@ -170,12 +140,12 @@ module Lolcommits
         :git_commit => {
           :sha => commit_sha,
           :repo => 'omg', 
-          :image => File.open(File.join(loldir, "#{commit_sha}.jpg"))
+          :image => File.open(File.join(Configuration.loldir, "#{commit_sha}.jpg"))
       }
     })
     #if in test mode, open image for inspection
     if is_test
-      Launchy.open(File.join loldir, "#{commit_sha}.jpg")
+      Launchy.open(File.join Configuration.loldir, "#{commit_sha}.jpg")
     end
   end
 end

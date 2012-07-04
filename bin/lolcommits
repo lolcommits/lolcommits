@@ -19,14 +19,14 @@ def command?(name)
   $?.success?
 end
 
-if is_mac?
+if Lolcommits::Configuration.is_mac?
   # this dependency now satisfied with bundled copy of imagesnap
   #if not command?('imagesnap')
   #  puts "Couldn't find imagesnap in your PATH!"
   #  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
   #  exit 1
   #end
-elsif is_linux?
+elsif Lolcommits::Configuration.is_linux?
   if not command?('mplayer')
     puts "Couldn't find mplayer in your PATH!"
     exit 1
