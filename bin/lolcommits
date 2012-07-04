@@ -98,11 +98,17 @@ def do_capture
 
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    commit_sha = Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device,
+      :message        => Choice.choices[:msg],
+      :sha            => Choice.choices[:sha])
+    runner.run
 
-    Launchy.open(File.join(Configuration.loldir, "#{commit_sha}.jpg"))
+    Launchy.open(File.join(Configuration.loldir, "#{runner.sha}.jpg"))
   else
-    Lolcommits.capture(capture_delay, capture_device)
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device)
+    runner.run
   end
 end
 

@@ -1,6 +1,7 @@
 module Lolcommits
   class Runner
-    attr_accessor :capture_delay, :capture_device, :message, :sha
+    attr_accessor :capture_delay, :capture_device, :message, :sha,
+      :snapshot_loc
 
     def initialize(attributes={})
       attributes.each do |attr, val|
@@ -32,12 +33,12 @@ module Lolcommits
       # if this changes on future mac isights.
       #
       puts "*** Preserving this moment in history."
-      snapshot_loc = Configuration.raw_image(self.sha) 
+      self.snapshot_loc = Configuration.raw_image(self.sha) 
 
       capturer = "Lolcommits::Capture#{Configuration.platform}".constantize.new(
-        :capture_device    => capture_device, 
-        :capture_delay     => capture_delay, 
-        :snapshot_location => snapshot_loc
+        :capture_device    => self.capture_device, 
+        :capture_delay     => self.capture_delay, 
+        :snapshot_location => self.snapshot_loc
       )
       capturer.capture
 
@@ -47,7 +48,7 @@ module Lolcommits
       #
 
       # read in the image, and resize it via the canvas
-      canvas = ImageList.new("#{snapshot_loc}")
+      canvas = ImageList.new("#{self.snapshot_loc}")
       if (canvas.columns > 640 || canvas.rows > 480)
         canvas.resize_to_fill!(640,480)
       end

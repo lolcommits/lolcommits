@@ -21,13 +21,4 @@ include Magick
 
 module Lolcommits
 
-  def capture(capture_delay=0, capture_device=nil, is_test=false, test_msg=nil, test_sha=nil)
-    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-                                    :capture_device => capture_device,
-                                    :message => test_msg,
-                                    :sha => test_sha)
-    runner.run
-
-    runner.sha
-  end
 end
