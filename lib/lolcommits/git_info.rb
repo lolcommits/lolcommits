@@ -6,7 +6,6 @@ module Lolcommits
       commit = g.log.first
       self.message = commit.message.split("\n").first
       self.sha = commit.sha[0..10]
-      return commit_sha, commit_msg
     end
   end
 end
