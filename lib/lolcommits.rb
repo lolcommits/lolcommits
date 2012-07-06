@@ -44,7 +44,7 @@ module Lolcommits
   end
 
   def parse_git(dir='.')
-    g = Git.open('.')
+    g = Git.open(dir)
     commit = g.log.first
     commit_msg = commit.message.split("\n").first
     commit_sha = commit.sha[0..10]
