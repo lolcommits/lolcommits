@@ -12,7 +12,7 @@ include Magick
 
 module Lolcommits
   $home = ENV['HOME']
-  LOLBASEDIR = File.join $home, ".lolcommits"
+  LOLBASEDIR = ENV['LOLCOMMITS_DIR'] || (File.join $home, ".lolcommits")
   LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '..')
 
   def is_mac?
@@ -50,6 +50,7 @@ module Lolcommits
     commit_sha = commit.sha[0..10]
     basename = File.basename(g.dir.to_s)
     basename.sub!(/^\./, 'dot') #no invisible directories in output, thanks!
+    basename.sub!(/ /, '-') #no spaces plz
     loldir = File.join LOLBASEDIR, basename
     return loldir, commit_sha, commit_msg
   end

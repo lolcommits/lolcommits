@@ -1,3 +1,6 @@
+0.2.1 (in development)
+  * fix bug involving git repositories with spaces in the name
+
 0.2.0 (6 July 2012)
   * improved build system and testing with cucumber/methadone
     - goal is to get into a better framework to start doing major feature work
