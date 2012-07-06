@@ -8,3 +8,7 @@ before_install:
  - sudo apt-get -qq update
  - sudo apt-get -q -y install mplayer libmagick9-dev
 
+#test against ruby-head as well so we know what's coming down the pipe
+matrix:
+  allow_failures:
+    - rvm: ruby-head
