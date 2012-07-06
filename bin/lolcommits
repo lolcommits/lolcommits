@@ -26,11 +26,19 @@ if is_mac?
   #  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
   #  exit 1
   #end
+  unless File.executable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+    puts "Couldn't properly execute imagesnap for some reason, please file a bug?!"
+    exit 1
+  end
 elsif is_linux?
   if not command?('mplayer')
     puts "Couldn't find mplayer in your PATH!"
     exit 1
   end
+end
+unless File.readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+  puts "Couldn't properly read Impact font from gem package, please file a bug?!"
+  exit 1
 end
 
 #

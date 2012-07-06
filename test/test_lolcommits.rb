@@ -14,11 +14,23 @@ class LolTest < Test::Unit::TestCase
         end
     end
 
+    #
+    # issue #57, https://github.com/mroth/lolcommits/issues/57
+    #
     def test_tranzlate
         [["what the hell","(WH|W)UT TEH HELL"],["seriously wtf", "SRSLEH WTF"]].each do |normal, lol|
             tranzlated = normal.tranzlate
             assert_match /^#{lol}/, tranzlated
         end
+    end
+
+    #
+    # issue #53, https://github.com/mroth/lolcommits/issues/53
+    # this will test the permissions but only locally, important before building a gem package!
+    #
+    def test_permissions
+        assert File.readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+        assert File.executable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
     end
 
     # Hmm.. webcam capture breaks travis-ci tests
@@ -27,4 +39,5 @@ class LolTest < Test::Unit::TestCase
     #        Lolcommits.capture(0,true,'test commit message','test-sha-001')
     #    end
     #end
+
 end
