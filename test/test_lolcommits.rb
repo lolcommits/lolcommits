@@ -29,8 +29,12 @@ class LolTest < Test::Unit::TestCase
     # this will test the permissions but only locally, important before building a gem package!
     #
     def test_permissions
-        assert File.lstat(File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")).mode & 0777 == 0644
-        assert File.lstat(File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")).mode & 0777 == 0755
+        impact_perms = File.lstat(File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")).mode & 0777
+        imagesnap_perms = File.lstat(File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")).mode & 0777
+        assert impact_perms == 0644,
+            "expected perms of 644 but instead got #{sprintf '%o', impact_perms}"
+        assert imagesnap_perms == 0755,
+            "expected perms of 755 but instead got #{sprintf '%o', imagesnap_perms}"
     end
 
     # Hmm.. webcam capture breaks travis-ci tests
