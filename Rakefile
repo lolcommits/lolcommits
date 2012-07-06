@@ -38,6 +38,7 @@ task :default => [:test,:features]
 
 desc "Migrate an existing local .lolcommits directory to Dropbox"
 task :dropboxify do
+  $home = ENV['HOME']
   dropbox_loldir = "#{$home}/Dropbox/lolcommits"
   loldir = "#{$home}/.lolcommits"
   backup_loldir = "#{$home}/.lolcommits.old"
