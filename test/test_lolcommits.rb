@@ -29,8 +29,9 @@ class LolTest < Test::Unit::TestCase
     # this will test the permissions but only locally, important before building a gem package!
     #
     def test_permissions
-        assert File.readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
-        assert File.executable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+        assert File.world_readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+        assert File.world_readable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+        assert File.executable?     File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
     end
 
     # Hmm.. webcam capture breaks travis-ci tests
