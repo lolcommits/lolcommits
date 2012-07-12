@@ -39,4 +39,4 @@ Feature: Basic functionality
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
-
+    And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
