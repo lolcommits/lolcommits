@@ -28,18 +28,17 @@ module Lolcommits
       draw.font = File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
       draw.fill = 'white'
       draw.stroke = 'black'
+      draw.stroke_width = 2
 
       draw.annotate(canvas, 0, 0, 0, 0, commit_sha) do
         self.gravity = NorthEastGravity
         self.pointsize = 32
-        self.stroke_width = 2
       end
 
-      draw.annotate(canvas, 0, 0, 0, 0, word_wrap(commit_msg)) do
+      draw.annotate(canvas, 0, 0, 0, 0, ImageProcessor.word_wrap(commit_msg)) do
         self.gravity = SouthWestGravity
         self.pointsize = 48
         self.interline_spacing = -(48 / 5) if self.respond_to?(:interline_spacing)
-        self.stroke_width = 2
       end
 
       #
@@ -50,10 +49,9 @@ module Lolcommits
       @processed_img = target
     end
 
-    private
     # convenience method for word wrapping
     # based on https://github.com/cmdrkeene/memegen/blob/master/lib/meme_generator.rb
-    def word_wrap(text, col = 27)
+    def self.word_wrap(text, col = 27)
       wrapped = text.gsub(/(.{1,#{col + 4}})(\s+|\Z)/, "\\1\n")
       wrapped.chomp!
     end
