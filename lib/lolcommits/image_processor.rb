@@ -1,5 +1,5 @@
 require "tranzlate/lolspeak"
-require "Rmagick"
+require "RMagick"
 include Magick
 
 module Lolcommits
