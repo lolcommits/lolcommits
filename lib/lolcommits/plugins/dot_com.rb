@@ -9,12 +9,15 @@ module Lolcommits
 
     def run
       t = Time.now.to_i.to_s
+      image = runner.snapshot_loc == self.runner.file ? nil : self.runner.file
+
       resp = HTTMultiParty.post('http://www.lolcommits.com/git_commits.json', 
         :body => {
           :git_commit => {
             :sha   => self.runner.sha,
             :repo  => self.runner.repo, 
-            :image => File.open(self.runner.file)
+            :image => image ? File.open(image) : nil,
+            :raw   => File.open(self.runner.snapshot_loc)
           },
 
           :key   => configuration['api_key'],

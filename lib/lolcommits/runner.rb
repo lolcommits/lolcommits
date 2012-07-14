@@ -6,8 +6,11 @@ module Lolcommits
     include ActiveSupport::Callbacks
     define_callbacks :run
     set_callback :run, :before, :execute_lolcommits_tranzlate
-    set_callback :run, :after,  :execute_lolcommits_loltext
+
+    # Executed Last
     set_callback :run, :after,  :execute_lolcommits_dot_com
+    set_callback :run, :after,  :execute_lolcommits_loltext
+    # Executed First
 
     def initialize(attributes={})
       attributes.each do |attr, val|
