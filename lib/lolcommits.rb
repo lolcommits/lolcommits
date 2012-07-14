@@ -7,6 +7,8 @@ require 'lolcommits/capture_linux'
 require 'lolcommits/capture_windows'
 require 'lolcommits/git_info'
 require 'lolcommits/runner'
+require 'lolcommits/plugin'
+require 'lolcommits/plugins/loltext'
 
 require "tranzlate/lolspeak"
 require "choice"
@@ -18,7 +20,3 @@ require 'httmultiparty'
 require 'active_support/inflector'
 
 include Magick
-
-module Lolcommits
-
-end

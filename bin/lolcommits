@@ -104,7 +104,7 @@ def do_capture
       :sha            => Choice.choices[:sha])
     runner.run
 
-    Launchy.open(File.join(Configuration.loldir, "#{runner.sha}.jpg"))
+    Launchy.open(runner.file)
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device)
