@@ -1,7 +1,7 @@
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_device, :message, :sha,
-      :snapshot_loc
+      :snapshot_loc, :repo
 
     def initialize(attributes={})
       attributes.each do |attr, val|
@@ -11,6 +11,7 @@ module Lolcommits
       git_info = GitInfo.new
       self.sha = git_info.sha if self.sha.nil?
       self.message = git_info.message if self.message.nil?
+      self.repo = git_info.repo
     end
 
     def run
@@ -40,11 +41,11 @@ module Lolcommits
       configuration = Configuration.user_configuration['dot_com']
 
       t = Time.now.to_i.to_s
-      resp = HTTMultiParty.post('http://lolcommits.com/git_commits.json', 
+      resp = HTTMultiParty.post('http://www.lolcommits.com/git_commits.json', 
         :body => {
           :git_commit => {
             :sha   => self.sha,
-            :repo  => 'omg', 
+            :repo  => self.repo, 
             :image => File.open(File.join(Configuration.loldir, "#{self.sha}.jpg"))
           },
 
@@ -54,7 +55,6 @@ module Lolcommits
         }
       )
 
-      puts resp.body.inspect
     end
 
     def write_loltext!
