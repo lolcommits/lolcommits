@@ -1,6 +1,5 @@
 module Lolcommits
   class Loltext < Plugin
-
     def initialize(runner)
       super
 

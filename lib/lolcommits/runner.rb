@@ -27,7 +27,7 @@ module Lolcommits
       capturer.capture
 
       Lolcommits::Loltext.new(self).execute
-      post_to_heroku!
+      Lolcommits::DotCom.new(self).execute
     end
 
 
@@ -35,26 +35,6 @@ module Lolcommits
       if (ENV['LOLCOMMITS_TRANZLATE'] == '1' || false)
         self.message = message.tranzlate
       end
-    end
-
-    def post_to_heroku!
-      configuration = Configuration.user_configuration['dot_com']
-
-      t = Time.now.to_i.to_s
-      resp = HTTMultiParty.post('http://www.lolcommits.com/git_commits.json', 
-        :body => {
-          :git_commit => {
-            :sha   => self.sha,
-            :repo  => self.repo, 
-            :image => self.file 
-          },
-
-          :key   => configuration['api_key'],
-          :t     => t,
-          :token =>  Digest::SHA1.hexdigest(configuration['api_secret'] + t)
-        }
-      )
-
     end
 
   end
