@@ -16,8 +16,15 @@ module Lolcommits
     end
 
     def self.user_configuration
-      conf_file = "#{loldir}/config.yml"
-      YAML.load(File.open(conf_file))
+      if File.exists?(user_configuration_file)
+        YAML.load(File.open(user_configuration_file))
+      else
+        nil
+      end
+    end
+
+    def self.user_configuration_file
+      "#{loldir}/config.yml"
     end
 
     def self.loldir

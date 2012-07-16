@@ -1,13 +1,16 @@
 module Lolcommits
   class Plugin
-    attr_accessor :default, :name, :runner
+    attr_accessor :default, :name, :runner, :options
 
     def configuration
-      Configuration.user_configuration[self.name] || Hash.new
+      config = Configuration.user_configuration
+      return Hash.new if config.nil?
+      config[self.name] || Hash.new
     end
 
     def initialize(runner)
       self.runner = runner
+      self.options = ['enabled']
     end
 
     def is_enabled?

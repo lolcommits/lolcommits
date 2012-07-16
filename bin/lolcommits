@@ -20,14 +20,7 @@ def command?(name)
   $?.success?
 end
 
-if Lolcommits::Configuration.is_mac?
-  # this dependency now satisfied with bundled copy of imagesnap
-  #if not command?('imagesnap')
-  #  puts "Couldn't find imagesnap in your PATH!"
-  #  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
-  #  exit 1
-  #end
-elsif Lolcommits::Configuration.is_linux?
+if Lolcommits::Configuration.is_linux?
   if not command?('mplayer')
     puts "Couldn't find mplayer in your PATH!"
     exit 1
@@ -112,6 +105,44 @@ def do_capture
   end
 end
 
+def do_configure
+  plugin = Choice.choices[:plugin]
+
+  if plugin.blank?
+    print "Plugin Name: "
+    plugin = STDIN.gets.strip
+  end
+
+  plugins = Lolcommits::PLUGINS.inject(Hash.new) do |acc, val|
+    p = val.new(nil)
+    acc.merge(p.name => p)
+  end
+
+  plugin_object = plugins[plugin]
+
+  if plugin_object.nil?
+    puts "Unable to find plugin: #{plugin}"
+    return
+  end
+
+  options = plugin_object.options.inject(Hash.new) do |acc, option|
+    print "#{option}: "
+    val = STDIN.gets.strip
+    val = true  if val == 'true'
+    val = false if val == 'false'
+
+    acc.merge(option => val)
+  end
+  config = Lolcommits::Configuration.user_configuration
+  config[plugin] = options
+  File.open(Lolcommits::Configuration.user_configuration_file, 'w') do |f| 
+    f.write(config.to_yaml)
+  end 
+  
+  puts "#{config.to_yaml}\n"
+  puts "Successfully Configured"
+end
+
 #
 # Command line parsing fun
 #
@@ -155,6 +186,37 @@ Choice.options do
     end
   end
 
+  option :configure do
+    short "-conf"
+    long "--configure"
+    desc "configure plugin"
+  end
+
+  option :show_config do
+    short "-sc"
+    long  "--show-config"
+    desc "show configuration yaml"
+    action do
+      puts Lolcommits::Configuration.user_configuration.to_yaml
+    end
+  end
+
+  option :plugin do
+    desc "pass in plugin name manually"
+    long "--plugin"
+    short "-p"
+    default nil
+  end
+
+  option :plugins do
+    desc "list all the available plugins to configure"
+    long "--plugins"
+    action do
+      names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
+      puts "Available Plugins: #{names.join(', ')}"
+    end
+  end
+
   option :test do
     long "--test"
     desc "Run in test mode"
@@ -190,9 +252,11 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse] || Choice.choices[:show_config] || Choice.choices[:plugins])
   if Choice.choices[:capture]
     do_capture()
+  elsif Choice.choices[:configure]
+    do_configure()
   else
     do_noargs()
   end

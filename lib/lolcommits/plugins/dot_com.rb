@@ -5,6 +5,7 @@ module Lolcommits
 
       self.name    = 'dot_com'
       self.default = false
+      self.options.concat(['api_key', 'api_secret', 'repo_id'])
     end
 
     def run
@@ -15,7 +16,7 @@ module Lolcommits
         :body => {
           :git_commit => {
             :sha   => self.runner.sha,
-            :repo  => self.runner.repo, 
+            :repo  => configuration['repo_id'],
             :image => image ? File.open(image) : nil,
             :raw   => File.open(self.runner.snapshot_loc)
           },

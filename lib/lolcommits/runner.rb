@@ -1,4 +1,6 @@
 module Lolcommits
+  PLUGINS = Lolcommits::Plugin.subclasses
+
   class Runner
     attr_accessor :capture_delay, :capture_device, :message, :sha,
       :snapshot_loc, :repo, :file
@@ -41,7 +43,7 @@ module Lolcommits
   # register a method called "execute_lolcommits_#{plugin_name}" 
   # for each subclass of plugin.  these methods should be used as
   # callbacks to the run method.
-  Lolcommits::Plugin.subclasses.each do |plugin|
+  Lolcommits::PLUGINS.each do |plugin|
     define_method "execute_#{plugin.to_s.underscore.gsub('/', '_')}" do
       plugin.new(self).execute
     end
