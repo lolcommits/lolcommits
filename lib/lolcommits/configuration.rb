@@ -40,8 +40,7 @@ module Lolcommits
     end
 
     def self.most_recent
-      loldir, commit_sha, commit_msg = parse_git
-      Dir.glob(File.join loldir, "*").max_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, "*").max_by {|f| File.mtime(f)}
     end
 
     def self.raw_image(commit_sha)

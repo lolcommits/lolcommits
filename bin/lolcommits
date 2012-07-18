@@ -173,7 +173,7 @@ Choice.options do
     short "-l"
     desc "view the most recent lolcommit"
     action do
-      Launchy.open Lolcommits.most_recent
+      Launchy.open Lolcommits::Configuration.most_recent
     end
   end
 
