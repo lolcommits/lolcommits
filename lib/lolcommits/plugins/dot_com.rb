@@ -15,10 +15,10 @@ module Lolcommits
       resp = HTTMultiParty.post('http://www.lolcommits.com/git_commits.json', 
         :body => {
           :git_commit => {
-            :sha   => self.runner.sha,
-            :repo  => configuration['repo_id'],
-            :image => image ? File.open(image) : nil,
-            :raw   => File.open(self.runner.snapshot_loc)
+            :sha              => self.runner.sha,
+            :repo_external_id => configuration['repo_id'],
+            :image            => image ? File.open(image) : nil,
+            :raw              => File.open(self.runner.snapshot_loc)
           },
 
           :key   => configuration['api_key'],
