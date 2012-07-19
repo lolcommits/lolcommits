@@ -133,7 +133,7 @@ def do_configure
 
     acc.merge(option => val)
   end
-  config = Lolcommits::Configuration.user_configuration
+  config = Lolcommits::Configuration.user_configuration || Hash.new
   config[plugin] = options
   File.open(Lolcommits::Configuration.user_configuration_file, 'w') do |f| 
     f.write(config.to_yaml)
