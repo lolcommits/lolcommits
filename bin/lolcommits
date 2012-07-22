@@ -8,6 +8,7 @@ rescue LoadError
 end
 
 include Lolcommits
+require "launchy"
 
 #
 # CHECK FOR FURTHER DEPENDENCIES
@@ -19,24 +20,18 @@ def command?(name)
   $?.success?
 end
 
-if is_mac?
-  # this dependency now satisfied with bundled copy of imagesnap
-  #if not command?('imagesnap')
-  #  puts "Couldn't find imagesnap in your PATH!"
-  #  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
-  #  exit 1
-  #end
-  unless File.executable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+if Configuration.is_mac?
+  unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
     puts "Couldn't properly execute imagesnap for some reason, please file a bug?!"
     exit 1
   end
-elsif is_linux?
+elsif Configuration.is_linux?
   if not command?('mplayer')
     puts "Couldn't find mplayer in your PATH!"
     exit 1
   end
 end
-unless File.readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
   puts "Couldn't properly read Impact font from gem package, please file a bug?!"
   exit 1
 end
@@ -105,10 +100,22 @@ def do_capture
 
   if Choice.choices[:test]
     puts "*** capturing in test mode"
-    Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device,
+      :message        => Choice.choices[:msg],
+      :sha            => Choice.choices[:sha])
+    runner.run
+
+    Launchy.open(runner.file)
   else
-    Lolcommits.capture(capture_delay, capture_device)
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device)
+    runner.run
   end
+end
+
+def do_configure
+  Configuration.do_configure! Choice.choices[:plugin]
 end
 
 #
@@ -141,7 +148,7 @@ Choice.options do
     short "-l"
     desc "view the most recent lolcommit"
     action do
-      Launchy.open Lolcommits.most_recent
+      Launchy.open Lolcommits::Configuration.most_recent
     end
   end
 
@@ -151,6 +158,37 @@ Choice.options do
     desc "browse this repo's lolcommits"
     action do
       Launchy.open Lolcommits.loldir
+    end
+  end
+
+  option :configure do
+    short "-conf"
+    long "--configure"
+    desc "configure plugin"
+  end
+
+  option :show_config do
+    short "-sc"
+    long  "--show-config"
+    desc "show configuration yaml"
+    action do
+      puts Lolcommits::Configuration.user_configuration.to_yaml
+    end
+  end
+
+  option :plugin do
+    desc "pass in plugin name manually"
+    long "--plugin"
+    short "-p"
+    default nil
+  end
+
+  option :plugins do
+    desc "list all the available plugins to configure"
+    long "--plugins"
+    action do
+      names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
+      puts "Available Plugins: #{names.join(', ')}"
     end
   end
 
@@ -189,9 +227,11 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse] || Choice.choices[:show_config] || Choice.choices[:plugins])
   if Choice.choices[:capture]
     do_capture()
+  elsif Choice.choices[:configure]
+    do_configure()
   else
     do_noargs()
   end
