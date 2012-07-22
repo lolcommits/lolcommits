@@ -6,3 +6,5 @@ pkg/*
 results.html
 html
 tmp
+*.swp
+*.swo
