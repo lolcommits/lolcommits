@@ -1,4 +1,4 @@
-Feature: Basic functionality
+Feature: Basic UI functionality
 
   Scenario: App just runs
     When I get help for "lolcommits"
@@ -40,3 +40,20 @@ Feature: Basic functionality
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
     And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
+
+  @simulate-capture
+  Scenario: test capture should work regardless of whether in a git repository
+    Given a directory named "nothingtoseehere"
+    When I cd to "nothingtoseehere"
+    And I run `lolcommits --test --capture`
+    Then the output should contain "*** capturing in test mode"
+    And the output should not contain "path does not exist (ArgumentError)"
+    And the exit status should be 0 
+
+  @simulate-capture
+  Scenario: test capture should store in its own test directory
+    Given a git repository named "randomgitrepo"
+    When I cd to "randomgitrepo"
+    And I successfully run `lolcommits --test --capture`
+    Then a directory named "tmp/aruba/.lolcommits/test" should exist
+    And a directory named "tmp/aruba/.lolcommits/randomgitrepo" should not exist
