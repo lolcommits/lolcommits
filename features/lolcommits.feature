@@ -7,8 +7,6 @@ Feature: Basic UI functionality
 
   Scenario: Enable in a naked git repository
     Given a git repository named "loltest" with no "post-commit" hook
-    #And the git repository named "loltest" has no "post-commit" hook
-    
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
 
@@ -19,8 +17,6 @@ Feature: Basic UI functionality
 
   Scenario: Disable in a enabled git repository
     Given a git repository named "lolenabled" with a "post-commit" hook
-    #And the git repository named "lolenabled" has a "post-commit" hook
-
     When I cd to "lolenabled"
     And I successfully run `lolcommits --disable`
 
