@@ -1,3 +1,5 @@
+require 'httmultiparty'
+
 module Lolcommits
   class DotCom < Plugin
     def initialize(runner)

@@ -1,5 +1,9 @@
+require "RMagick"
+
 module Lolcommits
   class Loltext < Plugin
+    include Magick
+
     def initialize(runner)
       super
 

@@ -54,6 +54,20 @@ Feature: Basic UI functionality
     And the output should contain "enabled: true"
     
   @simulate-env
+  Scenario: Configuring Plugin In Test Mode
+    Given a git repository named "testmode-config-test"
+    When I cd to "testmode-config-test"
+    And I run `lolcommits --configure --test` and wait for output
+    And I enter "loltext" for "Plugin Name"
+    And I enter "true" for "enabled"
+    Then I should be presented "Successfully Configured"
+    And a file named "tmp/aruba/.lolcommits/test/config.yml" should exist
+    When I successfully run `lolcommits --test --show-config`
+    Then the output should contain "loltext:"
+    And the output should contain "enabled: true"
+
+
+  @simulate-env
   Scenario: test capture should work regardless of whether in a git repository
     Given a directory named "nothingtoseehere"
     When I cd to "nothingtoseehere"

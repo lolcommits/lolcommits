@@ -9,6 +9,7 @@ end
 
 include Lolcommits
 require "launchy"
+require "choice"
 
 #
 # CHECK FOR FURTHER DEPENDENCIES
@@ -91,13 +92,14 @@ def do_disable
   end
 end
 
-def live_config
-  Configuration.new
+def configuration
+  if Choice.choices[:test]
+    Configuration.new(:loldir => Configuration.loldir_for('test'))
+  else
+    Configuration.new
+  end
 end
 
-def test_config
-  Configuration.new(:loldir => Configuration.loldir_for('test'))
-end
 #
 # IF --CAPTURE, DO CAPTURE
 #
@@ -111,7 +113,7 @@ def do_capture
       :capture_device => capture_device,
       :message        => Choice.choices[:msg],
       :sha            => Choice.choices[:sha],
-      :config         => test_config
+      :config         => configuration 
    )
     runner.run
 
@@ -119,14 +121,14 @@ def do_capture
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
-      :config         => live_config
+      :config         => configuration 
     )
     runner.run
   end
 end
 
 def do_configure
-  live_config.do_configure! Choice.choices[:plugin]
+  configuration.do_configure! Choice.choices[:plugin]
 end
 
 #
@@ -182,9 +184,6 @@ Choice.options do
     short "-sc"
     long  "--show-config"
     desc "show configuration yaml"
-    action do
-      puts live_config.user_configuration.to_yaml
-    end
   end
 
   option :plugin do
@@ -238,11 +237,13 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse] || Choice.choices[:show_config] || Choice.choices[:plugins])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse] || Choice.choices[:plugins])
   if Choice.choices[:capture]
     do_capture()
   elsif Choice.choices[:configure]
     do_configure()
+  elsif Choice.choices[:show_config]
+    puts configuration.user_configuration.to_yaml
   else
     do_noargs()
   end

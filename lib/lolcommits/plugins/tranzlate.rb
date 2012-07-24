@@ -1,3 +1,5 @@
+require "tranzlate/lolspeak"
+
 module Lolcommits
   class Tranzlate < Plugin
     def initialize(runner)
