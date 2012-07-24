@@ -19,10 +19,11 @@ module Lolcommits
         self.send("#{attr}=", val)
       end
       
-      git_info = GitInfo.new
-      self.sha = git_info.sha if self.sha.nil?
-      self.message = git_info.message if self.message.nil?
-      self.repo = git_info.repo
+      if self.sha.nil? || self.message.nil?
+        git_info = GitInfo.new
+        self.sha = git_info.sha if self.sha.nil?
+        self.message = git_info.message if self.message.nil?
+      end
     end
 
     def run
