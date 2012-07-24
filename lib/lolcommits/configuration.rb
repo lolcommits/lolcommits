@@ -1,7 +1,14 @@
 module Lolcommits
-  module Configuration
+  class Configuration
     LOLBASEDIR = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
+    attr_writer :loldir
+
+    def initialize(attributes={})
+      attributes.each do |attr, val|
+        self.send("#{attr}=", val)
+      end
+    end
 
     def self.platform
       if is_fakecapture?
@@ -17,7 +24,7 @@ module Lolcommits
       end
     end
 
-    def self.user_configuration
+    def user_configuration
       if File.exists?(user_configuration_file)
         YAML.load(File.open(user_configuration_file))
       else
@@ -25,32 +32,37 @@ module Lolcommits
       end
     end
 
-    def self.user_configuration_file
-      "#{loldir}/config.yml"
+    def user_configuration_file
+      "#{self.loldir}/config.yml"
     end
 
-    def self.loldir
+    def loldir
       return @loldir if @loldir
 
       basename ||= File.basename(Git.open('.').dir.to_s).sub(/^\./, 'dot')
       basename.sub!(/ /, '-')
-      @loldir = File.join(LOLBASEDIR, basename)
 
-      if not File.directory? @loldir
-        FileUtils.mkdir_p @loldir
-      end
-      @loldir
+      @loldir = Configuration.loldir_for(basename)
     end
 
-    def self.most_recent
+    def self.loldir_for(basename)
+      loldir = File.join(LOLBASEDIR, basename)
+
+      if not File.directory? loldir
+        FileUtils.mkdir_p loldir
+      end
+      loldir
+    end
+
+    def most_recent
       Dir.glob(File.join self.loldir, "*").max_by {|f| File.mtime(f)}
     end
 
-    def self.raw_image(commit_sha)
-      File.join Configuration.loldir, "raw.#{commit_sha}.jpg"
+    def raw_image(commit_sha)
+      File.join self.loldir, "raw.#{commit_sha}.jpg"
     end
 
-    def self.do_configure!(plugin)
+    def do_configure!(plugin)
       if plugin.nil? || plugin.strip == ''
         print "Plugin Name: "
         plugin = STDIN.gets.strip
@@ -76,9 +88,9 @@ module Lolcommits
 
         acc.merge(option => val)
       end
-      config = Lolcommits::Configuration.user_configuration || Hash.new
+      config = self.user_configuration || Hash.new
       config[plugin] = options
-      File.open(Lolcommits::Configuration.user_configuration_file, 'w') do |f| 
+      File.open(self.user_configuration_file, 'w') do |f| 
         f.write(config.to_yaml)
       end 
 

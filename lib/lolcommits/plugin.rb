@@ -3,7 +3,7 @@ module Lolcommits
     attr_accessor :default, :name, :runner, :options
 
     def configuration
-      config = Configuration.user_configuration
+      config = runner.config.user_configuration
       return Hash.new if config.nil?
       config[self.name] || Hash.new
     end

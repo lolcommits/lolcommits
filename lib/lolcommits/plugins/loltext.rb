@@ -32,8 +32,8 @@ module Lolcommits
         self.stroke_width = 2
       end
 
-      canvas.write(File.join Configuration.loldir, "#{self.runner.sha}.jpg")
-      runner.file = File.join(Configuration.loldir, "#{self.runner.sha}.jpg")
+      canvas.write(File.join runner.config.loldir, "#{self.runner.sha}.jpg")
+      runner.file = File.join(runner.config.loldir, "#{self.runner.sha}.jpg")
     end
 
     private

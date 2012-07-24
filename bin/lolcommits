@@ -91,6 +91,13 @@ def do_disable
   end
 end
 
+def live_config
+  Configuration.new
+end
+
+def test_config
+  Configuration.new(:loldir => Configuration.loldir_for('test'))
+end
 #
 # IF --CAPTURE, DO CAPTURE
 #
@@ -103,19 +110,23 @@ def do_capture
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
       :message        => Choice.choices[:msg],
-      :sha            => Choice.choices[:sha])
+      :sha            => Choice.choices[:sha],
+      :config         => test_config
+   )
     runner.run
 
     Launchy.open(runner.file)
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-      :capture_device => capture_device)
+      :capture_device => capture_device,
+      :config         => live_config
+    )
     runner.run
   end
 end
 
 def do_configure
-  Configuration.do_configure! Choice.choices[:plugin]
+  live_config.do_configure! Choice.choices[:plugin]
 end
 
 #
@@ -148,7 +159,7 @@ Choice.options do
     short "-l"
     desc "view the most recent lolcommit"
     action do
-      Launchy.open Lolcommits::Configuration.most_recent
+      Launchy.open Configuration.most_recent
     end
   end
 
@@ -172,7 +183,7 @@ Choice.options do
     long  "--show-config"
     desc "show configuration yaml"
     action do
-      puts Lolcommits::Configuration.user_configuration.to_yaml
+      puts live_config.user_configuration.to_yaml
     end
   end
 
