@@ -58,7 +58,7 @@ module Lolcommits
       Dir.glob(File.join self.loldir, "*").max_by {|f| File.mtime(f)}
     end
 
-    def raw_image(commit_sha)
+    def raw_image
       File.join self.loldir, "tmp_snapshot.jpg"
     end
 
