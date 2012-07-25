@@ -33,3 +33,8 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @fields[field] = input
   @stdin.puts input
 end
+
+
+Then /^there should be (.*?) jpg(|s) in "(.*?)"$/ do |n, _, folder|
+  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
+end

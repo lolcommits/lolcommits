@@ -59,7 +59,11 @@ module Lolcommits
     end
 
     def raw_image(commit_sha)
-      File.join self.loldir, "raw.#{commit_sha}.jpg"
+      File.join self.loldir, "tmp_snapshot.jpg"
+    end
+
+    def main_image(commit_sha)
+      File.join self.loldir, "#{commit_sha}.jpg"
     end
 
     def do_configure!(plugin)

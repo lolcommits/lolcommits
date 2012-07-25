@@ -16,3 +16,20 @@ Feature: Plugins Work
     When I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
+    And there should be 1 jpg in "tmp/aruba/.lolcommits/dot_com"
+
+  @simulate-env
+  Scenario: Disable loltext
+    Given a git repository named "loltext"
+    And an empty file named "loltext/FOOBAR"
+    When I cd to "loltext"
+    And I successfully run `lolcommits --enable`
+    And I run `lolcommits --configure` and wait for output
+    And I enter "loltext" for "Plugin Name"
+    And I enter "false" for "enabled"
+    Then I should be presented "Successfully Configured"
+    When I successfully run `git add .`
+    And I successfully run `git commit -m 'can haz commit'`
+    Then the output should contain "*** Preserving this moment in history."
+    And there should be 1 jpg in "tmp/aruba/.lolcommits/loltext"
+

@@ -1,5 +1,3 @@
-require "RMagick"
-
 module Lolcommits
   class Loltext < Plugin
     include Magick
@@ -12,11 +10,7 @@ module Lolcommits
     end
 
     def run
-      canvas = ImageList.new(self.runner.snapshot_loc)
-      if (canvas.columns > 640 || canvas.rows > 480)
-        canvas.resize_to_fill!(640,480)
-      end
-
+      canvas = ImageList.new(self.runner.main_image)
       draw = Magick::Draw.new
       draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
 
@@ -36,8 +30,7 @@ module Lolcommits
         self.stroke_width = 2
       end
 
-      canvas.write(File.join runner.config.loldir, "#{self.runner.sha}.jpg")
-      runner.file = File.join(runner.config.loldir, "#{self.runner.sha}.jpg")
+      canvas.write(runner.main_image)
     end
 
     private

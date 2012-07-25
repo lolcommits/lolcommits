@@ -117,7 +117,7 @@ def do_capture
    )
     runner.run
 
-    Launchy.open(runner.file)
+    Launchy.open(configuration.main_image(runner.sha))
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
