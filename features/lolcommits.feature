@@ -22,8 +22,15 @@ Feature: Basic UI functionality
     And a file named ".git/hooks/post-commit" should not exist
     And the exit status should be 0
 
+  Scenario: Trying to enable while not in a git repo fails
+    Given a directory named "svnrulez"
+    When I cd to "svnrulez"
+    And I run `lolcommits --enable`
+    Then the output should contain "You don't appear to be in the base directory of a git project."
+    And the exit status should be 1
+
   @simulate-env
-  Scenario: Commiting in an enabled repo triggers capture
+  Scenario: Commiting in an enabled repo triggers successful capture
     Given a git repository named "testcapture"
     And an empty file named "testcapture/FOOBAR"
     When I cd to "testcapture"
@@ -31,6 +38,22 @@ Feature: Basic UI functionality
     And I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
+    And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
+    And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
+    And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
+
+  @simulate-env @focus
+  Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
+    Given a git repository named "testcapture"
+    And a directory named "testcapture/subdir"
+    And an empty file named "testcapture/subdir/FOOBAR"
+    When I cd to "testcapture/"
+    And I successfully run `lolcommits --enable`
+    Then I cd to "subdir/"
+    And I successfully run `git add .`
+    And I successfully run `git commit -m 'can haz commit'`
+    Then the output should contain "*** Preserving this moment in history."
+    And a directory named "tmp/aruba/.lolcommits/subdir" should not exist
     And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
     And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
     And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
@@ -78,13 +101,15 @@ Feature: Basic UI functionality
     Then a directory named "tmp/aruba/.lolcommits/test" should exist
     And a directory named "tmp/aruba/.lolcommits/randomgitrepo" should not exist
 
-  Scenario: last command should work when in a lolrepo
+  @wip
+  Scenario: last command should work properly when in a lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
     And I cd to "randomgitrepo"
     When I run `lolcommits --last`
     Then the exit status should be 0
 
+  @wip
   Scenario: last command should fail gracefully if not in a lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
@@ -93,6 +118,7 @@ Feature: Basic UI functionality
     Then the output should contain "There can't be any lolcommits since you are not in a git repository!"
     Then the exit status should be 1
 
+  @wip
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
