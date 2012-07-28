@@ -108,7 +108,7 @@ def do_capture
   capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
 
   if Choice.choices[:test]
-    puts "*** capturing in test mode"
+    puts "*** Capturing in test mode."
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
       :message        => Choice.choices[:msg],

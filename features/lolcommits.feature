@@ -66,7 +66,7 @@ Feature: Basic UI functionality
     Given a directory named "nothingtoseehere"
     When I cd to "nothingtoseehere"
     And I run `lolcommits --test --capture`
-    Then the output should contain "*** capturing in test mode"
+    Then the output should contain "*** Capturing in test mode."
     And the output should not contain "path does not exist (ArgumentError)"
     And the exit status should be 0 
 
