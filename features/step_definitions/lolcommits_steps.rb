@@ -23,3 +23,23 @@ Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name,
   step %{a git repository named "#{repo_name}"}
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}
 end
+
+When /^I run `(.*?)` and wait for output$/ do |command|
+  command = "cd #{current_dir} && #{command}"
+  @stdin, @stdout, @stderr = Open3.popen3(command)
+  @fields = Hash.new
+end
+
+Then /^I should be (prompted for|presented) "(.*?)"$/ do |_, prompt|
+  assert @stdout.read.to_s.include?(prompt)
+end
+
+When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
+  @fields[field] = input
+  @stdin.puts input
+end
+
+
+Then /^there should be (.*?) jpg(|s) in "(.*?)"$/ do |n, _, folder|
+  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
+end
