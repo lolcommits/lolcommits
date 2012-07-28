@@ -161,7 +161,9 @@ Choice.options do
     short "-l"
     desc "view the most recent lolcommit"
     action do
-      Launchy.open Configuration.most_recent
+      lolimage = configuration.most_recent
+      puts lolimage
+      Launchy.open lolimage
     end
   end
 
@@ -170,7 +172,7 @@ Choice.options do
     short "-b"
     desc "browse this repo's lolcommits"
     action do
-      Launchy.open Lolcommits.loldir
+      Launchy.open configuration.loldir
     end
   end
 
