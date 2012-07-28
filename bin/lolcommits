@@ -117,7 +117,7 @@ def do_capture
    )
     runner.run
 
-    Launchy.open(runner.main_image)
+    Launchy.open(runner.main_image) unless Configuration.is_fakecapture?
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
