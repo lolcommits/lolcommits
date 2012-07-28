@@ -9,7 +9,6 @@ Feature: Basic UI functionality
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-
     Then the output should contain "installed lolcommmit hook as:"
     And the output should contain "(to remove later, you can use: lolcommits --disable)"
     And a file named ".git/hooks/post-commit" should exist
@@ -19,7 +18,6 @@ Feature: Basic UI functionality
     Given a git repository named "lolenabled" with a "post-commit" hook
     When I cd to "lolenabled"
     And I successfully run `lolcommits --disable`
-
     Then the output should contain "removed"
     And a file named ".git/hooks/post-commit" should not exist
     And the exit status should be 0
@@ -62,7 +60,6 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --test --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
-
 
   @simulate-env
   Scenario: test capture should work regardless of whether in a git repository
