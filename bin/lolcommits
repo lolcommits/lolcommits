@@ -131,6 +131,12 @@ def do_configure
   configuration.do_configure! Choice.choices[:plugin]
 end
 
+def do_last
+  lolimage = configuration.most_recent
+  puts lolimage
+  Launchy.open lolimage
+end
+
 #
 # Command line parsing fun
 #
@@ -160,11 +166,6 @@ Choice.options do
     long "--last"
     short "-l"
     desc "view the most recent lolcommit"
-    action do
-      lolimage = configuration.most_recent
-      puts lolimage
-      Launchy.open lolimage
-    end
   end
 
   option :browse do
@@ -239,13 +240,15 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse] || Choice.choices[:plugins])
+if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:browse] || Choice.choices[:plugins])
   if Choice.choices[:capture]
     do_capture()
   elsif Choice.choices[:configure]
     do_configure()
   elsif Choice.choices[:show_config]
     puts configuration.user_configuration.to_yaml
+  elsif Choice.choices[:last]
+    do_last()
   else
     do_noargs()
   end
