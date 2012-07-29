@@ -151,6 +151,11 @@ def do_last
   Launchy.open lolimage
 end
 
+def show_plugins
+  names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
+  puts "Available plugins: #{names.join(', ')}"
+end
+
 #
 # Command line parsing fun
 #
@@ -211,8 +216,7 @@ Choice.options do
     desc "list all the available plugins to configure"
     long "--plugins"
     action do
-      names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
-      puts "Available Plugins: #{names.join(', ')}"
+      show_plugins
     end
   end
 

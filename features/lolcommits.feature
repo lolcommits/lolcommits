@@ -55,6 +55,12 @@ Feature: Basic UI functionality
     And a file named "../../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
     And there should be 1 jpg in "../../.lolcommits/testcapture"
 
+  @focus
+  Scenario: Show plugins
+    When I successfully run `lolcommits --plugins`
+    Then the output should contain a list of plugins
+
+  @focus
   Scenario: Configuring Plugin
     Given a git repository named "config-test"
     When I cd to "config-test"
@@ -66,7 +72,8 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
-    
+  
+  @focus
   Scenario: Configuring Plugin In Test Mode
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"

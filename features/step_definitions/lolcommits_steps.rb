@@ -51,3 +51,7 @@ end
 Then /^there should be (.*?) jpg(|s) in "(.*?)"$/ do |n, _, folder|
   assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
 end
+
+Then /^the output should contain a list of plugins$/ do
+  step %{the output should contain "Available plugins: "}
+end
