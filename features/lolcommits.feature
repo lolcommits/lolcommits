@@ -59,11 +59,30 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
 
+  #
+  # a stab at recreating ken's scenarios with native aruba steps, not quite there yet in terms
+  # of elegance, but its passing so might as well leave in for now.
+  #
+  Scenario: Configuring plugin (with native aruba steps)
+    Given a git repository named "config-test"
+    When I cd to "config-test"
+    And I run `lolcommits --config` interactively
+    When I type "loltext"
+    When I type "true"
+    Then the output should contain a list of plugins
+    And the output should contain "Name of plugin to configure:"
+    Then the output should contain "enabled:"
+    Then the output should contain "Successfully Configured"
+    And a file named "../.lolcommits/config-test/config.yml" should exist
+    When I successfully run `lolcommits --show-config`
+    Then the output should contain "loltext:"
+    And the output should contain "enabled: true"
+
   Scenario: Configuring Plugin
     Given a git repository named "config-test"
     When I cd to "config-test"
     And I run `lolcommits --config` and wait for output
-    And I enter "loltext" for "Plugin Name"
+    When I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
     Then I should be presented "Successfully Configured"
     And a file named "../.lolcommits/config-test/config.yml" should exist
