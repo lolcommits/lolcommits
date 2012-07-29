@@ -1,6 +1,5 @@
 Feature: Plugins Work
 
-  @simulate-env
   Scenario: Lolcommits.com integration works
     Given a git repository named "dot_com"
     And an empty file named "dot_com/FOOBAR"
@@ -18,7 +17,6 @@ Feature: Plugins Work
     Then the output should contain "*** Preserving this moment in history."
     And there should be 1 jpg in "tmp/aruba/.lolcommits/dot_com"
 
-  @simulate-env
   Scenario: Disable loltext
     Given a git repository named "loltext"
     And an empty file named "loltext/FOOBAR"

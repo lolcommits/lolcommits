@@ -29,7 +29,6 @@ Feature: Basic UI functionality
     Then the output should contain "You don't appear to be in the base directory of a git project."
     And the exit status should be 1
 
-  @simulate-env
   Scenario: Commiting in an enabled repo triggers successful capture
     Given a git repository named "testcapture"
     And an empty file named "testcapture/FOOBAR"
@@ -42,7 +41,6 @@ Feature: Basic UI functionality
     And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
     And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
 
-  @simulate-env @focus
   Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
     Given a git repository named "testcapture"
     And a directory named "testcapture/subdir"
@@ -58,7 +56,6 @@ Feature: Basic UI functionality
     And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
     And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
 
-  @simulate-env
   Scenario: Configuring Plugin
     Given a git repository named "config-test"
     When I cd to "config-test"
@@ -71,7 +68,6 @@ Feature: Basic UI functionality
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
     
-  @simulate-env
   Scenario: Configuring Plugin In Test Mode
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"
@@ -84,7 +80,6 @@ Feature: Basic UI functionality
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
 
-  @simulate-env
   Scenario: test capture should work regardless of whether in a git repository
     Given a directory named "nothingtoseehere"
     When I cd to "nothingtoseehere"
@@ -93,7 +88,6 @@ Feature: Basic UI functionality
     And the output should not contain "path does not exist (ArgumentError)"
     And the exit status should be 0 
 
-  @simulate-env
   Scenario: test capture should store in its own test directory
     Given a git repository named "randomgitrepo"
     When I cd to "randomgitrepo"

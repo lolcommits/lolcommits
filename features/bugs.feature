@@ -6,7 +6,6 @@ Feature: Bug regression testing
   #
   # issue #58, https://github.com/mroth/lolcommits/issues/58
   #
-  @simulate-env
   Scenario: handle git repos with spaces in directory name
     Given a git repository named "test lolol"
     And an empty file named "test lolol/FOOBAR"
