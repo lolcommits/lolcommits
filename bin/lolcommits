@@ -144,7 +144,10 @@ end
 def do_last
   die_if_not_git_repo!
   lolimage = configuration.most_recent
-  puts lolimage
+  if lolimage.nil?
+    puts "No lolcommits have been captured for this repository yet."
+    exit 1
+  end
   Launchy.open lolimage
 end
 
