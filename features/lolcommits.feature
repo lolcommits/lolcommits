@@ -126,3 +126,10 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should contain "No lolcommits have been captured for this repository yet."
     Then the exit status should be 1
+
+  @wip
+  Scenario: browse command should work properly when in a lolrepo
+
+  @wip
+  Scenario: browse command should fail gracefully when not in a lolrepo
+
