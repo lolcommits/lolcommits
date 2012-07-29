@@ -10,7 +10,7 @@ By default, the lolimages are stored by a Github style short SHA in a `~/.lolcom
 ## Installation (Mac OS X)
 You'll need ImageMagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
 
-	brew install imagemagick --from-source
+	brew install imagemagick
 
 Then simply do:
 
@@ -72,8 +72,11 @@ environment variables.
  * Set webcam device on mac - set `LOLCOMMITS_DEVICE` environment variable.
  * Set delay persistently (for slow to warmup webcams) - set
    `LOLCOMMITS_DELAY` var to time in seconds.
- * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - set
-   `LOLCOMMITS_TRANZLATE=1`.
+
+## Plugins
+
+ * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - do 
+   `lolcommits --config -p tranzlate` and set enabled to `true`.
 
 ## Contributing
 
