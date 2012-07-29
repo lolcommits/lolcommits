@@ -21,11 +21,12 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('rmagick', '~> 2.13.1')
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
-  s.add_runtime_dependency('launchy')
+  s.add_runtime_dependency('launchy', '~> 2.1.1')
 
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_development_dependency('rake','~> 0.9.2')
+
   s.add_dependency('methadone', '~>1.2.1')
   s.add_runtime_dependency('httmultiparty')
   s.add_runtime_dependency('active_support')

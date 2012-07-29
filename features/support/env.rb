@@ -19,12 +19,15 @@ Before do
 
   @original_loldir = ENV['LOLCOMMITS_DIR']
   ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )
+
+  ENV['LAUNCHY_DRY_RUN'] = 'true'
 end
 
 After do
   ENV['RUBYLIB'] = @original_rubylib
   ENV['LOLCOMMITS_FAKECAPTURE'] = @original_fakecapture
   ENV['LOLCOMMITS_DIR'] = @original_loldir
+  ENV['LAUNCHY_DRY_RUN'] = nil
 end
 
 # ###moved the below into env for everything
