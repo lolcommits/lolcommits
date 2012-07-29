@@ -66,9 +66,15 @@ module Lolcommits
       File.join self.loldir, "#{commit_sha}.jpg"
     end
 
+    def puts_plugins
+      names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
+      puts "Available plugins: #{names.join(', ')}"
+    end
+
     def do_configure!(plugin)
       if plugin.nil? || plugin.strip == ''
-        print "Plugin Name: "
+        puts_plugins
+        print "Name of plugin to configure: "
         plugin = STDIN.gets.strip
       end
 

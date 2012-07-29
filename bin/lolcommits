@@ -151,11 +151,6 @@ def do_last
   Launchy.open lolimage
 end
 
-def show_plugins
-  names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
-  puts "Available plugins: #{names.join(', ')}"
-end
-
 #
 # Command line parsing fun
 #
@@ -215,9 +210,6 @@ Choice.options do
   option :plugins do
     desc "list all the available plugins to configure"
     long "--plugins"
-    action do
-      show_plugins
-    end
   end
 
   option :test do
@@ -255,13 +247,15 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:plugins])
+if not (Choice.choices[:enable] || Choice.choices[:disable])
   if Choice.choices[:capture]
     do_capture()
   elsif Choice.choices[:configure]
     do_configure()
   elsif Choice.choices[:show_config]
     puts configuration.user_configuration.to_yaml
+  elsif Choice.choices[:plugins]
+    configuration.puts_plugins()
   elsif Choice.choices[:last]
     do_last()
   elsif Choice.choices[:browse]

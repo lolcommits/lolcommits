@@ -78,7 +78,7 @@ Feature: Basic UI functionality
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"
     And I run `lolcommits --configure --test` and wait for output
-    And I enter "loltext" for "Plugin Name"
+    And I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
     Then I should be presented "Successfully Configured"
     And a file named "../.lolcommits/test/config.yml" should exist
