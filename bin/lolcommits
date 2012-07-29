@@ -8,6 +8,8 @@ rescue LoadError
 end
 
 include Lolcommits
+require "launchy"
+require "choice"
 
 #
 # CHECK FOR FURTHER DEPENDENCIES
@@ -19,26 +21,30 @@ def command?(name)
   $?.success?
 end
 
-if is_mac?
-  # this dependency now satisfied with bundled copy of imagesnap
-  #if not command?('imagesnap')
-  #  puts "Couldn't find imagesnap in your PATH!"
-  #  puts "Easiest way to get it is to install homebrew and do `brew install imagesnap`"
-  #  exit 1
-  #end
-  unless File.executable? File.join(LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+if Configuration.is_mac?
+  unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
     puts "Couldn't properly execute imagesnap for some reason, please file a bug?!"
     exit 1
   end
-elsif is_linux?
+elsif Configuration.is_linux?
   if not command?('mplayer')
     puts "Couldn't find mplayer in your PATH!"
     exit 1
   end
 end
-unless File.readable? File.join(LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
   puts "Couldn't properly read Impact font from gem package, please file a bug?!"
   exit 1
+end
+
+def die_if_not_git_repo!
+  begin
+    g=Git.open('.')
+  rescue ArgumentError
+    # ruby-git throws an argument error if path isnt for a valid git repo...
+    puts "Erm? Can't do that since we're not in a valid git repository!"
+    exit 1
+  end
 end
 
 #
@@ -48,6 +54,7 @@ def do_noargs
   #TODO: make this a contextual helper to know status of whether lolcommits is enabled
   puts "Do what exactly?"
   puts "Try: lolcommits --enable   (when in a git repository)"
+  puts "Or:  lolcommits --help"
 end
 
 HOOK_PATH = File.join ".git", "hooks", "post-commit"
@@ -96,6 +103,14 @@ def do_disable
   end
 end
 
+def configuration
+  if Choice.choices[:test]
+    Configuration.new(:loldir => Configuration.loldir_for('test'))
+  else
+    Configuration.new
+  end
+end
+
 #
 # IF --CAPTURE, DO CAPTURE
 #
@@ -104,11 +119,37 @@ def do_capture
   capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
 
   if Choice.choices[:test]
-    puts "*** capturing in test mode"
-    Lolcommits.capture(capture_delay, capture_device, true, Choice.choices[:msg], Choice.choices[:sha])
+    puts "*** Capturing in test mode."
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device,
+      :message        => Choice.choices[:msg],
+      :sha            => Choice.choices[:sha],
+      :config         => configuration 
+   )
+    runner.run
+
+    Launchy.open(runner.main_image)
   else
-    Lolcommits.capture(capture_delay, capture_device)
+    runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
+      :capture_device => capture_device,
+      :config         => configuration 
+    )
+    runner.run
   end
+end
+
+def do_configure
+  configuration.do_configure! Choice.choices[:plugin]
+end
+
+def do_last
+  die_if_not_git_repo!
+  lolimage = configuration.most_recent
+  if lolimage.nil?
+    puts "No lolcommits have been captured for this repository yet."
+    exit 1
+  end
+  Launchy.open lolimage
 end
 
 #
@@ -140,18 +181,35 @@ Choice.options do
     long "--last"
     short "-l"
     desc "view the most recent lolcommit"
-    action do
-      Launchy.open Lolcommits.most_recent
-    end
   end
 
   option :browse do
     long "--browse"
     short "-b"
     desc "browse this repo's lolcommits"
-    action do
-      Launchy.open Lolcommits.loldir
-    end
+  end
+
+  option :configure do
+    long "--config"
+    desc "configure a plugin"
+  end
+
+  option :show_config do
+    short "-sc"
+    long  "--show-config"
+    desc "display configuration file"
+  end
+
+  option :plugin do
+    desc "pass plugin name for --config"
+    long "--plugin"
+    short "-p"
+    default nil
+  end
+
+  option :plugins do
+    desc "list all available plugins"
+    long "--plugins"
   end
 
   option :test do
@@ -160,14 +218,14 @@ Choice.options do
   end
 
   option :sha do
-    desc "pass SHA manually (for test only)"
+    desc "pass SHA manually [TEST-MODE]"
     long "--sha"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
 
   option :msg do
-    desc "pass commit msg manually (for test only)"
+    desc "pass commit msg manually [TEST-MODE]"
     long "--msg"
     short '-m'
     default "this is a test message i didnt really commit something"
@@ -189,9 +247,20 @@ end
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:last] || Choice.choices[:browse])
+if not (Choice.choices[:enable] || Choice.choices[:disable])
   if Choice.choices[:capture]
     do_capture()
+  elsif Choice.choices[:configure]
+    do_configure()
+  elsif Choice.choices[:show_config]
+    puts configuration.user_configuration.to_yaml
+  elsif Choice.choices[:plugins]
+    configuration.puts_plugins()
+  elsif Choice.choices[:last]
+    do_last()
+  elsif Choice.choices[:browse]
+    die_if_not_git_repo!
+    Launchy.open configuration.loldir
   else
     do_noargs()
   end

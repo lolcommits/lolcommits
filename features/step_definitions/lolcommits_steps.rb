@@ -23,3 +23,35 @@ Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name,
   step %{a git repository named "#{repo_name}"}
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}
 end
+
+When /^I run `(.*?)` and wait for output$/ do |command|
+  command = "cd #{current_dir} && #{command}"
+  @stdin, @stdout, @stderr = Open3.popen3(command)
+  @fields = Hash.new
+end
+
+Given /^a loldir named "(.*?)" with (\d+) lolimages$/ do |repo_name, num_images|
+  loldir = "tmp/aruba/.lolcommits/#{repo_name}"
+  mkdir_p loldir
+  num_images.to_i.times do
+    random_hex = "%011x" % (rand * 0xfffffffffff)
+    cp "test/images/test_image.jpg", File.join( loldir, "#{random_hex}.jpg")
+  end
+end
+
+Then /^I should be (prompted for|presented) "(.*?)"$/ do |_, prompt|
+  assert @stdout.read.to_s.include?(prompt)
+end
+
+When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
+  @fields[field] = input
+  @stdin.puts input
+end
+
+Then /^there should be (.*?) jpg(|s) in "(.*?)"$/ do |n, _, folder|
+  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
+end
+
+Then /^the output should contain a list of plugins$/ do
+  step %{the output should contain "Available plugins: "}
+end

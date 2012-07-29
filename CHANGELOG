@@ -1,6 +1,6 @@
-0.2.1 (in development)
+0.3.0 (in development)
   * fix bug involving git repositories with spaces in the name
-  * internal refactoring for modularity
+  * internal refactoring for modularity (thanks @kenmazaika!)
 
 0.2.0 (6 July 2012)
   * improved build system and testing with cucumber/methadone
