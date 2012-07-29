@@ -18,7 +18,7 @@ Before do
   ENV['LOLCOMMITS_FAKECAPTURE'] = "1"
 
   @original_loldir = ENV['LOLCOMMITS_DIR']
-  ENV['LOLCOMMITS_DIR'] = File.join(current_dir, ".lolcommits")
+  ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )
 end
 
 After do

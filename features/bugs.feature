@@ -15,7 +15,7 @@ Feature: Bug regression testing
     And I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
-    And a directory named "tmp/aruba/.lolcommits/test-lolol" should exist
+    And a directory named "../.lolcommits/test-lolol" should exist
 
 
   #

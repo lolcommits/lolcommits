@@ -15,7 +15,7 @@ Feature: Plugins Work
     When I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
-    And there should be 1 jpg in "tmp/aruba/.lolcommits/dot_com"
+    And there should be 1 jpg in "../.lolcommits/dot_com"
 
   Scenario: Disable loltext
     Given a git repository named "loltext"
@@ -29,5 +29,5 @@ Feature: Plugins Work
     When I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
-    And there should be 1 jpg in "tmp/aruba/.lolcommits/loltext"
+    And there should be 1 jpg in "../.lolcommits/loltext"
 

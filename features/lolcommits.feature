@@ -37,9 +37,9 @@ Feature: Basic UI functionality
     And I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
-    And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
-    And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
-    And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
+    And a directory named "../.lolcommits/testcapture" should exist
+    And a file named "../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
+    And there should be 1 jpg in "../.lolcommits/testcapture"
 
   Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
     Given a git repository named "testcapture"
@@ -51,10 +51,9 @@ Feature: Basic UI functionality
     And I successfully run `git add .`
     And I successfully run `git commit -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
-    And a directory named "tmp/aruba/.lolcommits/subdir" should not exist
-    And a directory named "tmp/aruba/.lolcommits/testcapture" should exist
-    And a file named "tmp/aruba/.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
-    And there should be 1 jpg in "tmp/aruba/.lolcommits/testcapture"
+    And a directory named "../../.lolcommits/testcapture" should exist
+    And a file named "../../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
+    And there should be 1 jpg in "../../.lolcommits/testcapture"
 
   Scenario: Configuring Plugin
     Given a git repository named "config-test"
@@ -63,7 +62,7 @@ Feature: Basic UI functionality
     And I enter "loltext" for "Plugin Name"
     And I enter "true" for "enabled"
     Then I should be presented "Successfully Configured"
-    And a file named "tmp/aruba/.lolcommits/config-test/config.yml" should exist
+    And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
@@ -75,7 +74,7 @@ Feature: Basic UI functionality
     And I enter "loltext" for "Plugin Name"
     And I enter "true" for "enabled"
     Then I should be presented "Successfully Configured"
-    And a file named "tmp/aruba/.lolcommits/test/config.yml" should exist
+    And a file named "../.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
@@ -92,8 +91,8 @@ Feature: Basic UI functionality
     Given a git repository named "randomgitrepo"
     When I cd to "randomgitrepo"
     And I successfully run `lolcommits --test --capture`
-    Then a directory named "tmp/aruba/.lolcommits/test" should exist
-    And a directory named "tmp/aruba/.lolcommits/randomgitrepo" should not exist
+    Then a directory named "../.lolcommits/test" should exist
+    And a directory named "../.lolcommits/randomgitrepo" should not exist
 
   @wip
   Scenario: last command should work properly when in a lolrepo
@@ -105,9 +104,8 @@ Feature: Basic UI functionality
 
   @wip
   Scenario: last command should fail gracefully if not in a lolrepo
-    Given a git repository named "randomgitrepo"
-    And a loldir named "randomgitrepo" with 2 lolimages
-    And I cd to "randomgitrepo"
+    Given a directory named "gitsuxcvs4eva"
+    And I cd to "gitsuxcvs4eva"
     When I run `lolcommits --last`
     Then the output should contain "There can't be any lolcommits since you are not in a git repository!"
     Then the exit status should be 1
@@ -115,7 +113,7 @@ Feature: Basic UI functionality
   @wip
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
     Given a git repository named "randomgitrepo"
-    And a loldir named "randomgitrepo" with 2 lolimages
+    #And a loldir named "randomgitrepo" with 0 lolimages
     And I cd to "randomgitrepo"
     When I run `lolcommits --last`
     Then the output should contain "No lolcommits have been captured for this repository yet."
