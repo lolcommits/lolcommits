@@ -94,7 +94,6 @@ Feature: Basic UI functionality
     Then a directory named "../.lolcommits/test" should exist
     And a directory named "../.lolcommits/randomgitrepo" should not exist
 
-  @wip
   Scenario: last command should work properly when in a lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
@@ -102,7 +101,6 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the exit status should be 0
 
-  @wip
   Scenario: last command should fail gracefully if not in a lolrepo
     Given a directory named "gitsuxcvs4eva"
     And I cd to "gitsuxcvs4eva"
@@ -110,7 +108,6 @@ Feature: Basic UI functionality
     Then the output should contain "Can't do that since we're not in a valid git repository!"
     Then the exit status should be 1
 
-  @wip @focus
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 0 lolimages
@@ -119,7 +116,6 @@ Feature: Basic UI functionality
     Then the output should contain "No lolcommits have been captured for this repository yet."
     Then the exit status should be 1
 
-  @wip
   Scenario: browse command should work properly when in a lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
@@ -127,7 +123,6 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
-  @wip
   Scenario: browse command should fail gracefully when not in a lolrepo
     Given a directory named "gitsuxcvs4eva"
     And I cd to "gitsuxcvs4eva"
