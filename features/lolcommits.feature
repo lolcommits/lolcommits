@@ -119,9 +119,19 @@ Feature: Basic UI functionality
     Then the output should contain "No lolcommits have been captured for this repository yet."
     Then the exit status should be 1
 
-  @wip
+  @wip @focus
   Scenario: browse command should work properly when in a lolrepo
+    Given a git repository named "randomgitrepo"
+    And a loldir named "randomgitrepo" with 2 lolimages
+    And I cd to "randomgitrepo"
+    When I run `lolcommits --browse`
+    Then the exit status should be 0
 
   @wip
   Scenario: browse command should fail gracefully when not in a lolrepo
+    Given a directory named "gitsuxcvs4eva"
+    And I cd to "gitsuxcvs4eva"
+    When I run `lolcommits --browse`
+    Then the output should contain "There can't be any lolcommits since you are not in a git repository!"
+    Then the exit status should be 1
 
