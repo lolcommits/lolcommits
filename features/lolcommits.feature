@@ -107,19 +107,19 @@ Feature: Basic UI functionality
     Given a directory named "gitsuxcvs4eva"
     And I cd to "gitsuxcvs4eva"
     When I run `lolcommits --last`
-    Then the output should contain "There can't be any lolcommits since you are not in a git repository!"
+    Then the output should contain "Can't do that since we're not in a valid git repository!"
     Then the exit status should be 1
 
-  @wip
+  @wip @focus
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
     Given a git repository named "randomgitrepo"
-    #And a loldir named "randomgitrepo" with 0 lolimages
+    And a loldir named "randomgitrepo" with 0 lolimages
     And I cd to "randomgitrepo"
     When I run `lolcommits --last`
     Then the output should contain "No lolcommits have been captured for this repository yet."
     Then the exit status should be 1
 
-  @wip @focus
+  @wip
   Scenario: browse command should work properly when in a lolrepo
     Given a git repository named "randomgitrepo"
     And a loldir named "randomgitrepo" with 2 lolimages
@@ -132,6 +132,6 @@ Feature: Basic UI functionality
     Given a directory named "gitsuxcvs4eva"
     And I cd to "gitsuxcvs4eva"
     When I run `lolcommits --browse`
-    Then the output should contain "There can't be any lolcommits since you are not in a git repository!"
+    Then the output should contain "Can't do that since we're not in a valid git repository!"
     Then the exit status should be 1
 

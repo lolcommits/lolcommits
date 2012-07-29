@@ -37,6 +37,16 @@ unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact
   exit 1
 end
 
+def die_if_not_git_repo!
+  begin
+    g=Git.open('.')
+  rescue ArgumentError
+    # ruby-git throws an argument error if path isnt for a valid git repo...
+    puts "Erm? Can't do that since we're not in a valid git repository!"
+    exit 1
+  end
+end
+
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
@@ -132,6 +142,7 @@ def do_configure
 end
 
 def do_last
+  die_if_not_git_repo!
   lolimage = configuration.most_recent
   puts lolimage
   Launchy.open lolimage
@@ -247,6 +258,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable] || Choice.choices[:p
   elsif Choice.choices[:last]
     do_last()
   elsif Choice.choices[:browse]
+    die_if_not_git_repo!
     Launchy.open configuration.loldir
   else
     do_noargs()
