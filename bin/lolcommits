@@ -54,6 +54,7 @@ def do_noargs
   #TODO: make this a contextual helper to know status of whether lolcommits is enabled
   puts "Do what exactly?"
   puts "Try: lolcommits --enable   (when in a git repository)"
+  puts "Or:  lolcommits --help"
 end
 
 HOOK_PATH = File.join ".git", "hooks", "post-commit"
@@ -127,7 +128,7 @@ def do_capture
    )
     runner.run
 
-    Launchy.open(runner.main_image) unless Configuration.is_fakecapture?
+    Launchy.open(runner.main_image)
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
@@ -189,26 +190,25 @@ Choice.options do
   end
 
   option :configure do
-    short "-conf"
-    long "--configure"
-    desc "configure plugin"
+    long "--config"
+    desc "configure a plugin"
   end
 
   option :show_config do
     short "-sc"
     long  "--show-config"
-    desc "show configuration yaml"
+    desc "display configuration file"
   end
 
   option :plugin do
-    desc "pass in plugin name manually"
+    desc "pass plugin name for --config"
     long "--plugin"
     short "-p"
     default nil
   end
 
   option :plugins do
-    desc "list all the available plugins to configure"
+    desc "list all available plugins"
     long "--plugins"
   end
 
@@ -218,14 +218,14 @@ Choice.options do
   end
 
   option :sha do
-    desc "pass SHA manually (for test only)"
+    desc "pass SHA manually [TEST-MODE]"
     long "--sha"
     short '-s'
     default "test-#{rand(10 ** 10)}"
   end
 
   option :msg do
-    desc "pass commit msg manually (for test only)"
+    desc "pass commit msg manually [TEST-MODE]"
     long "--msg"
     short '-m'
     default "this is a test message i didnt really commit something"

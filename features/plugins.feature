@@ -5,7 +5,7 @@ Feature: Plugins Work
     And an empty file named "dot_com/FOOBAR"
     When I cd to "dot_com"
     And I successfully run `lolcommits --enable`
-    And I run `lolcommits --configure` and wait for output
+    And I run `lolcommits --config` and wait for output
     And I enter "dot_com" for "Plugin Name"
     And I enter "true" for "enabled"
     And I enter "b2a70ac0b64e012fa61522000a8c42dc" for "api_key"
@@ -22,7 +22,7 @@ Feature: Plugins Work
     And an empty file named "loltext/FOOBAR"
     When I cd to "loltext"
     And I successfully run `lolcommits --enable`
-    And I run `lolcommits --configure` and wait for output
+    And I run `lolcommits --config` and wait for output
     And I enter "loltext" for "Plugin Name"
     And I enter "false" for "enabled"
     Then I should be presented "Successfully Configured"
