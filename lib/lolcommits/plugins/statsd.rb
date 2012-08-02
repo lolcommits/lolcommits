@@ -16,9 +16,9 @@ module Lolcommits
     def run
       $statsd = Statsd.new('23.20.178.143')
       if Configuration.is_fakecapture?
-        $statsd.increment 'app.lolcommits.captures'
-      else
         $statsd.increment 'app.lolcommits.fakecaptures'
+      else
+        $statsd.increment 'app.lolcommits.captures'
       end
     end
   end
