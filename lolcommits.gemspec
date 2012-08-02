@@ -30,4 +30,5 @@ Gem::Specification.new do |s|
   s.add_dependency('methadone', '~>1.2.1')
   s.add_runtime_dependency('httmultiparty')
   s.add_runtime_dependency('active_support')
+  s.add_runtime_dependency('statsd-ruby')
 end

@@ -1,6 +1,9 @@
 0.3.0 (in development)
   * fix bug involving git repositories with spaces in the name
-  * internal refactoring for modularity (thanks @kenmazaika!)
+  * internal refactoring for modularity (thanks @kenmazaika!), should be easier
+    to add new plugin features to lolcommits now.
+  * add some extremeley basic anonymous usage tracking (if this bugs you, you
+    can disable via disabling the `statsd` plugin).
 
 0.2.0 (6 July 2012)
   * improved build system and testing with cucumber/methadone
