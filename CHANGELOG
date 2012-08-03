@@ -1,4 +1,4 @@
-0.3.0 (in development)
+0.3.0 (3 August 2012)
   * fix bug involving git repositories with spaces in the name
   * internal refactoring for modularity (thanks @kenmazaika!), should be easier
     to add new plugin features to lolcommits now.
