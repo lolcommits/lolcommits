@@ -5,7 +5,7 @@ Given /^a git repository named "(.*?)"$/ do |repo_name|
   repo_dir = File.join current_dir, repo_name
   mkdir_p repo_dir
   Dir.chdir repo_dir do
-    sh "git init ."
+    sh "git init --quiet ."
   end
 end
 

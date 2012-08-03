@@ -17,11 +17,11 @@ Rake::TestTask.new do |t|
   t.pattern = 'test/test_*.rb'
 end
 
-
+Rake::FileUtilsExt.verbose(false)
 CUKE_RESULTS = 'results.html'
 CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features) do |t|
-  optstr = "features --format html -o #{CUKE_RESULTS} --format pretty --no-source -x"
+  optstr = "features --format html -o #{CUKE_RESULTS} --format Fivemat -x"
   optstr << " -t @#{ENV["tag"]}" unless ENV["tag"].nil?
   t.cucumber_opts = optstr
   t.fork = false
