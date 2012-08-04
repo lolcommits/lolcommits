@@ -1,3 +1,5 @@
+![lion](http://9.mshcdn.com/follow/uploads/topic/image/67/3d/84/a9/e6/29/thumb_mountain-lion-eb890e1974.png) **HAVING TROUBLE AFTER UPGRADING TO MOUNTAIN LION? [READ THIS.](https://github.com/mroth/lolcommits/issues/65)**
+
 # lolcommits (git + webcam = lol)
 
 Takes a snapshot with your Mac's built-in iSight/FaceTime webcam (or any working webcam on Linux) every time you git commit code, and archives a lolcat style image with it.
