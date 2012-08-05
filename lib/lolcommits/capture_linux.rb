@@ -1,8 +1,7 @@
 module Lolcommits
   class CaptureLinux < Capturer
     def capture
-      tmpdir = File.expand_path "#{Configuration.loldir}/tmpdir#{rand(1000)}/"
-      FileUtils.mkdir_p( tmpdir )
+      tmpdir = Dir.mktmpdir
       # There's no way to give a capture delay in mplayer, but a number of frame
       # I've found that 6 is a good value for me.
       frames = if capture_delay != 0 then capture_delay else 6 end
