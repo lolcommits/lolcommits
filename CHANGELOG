@@ -1,3 +1,6 @@
+0.3.1 (5 August 2012)
+  * fix regression with linux capture introduced in previous version
+
 0.3.0 (3 August 2012)
   * fix bug involving git repositories with spaces in the name
   * internal refactoring for modularity (thanks @kenmazaika!), should be easier
