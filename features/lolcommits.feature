@@ -39,7 +39,7 @@ Feature: Basic UI functionality
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "../.lolcommits/testcapture" should exist
     And a file named "../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
-    And there should be 1 jpg in "../.lolcommits/testcapture"
+    And there should be exactly 1 jpg in "../.lolcommits/testcapture"
 
   Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
     Given a git repository named "testcapture"
@@ -53,7 +53,7 @@ Feature: Basic UI functionality
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "../../.lolcommits/testcapture" should exist
     And a file named "../../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
-    And there should be 1 jpg in "../../.lolcommits/testcapture"
+    And there should be exactly 1 jpg in "../../.lolcommits/testcapture"
 
   Scenario: Show plugins
     When I successfully run `lolcommits --plugins`

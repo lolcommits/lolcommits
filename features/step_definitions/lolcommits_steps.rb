@@ -48,7 +48,7 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @stdin.puts input
 end
 
-Then /^there should be (.*?) jpg(|s) in "(.*?)"$/ do |n, _, folder|
+Then /^there should be (?:exactly|only) (.*?) jpg(?:s?) in "(.*?)"$/ do |n, folder|
   assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
 end
 
