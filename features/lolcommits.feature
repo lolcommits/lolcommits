@@ -15,8 +15,7 @@ Feature: Basic UI functionality
     And the exit status should be 0
 
   Scenario: Disable in a enabled git repository
-    Given a git repository named "lolenabled" with a "post-commit" hook
-    When I cd to "lolenabled"
+    Given I am in a git repository named "lolenabled" with lolcommits enabled
     And I successfully run `lolcommits --disable`
     Then the output should contain "removed"
     And a file named ".git/hooks/post-commit" should not exist
@@ -30,12 +29,8 @@ Feature: Basic UI functionality
     And the exit status should be 1
 
   Scenario: Commiting in an enabled repo triggers successful capture
-    Given a git repository named "testcapture"
-    And an empty file named "testcapture/FOOBAR"
-    When I cd to "testcapture"
-    And I successfully run `lolcommits --enable`
-    And I successfully run `git add .`
-    And I successfully run `git commit -m 'can haz commit'`
+    Given I am in a git repository named "testcapture" with lolcommits enabled
+    And I successfully run `git commit --allow-empty -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "../.lolcommits/testcapture" should exist
     And a file named "../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist

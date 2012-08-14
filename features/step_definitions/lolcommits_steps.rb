@@ -24,6 +24,14 @@ Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name,
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}
 end
 
+Given /^I am in a git repository named "(.*?)" with lolcommits enabled$/ do |repo_name|
+  steps %Q{
+    Given a git repository named "#{repo_name}"
+    And I cd to "#{repo_name}"
+    And I successfully run `lolcommits --enable`
+  }
+end
+
 When /^I run `(.*?)` and wait for output$/ do |command|
   command = "cd #{current_dir} && #{command}"
   @stdin, @stdout, @stderr = Open3.popen3(command)
