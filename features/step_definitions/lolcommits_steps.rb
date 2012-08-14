@@ -1,5 +1,11 @@
 include FileUtils
 
+Given /^I am in a directory named "(.*?)"$/ do |dir_name|
+  steps %Q{
+    Given a directory named "#{dir_name}"
+    And I cd to "#{dir_name}"
+  }
+end
 
 Given /^a git repository named "(.*?)"$/ do |repo_name|
   repo_dir = File.join current_dir, repo_name
