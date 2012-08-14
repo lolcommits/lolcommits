@@ -7,13 +7,8 @@ Feature: Bug regression testing
   # issue #58, https://github.com/mroth/lolcommits/issues/58
   #
   Scenario: handle git repos with spaces in directory name
-    Given a git repository named "test lolol"
-    And an empty file named "test lolol/FOOBAR"
-    
-    When I cd to "test lolol"
-    And I successfully run `lolcommits --enable`
-    And I successfully run `git add .`
-    And I successfully run `git commit -m 'can haz commit'`
+    Given I am in a git repository named "test lolol" with lolcommits enabled
+    And I successfully run `git commit --allow-empty -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "../.lolcommits/test-lolol" should exist
 
