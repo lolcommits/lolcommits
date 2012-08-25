@@ -3,6 +3,7 @@ require 'methadone/cucumber'
 require 'open3'
 require 'test/unit/assertions'
 include Test::Unit::Assertions
+require 'faker'
 
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')

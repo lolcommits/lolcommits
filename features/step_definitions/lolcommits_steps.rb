@@ -12,6 +12,8 @@ Given /^a git repository named "(.*?)"$/ do |repo_name|
   mkdir_p repo_dir
   Dir.chdir repo_dir do
     sh "git init --quiet ."
+    sh "git config user.name '#{Faker::Name.name}'"
+    sh "git config user.email '#{Faker::Internet.email}'"
   end
 end
 
@@ -68,4 +70,27 @@ end
 
 Then /^the output should contain a list of plugins$/ do
   step %{the output should contain "Available plugins: "}
+end
+
+When /^I do a git commit with commit message "(.*?)"$/ do |commit_msg|
+  filename = Faker::Lorem.words(1).first
+  step %{a 98 byte file named "#{filename}"}
+  step %{I successfully run `git add #{filename}`}
+  step %{I successfully run `git commit -m "#{commit_msg}"`}
+end
+
+When /^I do a git commit$/ do
+  commit_msg = Faker::Lorem.sentence
+  step %{I do a git commit with commit message "#{commit_msg}"}
+end
+
+When /^I do (\d+) git commits$/ do |n|
+  n.to_i.times do
+    step %{I do a git commit}
+  end
+end
+
+Then /^there should be (\d+) commit entries in the git log$/ do |n|
+  #sleep 1
+  assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
