@@ -12,8 +12,8 @@ Given /^a git repository named "(.*?)"$/ do |repo_name|
   mkdir_p repo_dir
   Dir.chdir repo_dir do
     sh "git init --quiet ."
-    sh "git config user.name '#{Faker::Name.name}'"
-    sh "git config user.email '#{Faker::Internet.email}'"
+    sh "git config user.name 'Testy McTesterson'"
+    sh "git config user.email 'testy@tester.com'"
   end
 end
 
