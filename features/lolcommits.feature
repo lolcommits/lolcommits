@@ -29,7 +29,7 @@ Feature: Basic UI functionality
 
   Scenario: Commiting in an enabled repo triggers successful capture
     Given I am in a git repository named "testcapture" with lolcommits enabled
-    When I successfully run `git commit --allow-empty -m 'can haz commit'`
+    When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testcapture" should exist
       And a file named "../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
@@ -40,8 +40,7 @@ Feature: Basic UI functionality
       And a directory named "subdir"
       And an empty file named "subdir/FOOBAR"
     When I cd to "subdir/"
-      And I successfully run `git add .`
-      And I successfully run `git commit -m 'can haz commit'`
+      And I do a git commit
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../../.lolcommits/testcapture" should exist
       And a directory named "../../.lolcommits/subdir" should not exist
