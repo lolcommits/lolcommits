@@ -43,17 +43,17 @@ For more details, see [Installing on Linux](https://github.com/mroth/lolcommits/
 See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
 
 ## Sample images
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample2.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample2.jpg" />
 &nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample5.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample5.jpg" />
 <br/>
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample4.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample4.jpg" />
 &nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample6.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample6.jpg" />
 <br/>
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample7.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample7.jpg" />
 &nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/sample8.jpg" />
+<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample8.jpg" />
 <br/>
 <a href="http://github.com/sfsekaran/"><img width='320' height='240' src="http://cl.ly/252S0o1J3x3n1b1k251N/d5f80e4f88a.jpg" /></a>
 &nbsp;
