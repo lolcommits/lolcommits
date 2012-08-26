@@ -31,15 +31,13 @@ Install dependencies using your package manager of choice, for example in Ubuntu
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
 
-On Fedora, enable the rpmfusion repository (for mplayer) and run:
-
-    sudo yum install ImageMagick ImageMagick-devel mplayer
-
 Then install the lolcommits gem:
 
     gem install lolcommits
 
 Then you can `lolcommits --enable` in any git repo as above.
+
+For more details, see [Installing on Linux](https://github.com/mroth/lolcommits/wiki/Installing-on-Linux).
 
 ## Installation (Windows)
 See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
