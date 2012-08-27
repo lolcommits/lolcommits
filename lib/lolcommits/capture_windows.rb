@@ -1,7 +1,7 @@
 module Lolcommits
   class CaptureWindows < Capturer
     def capture
-      commandcam_exe = File.join Configuration::LOLCOMMITS_ROOT, "ext", "CommandCam", "CommandCam.exe"
+      commandcam_exe = File.join Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "CommandCam", "CommandCam.exe"
       # DirectShow takes a while to show... at least for me anyway
       delaycmd = " /delay 3000"
       if capture_delay > 0

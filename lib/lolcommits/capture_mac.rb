@@ -11,7 +11,7 @@ module Lolcommits
     private
 
     def imagesnap_bin
-      File.join(Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
     end
   end
 end
