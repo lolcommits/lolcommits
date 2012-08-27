@@ -22,7 +22,7 @@ def command?(name)
 end
 
 if Configuration.is_mac?
-  unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "ext", "imagesnap", "imagesnap")
+  unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
     puts "Couldn't properly execute imagesnap for some reason, please file a bug?!"
     exit 1
   end
