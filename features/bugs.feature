@@ -49,25 +49,3 @@ Feature: Bug regression testing
     # Then there should be 6 commit entries in the git log
     # But there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
 
-
-    # Given I am in a git repository named "yuh8history" with lolcommits enabled
-    #   And I do a git commit with commit message "a commit"
-    #   And I successfully run `git checkout -b experiment`
-    #   And I do a git commit with commit message "another commit"
-    #   And I do a git commit with commit message "yet another fine commit"
-    #   And I successfully run `git checkout master`
-    #   And I do a git commit with commit message "back on mastah"
-    # When I successfully run `git rebase experiment`
-    # Then there should be 4 commit entries in the git log
-    # But there should be only 4 jpgs in "../.lolcommits/yuh8history"
-
-  #
-  # issue #53, https://github.com/mroth/lolcommits/issues/53
-  #
-  #@fake-root @simulate-env
-  #Scenario: error if can't read font file
-  #  Given "fonts/Impact.ttf" packaged file is not readable
-  #  When I run `lolcommits --test --capture`
-  #  Then the output should contain "Couldn't properly read Impact font from gem package"
-  #  And the exit status should be 1
-
