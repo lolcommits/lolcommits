@@ -32,7 +32,7 @@ elsif Configuration.is_linux?
     exit 1
   end
 end
-unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
   puts "Couldn't properly read Impact font from gem package, please file a bug?!"
   exit 1
 end

@@ -12,7 +12,7 @@ module Lolcommits
     def run
       canvas = ImageList.new(self.runner.main_image)
       draw = Magick::Draw.new
-      draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "fonts", "Impact.ttf")
+      draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
 
       draw.fill   = 'white'
       draw.stroke = 'black'
