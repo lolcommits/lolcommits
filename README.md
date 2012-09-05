@@ -12,7 +12,7 @@ By default, the lolimages are stored by a Github style short SHA in a `~/.lolcom
 ## Installation (Mac OS X)
 You'll need ImageMagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
 
-	brew install imagemagick
+	brew install --build-from-source imagemagick
 
 Then simply do:
 
