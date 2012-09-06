@@ -5,11 +5,9 @@ rvm:
  - 1.9.3
  - ruby-head
 
-# potentially not needed since everything about actual image capture is stubbed?
-# try removing from now to see if it speeds up travis builds and saves resources for the OSS community!
-#before_install:
-# - sudo apt-get update -qq
-# - sudo apt-get install -qq -y mplayer libmagick9-dev
+before_install:
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq -y mplayer libmagick9-dev
 
 #test against ruby-head as well so we know what's coming down the pipe
 matrix:
