@@ -78,15 +78,5 @@ environment variables.
  * TRANZLATE YOAR COMMIT_MSG TO LOLSPEKK - do 
    `lolcommits --config -p tranzlate` and set enabled to `true`.
 
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Added some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
-
-Please, if at all possible, write a passing test for the functionality you added.
-
 ## Troubles?
 Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
