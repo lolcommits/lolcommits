@@ -109,11 +109,11 @@ module Lolcommits
     end
 
     def self.is_mac?
-      RUBY_PLATFORM.downcase.include?("darwin")
+      RUBY_PLATFORM.to_s.downcase.include?("darwin")
     end
 
     def self.is_linux?
-      RUBY_PLATFORM.downcase.include?("linux")
+      RUBY_PLATFORM.to_s.downcase.include?("linux")
     end
 
     def self.is_windows?
