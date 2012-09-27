@@ -71,7 +71,7 @@ module Lolcommits
       puts "Available plugins: #{names.join(', ')}"
     end
 
-    def do_configure!(plugin)
+    def do_configure!(plugin, forced_options=nil)
       if plugin.nil? || plugin.strip == ''
         puts_plugins
         print "Name of plugin to configure: "
@@ -90,14 +90,19 @@ module Lolcommits
         return
       end
 
-      options = plugin_object.options.inject(Hash.new) do |acc, option|
-        print "#{option}: "
-        val = STDIN.gets.strip
-        val = true  if val == 'true'
-        val = false if val == 'false'
+      if forced_options.nil?
+        options = plugin_object.options.inject(Hash.new) do |acc, option|
+          print "#{option}: "
+          val = STDIN.gets.strip
+          val = true  if val == 'true'
+          val = false if val == 'false'
 
-        acc.merge(option => val)
+          acc.merge(option => val)
+        end
+      else
+        options = forced_options
       end
+
       config = self.user_configuration || Hash.new
       config[plugin] = options
       File.open(self.user_configuration_file, 'w') do |f| 
