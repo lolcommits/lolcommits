@@ -22,6 +22,7 @@ require 'lolcommits/plugins/loltext'
 require 'lolcommits/plugins/dot_com'
 require 'lolcommits/plugins/tranzlate'
 require 'lolcommits/plugins/statsd'
+require 'lolcommits/plugins/lol_twitter'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'
