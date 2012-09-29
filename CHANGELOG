@@ -1,3 +1,6 @@
+0.3.2 (in development)
+  * Twitter posting support via the `twitter` plugin! (thx @coyboyrushforth!)
+
 0.3.1 (5 August 2012)
   * fix regression with linux capture introduced in previous version
 
