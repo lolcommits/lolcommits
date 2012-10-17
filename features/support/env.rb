@@ -38,10 +38,10 @@ end
 
 Before('@fake-interactive-rebase') do
   # in order to fake an interactive rebase, 
-  # we replace the editor with a script that simply squashes every other commit
+  # we replace the editor with a script that simply squashes a few random commits
   @original_git_editor = ENV['GIT_EDITOR']
-  # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'"
-  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'"
+  # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'" #every other commit
+  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'" #lines 3-5
 end
 
 After('@fake-interactive-rebase') do
