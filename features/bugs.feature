@@ -15,6 +15,14 @@ Feature: Bug regression testing
   #
   # issue #68, https://github.com/mroth/lolcommits/issues/68
   #
+  @focus @fake-interactive-rebase @slow
+  Scenario: Don't trigger capture during a git rebase
+    Given I am in a git repository named "yuh8history" with lolcommits enabled
+      And I do 10 git commits
+    When I successfully run `git rebase -i HEAD~9`
+    # Then there should be 4 commit entries in the git log
+    Then there should be exactly 10 jpgs in "../.lolcommits/yuh8history"
+
   #@focus
   #Scenario: Don't trigger capture during a git rebase
   #  Given I am in a git repository named "yuh8history" with lolcommits enabled

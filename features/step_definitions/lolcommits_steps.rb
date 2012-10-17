@@ -87,10 +87,12 @@ end
 When /^I do (\d+) git commits$/ do |n|
   n.to_i.times do
     step %{I do a git commit}
+    sleep 0.3
   end
 end
 
 Then /^there should be (\d+) commit entries in the git log$/ do |n|
-  #sleep 1
+  sleep 1 #let the file writing catch up
   assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
+

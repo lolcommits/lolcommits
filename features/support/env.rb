@@ -35,3 +35,15 @@ After do
   ENV['HOME'] = @original_home
   ENV['LAUNCHY_DRY_RUN'] = nil
 end
+
+Before('@fake-interactive-rebase') do
+  # in order to fake an interactive rebase, 
+  # we replace the editor with a script that simply squashes every other commit
+  @original_git_editor = ENV['GIT_EDITOR']
+  # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'"
+  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'"
+end
+
+After('@fake-interactive-rebase') do
+  ENV['GIT_EDITOR'] = @original_git_editor
+end
