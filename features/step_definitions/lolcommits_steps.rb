@@ -87,7 +87,7 @@ end
 When /^I do (\d+) git commits$/ do |n|
   n.to_i.times do
     step %{I do a git commit}
-    sleep 0.3
+    sleep 0.1
   end
 end
 
