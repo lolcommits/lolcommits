@@ -47,3 +47,7 @@ end
 After('@fake-interactive-rebase') do
   ENV['GIT_EDITOR'] = @original_git_editor
 end
+
+Before('@slow_process') do
+  @aruba_io_wait_seconds = 3
+end

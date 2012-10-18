@@ -15,7 +15,7 @@ Feature: Bug regression testing
   #
   # issue #68, https://github.com/mroth/lolcommits/issues/68
   #
-  @fake-interactive-rebase @slow
+  @fake-interactive-rebase @slow_process
   Scenario: Don't trigger capture during a git rebase
     Given I am in a git repository named "yuh8history" with lolcommits enabled
       And I do 6 git commits
