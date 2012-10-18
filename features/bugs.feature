@@ -15,45 +15,10 @@ Feature: Bug regression testing
   #
   # issue #68, https://github.com/mroth/lolcommits/issues/68
   #
-  @focus @fake-interactive-rebase @slow
+  @fake-interactive-rebase @slow
   Scenario: Don't trigger capture during a git rebase
     Given I am in a git repository named "yuh8history" with lolcommits enabled
       And I do 6 git commits
     When I successfully run `git rebase -i HEAD~5`
     # Then there should be 4 commit entries in the git log
     Then there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
-
-  #@focus
-  #Scenario: Don't trigger capture during a git rebase
-  #  Given I am in a git repository named "yuh8history" with lolcommits enabled
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vA'`
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vB'`
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vC'`
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vD'`
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vE'`
-  #    And I do a git commit
-  #    And I successfully run `git tag 'vF'`
-  #    And I successfully run `git checkout vB`
-  #    And I successfully run `git reset --soft master`
-  #    And I successfully run `git merge --squash vD`
-  #  When I successfully run `git rebase --onto $(cat .git/HEAD) vE vF`
-  #  # When I successfully run `git rebase placeholder`
-  #  Then there should be 4 commit entries in the git log
-  #  # But there should be exactly 5 jpgs in "../.lolcommits/yuh8history"
-
-    # Given I am in a git repository named "yuh8history" with lolcommits enabled
-    #   And I do 2 git commits
-    #   And I successfully run `git branch middle`
-    #   And I do 2 git commits
-    #   And I successfully run `git branch placeholder`
-    #   And I successfully run `git checkout middle`
-    #   And I do 2 git commits
-    # When I successfully run `git rebase placeholder`
-    # Then there should be 6 commit entries in the git log
-    # But there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
-
