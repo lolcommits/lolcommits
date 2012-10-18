@@ -4,7 +4,7 @@ module Lolcommits
 
   class Runner
     attr_accessor :capture_delay, :capture_device, :message, :sha,
-      :snapshot_loc, :main_image, :repo, :config
+      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path
 
     include ActiveSupport::Callbacks
     define_callbacks :run
@@ -27,10 +27,13 @@ module Lolcommits
         git_info = GitInfo.new
         self.sha = git_info.sha if self.sha.nil?
         self.message = git_info.message if self.message.nil?
+        self.repo_internal_path = git_info.repo_internal_path
       end
     end
 
     def run
+      die_if_rebasing!
+
       run_callbacks :run do
         puts "*** Preserving this moment in history."
         self.snapshot_loc = self.config.raw_image
@@ -47,6 +50,14 @@ module Lolcommits
   end
 
   protected
+  def die_if_rebasing!
+    if not self.repo_internal_path.nil?
+      mergeclue = File.join self.repo_internal_path, "rebase-merge"
+      if File.directory? mergeclue
+        exit 0
+      end
+    end
+  end
 
   def resize_snapshot!
     canvas = ImageList.new(self.snapshot_loc)
