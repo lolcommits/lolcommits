@@ -1,5 +1,5 @@
-0.3.3 (in development)
-  * prevent repeated firing of lolcommits capture during a git rebase
+0.3.3 (26 November 2012)
+  * BUG: prevent repeated firing of lolcommits capture during a git rebase.
 
 0.3.2 (3 October 2012)
   * Twitter posting support via the `twitter` plugin! (thx @coyboyrushforth!)
