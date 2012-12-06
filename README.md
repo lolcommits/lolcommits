@@ -80,3 +80,9 @@ environment variables.
 
 ## Troubles?
 Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
+
+## Timelapse?
+
+To watch your face as it decays while you program, you can create a quick mpeg of all your lolcommits snapshots (if you have `imagemagick` and `ffmpeg` installed):
+
+    convert `find . -type f -name "*.jpg" -print0 | xargs -0 ls -tlr | awk '{print $9}'` timelapse.mpeg
