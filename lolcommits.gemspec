@@ -18,22 +18,26 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  # core gem dependencies
   s.add_runtime_dependency('rmagick', '~> 2.13.1')
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.1.1')
-  s.add_runtime_dependency("twitter")
-  s.add_runtime_dependency("oauth")
+  s.add_runtime_dependency('methadone', '~>1.2.1')
+  s.add_runtime_dependency('active_support')
 
+  # development dependencies
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba')
   s.add_development_dependency('rake','~> 10.0.2')
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
 
-  s.add_dependency("rest-client")
-  s.add_dependency('methadone', '~>1.2.1')
-  s.add_runtime_dependency('httmultiparty')
-  s.add_runtime_dependency('active_support')
+  # plugin dependencies
+  s.add_runtime_dependency("twitter") #twitter
+  s.add_runtime_dependency("oauth")
+  s.add_runtime_dependency("rest-client")
+  s.add_runtime_dependency('httmultiparty') #dot_com
   s.add_runtime_dependency('statsd-ruby')
+
 end
