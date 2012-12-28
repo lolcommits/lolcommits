@@ -61,11 +61,20 @@ module Lolcommits
   end
 
   def resize_snapshot!
-    image = Sorcery.new(self.snapshot_loc)
-    if (image.dimensions[:x].to_i > 640 || image.dimensions[:y].to_i > 480)
-      # canvas.resize_to_fill!(640,480)
-      # Remember this requires IM v6.3.8-3 or greater to make use of it. Otherwise use the older Resizing to Fill a Given Space technique below.
-      image.convert(self.snapshot_loc, { :resize => '640x480^', :gravity => 'center', :extent => '640x480'})
+    # if (image.dimensions[:x].to_i > 640 || image.dimensions[:y].to_i > 480)
+    #   # canvas.resize_to_fill!(640,480)
+    #   # Remember this requires IM v6.3.8-3 or greater to make use of it. Otherwise use the older Resizing to Fill a Given Space technique below.
+    #   image.convert(self.snapshot_loc, { :resize => '640x480^', :gravity => 'center', :extent => '640x480'})
+    # end
+    image = MiniMagick::Image.open(self.snapshot_loc)
+    if (image[:width] > 640 || image[:height] > 480)
+      #this is ghetto resize-to-fill
+      image.combine_options do |c|
+        c.resize '640x480^'
+        c.gravity 'center'
+        c.extent '640x480'
+      end
+      image.write self.snapshot_loc
     end
     FileUtils.cp(self.snapshot_loc, self.main_image)
   end

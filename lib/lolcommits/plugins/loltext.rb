@@ -10,6 +10,12 @@ module Lolcommits
     end
 
     def run
+      mm_run
+    end
+
+    # use imagesorcery wrapper
+    # will work once my patches are accepted if i want to go this route
+    def is_run
       font_location = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
 
       image = Sorcery.new(self.runner.main_image)
@@ -37,7 +43,40 @@ module Lolcommits
 
     end
 
-    # def oldrun
+    # use minimagick wrapper
+    def mm_run
+      font_location = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+
+      image = MiniMagick::Image.open(self.runner.main_image)
+      image.combine_options do |c|
+        c.gravity 'SouthWest'
+        c.fill 'white'
+        c.stroke 'black'
+        c.strokewidth '2'
+        c.pointsize '48'
+        c.interline_spacing '-9'
+        c.font font_location
+        c.annotate '0', word_wrap(self.runner.message)
+      end
+
+      # image = Sorcery.new(self.runner.main_image)
+      image.combine_options do |c|
+        c.gravity 'NorthEast'
+        c.fill 'white'
+        c.stroke 'black'
+        c.strokewidth '2'
+        c.pointsize '32'
+        # c.interline_spacing '-9'
+        c.font font_location
+        c.annotate '0', self.runner.sha
+      end
+
+      image.write self.runner.main_image
+
+    end
+
+    # use Rmagick wrapper (deprecated, no longer works in IM6.10+)
+    # def rm_run
     #   canvas = ImageList.new(self.runner.main_image)
     #   draw = Magick::Draw.new
     #   draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
