@@ -1,6 +1,6 @@
 module Lolcommits
   class Loltext < Plugin
-    include Magick
+    # include Magick
 
     def initialize(runner)
       super
@@ -10,28 +10,56 @@ module Lolcommits
     end
 
     def run
-      canvas = ImageList.new(self.runner.main_image)
-      draw = Magick::Draw.new
-      draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+      font_location = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
 
-      draw.fill   = 'white'
-      draw.stroke = 'black'
+      image = Sorcery.new(self.runner.main_image)
+      image.convert(self.runner.main_image, {
+        :gravity => 'SouthWest',
+        :fill => 'white',
+        :stroke => 'black',
+        :strokewidth => '2',
+        :pointsize => '48',
+        :'interline-spacing' => '-9',
+        :font => font_location,
+        :annotate => "0 \"#{word_wrap self.runner.message}\""
+      })
 
-      draw.annotate(canvas, 0, 0, 0, 0, self.runner.sha) do
-        self.gravity = NorthEastGravity
-        self.pointsize = 32
-        self.stroke_width = 2
-      end
+      image = Sorcery.new(self.runner.main_image)
+      image.convert(self.runner.main_image, {
+        :gravity => 'NorthEast',
+        :fill => 'white',
+        :stroke => 'black',
+        :strokewidth => '2',
+        :pointsize => '32',
+        :font => font_location,
+        :annotate => "0 \"#{self.runner.sha}\""
+      })
 
-      draw.annotate(canvas, 0, 0, 0, 0, word_wrap(self.runner.message)) do
-        self.gravity = SouthWestGravity
-        self.pointsize = 48
-        self.interline_spacing = -(48 / 5) if self.respond_to?(:interline_spacing)
-        self.stroke_width = 2
-      end
-
-      canvas.write(runner.main_image)
     end
+
+    # def oldrun
+    #   canvas = ImageList.new(self.runner.main_image)
+    #   draw = Magick::Draw.new
+    #   draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+
+    #   draw.fill   = 'white'
+    #   draw.stroke = 'black'
+
+    #   draw.annotate(canvas, 0, 0, 0, 0, self.runner.sha) do
+    #     self.gravity = NorthEastGravity
+    #     self.pointsize = 32
+    #     self.stroke_width = 2
+    #   end
+
+    #   draw.annotate(canvas, 0, 0, 0, 0, word_wrap(self.runner.message)) do
+    #     self.gravity = SouthWestGravity
+    #     self.pointsize = 48
+    #     self.interline_spacing = -(48 / 5) if self.respond_to?(:interline_spacing)
+    #     self.stroke_width = 2
+    #   end
+
+    #   canvas.write(runner.main_image)
+    # end
 
     private
 

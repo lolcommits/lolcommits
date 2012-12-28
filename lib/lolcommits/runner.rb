@@ -61,11 +61,12 @@ module Lolcommits
   end
 
   def resize_snapshot!
-    canvas = ImageList.new(self.snapshot_loc)
-    if (canvas.columns > 640 || canvas.rows > 480)
-      canvas.resize_to_fill!(640,480)
+    image = Sorcery.new(self.snapshot_loc)
+    if (image.dimensions[:x].to_i > 640 || image.dimensions[:y].to_i > 480)
+      # canvas.resize_to_fill!(640,480)
+      # Remember this requires IM v6.3.8-3 or greater to make use of it. Otherwise use the older Resizing to Fill a Given Space technique below.
+      image.convert(self.snapshot_loc, { :resize => '640x480^', :gravity => 'center', :extent => '640x480'})
     end
-    canvas.write(self.snapshot_loc)
     FileUtils.cp(self.snapshot_loc, self.main_image)
   end
 

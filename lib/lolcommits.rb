@@ -2,6 +2,7 @@ $:.unshift File.expand_path('.')
 
 require 'core_ext/class'
 require 'RMagick'
+require 'image_sorcery'
 require 'fileutils'
 require 'git'
 require 'open3'

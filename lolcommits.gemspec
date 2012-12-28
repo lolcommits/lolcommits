@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
 
   # core gem dependencies
   s.add_runtime_dependency('rmagick', '~> 2.13.1')
+  # s.add_runtime_dependency('image_sorcery', '~> 1.0.7')
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.1.1')
