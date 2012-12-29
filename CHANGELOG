@@ -1,6 +1,6 @@
 0.4.0 (in development)
   * Switch the main ImageMagick wrapper from RMagick to mini_magick
-    - fix for RMagick not working with ImageMagick 6.10+ and generally
+    - fix for RMagick not working with ImageMagick 6.8+ and generally
       being a buggy unmaintained piece of crap
     - this should also result in less problems with IM version changes
     - some preliminary test work on using image_sorcery instead too
