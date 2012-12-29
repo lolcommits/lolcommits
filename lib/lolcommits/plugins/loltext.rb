@@ -25,7 +25,7 @@ module Lolcommits
         c.pointsize '48'
         c.interline_spacing '-9'
         c.font font_location
-        c.annotate '0', word_wrap(self.runner.message)
+        c.annotate '0', clean_msg(self.runner.message)
       end
 
       image.combine_options do |c|
@@ -68,6 +68,18 @@ module Lolcommits
 
     private
 
+    # do whatever is required to commit message to get it clean and ready for imagemagick
+    def clean_msg(text)
+      wrapped_text = word_wrap text
+      escape_quotes wrapped_text
+    end
+
+    # conversion for quotation marks to avoid shell interpretation 
+    # does not seem to be a safe way to escape cross-platform?
+    def escape_quotes(text)
+      text.gsub(/"/, "''")
+    end
+    
     # convenience method for word wrapping
     # based on https://github.com/cmdrkeene/memegen/blob/master/lib/meme_generator.rb
     def word_wrap(text, col = 27)

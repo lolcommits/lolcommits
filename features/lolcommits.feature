@@ -140,3 +140,8 @@ Feature: Basic UI functionality
     Then the output should contain "Can't do that since we're not in a valid git repository!"
       And the exit status should be 1
 
+  Scenario: handle commit messages with quotation marks
+    Given I am in a git repository named "shellz" with lolcommits enabled
+    When I successfully run `git commit --allow-empty -m 'i hate \"air quotes\" dont you'`
+    Then the exit status should be 0
+      And there should be exactly 1 jpg in "../.lolcommits/shellz"

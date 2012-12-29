@@ -5,6 +5,7 @@
     - this should also result in less problems with IM version changes
     - some preliminary test work on using image_sorcery instead too
     - perhaps finally kill issue #9 from continually resurfacing
+  * make sure quotes are properly handled in commit messages
 
 0.3.4 (27 December 2012)
   * Add uploldz plugin for posting to a remote server (thx @cnvandev)
