@@ -23,13 +23,13 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.1.1')
-  s.add_runtime_dependency('methadone', '~>1.2.1')
-  s.add_runtime_dependency('active_support')
+  s.add_runtime_dependency('methadone', '~> 1.2.4')
+  s.add_runtime_dependency('active_support', '~> 3.0.0')
 
   # development dependencies
   s.add_development_dependency('rdoc')
-  s.add_development_dependency('aruba')
-  s.add_development_dependency('rake','~> 10.0.2')
+  s.add_development_dependency('aruba', '~> 0.5.1')
+  s.add_development_dependency('rake',' ~> 10.0.2')
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
 
@@ -38,6 +38,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency("oauth") #twitter
   s.add_runtime_dependency("rest-client") #uploldz
   s.add_runtime_dependency('httmultiparty') #dot_com
-  s.add_runtime_dependency('statsd-ruby') #statsd
+  s.add_runtime_dependency('statsd-ruby', '~> 1.1.0') #statsd
 
 end
