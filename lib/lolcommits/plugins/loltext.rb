@@ -1,6 +1,5 @@
 module Lolcommits
   class Loltext < Plugin
-    # include Magick
 
     def initialize(runner)
       super
@@ -11,36 +10,6 @@ module Lolcommits
 
     def run
       mm_run
-    end
-
-    # use imagesorcery wrapper
-    # will work once my patches are accepted if i want to go this route
-    def is_run
-      font_location = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
-
-      image = Sorcery.new(self.runner.main_image)
-      image.convert(self.runner.main_image, {
-        :gravity => 'SouthWest',
-        :fill => 'white',
-        :stroke => 'black',
-        :strokewidth => '2',
-        :pointsize => '48',
-        :'interline-spacing' => '-9',
-        :font => font_location,
-        :annotate => "0 \"#{word_wrap self.runner.message}\""
-      })
-
-      image = Sorcery.new(self.runner.main_image)
-      image.convert(self.runner.main_image, {
-        :gravity => 'NorthEast',
-        :fill => 'white',
-        :stroke => 'black',
-        :strokewidth => '2',
-        :pointsize => '32',
-        :font => font_location,
-        :annotate => "0 \"#{self.runner.sha}\""
-      })
-
     end
 
     # use minimagick wrapper
@@ -59,20 +28,17 @@ module Lolcommits
         c.annotate '0', word_wrap(self.runner.message)
       end
 
-      # image = Sorcery.new(self.runner.main_image)
       image.combine_options do |c|
         c.gravity 'NorthEast'
         c.fill 'white'
         c.stroke 'black'
         c.strokewidth '2'
         c.pointsize '32'
-        # c.interline_spacing '-9'
         c.font font_location
         c.annotate '0', self.runner.sha
       end
 
       image.write self.runner.main_image
-
     end
 
     # use Rmagick wrapper (deprecated, no longer works in IM6.10+)

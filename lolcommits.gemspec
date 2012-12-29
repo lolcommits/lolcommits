@@ -19,9 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # core gem dependencies
-  s.add_runtime_dependency('rmagick', '~> 2.13.1')
   s.add_runtime_dependency('mini_magick', '~> 3.4')
-  # s.add_runtime_dependency('image_sorcery', '~> 1.0.7')
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.1.1')
@@ -37,9 +35,9 @@ Gem::Specification.new do |s|
 
   # plugin dependencies
   s.add_runtime_dependency("twitter") #twitter
-  s.add_runtime_dependency("oauth")
-  s.add_runtime_dependency("rest-client")
+  s.add_runtime_dependency("oauth") #twitter
+  s.add_runtime_dependency("rest-client") #uploldz
   s.add_runtime_dependency('httmultiparty') #dot_com
-  s.add_runtime_dependency('statsd-ruby')
+  s.add_runtime_dependency('statsd-ruby') #statsd
 
 end
