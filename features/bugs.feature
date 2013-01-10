@@ -26,7 +26,6 @@ Feature: Bug regression testing
   #
   # issue #80, https://github.com/mroth/lolcommits/issues/80
   #
-  @focus
   Scenario: don't warn about system_timer (on MRI 1.8.7)
     When I successfully run `lolcommits`
     Then the output should not contain "Faraday: you may want to install system_timer for reliable timeouts"
@@ -34,7 +33,6 @@ Feature: Bug regression testing
   #
   # issue #81, https://github.com/mroth/lolcommits/issues/81
   #
-  @focus
   Scenario: don't want to see initialized constant warning from Faraday on CLI (on MRI 1.8.7)
     When I successfully run `lolcommits`
     Then the output should not contain "warning: already initialized constant DEFAULT_BOUNDARY"
