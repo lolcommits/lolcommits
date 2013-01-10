@@ -1,6 +1,10 @@
 require 'yaml'
-require 'twitter'
 require 'oauth'
+
+# twitter gem currently spams stdout when activated, surpress warnings just during the inital require
+original_verbose, $VERBOSE = $VERBOSE, nil # Supress warning messages.
+  require 'twitter'
+$VERBOSE = original_verbose # Activate warning messages again.
 
 TWITTER_CONSUMER_KEY = 'qc096dJJCxIiqDNUqEsqQ'
 TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
