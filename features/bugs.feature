@@ -22,3 +22,20 @@ Feature: Bug regression testing
     When I successfully run `git rebase -i HEAD~5`
     # Then there should be 4 commit entries in the git log
     Then there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
+
+  #
+  # issue #80, https://github.com/mroth/lolcommits/issues/80
+  #
+  @focus
+  Scenario: don't warn about system_timer (on MRI 1.8.7)
+    When I successfully run `lolcommits`
+    Then the output should not contain "Faraday: you may want to install system_timer for reliable timeouts"
+
+  #
+  # issue #81, https://github.com/mroth/lolcommits/issues/81
+  #
+  @focus
+  Scenario: don't want to see initialized constant warning from Faraday on CLI (on MRI 1.8.7)
+    When I successfully run `lolcommits`
+    Then the output should not contain "warning: already initialized constant DEFAULT_BOUNDARY"
+  
