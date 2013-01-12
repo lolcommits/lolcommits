@@ -4,7 +4,6 @@ rvm:
  - 1.9.2
  - 1.9.3
  - ruby-head
- - jruby
 
 before_install:
 # - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192
@@ -15,7 +14,6 @@ before_install:
 matrix:
   allow_failures:
     - rvm: ruby-head
-    - rvm: jruby
 
 branches:
   except:
