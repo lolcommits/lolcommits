@@ -42,25 +42,7 @@ For more details, see [Installing on Linux](https://github.com/mroth/lolcommits/
 See the wiki page for [Installing on Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
 
 ## Sample images
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample2.jpg" />
-&nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample5.jpg" />
-<br/>
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample4.jpg" />
-&nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample6.jpg" />
-<br/>
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample7.jpg" />
-&nbsp;
-<img width='320' height='240' src="https://github.com/mroth/lolcommits/raw/gh-pages/assets/img/sample_old/sample8.jpg" />
-<br/>
-<a href="http://github.com/sfsekaran/"><img width='320' height='240' src="http://cl.ly/252S0o1J3x3n1b1k251N/d5f80e4f88a.jpg" /></a>
-&nbsp;
-<a href="http://github.com/codegoblin/"><img width='320' height='240' src="http://cl.ly/2R0u040D2E2k0Y03240B/19bda811539.jpg" /></a>
-<br/>
-<img width='320' height='240' src="https://p.twimg.com/AqE73M1CMAAerqL.jpg" />
-&nbsp;
-<img width='320' height='240' src="https://p.twimg.com/Aq9T0X9CAAAZ8gW.jpg" />
+<img src="http://blog.mroth.info/images/postcontent/yearinsideprojects/lolcommits_users2.jpg" />
 
 Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
 
