@@ -1,4 +1,4 @@
-0.4.0 (in development)
+0.4.0 (13 January 2013)
   * Switch the main ImageMagick wrapper from RMagick to mini_magick
     - fix for RMagick not working with ImageMagick 6.8+ and generally
       being a buggy unmaintained piece of crap
