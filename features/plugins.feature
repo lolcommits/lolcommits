@@ -22,3 +22,15 @@ Feature: Plugins Work
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
     And there should be exactly 1 jpg in "../.lolcommits/loltext"
+
+  Scenario: lolsrv integration works
+    Given I am in a git repository named "lolsrv" with lolcommits enabled
+    When I run `lolcommits --config` and wait for output
+    And I enter "lolsrv" for "Plugin Name"
+    And I enter "true" for "enabled"
+    And I enter "http://localhost" for "server"
+    Then I should be presented "Successfully Configured"
+    When I do a git commit
+    Then the output should contain "*** Preserving this moment in history."
+    And there should be exactly 1 jpg in "../.lolcommits/lolsrv"
+    
