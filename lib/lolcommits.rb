@@ -8,6 +8,7 @@ require 'open3'
 require 'active_support/inflector'
 require 'active_support/concern'
 require 'active_support/callbacks'
+require 'methadone'
 
 require 'lolcommits/version'
 require 'lolcommits/configuration'

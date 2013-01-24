@@ -4,7 +4,8 @@ module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_device, :message, :sha,
       :snapshot_loc, :main_image, :repo, :config, :repo_internal_path
-
+    
+    include Methadone::CLILogging
     include ActiveSupport::Callbacks
     define_callbacks :run
     set_callback :run, :before, :execute_lolcommits_tranzlate
@@ -51,15 +52,18 @@ module Lolcommits
 
   protected
   def die_if_rebasing!
+    debug "Runner: Making sure user isn't rebasing"
     if not self.repo_internal_path.nil?
       mergeclue = File.join self.repo_internal_path, "rebase-merge"
       if File.directory? mergeclue
+        debug "Runner: Rebase detected, silently exiting!"
         exit 0
       end
     end
   end
 
   def resize_snapshot!
+    debug "Runner: resizing snapshot"
     image = MiniMagick::Image.open(self.snapshot_loc)
     if (image[:width] > 640 || image[:height] > 480)
       #this is ghetto resize-to-fill
@@ -68,12 +72,15 @@ module Lolcommits
         c.gravity 'center'
         c.extent '640x480'
       end
+      debug "Runner: writing resized image to #{self.snapshot_loc}"
       image.write self.snapshot_loc
     end
+    debug "Runner: copying resized image to #{self.main_image}"
     FileUtils.cp(self.snapshot_loc, self.main_image)
   end
 
   def cleanup!
+    debug "Runner: running cleanup"
     #clean up the captured image
     FileUtils.rm(self.snapshot_loc)
   end

@@ -5,7 +5,9 @@ module Lolcommits
     end
 
     def capture
-      system("#{imagesnap_bin} -q \"#{snapshot_location}\" -w #{capture_delay} #{capture_device_string}")
+      call_str = "#{imagesnap_bin} -q \"#{snapshot_location}\" -w #{capture_delay} #{capture_device_string}"
+      debug "Capturer: making system call for #{call_str}"
+      system(call_str)
     end
 
     private
