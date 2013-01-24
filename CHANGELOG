@@ -1,3 +1,8 @@
+0.4.1 (in development)
+  * add lolsrv plugin
+  * restructure logging slightly to use Methadone::CLILogging in most places
+  * add a bunch of debugging output, viewable via --debug flag
+
 0.4.0 (13 January 2013)
   * Switch the main ImageMagick wrapper from RMagick to mini_magick
     - fix for RMagick not working with ImageMagick 6.8+ and generally
