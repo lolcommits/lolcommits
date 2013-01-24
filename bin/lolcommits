@@ -255,7 +255,8 @@ Choice.options do
 end
 
 # Set debug level if needed
-if Choice.choices[:debug]
+debug_mode = Choice.choices[:debug] || ENV['LOLCOMMITS_DEBUG'] || nil
+if debug_mode
   logger.level = Logger::DEBUG
   debug "Outputting at DEBUG verbosity"
 end
