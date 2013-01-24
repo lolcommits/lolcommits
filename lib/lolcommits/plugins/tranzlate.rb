@@ -10,7 +10,9 @@ module Lolcommits
     end
 
     def run
+      plugdebug "Commit message before: #{self.runner.message}"
       self.runner.message = self.runner.message.tranzlate
+      plugdebug "Commit message after: #{self.runner.message}"
     end
   end
 end

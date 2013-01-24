@@ -16,6 +16,7 @@ module Lolcommits
     def mm_run
       font_location = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
 
+      plugdebug "Annotating image via MiniMagick"
       image = MiniMagick::Image.open(self.runner.main_image)
       image.combine_options do |c|
         c.gravity 'SouthWest'
@@ -38,6 +39,7 @@ module Lolcommits
         c.annotate '0', self.runner.sha
       end
 
+      plugdebug "Writing changed file to #{self.runner.main_image}"
       image.write self.runner.main_image
     end
 
