@@ -39,5 +39,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
   s.add_runtime_dependency('statsd-ruby', '~> 1.2.0') #statsd
+  s.add_runtime_dependency('json', '~> 1.7.6')        #lolsrv
 
 end
