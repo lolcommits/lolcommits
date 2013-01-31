@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.1.1')
   s.add_runtime_dependency('methadone', '~> 1.2.4')
+  s.add_runtime_dependency('open4', '~> 1.3.0')
   s.add_runtime_dependency('active_support', '~> 3.0.0')
 
   # development dependencies
