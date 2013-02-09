@@ -3,8 +3,9 @@ module Lolcommits
 
   class Runner
     attr_accessor :capture_delay, :capture_device, :message, :sha,
-      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path
-    
+      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
+      :font
+
     include Methadone::CLILogging
     include ActiveSupport::Callbacks
     define_callbacks :run
@@ -24,7 +25,7 @@ module Lolcommits
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end
-      
+
       if self.sha.nil? || self.message.nil?
         git_info = GitInfo.new
         self.sha = git_info.sha if self.sha.nil?
@@ -41,9 +42,10 @@ module Lolcommits
         self.snapshot_loc = self.config.raw_image
         self.main_image   = self.config.main_image(self.sha)
         capturer = "Lolcommits::Capture#{Configuration.platform}".constantize.new(
-          :capture_device    => self.capture_device, 
-          :capture_delay     => self.capture_delay, 
-          :snapshot_location => self.snapshot_loc
+          :capture_device    => self.capture_device,
+          :capture_delay     => self.capture_delay,
+          :snapshot_location => self.snapshot_loc,
+          :font              => self.font
         )
         capturer.capture
         resize_snapshot!
@@ -86,7 +88,7 @@ module Lolcommits
     FileUtils.rm(self.snapshot_loc)
   end
 
-  # register a method called "execute_lolcommits_#{plugin_name}" 
+  # register a method called "execute_lolcommits_#{plugin_name}"
   # for each subclass of plugin.  these methods should be used as
   # callbacks to the run method.
   Lolcommits::PLUGINS.each do |plugin|
