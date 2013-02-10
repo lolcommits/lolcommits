@@ -4,7 +4,7 @@ module Lolcommits
     def initialize(runner)
       super
 
-      @font_location = runner.font
+      @font_location = runner ? runner.font : nil
 
       self.name    = 'loltext'
       self.default = true
