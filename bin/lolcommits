@@ -121,6 +121,7 @@ end
 def do_capture
   capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
   capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
+  capture_font = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
 
   if Choice.choices[:test]
     info "*** Capturing in test mode."
@@ -128,7 +129,8 @@ def do_capture
       :capture_device => capture_device,
       :message        => Choice.choices[:msg],
       :sha            => Choice.choices[:sha],
-      :config         => configuration 
+      :config         => configuration,
+      :font           => capture_font
    )
     runner.run
 
@@ -136,7 +138,8 @@ def do_capture
   else
     runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
       :capture_device => capture_device,
-      :config         => configuration 
+      :config         => configuration,
+      :font           => capture_font
     )
     runner.run
   end
@@ -250,6 +253,12 @@ Choice.options do
   option :debug do
     long "--debug"
     desc "Output debugging information"
+  end
+
+  option :font do
+    long "--font=FONT_PATH"
+    short "-f"
+    desc "pass font file location"
   end
 
 end

@@ -56,6 +56,7 @@ environment variables.
  * Set webcam device on mac - set `LOLCOMMITS_DEVICE` environment variable.
  * Set delay persistently (for slow to warmup webcams) - set
    `LOLCOMMITS_DELAY` var to time in seconds.
+ * Set font file location - set `LOLCOMMITS_FONT` environment variable.
 
 For the full list, see the [configuration variables](https://github.com/mroth/lolcommits/wiki/Configuration-Variables).
 
