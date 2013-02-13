@@ -58,7 +58,7 @@ end
 Before('@fake-no-imagemagick') do
 
   # make a new subdir that still contains git
-  tmpbindir = File.join @dirs, "bingit"
+  tmpbindir = File.expand_path(File.join @dirs, "bingit")
   FileUtils.mkdir_p tmpbindir
   whichgit = Configuration::command_which('git')
   FileUtils.ln_s whichgit, File.join(tmpbindir, File.basename(whichgit))
