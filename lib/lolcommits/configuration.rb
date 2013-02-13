@@ -137,7 +137,6 @@ module Lolcommits
       MiniMagick::valid_version_installed?
     end
 
-    protected
     # Cross-platform way of finding an executable in the $PATH.
     # idea taken from http://bit.ly/qDaTbY
     #

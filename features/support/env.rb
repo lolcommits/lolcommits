@@ -4,6 +4,8 @@ require 'open3'
 require 'test/unit/assertions'
 include Test::Unit::Assertions
 require 'faker'
+require 'lolcommits/configuration'
+include Lolcommits
 
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')
@@ -52,8 +54,14 @@ Before('@slow_process') do
   @aruba_io_wait_seconds = 3
 end
 
+# adjust the path so tests dont see a global imagemagick install
 Before('@fake-no-imagemagick') do
-  # adjust the path so tests dont see a global imagemagick install
+
+  # make a new subdir that still contains git
+  tmpbindir = File.join @dirs, "bingit"
+  FileUtils.mkdir_p tmpbindir
+  whichgit = Configuration::command_which('git')
+  FileUtils.ln_s whichgit, File.join(tmpbindir, File.basename(whichgit))
 
   # use a modified version of Configuration::command_which to detect where IM is installed
   # and remove that from the path
@@ -67,6 +75,9 @@ Before('@fake-no-imagemagick') do
     }
     found_cmd
   end
+
+  # add the temporary directory with git in it back into the path
+  newpaths << tmpbindir 
 
   @original_path = ENV['PATH']
   ENV['PATH'] = newpaths.join(File::PATH_SEPARATOR)
