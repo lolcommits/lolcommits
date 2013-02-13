@@ -57,11 +57,15 @@ end
 # adjust the path so tests dont see a global imagemagick install
 Before('@fake-no-imagemagick') do
 
-  # make a new subdir that still contains git
-  tmpbindir = File.expand_path(File.join @dirs, "bingit")
+  # make a new subdir that still contains git and mplayer
+  tmpbindir = File.expand_path(File.join @dirs, "bin")
   FileUtils.mkdir_p tmpbindir
-  whichgit = Configuration::command_which('git')
-  FileUtils.ln_s whichgit, File.join(tmpbindir, File.basename(whichgit))
+  ["git","mplayer"].each do |cmd|
+    whichcmd = Configuration::command_which(cmd)
+    unless whichcmd.nil?
+      FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
+    end
+  end
 
   # use a modified version of Configuration::command_which to detect where IM is installed
   # and remove that from the path
