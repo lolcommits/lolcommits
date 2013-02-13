@@ -37,3 +37,11 @@ Feature: Bug regression testing
     When I successfully run `lolcommits`
     Then the output should not contain "warning: already initialized constant DEFAULT_BOUNDARY"
   
+  #
+  # issue #87, https://github.com/mroth/lolcommits/issues/87
+  #
+  @fake-no-imagemagick
+  Scenario: gracefully fail when imagemagick is not installed
+    When I run `lolcommits`
+    Then the output should contain "ImageMagick does not appear to be properly installed"
+    And the exit status should be 1

@@ -129,5 +129,29 @@ module Lolcommits
       (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
     end
 
+    def self.valid_imagemagick_installed?
+      return false unless self.command_which('identify')
+      return false unless self.command_which('mogrify')
+      # you'd expect the below to work on its own, but it only handles old versions
+      # and will throw an exception if IM is not installed in PATH
+      MiniMagick::valid_version_installed?
+    end
+
+    protected
+    # Cross-platform way of finding an executable in the $PATH.
+    # idea taken from http://bit.ly/qDaTbY
+    #
+    #   which('ruby') #=> /usr/bin/ruby
+    def self.command_which(cmd)
+      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+        exts.each { |ext|
+          exe = "#{path}/#{cmd}#{ext}"
+          return exe if File.executable? exe
+        }
+      end
+      return nil
+    end
+
   end
 end

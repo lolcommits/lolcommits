@@ -51,3 +51,27 @@ end
 Before('@slow_process') do
   @aruba_io_wait_seconds = 3
 end
+
+Before('@fake-no-imagemagick') do
+  # adjust the path so tests dont see a global imagemagick install
+
+  # use a modified version of Configuration::command_which to detect where IM is installed
+  # and remove that from the path
+  cmd = 'mogrify'
+  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+  newpaths = ENV['PATH'].split(File::PATH_SEPARATOR).reject do |path|
+    found_cmd = false
+    exts.each { |ext|
+      exe = "#{path}/#{cmd}#{ext}"
+      found_cmd = true if File.executable? exe
+    }
+    found_cmd
+  end
+
+  @original_path = ENV['PATH']
+  ENV['PATH'] = newpaths.join(File::PATH_SEPARATOR)
+end
+
+After('@fake-no-imagemagick') do
+  ENV['PATH'] = @original_path
+end

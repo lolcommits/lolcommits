@@ -2,7 +2,7 @@
   * add lolsrv plugin (thx @sebastianmarr!, #82)
   * enable feature to change font (thx @fukayatsu!, #89) 
   * correct activesupport gem name in bundle (thx @djbender!, #90)
-  * TODO: better detection of imagemagick not being installed (#87)
+  * graceful detection of imagemagick not being installed (#87)
   * restructure logging slightly to use Methadone::CLILogging in most places
   * add a bunch of debugging output, viewable via --debug flag
 

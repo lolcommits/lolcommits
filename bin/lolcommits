@@ -39,6 +39,10 @@ unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts
   fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
   exit 1
 end
+unless Configuration.valid_imagemagick_installed?
+  fatal "FATAL: ImageMagick does not appear to be properly installed!"
+  exit 1
+end
 
 def die_if_not_git_repo!
   begin
