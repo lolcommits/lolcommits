@@ -1,4 +1,8 @@
-0.4.1 (in development)
+0.4.2 (in development)
+  * TODO: figure out problems with GUI clients
+  * TODO: figure out ruby 2.0 compatibility and testing
+
+0.4.1 (17 February 2013)
   * add lolsrv plugin (thx @sebastianmarr!, #82)
   * enable feature to change font (thx @fukayatsu!, #89) 
   * correct activesupport gem name in bundle (thx @djbender!, #90)
