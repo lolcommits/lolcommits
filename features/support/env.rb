@@ -61,7 +61,7 @@ Before('@fake-no-imagemagick') do
   tmpbindir = File.expand_path(File.join @dirs, "bin")
   FileUtils.mkdir_p tmpbindir
   ["git","mplayer"].each do |cmd|
-    whichcmd = Configuration::command_which(cmd)
+    whichcmd = Lolcommits::Configuration.command_which(cmd)
     unless whichcmd.nil?
       FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
     end
