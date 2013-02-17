@@ -51,7 +51,8 @@ After('@fake-interactive-rebase') do
 end
 
 Before('@slow_process') do
-  @aruba_io_wait_seconds = 3
+  @aruba_io_wait_seconds = 5
+  @aruba_timeout_seconds = 60
 end
 
 # adjust the path so tests dont see a global imagemagick install
