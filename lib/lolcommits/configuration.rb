@@ -137,6 +137,10 @@ module Lolcommits
       MiniMagick::valid_version_installed?
     end
 
+    def self.git_config_color_always?
+      `git config color.ui`.chomp =~ /always/
+    end
+
     # Cross-platform way of finding an executable in the $PATH.
     # idea taken from http://bit.ly/qDaTbY
     #

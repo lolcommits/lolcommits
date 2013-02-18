@@ -1,6 +1,7 @@
 0.4.2 (in development)
   * TODO: figure out problems with GUI clients
   * TODO: figure out ruby 2.0 compatibility and testing
+  * gracefully detect upstream issue with git color.ui being set to always (#50)
 
 0.4.1 (17 February 2013)
   * add lolsrv plugin (thx @sebastianmarr!, #82)

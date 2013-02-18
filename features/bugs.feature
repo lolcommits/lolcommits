@@ -45,3 +45,14 @@ Feature: Bug regression testing
     When I run `lolcommits`
     Then the output should contain "ImageMagick does not appear to be properly installed"
     And the exit status should be 1
+
+  #
+  # issue #50, https://github.com/mroth/lolcommits/issues/50
+  #
+  Scenario: catch upstream bug with ruby-git and color=always
+    Given I am in a git repository named "whatev" with lolcommits enabled
+    And I successfully run `git config color.ui always`
+    When I run `lolcommits`
+    Then the output should contain "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
+    And the output should contain "Try setting it to 'auto' instead!"
+    And the exit status should be 1

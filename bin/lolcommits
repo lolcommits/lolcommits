@@ -43,6 +43,11 @@ unless Configuration.valid_imagemagick_installed?
   fatal "FATAL: ImageMagick does not appear to be properly installed!"
   exit 1
 end
+if Configuration.git_config_color_always?
+  fatal "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
+  fatal "Try setting it to 'auto' instead!"
+  exit 1
+end
 
 def die_if_not_git_repo!
   begin
