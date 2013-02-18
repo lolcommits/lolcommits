@@ -6,9 +6,10 @@ rvm:
  - 2.0.0
 
 before_install:
-# - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192
- # - sudo apt-get update -qq
- - sudo apt-get install -qq -y mplayer #imagemagick libmagickwand-dev
+ # imagemagick is installed by default on normal travis image now
+ - sudo apt-get update -qq
+ - sudo apt-get install -qq -y mplayer 
+ # - sudo apt-get install -qq -y imagemagick libmagickwand-dev
 
 matrix:
   allow_failures:
