@@ -3,17 +3,16 @@ rvm:
  - 1.8.7
  - 1.9.2
  - 1.9.3
- - ruby-head
+ - 2.0.0
 
 before_install:
 # - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 16126D3A3E5C1192
  - sudo apt-get update -qq
  - sudo apt-get install -qq -y mplayer imagemagick libmagickwand-dev
 
-#test against ruby-head as well so we know what's coming down the pipe
 matrix:
   allow_failures:
-    - rvm: ruby-head
+    - rvm: 2.0.0
 
 branches:
   except:
