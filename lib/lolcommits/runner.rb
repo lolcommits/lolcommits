@@ -31,6 +31,7 @@ module Lolcommits
         self.sha = git_info.sha if self.sha.nil?
         self.message = git_info.message if self.message.nil?
         self.repo_internal_path = git_info.repo_internal_path
+        self.repo = git_info.repo
       end
     end
 
