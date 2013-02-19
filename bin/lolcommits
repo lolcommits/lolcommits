@@ -24,29 +24,31 @@ def command?(name)
   $?.success?
 end
 
-if Configuration.is_mac?
-  unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
-    fatal "Couldn't properly execute imagesnap for some reason, please file a bug?!"
+def die_on_fatal_conditions!
+  if Configuration.is_mac?
+    unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
+      fatal "Couldn't properly execute imagesnap for some reason, please file a bug?!"
+      exit 1
+    end
+  elsif Configuration.is_linux?
+    if not command?('mplayer')
+      fatal "Couldn't find mplayer in your PATH!"
+      exit 1
+    end
+  end
+  unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+    fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
     exit 1
   end
-elsif Configuration.is_linux?
-  if not command?('mplayer')
-    fatal "Couldn't find mplayer in your PATH!"
+  unless Configuration.valid_imagemagick_installed?
+    fatal "FATAL: ImageMagick does not appear to be properly installed!"
     exit 1
   end
-end
-unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
-  fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
-  exit 1
-end
-unless Configuration.valid_imagemagick_installed?
-  fatal "FATAL: ImageMagick does not appear to be properly installed!"
-  exit 1
-end
-if Configuration.git_config_color_always?
-  fatal "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
-  fatal "Try setting it to 'auto' instead!"
-  exit 1
+  if Configuration.git_config_color_always?
+    fatal "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
+    fatal "Try setting it to 'auto' instead!"
+    exit 1
+  end
 end
 
 def die_if_not_git_repo!
@@ -278,6 +280,11 @@ if debug_mode
   logger.level = Logger::DEBUG
   debug "Outputting at DEBUG verbosity"
 end
+
+#
+# check for fatal conditions before execution
+#
+die_on_fatal_conditions!
 
 #
 # Handle actions manually since choice seems weird
