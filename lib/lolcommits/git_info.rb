@@ -14,8 +14,8 @@ module Lolcommits
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
       regex = /.*[:\/](\w*).git/
-      match = g.remote.url.match regex
-      self.repo = match[1]
+      match = g.remote.url.match regex if g.remote.url
+      self.repo = match[1] if match
       
       debug "GitInfo: parsed the following values from commit:"
       debug "GitInfo: \t#{self.message}"
