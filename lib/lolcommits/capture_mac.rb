@@ -1,7 +1,7 @@
 module Lolcommits
   class CaptureMac < Capturer
     def capture_device_string
-      @capture_device.nil? ? nil : "-d #{@capture_device.gsub(' ','\ ')}"
+      @capture_device.nil? ? nil : "-d \"#{@capture_device}\""
     end
 
     def capture
