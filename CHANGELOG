@@ -1,8 +1,8 @@
 0.5.x (in development)
   * TODO: figure out problems with GUI clients
-  * TODO: figure out ruby 2.0 compatibility and testing
 
 0.4.2 (in development)
+  * fix ruby 2.0 compatibility (#91)
   * gracefully detect upstream issue with git color.ui being set to always (#50)
   * handle external capture devices with special characters in name (#93)
   * fixes to the uploldz plugin (#92)

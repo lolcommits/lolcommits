@@ -11,9 +11,9 @@ before_install:
  - sudo apt-get install -qq -y mplayer 
  # - sudo apt-get install -qq -y imagemagick libmagickwand-dev
 
-matrix:
-  allow_failures:
-    - rvm: 2.0.0
+# matrix:
+  # allow_failures:
+    # - rvm: 2.0.0
 
 branches:
   except:
