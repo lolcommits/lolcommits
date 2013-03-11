@@ -13,12 +13,16 @@ module Lolcommits
     end
 
     def run
+      repo = self.runner.repo.to_s
       if configuration['endpoint'].empty?
         puts "Endpoint URL is empty, please run lolcommits --config to add one."
+      elsif repo.empty?
+        puts "Repo is empty, skipping upload"
       else
-        RestClient.post(configuration['endpoint'],
+        plugdebug "Calling " + configuration['endpoint'] + " with repo " + repo
+        RestClient.post(configuration['endpoint'], 
           :file => File.new(self.runner.main_image),
-          :repo => self.runner.repo)
+          :repo => repo)
       end
 
     end
