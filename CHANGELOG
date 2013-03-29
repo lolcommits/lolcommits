@@ -1,5 +1,8 @@
-0.4.3 (in development)
+0.4.4 (in development)
   * TODO: figure out problems with GUI clients
+
+0.4.3 (29 March 2013)
+  * bump mini_magick dependency to deal with security alert
 
 0.4.2 (11 March 2013)
   * fix ruby 2.0 compatibility (#91)
