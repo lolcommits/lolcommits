@@ -1,6 +1,6 @@
 Feature: Plugins Work
 
-  @slow_process
+  @slow_process @unstable
   Scenario: Lolcommits.com integration works
     Given I am in a git repository named "dot_com" with lolcommits enabled
     When I run `lolcommits --config` and wait for output
