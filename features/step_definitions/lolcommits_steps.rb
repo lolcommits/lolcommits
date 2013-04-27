@@ -64,8 +64,8 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @stdin.puts input
 end
 
-Then /^there should be (?:exactly|only) (.*?) jpg(?:s?) in "(.*?)"$/ do |n, folder|
-  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
+Then /^there should be (?:exactly|only) (.*?) (jpg|gif)(?:s?) in "(.*?)"$/ do |n, type, folder|
+  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.#{type}"].count
 end
 
 Then /^the output should contain a list of plugins$/ do
