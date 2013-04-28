@@ -145,3 +145,17 @@ Feature: Basic UI functionality
     When I successfully run `git commit --allow-empty -m 'i hate \"air quotes\" dont you'`
     Then the exit status should be 0
       And there should be exactly 1 jpg in "../.lolcommits/shellz"
+
+  Scenario: generate gif should store in its own archive directory
+    Given I am in a git repository named "randomgitrepo" with lolcommits enabled
+      And a loldir named "randomgitrepo" with 2 lolimages
+    When I successfully run `lolcommits -g`
+    Then the output should contain "Generating animated gif."
+    And a directory named "../.lolcommits/randomgitrepo/archive" should exist
+    And a file named "../.lolcommits/randomgitrepo/archive/archive.gif" should exist
+
+  Scenario: generate gif with argument 'today'
+    Given I am in a git repository named "randomgitrepo" with lolcommits enabled
+      And a loldir named "randomgitrepo" with 2 lolimages
+    When I successfully run `lolcommits -g today`
+      And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"

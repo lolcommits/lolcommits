@@ -9,6 +9,7 @@ require 'active_support/inflector'
 require 'active_support/concern'
 require 'active_support/callbacks'
 require 'methadone'
+require 'date'
 
 require 'lolcommits/version'
 require 'lolcommits/configuration'

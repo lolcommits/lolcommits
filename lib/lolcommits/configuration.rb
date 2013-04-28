@@ -45,6 +45,14 @@ module Lolcommits
       @loldir = Configuration.loldir_for(basename)
     end
 
+    def archivedir
+      dir = File.join(loldir, 'archive')
+      if not File.directory? dir
+        FileUtils.mkdir_p dir
+      end
+      dir
+    end
+
     def self.loldir_for(basename)
       loldir = File.join(LOLBASEDIR, basename)
 
@@ -55,7 +63,15 @@ module Lolcommits
     end
 
     def most_recent
-      Dir.glob(File.join self.loldir, "*").max_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, "*.jpg").max_by {|f| File.mtime(f)}
+    end
+
+    def images
+      Dir.glob(File.join self.loldir, "*.jpg").sort_by {|f| File.mtime(f)}
+    end
+
+    def images_today
+      images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
     end
 
     def raw_image
@@ -105,9 +121,9 @@ module Lolcommits
 
       config = self.user_configuration || Hash.new
       config[plugin] = options
-      File.open(self.user_configuration_file, 'w') do |f| 
+      File.open(self.user_configuration_file, 'w') do |f|
         f.write(config.to_yaml)
-      end 
+      end
 
       puts "#{config.to_yaml}\n"
       puts "Successfully Configured"
