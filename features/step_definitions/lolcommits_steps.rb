@@ -11,9 +11,9 @@ Given /^a git repository named "(.*?)"$/ do |repo_name|
   repo_dir = File.join current_dir, repo_name
   mkdir_p repo_dir
   Dir.chdir repo_dir do
-    sh "git init --quiet ."
-    sh "git config user.name 'Testy McTesterson'"
-    sh "git config user.email 'testy@tester.com'"
+    system "git init --quiet ."
+    system "git config user.name 'Testy McTesterson'"
+    system "git config user.email 'testy@tester.com'"
   end
 end
 
@@ -64,8 +64,8 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @stdin.puts input
 end
 
-Then /^there should be (?:exactly|only) (.*?) jpg(?:s?) in "(.*?)"$/ do |n, folder|
-  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.jpg"].count
+Then /^there should be (?:exactly|only) (.*?) (jpg|gif)(?:s?) in "(.*?)"$/ do |n, type, folder|
+  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.#{type}"].count
 end
 
 Then /^the output should contain a list of plugins$/ do

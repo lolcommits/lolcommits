@@ -170,6 +170,31 @@ def do_last
   Launchy.open lolimage
 end
 
+def do_gif
+  die_if_not_git_repo!
+
+  case Choice.choices[:gif]
+    when "today"
+      lolimages = configuration.images_today
+      filename  = "#{Date.today.to_s}.gif"
+    else
+      lolimages = configuration.images
+      filename  = "archive.gif"
+  end
+
+  if lolimages.empty?
+    warn "No lolcommits have been captured for this time yet."
+    exit 1
+  end
+
+  puts "*** Generating animated gif."
+
+  gif = MiniMagick::Image.new File.join configuration.archivedir, filename
+  gif.run_command("convert", "-delay 50 -loop 0 #{lolimages.join(' ')} #{gif.path}")
+
+  puts "*** #{gif.path} generated."
+end
+
 #
 # Command line parsing fun
 #
@@ -272,6 +297,12 @@ Choice.options do
     desc "pass font file location"
   end
 
+  option :gif do
+    long "--gif"
+    short "-g"
+    desc "generate animated gif"
+  end
+
 end
 
 # Set debug level if needed
@@ -303,6 +334,8 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:browse]
     die_if_not_git_repo!
     Launchy.open configuration.loldir
+  elsif Choice.choices[:gif]
+    do_gif()
   else
     do_noargs()
   end
