@@ -71,7 +71,7 @@ module Lolcommits
     end
 
     def images_today
-      images.select { |f| File.mtime(f).to_date === Date.today }
+      images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
     end
 
     def raw_image
