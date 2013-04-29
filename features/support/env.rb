@@ -86,7 +86,7 @@ Before('@fake-no-imagemagick') do
 
   @original_path = ENV['PATH']
   ENV['PATH'] = newpaths.join(File::PATH_SEPARATOR)
-  puts ENV['PATH']
+  # puts ENV['PATH'] dont need to announce this for debug anymore!
 end
 
 After('@fake-no-imagemagick') do
