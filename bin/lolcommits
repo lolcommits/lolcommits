@@ -26,9 +26,11 @@ end
 
 def die_on_fatal_conditions!
   if Configuration.is_mac?
-    unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
-      fatal "Couldn't properly execute imagesnap for some reason, please file a bug?!"
-      exit 1
+    %w(imagesnap wacaw).each do |executable|
+      unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", executable, executable)
+        fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
+        exit 1
+      end
     end
   elsif Configuration.is_linux?
     if not command?('mplayer')
@@ -38,6 +40,10 @@ def die_on_fatal_conditions!
   end
   unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
     fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
+    exit 1
+  end
+  if !Configuration.valid_ffmpeg_installed? && capture_animate
+    fatal "FATAL: ffmpeg does not appear to be properly installed!"
     exit 1
   end
   unless Configuration.valid_imagemagick_installed?
@@ -126,32 +132,40 @@ def configuration
   end
 end
 
+def capture_animate
+  if Configuration.can_animate?
+    Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
+  end
+end
+
 #
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
-  capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
+  capture_delay  = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
   capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
-  capture_font = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
+  capture_font   = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
 
   fork_me? do
     if Choice.choices[:test]
       info "*** Capturing in test mode."
       runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-        :capture_device => capture_device,
-        :message        => Choice.choices[:msg],
-        :sha            => Choice.choices[:sha],
-        :config         => configuration,
-        :font           => capture_font
-    )
+        :capture_device  => capture_device,
+        :capture_animate => capture_animate,
+        :message         => Choice.choices[:msg],
+        :sha             => Choice.choices[:sha],
+        :config          => configuration,
+        :font            => capture_font
+      )
       runner.run
 
       Launchy.open(runner.main_image)
     else
       runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-        :capture_device => capture_device,
-        :config         => configuration,
-        :font           => capture_font
+        :capture_device  => capture_device,
+        :capture_animate => capture_animate,
+        :config          => configuration,
+        :font            => capture_font
       )
       runner.run
     end
@@ -313,6 +327,15 @@ Choice.options do
     long "--gif"
     short "-g"
     desc "generate animated gif"
+  end
+
+  if Configuration.can_animate?
+    option :animate do
+      long "--animate=SECONDS"
+      short "-a"
+      cast Integer
+      desc "duration for capturing an animated gif"
+    end
   end
 
   option :fork do

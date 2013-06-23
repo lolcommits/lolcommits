@@ -57,10 +57,21 @@ environment variables.
  * Set delay persistently (for slow to warmup webcams) - set
    `LOLCOMMITS_DELAY` var to time in seconds.
  * Set font file location - set `LOLCOMMITS_FONT` environment variable.
+ * Animated gifs - set `LOLCOMMITS_ANIMATE=3` (currently Mac/OSX only and requires `ffmpeg`).
  * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
    (causes capturing command to fork to a new process, speedily returning you to your terminal).
 
 For the full list, see the [configuration variables](https://github.com/mroth/lolcommits/wiki/Configuration-Variables).
+
+### Animated Gif Capturing
+
+Animated gifs (Mac/OSX only) can take a while to generate (depending on the number of seconds you capture and the capabilities of your machine). `ffmpeg` is required and can be installed with brew like so;
+
+    brew install ffmpeg
+
+Use the `LOLCOMMITS_ANIMATE` environment variable with the number of seconds to capture. [Wacaw](http://webcam-tools.sourceforge.net) is used to capture the video. The `LOLCOMMITS_DEVICE` env variable can be used to change wacaw's `video-device` argument.
+
+<img src="http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif" />
 
 ### Plugins
 
