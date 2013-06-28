@@ -10,7 +10,7 @@ module Lolcommits
       super
 
       self.name    = 'statsd'
-      self.default = true
+      self.default = false
     end
 
     def run
