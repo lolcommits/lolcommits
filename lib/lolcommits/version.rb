@@ -1,3 +1,3 @@
 module Lolcommits
-  VERSION = "0.4.4pre1"
+  VERSION = "0.4.4"
 end

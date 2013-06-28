@@ -1,5 +1,7 @@
-0.4.4 (in development)
+0.5.0 (in development)
   * TODO: figure out problems with GUI clients
+
+0.4.4 (28 June 2013)
   * add -g option to produce animated gifs! (thx @hSATAC, #95)
 
 0.4.3 (29 March 2013)
