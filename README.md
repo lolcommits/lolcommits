@@ -14,7 +14,7 @@ By default, the lolimages are stored by a Github style short SHA in a `~/.lolcom
 
 Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
 
-## Installation 
+## Installation
 ### Mac OS X
 You'll need ImageMagick installed.  [Homebrew](http://mxcl.github.com/homebrew/) makes this easy.  Simply do:
 
@@ -57,6 +57,8 @@ environment variables.
  * Set delay persistently (for slow to warmup webcams) - set
    `LOLCOMMITS_DELAY` var to time in seconds.
  * Set font file location - set `LOLCOMMITS_FONT` environment variable.
+ * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
+   (causes capturing command to fork to a new process, speedily returning you to your terminal).
 
 For the full list, see the [configuration variables](https://github.com/mroth/lolcommits/wiki/Configuration-Variables).
 
