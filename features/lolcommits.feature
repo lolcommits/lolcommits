@@ -27,6 +27,15 @@ Feature: Basic UI functionality
     Then the output should contain "You don't appear to be in the base directory of a git project."
       And the exit status should be 1
 
+  Scenario: Capture doesnt break in forked mode
+    Given I am in a git repository named "testforkcapture"
+    And I do a git commit
+    When I successfully run `lolcommits --capture --fork`
+    Then the output should contain "*** Preserving this moment in history."
+      And a directory named "../.lolcommits/testforkcapture" should exist
+      And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
+      And there should be exactly 1 jpg in "../.lolcommits/testforkcapture"
+
   Scenario: Commiting in an enabled repo triggers successful capture
     Given I am in a git repository named "testcapture" with lolcommits enabled
     When I do a git commit
