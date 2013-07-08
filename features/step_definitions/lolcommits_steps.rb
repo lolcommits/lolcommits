@@ -32,10 +32,16 @@ Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name,
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}
 end
 
-Given /^I am in a git repository named "(.*?)" with lolcommits enabled$/ do |repo_name|
+Given /^I am in a git repository named "(.*?)"$/ do |repo_name|
   steps %Q{
     Given a git repository named "#{repo_name}"
     And I cd to "#{repo_name}"
+  }
+end
+
+Given /^I am in a git repository named "(.*?)" with lolcommits enabled$/ do |repo_name|
+  steps %Q{
+    Given I am in a git repository named "#{repo_name}"
     And I successfully run `lolcommits --enable`
   }
 end
