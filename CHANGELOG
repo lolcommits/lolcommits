@@ -4,6 +4,7 @@
 0.4.5 (in development)
   * disable&remove statsd plugin (as per #94)
   * fix issues with animated gif generation (#107)
+  * added new LOLCOMMITS_FORK (or --fork) option to fork the runner capturing (#109)
 
 0.4.4 (28 June 2013)
   * add -g option to produce animated gifs! (thx @hSATAC, #95)
