@@ -174,10 +174,26 @@ end
 
 def fork_me?(&block)
   if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
-    fork { yield block }
+    $stdout.sync = true
+    write_pid fork {
+      yield block
+      delete_pid
+    }
   else
     yield block
   end
+end
+
+def write_pid(pid)
+  File.open(pid_file, 'w') { |f| f.write(pid) }
+end
+
+def delete_pid
+  File.delete(pid_file) if File.exist?(pid_file)
+end
+
+def pid_file
+  File.join(configuration.loldir, 'lolcommits.pid')
 end
 
 def do_configure

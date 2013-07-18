@@ -43,7 +43,8 @@ Feature: Basic UI functionality
     Given I am in a git repository named "testforkcapture"
     And I do a git commit
     When I successfully run `lolcommits --capture --fork`
-    And I run `sleep 3` #give fork enough time to complete
+    Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
+    When I wait for the child process to exit in "testforkcapture"
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testforkcapture" should exist
       And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
