@@ -5,10 +5,13 @@ require 'test/unit/assertions'
 include Test::Unit::Assertions
 require 'faker'
 require 'lolcommits/configuration'
+require File.join(File.expand_path(File.dirname(__FILE__)),'path_helpers')
 include Lolcommits
 
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
 LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')
+
+World(PathHelpers)
 
 Before do
   # Using "announce" causes massive warnings on 1.9.2
@@ -36,10 +39,11 @@ After do
   # ENV['LOLCOMMITS_DIR'] = @original_loldir
   ENV['HOME'] = @original_home
   ENV['LAUNCHY_DRY_RUN'] = nil
+  ENV['LOLCOMMITS_FAKEPLATFORM'] = nil
 end
 
 Before('@fake-interactive-rebase') do
-  # in order to fake an interactive rebase, 
+  # in order to fake an interactive rebase,
   # we replace the editor with a script that simply squashes a few random commits
   @original_git_editor = ENV['GIT_EDITOR']
   # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'" #every other commit
@@ -57,38 +61,18 @@ end
 
 # adjust the path so tests dont see a global imagemagick install
 Before('@fake-no-imagemagick') do
-
-  # make a new subdir that still contains git and mplayer
-  tmpbindir = File.expand_path(File.join @dirs, "bin")
-  FileUtils.mkdir_p tmpbindir
-  ["git","mplayer"].each do |cmd|
-    whichcmd = Lolcommits::Configuration.command_which(cmd)
-    unless whichcmd.nil?
-      FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
-    end
-  end
-
-  # use a modified version of Configuration::command_which to detect where IM is installed
-  # and remove that from the path
-  cmd = 'mogrify'
-  exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-  newpaths = ENV['PATH'].split(File::PATH_SEPARATOR).reject do |path|
-    found_cmd = false
-    exts.each { |ext|
-      exe = "#{path}/#{cmd}#{ext}"
-      found_cmd = true if File.executable? exe
-    }
-    found_cmd
-  end
-
-  # add the temporary directory with git in it back into the path
-  newpaths << tmpbindir 
-
-  @original_path = ENV['PATH']
-  ENV['PATH'] = newpaths.join(File::PATH_SEPARATOR)
-  # puts ENV['PATH'] dont need to announce this for debug anymore!
+  reject_paths_with_cmd('mogrify')
 end
 
 After('@fake-no-imagemagick') do
-  ENV['PATH'] = @original_path
+  reset_path
+end
+
+# adjust the path so tests dont see a global ffmpeg install
+Before('@fake-no-ffmpeg') do
+  reject_paths_with_cmd('ffmpeg')
+end
+
+After('@fake-no-ffmpeg') do
+  reset_path
 end

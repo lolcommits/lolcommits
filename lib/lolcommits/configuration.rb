@@ -11,7 +11,9 @@ module Lolcommits
     end
 
     def self.platform
-      if is_fakecapture?
+      if is_fakeplatform?
+        ENV['LOLCOMMITS_FAKEPLATFORM']
+      elsif is_fakecapture?
         'Fake'
       elsif is_mac?
         'Mac'
@@ -74,12 +76,20 @@ module Lolcommits
       images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
     end
 
-    def raw_image
-      File.join self.loldir, "tmp_snapshot.jpg"
+    def raw_image(image_file_type = 'jpg')
+      File.join self.loldir, "tmp_snapshot.#{image_file_type}"
     end
 
-    def main_image(commit_sha)
-      File.join self.loldir, "#{commit_sha}.jpg"
+    def main_image(commit_sha, image_file_type = 'jpg')
+      File.join self.loldir, "#{commit_sha}.#{image_file_type}"
+    end
+
+    def video_loc
+      File.join(self.loldir, 'tmp_video')
+    end
+
+    def frames_loc
+      File.join(self.loldir, 'tmp_frames')
     end
 
     def puts_plugins
@@ -145,6 +155,10 @@ module Lolcommits
       (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
     end
 
+    def self.is_fakeplatform?
+      ENV['LOLCOMMITS_FAKEPLATFORM']
+    end
+
     def self.valid_imagemagick_installed?
       return false unless self.command_which('identify')
       return false unless self.command_which('mogrify')
@@ -153,8 +167,16 @@ module Lolcommits
       MiniMagick::valid_version_installed?
     end
 
+    def self.valid_ffmpeg_installed?
+      self.command_which('ffmpeg')
+    end
+
     def self.git_config_color_always?
       `git config color.ui`.chomp =~ /always/
+    end
+
+    def self.can_animate?
+      platform == 'Mac'
     end
 
     # Cross-platform way of finding an executable in the $PATH.
