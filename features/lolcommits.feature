@@ -183,10 +183,11 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits -g today`
       And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"
 
+  @mac-only
   Scenario: should generate an animated gif on the Mac platform
     Given I am in a git repository named "testanimatedcapture"
-      And I am using a "Mac" platform
       And I do a git commit
+      And I am using a "Mac" platform
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testanimatedcapture" should exist
