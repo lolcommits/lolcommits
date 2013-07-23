@@ -1,0 +1,2 @@
+---
+default: <%= (RUBY_PLATFORM =~ /darwin/) ? 'features' : '--tags ~@mac-only' %>
