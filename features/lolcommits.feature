@@ -5,6 +5,18 @@ Feature: Basic UI functionality
     Then the exit status should be 0
     And the banner should be present
 
+  Scenario: Help should show the animate option on a Mac platform
+    Given I am using a "Mac" platform
+    When I get help for "lolcommits"
+    Then the following options should be documented:
+      |--animate|which is optional|
+      |-a       |which is optional|
+
+  Scenario: Help should not show the animate option on a Linux plaftorm
+    Given I am using a "Linux" platform
+    When I get help for "lolcommits"
+    Then the output should not match /\-a\, \-\-animate\=SECONDS/
+
   Scenario: Enable in a naked git repository
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
@@ -90,7 +102,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
-  
+
   Scenario: Configuring Plugin In Test Mode
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"
@@ -169,3 +181,21 @@ Feature: Basic UI functionality
       And a loldir named "randomgitrepo" with 2 lolimages
     When I successfully run `lolcommits -g today`
       And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"
+
+  Scenario: should generate an animated gif on the Mac platform
+    Given I am in a git repository named "testanimatedcapture"
+      And I am using a "Mac" platform
+      And I do a git commit
+    When I run `lolcommits --capture --animate=1`
+    Then the output should contain "*** Preserving this moment in history."
+      And a directory named "../.lolcommits/testanimatedcapture" should exist
+      And a file named "../.lolcommits/testanimatedcapture/tmp_video.avi" should not exist
+      And a directory named "../.lolcommits/testanimatedcapture/tmp_frames" should not exist
+      And there should be exactly 1 gif in "../.lolcommits/testanimatedcapture"
+
+  @fake-no-ffmpeg
+  Scenario: gracefully fail when ffmpeg is not installed and animate option is used
+    Given I am using a "Mac" platform
+    When I run `lolcommits --animate=3`
+    Then the output should contain "ffmpeg does not appear to be properly installed"
+    And the exit status should be 1

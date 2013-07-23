@@ -33,10 +33,13 @@ class LolTest < Test::Unit::TestCase
     def test_permissions
         impact_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")).mode & 0777
         imagesnap_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")).mode & 0777
+        wacaw_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "wacaw", "wacaw")).mode & 0777
         assert impact_perms == 0644 || impact_perms == 0664,
             "expected perms of 644/664 but instead got #{sprintf '%o', impact_perms}"
         assert imagesnap_perms == 0755 || imagesnap_perms == 0775,
             "expected perms of 755/775 but instead got #{sprintf '%o', imagesnap_perms}"
+        assert wacaw_perms == 0755 || wacaw_perms == 0775,
+            "expected perms of 755/775 but instead got #{sprintf '%o', wacaw_perms}"
     end
 
     # Hmm.. webcam capture breaks travis-ci tests

@@ -102,3 +102,6 @@ Then /^there should be (\d+) commit entries in the git log$/ do |n|
   assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
 
+Given /^I am using a "(.*?)" platform$/ do |platform_name|
+  ENV['LOLCOMMITS_FAKEPLATFORM'] = platform_name
+end
