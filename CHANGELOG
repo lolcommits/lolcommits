@@ -2,7 +2,7 @@
   * TODO: figure out problems with GUI clients
 
 0.4.6 (12 August 2013)
-  * Fix for incorrect permissioning in gem issue
+  * Fix for incorrect permissioning in gem issue (see #112)
 
 0.4.5 (8 July 2013)
   * disable&remove statsd plugin (as per #94)
