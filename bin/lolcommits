@@ -12,6 +12,7 @@ require "launchy"
 require "choice"
 
 require 'methadone'
+require 'rbconfig'
 include Methadone::CLILogging
 
 #
@@ -95,7 +96,7 @@ def do_enable
     exit 1
   end
 
-  doc = "#!/bin/sh\nlolcommits --capture\n"
+  doc = sprintf("#!/bin/sh\nexport PATH=\"%s:$PATH\"\nlolcommits --capture\n", which("ruby"))
   File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
   FileUtils.chmod 0755, HOOK_PATH
   info "installed lolcommmit hook as:"
@@ -205,6 +206,20 @@ def do_gif
   gif.run_command("convert", *[ "-delay", "50", "-loop", "0", lolimages, "#{gif.path}"].flatten)
 
   puts "*** #{gif.path} generated."
+end
+
+
+def is_windows?
+  RbConfig::CONFIG["host_os"] =~ /mswin|mingw/
+end
+
+def which(file)
+  entries = ENV['PATH'].split(is_windows? ? ";" : ":")
+  entries.any? {|f|
+    if File.exists?("#{f}/#{file}")
+      return "#{f}"
+    end
+  }
 end
 
 #
