@@ -4,10 +4,10 @@ module Lolcommits
       debug "LinuxCapturer: making tmp directory"
       tmpdir = Dir.mktmpdir
 
-      # There's no way to give a capture delay in mplayer, but a number of frame
-      # I've found that 6 is a good value for me.
-      delay = if capture_delay != 0 then capture_delay else 6 end
+      # Default delay is 1s
+      delay = if capture_delay != 0 then capture_delay else 1 end
 
+      # There's no way to give a capture delay in mplayer, but a number of frame
       # mplayer's "delay" is actually a number of frames at 25fps
       # multiply the set value (in seconds) by 25
       frames = delay.to_i * 25
