@@ -70,7 +70,7 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @stdin.puts input
 end
 
-Then /^there should be (?:exactly|only) (.*?) (jpg|gif)(?:s?) in "(.*?)"$/ do |n, type, folder|
+Then /^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/ do |n, type, folder|
   assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.#{type}"].count
 end
 
@@ -102,3 +102,8 @@ Then /^there should be (\d+) commit entries in the git log$/ do |n|
   assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
 
+When /^I wait for the child process to exit in "(.*?)"$/ do |repo_name|
+  while File.exist?("tmp/aruba/.lolcommits/#{repo_name}/lolcommits.pid")
+    sleep 0.1
+  end
+end
