@@ -2,7 +2,7 @@ module Lolcommits
   PLUGINS = Lolcommits::Plugin.subclasses
 
   class Runner
-    attr_accessor :capture_delay, :capture_device, :message, :sha,
+    attr_accessor :capture_delay, :capture_device, :message, :details, :sha,
       :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
       :font
 
@@ -30,6 +30,7 @@ module Lolcommits
         git_info = GitInfo.new
         self.sha = git_info.sha if self.sha.nil?
         self.message = git_info.message if self.message.nil?
+        self.details = git_info.details if self.details.nil?
         self.repo_internal_path = git_info.repo_internal_path
         self.repo = git_info.repo
       end
