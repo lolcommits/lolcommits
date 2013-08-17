@@ -31,7 +31,8 @@ Feature: Basic UI functionality
     Given I am in a git repository named "testforkcapture"
     And I do a git commit
     When I successfully run `lolcommits --capture --fork`
-    And I successfully run `sleep 3`
+    Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
+    When I wait for the child process to exit in "testforkcapture"
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testforkcapture" should exist
       And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
@@ -90,7 +91,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
-  
+
   Scenario: Configuring Plugin In Test Mode
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"
