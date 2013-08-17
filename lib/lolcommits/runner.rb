@@ -15,6 +15,7 @@ module Lolcommits
     set_callback :run, :after,  :cleanup!
     set_callback :run, :after,  :execute_lolcommits_uploldz
     set_callback :run, :after,  :execute_lolcommits_lolsrv
+    set_callback :run, :after,  :execute_lolcommits_lol_pumpio
     set_callback :run, :after,  :execute_lolcommits_lol_twitter
     set_callback :run, :after,  :execute_lolcommits_dot_com
     set_callback :run, :after,  :execute_lolcommits_loltext

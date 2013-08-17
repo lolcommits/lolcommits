@@ -36,9 +36,10 @@ Gem::Specification.new do |s|
 
   # plugin dependencies
   s.add_runtime_dependency('twitter')                 #twitter
-  s.add_runtime_dependency('oauth')                   #twitter
+  s.add_runtime_dependency('oauth')                   #twitter, pump.io
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
   s.add_runtime_dependency('json', '~> 1.7.6')        #lolsrv
+  s.add_runtime_dependency('laraib', '~> 0.0.1.1')    #pump.io
 
 end
