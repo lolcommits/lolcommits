@@ -311,7 +311,7 @@ Choice.options do
 
   option :device do
     long "--device=DEVICE"
-    desc "the device name used to take the snapshot (only mac)"
+    desc "the device name used to take the snapshot (only mac/linux)"
   end
 
   option :debug do
