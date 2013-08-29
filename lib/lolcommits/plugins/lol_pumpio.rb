@@ -79,6 +79,7 @@ module Lolcommits
 
     def run
       display_name = self.runner.message
+      content = self.runner.details
 
       if configuration[:token].nil? || configuration[:token_secret].nil?
         initial_pumpio_auth()
@@ -102,6 +103,7 @@ module Lolcommits
 			      "id" => image_object["id"],
 			      "objectType" => "image",
 			      "displayName" => display_name,
+			      "content" => content,
 			      "image" => image_object["image"],
 		      },
 	      }
@@ -110,9 +112,10 @@ module Lolcommits
 
 	      post_resp["verb"] = "update"
 	      post_resp["object"]["displayName"] = display_name
+	      post_resp["object"]["content"] = content
 	      #puts "Posting #{note} to /api/user/#{configuration[:user]}/feed..."
 	      update_resp = client.post("/api/user/#{configuration[:user]}/feed", JSON.dump(post_resp))
-	      puts "Pumped: #{update_resp["object"]["id"]}"
+	      #puts "Pumped: #{update_resp["object"]["id"]}"
 
       rescue Exception => e
 	      puts "Error pumping: #{e}"
