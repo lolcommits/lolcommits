@@ -1,5 +1,7 @@
-0.5.0 (9 September 2013)
+0.x.x (in development)
   * TODO: figure out problems with GUI clients
+
+0.5.0 (9 September 2013)
   * better handling of LOLCOMMITS_DELAY (thx @leewillis77, #125)
   * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, #139)
   * better handling of repository names (thx @drocamor and @andromedado, #145 and #146)
