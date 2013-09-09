@@ -16,7 +16,7 @@ task :fix_permissions do
   # Reset all permissions.
   system 'bash -c "find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;"'
   # Executable files.
-  system 'bash -c "chmod +x ./bin/* vendor/ext/imagesnap/imagesnap"'
+  system 'bash -c "chmod +x ./bin/* vendor/ext/imagesnap/imagesnap vendor/ext/videosnap/videosnap"'
 end
 
 Rake::Task[:build].prerequisites.unshift :fix_permissions
