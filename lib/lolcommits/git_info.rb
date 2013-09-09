@@ -15,8 +15,12 @@ module Lolcommits
       self.repo_internal_path = g.repo.path
       regex = /.*[:\/]([\w\-]*).git/
       match = g.remote.url.match regex if g.remote.url
-      self.repo = match[1] if match
-      
+      if match
+        self.repo = match[1]
+      elsif !g.repo.path.empty?
+        self.repo = g.repo.path.split(File::SEPARATOR)[-2]
+      end
+
       debug "GitInfo: parsed the following values from commit:"
       debug "GitInfo: \t#{self.message}"
       debug "GitInfo: \t#{self.sha}"
