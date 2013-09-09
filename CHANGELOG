@@ -1,5 +1,8 @@
 0.5.0 (in development)
   * TODO: figure out problems with GUI clients
+  * better handling of LOLCOMMITS_DELAY (thx @leewillis77, #125)
+  * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, #139)
+  * better handling of repository names (thx @drocamor and @andromedado, #145 and #146)
 
 0.4.6 (12 August 2013)
   * Fix for incorrect permissioning in gem issue (see #112)
