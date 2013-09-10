@@ -344,7 +344,7 @@ Choice.options do
   option :gif do
     long "--gif"
     short "-g"
-    desc "generate animated gif"
+    desc "generate animated timeline gif from captured images"
   end
 
   if Configuration.can_animate?
@@ -352,7 +352,7 @@ Choice.options do
       long "--animate=SECONDS"
       short "-a"
       cast Integer
-      desc "duration for capturing an animated gif"
+      desc "enable animated gif captures with duration (seconds)"
     end
   end
 
