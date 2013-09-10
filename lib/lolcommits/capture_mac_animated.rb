@@ -11,10 +11,10 @@ module Lolcommits
       if File.exists?(video_location)
         # convert raw video to png frames with ffmpeg
         system_call "ffmpeg -v quiet -i #{video_location} -t #{animated_duration} #{frames_location}/%09d.png"
-        # create the looping animated gif from frames (picks every 2nd frame with seq)
-        seq_command = "seq -f #{frames_location}/%09g.png 1 2 #{Dir["#{frames_location}/*"].length}"
-        # delay of 12 between every other frame, 24fps
-        system_call "convert -layers OptimizeTransparency -delay 12 -loop 0 `#{seq_command}` -coalesce #{snapshot_location}"
+        # create the looping animated gif from frames (picks every 3rd frame with seq)
+        seq_command = "seq -f #{frames_location}/%09g.png 1 3 #{Dir["#{frames_location}/*"].length}"
+        # delay is chosen assuming the capture was 29.97fps
+        system_call "convert -layers OptimizeTransparency -delay 7 -loop 0 `#{seq_command}` -coalesce #{snapshot_location}"
       end
     end
 
