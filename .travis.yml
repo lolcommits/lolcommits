@@ -8,7 +8,8 @@ rvm:
 before_install:
  # imagemagick is installed by default on normal travis image now
  - sudo apt-get update -qq
- - sudo apt-get install -qq -y mplayer 
+ - sudo apt-get install -qq -y mplayer
+ - sudo apt-get install ffmpeg
  # - sudo apt-get install -qq -y imagemagick libmagickwand-dev
 
 # matrix:
