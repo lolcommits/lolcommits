@@ -57,20 +57,30 @@ environment variables.
  * Set delay persistently (for slow to warmup webcams) - set
    `LOLCOMMITS_DELAY` var to time in seconds.
  * Set font file location - set `LOLCOMMITS_FONT` environment variable.
+ * Animated gifs - set `LOLCOMMITS_ANIMATE=3` (currently Mac/OSX only and requires `ffmpeg`).
  * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
    (causes capturing command to fork to a new process, speedily returning you to your terminal).
 
 For the full list, see the [configuration variables](https://github.com/mroth/lolcommits/wiki/Configuration-Variables).
 
-### Plugins
+### Animated Gif Capturing
+Animated gifs (Mac/OSX only) can take a while to generate (depending on the number of seconds you capture and the capabilities of your machine). `ffmpeg` is required and can be installed with brew like so;
 
+    brew install ffmpeg
+
+To enable, just set the `LOLCOMMITS_ANIMATE` environment variable with the number of seconds to capture.
+And like regular image captures you can use the env variables `LOLCOMMITS_DEVICE` and `LOLCOMMITS_DELAY` to change the capture device or delay time (seconds) before capturing.
+If you find capturing an animated gif takes too long, try setting the `LOLCOMMITS_FORK=true` env variable.
+
+![Example animated lolcommit gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif "Example animated lolcommit gif")
+
+### Plugins
 There are a growing amount of plugins for lolcommits to enable things like Twitter upload, translating your commit messages to lolspeak, etc.  Check them out on the [plugins wiki page](https://github.com/mroth/lolcommits/wiki/Plugins).
 
 ## Troubles?
 Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
 
 ## Timelapse?
-
 To watch your face as it decays while you program, you can create a quick mpeg of all your lolcommits snapshots (if you have `imagemagick` and `ffmpeg` installed):
 
     convert `find . -type f -name "*.jpg" -print0 | xargs -0 ls -tlr | awk '{print $9}'` timelapse.mpeg
