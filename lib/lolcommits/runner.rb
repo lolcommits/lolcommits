@@ -56,7 +56,7 @@ module Lolcommits
     end
 
     def animate?
-      capture_animate && (capture_animate > 0)
+      capture_animate && (capture_animate.to_i > 0)
     end
 
     private
