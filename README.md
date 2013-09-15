@@ -12,7 +12,7 @@ By default, the lolimages are stored by a Github style short SHA in a `~/.lolcom
 ## Sample images
 <img src="http://blog.mroth.info/images/postcontent/yearinsideprojects/lolcommits_users2.jpg" />
 
-Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/People-Using-Lolcommits) page on the Wiki.
+Please add your own lolcommit! Add to the [People Using Lolcommits](https://github.com/mroth/lolcommits/wiki/Lolcommits-from-around-the-world%21) page on the Wiki.
 
 ## Installation
 ### Mac OS X
@@ -61,7 +61,7 @@ environment variables.
  * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
    (causes capturing command to fork to a new process, speedily returning you to your terminal).
 
-For the full list, see the [configuration variables](https://github.com/mroth/lolcommits/wiki/Configuration-Variables).
+Read the [available environment variables](https://github.com/mroth/lolcommits/wiki/Available-Environment-Variables) for more information.
 
 ### Animated Gif Capturing
 Animated gifs (Mac/OSX only) can take a while to generate (depending on the number of seconds you capture and the capabilities of your machine). `ffmpeg` is required and can be installed with brew like so;
@@ -75,10 +75,10 @@ If you find capturing an animated gif takes too long, try setting the `LOLCOMMIT
 ![Example animated lolcommit gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif "Example animated lolcommit gif")
 
 ### Plugins
-There are a growing amount of plugins for lolcommits to enable things like Twitter upload, translating your commit messages to lolspeak, etc.  Check them out on the [plugins wiki page](https://github.com/mroth/lolcommits/wiki/Plugins).
+There are a growing amount of plugins for lolcommits to enable things like Twitter upload, translating your commit messages to lolspeak, etc.  Check them out on the [plugins page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 ## Troubles?
-Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ).
+Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ). Or take a read through the the [wiki](https://github.com/mroth/lolcommits/wiki)
 
 ## Timelapse?
 To watch your face as it decays while you program, you can create a quick mpeg of all your lolcommits snapshots (if you have `imagemagick` and `ffmpeg` installed):
