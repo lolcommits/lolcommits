@@ -10,3 +10,6 @@ html
 tmp
 *.swp
 *.swo
+*.iml
+.idea
+
