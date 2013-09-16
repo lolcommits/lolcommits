@@ -38,7 +38,7 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history."
+        puts "*** Preserving this moment in history." unless Configuration.is_stealth?
         self.snapshot_loc = self.config.raw_image(image_file_type)
         self.main_image   = self.config.main_image(self.sha, image_file_type)
         capturer = capturer_class.new(
