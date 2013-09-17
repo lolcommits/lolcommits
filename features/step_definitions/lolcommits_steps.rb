@@ -47,7 +47,7 @@ Given /^I am in a git repository named "(.*?)" with lolcommits enabled$/ do |rep
 end
 
 Given /^I have environment variable (.*?) set to (.*?)$/ do |var, value|
-  ENV[var] = value
+  set_env var, value
 end
 
 When /^I run `(.*?)` and wait for output$/ do |command|
