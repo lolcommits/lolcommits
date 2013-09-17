@@ -2,7 +2,7 @@ module Lolcommits
   PLUGINS = Lolcommits::Plugin.subclasses
 
   class Runner
-    attr_accessor :capture_delay, :capture_device, :message, :sha,
+    attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
       :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
       :font, :capture_animate
 
@@ -38,7 +38,7 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history." unless Configuration.is_stealth?
+        puts "*** Preserving this moment in history." unless capture_stealth
         self.snapshot_loc = self.config.raw_image(image_file_type)
         self.main_image   = self.config.main_image(self.sha, image_file_type)
         capturer = capturer_class.new(

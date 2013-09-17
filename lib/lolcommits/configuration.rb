@@ -159,10 +159,6 @@ module Lolcommits
       ENV['LOLCOMMITS_FAKEPLATFORM']
     end
 
-    def self.is_stealth?
-      ENV['LOLCOMMITS_STEALTH']
-    end
-
     def self.valid_imagemagick_installed?
       return false unless self.command_which('identify')
       return false unless self.command_which('mogrify')
