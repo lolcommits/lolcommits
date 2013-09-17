@@ -74,8 +74,6 @@ Feature: Basic UI functionality
     And I do a git commit
     When I run `lolcommits --stealth --capture`
     Then the output should not contain "*** Preserving this moment in history."
-      And a directory named "../.lolcommits/teststealth" should exist
-      And a file named "../.lolcommits/teststealth/tmp_snapshot.jpg" should not exist
       And there should be exactly 1 jpg in "../.lolcommits/teststealth"
 
   Scenario: Commiting in stealth mode triggers successful capture without alerting the committer
@@ -83,8 +81,6 @@ Feature: Basic UI functionality
         And I have environment variable LOLCOMMITS_STEALTH set to 1
     When I do a git commit
     Then the output should not contain "*** Preserving this moment in history."
-      And a directory named "../.lolcommits/teststealth" should exist
-      And a file named "../.lolcommits/teststealth/tmp_snapshot.jpg" should not exist
       And there should be exactly 1 jpg in "../.lolcommits/teststealth"
 
   Scenario: Show plugins
