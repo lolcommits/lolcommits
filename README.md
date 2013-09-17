@@ -60,7 +60,7 @@ environment variables.
  * Animated gifs - set `LOLCOMMITS_ANIMATE=3` (currently Mac/OSX only and requires `ffmpeg`).
  * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
    (causes capturing command to fork to a new process, speedily returning you to your terminal).
- * Disable the notification at commit time - set the environment variable `LOLCOMMITS_STEALTH=1`.
+ * Disable the notification at commit time - set `LOLCOMMITS_STEALTH` environment variable.
 
 Read the [available environment variables](https://github.com/mroth/lolcommits/wiki/Available-Environment-Variables) for more information.
 

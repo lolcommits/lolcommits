@@ -160,7 +160,7 @@ module Lolcommits
     end
 
     def self.is_stealth?
-      (ENV['LOLCOMMITS_STEALTH'] == '1' || false)
+      ENV['LOLCOMMITS_STEALTH']
     end
 
     def self.valid_imagemagick_installed?
