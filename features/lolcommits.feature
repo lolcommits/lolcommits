@@ -69,6 +69,20 @@ Feature: Basic UI functionality
       And a directory named "../../.lolcommits/subdir" should not exist
       And there should be exactly 1 jpg in "../../.lolcommits/testcapture"
 
+  Scenario: Stealth mode does not alert the user
+    Given I am in a git repository named "teststealth"
+    And I do a git commit
+    When I run `lolcommits --stealth --capture`
+    Then the output should not contain "*** Preserving this moment in history."
+      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+
+  Scenario: Commiting in stealth mode triggers successful capture without alerting the committer
+    Given I am in a git repository named "teststealth" with lolcommits enabled
+        And I have environment variable LOLCOMMITS_STEALTH set to 1
+    When I do a git commit
+    Then the output should not contain "*** Preserving this moment in history."
+      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+
   Scenario: Show plugins
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
