@@ -17,6 +17,7 @@ module Lolcommits
     set_callback :run, :after,  :execute_lolcommits_lolsrv
     set_callback :run, :after,  :execute_lolcommits_lol_twitter
     set_callback :run, :after,  :execute_lolcommits_dot_com
+    set_callback :run, :after,  :execute_lolcommits_lol_yammer
     set_callback :run, :after,  :execute_lolcommits_loltext
     # Executed First
 
