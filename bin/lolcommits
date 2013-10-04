@@ -18,12 +18,6 @@ include Methadone::CLILogging
 # CHECK FOR FURTHER DEPENDENCIES
 #
 
-# which replacement http://stackoverflow.com/q/2108727
-def command?(name)
-  `which #{name}`
-  $?.success?
-end
-
 def die_on_fatal_conditions!
   if Configuration.is_mac?
     %w(imagesnap videosnap).each do |executable|
@@ -33,7 +27,7 @@ def die_on_fatal_conditions!
       end
     end
   elsif Configuration.is_linux?
-    if not command?('mplayer')
+    if not Configuration.command_which('mplayer')
       fatal "Couldn't find mplayer in your PATH!"
       exit 1
     end
@@ -101,7 +95,9 @@ def do_enable
     exit 1
   end
 
-  doc = "#!/bin/sh\nlolcommits --capture\n"
+  ruby_path   = Lolcommits::Configuration.command_which('ruby')
+  hook_export = "export PATH=\"#{ruby_path}:$PATH\"\n" if ruby_path
+  doc = "#!/bin/sh\n#{hook_export}lolcommits --capture\n"
   File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
   FileUtils.chmod 0755, HOOK_PATH
   info "installed lolcommmit hook as:"
