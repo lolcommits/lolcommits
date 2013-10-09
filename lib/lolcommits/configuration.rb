@@ -21,6 +21,8 @@ module Lolcommits
         'Linux'
       elsif is_windows?
         'Windows'
+      elsif is_cygwin?
+        'Cygwin'
       else
         raise "Unknown / Unsupported Platform."
       end
@@ -149,6 +151,10 @@ module Lolcommits
 
     def self.is_windows?
       !! RUBY_PLATFORM.match(/(win|w)32/)
+    end
+
+    def self.is_cygwin?
+      RUBY_PLATFORM.to_s.downcase.include?("cygwin")
     end
 
     def self.is_fakecapture?
