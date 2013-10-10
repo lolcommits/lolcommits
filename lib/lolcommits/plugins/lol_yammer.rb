@@ -16,8 +16,6 @@ module Lolcommits
       self.name    = 'yammer'
       self.default = false
       self.options.concat(['access_token'])
-      puts "Open the URL below and copy the `code` param from query after redirected, enter it as `access_token`:"
-      puts "https://www.yammer.com/dialog/oauth?client_id=#{YAMMER_CLIENT_ID}"
     end
 
     def set_access_token(code)
