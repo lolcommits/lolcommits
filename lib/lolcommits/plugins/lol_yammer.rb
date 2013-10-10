@@ -35,7 +35,7 @@ module Lolcommits
 
       commit_msg = self.runner.message
       post = "#{commit_msg} #lolcommits"
-      puts "Yammer post: #{post}"
+      puts "Yammer post: #{post}" unless self.runner.capture_stealth
 
       Yammer.configure do |c|
         c.client_id = YAMMER_CLIENT_ID
@@ -48,7 +48,7 @@ module Lolcommits
       begin
         lolimage = File.new(self.runner.main_image)
         if client.create_message(post, :attachment1 => lolimage)
-          puts "\t--> Status posted!"
+          puts "\t--> Status posted!" unless self.runner.capture_stealth
         end
       rescue => e
         retries -= 1
