@@ -40,6 +40,7 @@ module Lolcommits
 
       begin
         STDOUT.flush
+        STDIN.reopen('/dev/tty')
         twitter_pin = STDIN.gets.chomp
       rescue
       end
