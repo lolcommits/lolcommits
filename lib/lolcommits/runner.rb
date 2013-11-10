@@ -13,6 +13,7 @@ module Lolcommits
 
     # Executed Last
     set_callback :run, :after,  :cleanup!
+    set_callback :run, :after,  :execute_lolcommits_hipchat
     set_callback :run, :after,  :execute_lolcommits_uploldz
     set_callback :run, :after,  :execute_lolcommits_lolsrv
     set_callback :run, :after,  :execute_lolcommits_lol_twitter
