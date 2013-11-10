@@ -33,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rake',' ~> 10.0.2')
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
+  s.add_development_dependency('travis')
 
   # plugin dependencies
   s.add_runtime_dependency('twitter')                 #twitter
