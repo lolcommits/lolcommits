@@ -22,3 +22,12 @@ branches:
 
 notifications:
   irc: "chat.freenode.net#lolcommits"
+
+deploy:
+  provider: rubygems
+  api_key:
+    secure: Y7FFOMDahITtHYRV3UQAw+BA2JbqoArN/Ii9PUTU6RaLmTIvpZBzqtvR3r8ah3SdXNh0Cx10gVf0pRc6HXKTNQdwMWCkOQwukAb+9kLDKFxl3x+w4X2u6yWmtsyNMTWK1gF4hEF1IHnsdg2dYEoFfE2M5bHex85ND/Q6820sPa8=
+  gem: lolcommits
+  on:
+    tags: true
+    repo: mroth/lolcommits
