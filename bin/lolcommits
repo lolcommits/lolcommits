@@ -95,16 +95,29 @@ def do_enable
     exit 1
   end
 
-  ruby_path   = Lolcommits::Configuration.command_which('ruby')
-  hook_export = "export PATH=\"#{ruby_path}:$PATH\"\n" if ruby_path
-  doc = "#!/bin/sh\n#{hook_export}lolcommits --capture\n"
-  File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
+  File.open(HOOK_PATH, 'w') {|f| f.write(hook_script) }
   FileUtils.chmod 0755, HOOK_PATH
-  info "installed lolcommmit hook as:"
+  info "installed lolcommmit hook to:"
   info "  -> #{File.expand_path(HOOK_PATH)}"
   info "(to remove later, you can use: lolcommits --disable)"
   # we dont symlink, but rather install a small stub that calls the one from path
   # that way, as gem version changes, script updates even if new file thus breaking symlink
+end
+
+def hook_script
+  shebang      = "#!/bin/sh"
+  ruby_path    = Lolcommits::Configuration.command_which('ruby')
+  hook_export  = "export PATH=\"#{ruby_path}:$PATH\"\n" if ruby_path
+  capture_cmd  = "lolcommits --capture"
+  capture_args = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
+
+  <<-EOS
+#{shebang}
+
+### lolcommits hook (begin) ###
+#{hook_export}#{capture_cmd}#{capture_args}
+###  lolcommits hook (end)  ###
+EOS
 end
 
 #
