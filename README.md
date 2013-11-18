@@ -62,7 +62,7 @@ environment variables.
    (causes capturing command to fork to a new process, speedily returning you to your terminal).
  * Disable the notification at commit time - set `LOLCOMMITS_STEALTH` environment variable.
 
-Read the [available environment variables](https://github.com/mroth/lolcommits/wiki/Available-Environment-Variables) for more information.
+Read how to [configure commit capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing) for more details.
 
 ### Animated Gif Capturing
 Animated gifs (Mac/OSX only) can take a while to generate (depending on the number of seconds you capture and the capabilities of your machine). `ffmpeg` is required and can be installed with brew like so;
