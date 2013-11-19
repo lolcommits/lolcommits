@@ -47,20 +47,32 @@ From within any git repository, simply do a `lolcommits --enable`. From that poi
 Don't worry about it too much, half the fun of lolcommits is forgetting it's installed!
 
 ### Other commands
-Ok, if you insist... Since you know about `--enable`, common sense suggest there is also a repository specific `--disable`, hopefully you can guess what that does. Other handy common commands include `--last`, which will open for display your most recent lolcommit image, or `--browse`, which pops open the directory containing all the lolcommit images for your current repository. You can always do `--help` for a full list of available commands.
+Ok, if you insist... Since you know about `--enable`, common sense suggests there is also a repository specific `--disable`, hopefully you can guess what that does. Other handy common commands include `--last`, which will open for display your most recent lolcommit image, or `--browse`, which pops open the directory containing all the lolcommit images for your current repository. You can always do `--help` for a full list of available commands.
 
-### Configuration variables
-lolcommits has some options for additional lulz.  You can enable via
-environment variables.
+**NOTE**: Any extra arguments you pass with the --enable command are auto-appended to the git-commit capture command.  For example;
 
- * Set webcam device on mac - set `LOLCOMMITS_DEVICE` environment variable.
- * Set delay persistently (for slow to warmup webcams) - set
-   `LOLCOMMITS_DELAY` var to time in seconds.
- * Set font file location - set `LOLCOMMITS_FONT` environment variable.
- * Animated gifs - set `LOLCOMMITS_ANIMATE=3` (currently Mac/OSX only and requires `ffmpeg`).
- * Fork lolcommits runner - set `LOLCOMMITS_FORK` environment variable
-   (causes capturing command to fork to a new process, speedily returning you to your terminal).
- * Disable the notification at commit time - set `LOLCOMMITS_STEALTH` environment variable.
+    lolcommits --enable --delay=5 --animate=4 --fork
+
+Will configure capturing of an animated gif (4 secs) after a 5 sec delay in a forked process. See the section below for more capture configuration variables.
+
+### Capture configuration variables
+lolcommits has some capture options for additional lulz. You can enable these via environment variables like so;
+
+* `LOLCOMMITS_DEVICE` set a webcam device - **mac and linux only**
+* `LOLCOMMITS_ANIMATE` (in seconds) set time for capturing an animated gif - **mac only & requires ffmpeg**
+* `LOLCOMMITS_DELAY` (in seconds) set delay persistently (for slow webcams to warmup)
+* `LOLCOMMITS_FONT` set font file location for lolcommit text
+* `LOLCOMMITS_FORK` fork lolcommit runner (capture command forks to a new process, speedily returning you to your terminal)
+* `LOLCOMMITS_STEALTH` disable notification messages at commit time
+
+Or they can be set via the following arguments in the capture command (located in your repository's `.git/hooks/post-commit` file).
+
+* `--device=DEVICE` or `-d DEVICE`
+* `--animate=SECONDS` or `-a SECONDS`
+* `--delay=SECONDS` or `-w SECONDS`
+* `--font=FONT_PATH` or `-f FONT_PATH`
+* `--fork`
+* `--stealth`
 
 Read how to [configure commit capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing) for more details.
 
