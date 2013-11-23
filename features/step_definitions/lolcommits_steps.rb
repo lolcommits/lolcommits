@@ -27,6 +27,12 @@ Given /^the git repository named "(.*?)" has a "(.*?)" hook$/ do |repo_name, hoo
   touch(hook_file) if not File.exists? hook_file
 end
 
+Given /^the "(.*?)" repository "(.*?)" hook has content "(.*?)"$/ do |repo_name, hook_name, hook_content|
+  step %{the git repository named "#{repo_name}" has a "#{hook_name}" hook}
+  hook_file = File.join current_dir, repo_name, ".git", "hooks", hook_name
+  File.open(hook_file, 'w') { |f| f.write(hook_content) }
+end
+
 Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name, yesno_modifier, hook_name|
   step %{a git repository named "#{repo_name}"}
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}

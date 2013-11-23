@@ -27,6 +27,28 @@ Feature: Basic UI functionality
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
       And the exit status should be 0
 
+  Scenario: Enable in a git repository that already has a post-commit hook
+    Given a git repository named "loltest" with a "post-commit" hook
+      And the "loltest" repository "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
+    When I cd to "loltest"
+    And I successfully run `lolcommits --enable`
+    Then the output should contain "installed lolcommmit hook to:"
+      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
+      And the file ".git/hooks/post-commit" should contain "/my/own/script"
+      And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
+      And the exit status should be 0
+
+  Scenario: Enable in a git repository that already has post-commit hook with a bad shebang
+    Given a git repository named "loltest" with a "post-commit" hook
+      And the "loltest" repository "post-commit" hook has content "#!/bin/ruby"
+    When I cd to "loltest"
+    And I run `lolcommits --enable`
+    Then the output should contain "doesn't start with with a good shebang"
+      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
+      And the exit status should be 1
+
   Scenario: Enable in a git repository passing capture arguments
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
@@ -40,8 +62,9 @@ Feature: Basic UI functionality
   Scenario: Disable in a enabled git repository
     Given I am in a git repository named "lolenabled" with lolcommits enabled
     When I successfully run `lolcommits --disable`
-    Then the output should contain "removed"
-      And a file named ".git/hooks/post-commit" should not exist
+    Then the output should contain "uninstalled"
+      And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
       And the exit status should be 0
 
   Scenario: Trying to enable while not in a git repo fails
