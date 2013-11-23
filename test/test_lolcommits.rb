@@ -21,7 +21,7 @@ class LolTest < Test::Unit::TestCase
     #
     def test_tranzlate
         [["what the hell","(WH|W)UT TEH HELL"],["seriously wtf", "SRSLEH WTF"]].each do |normal, lol|
-            tranzlated = normal.tranzlate
+            tranzlated = Lolcommits::Tranzlate.tranzlate(normal)
             assert_match /^#{lol}/, tranzlated
         end
     end
