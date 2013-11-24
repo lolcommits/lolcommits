@@ -28,15 +28,15 @@ module Lolcommits
       end
     end
 
-    def user_configuration
-      if File.exists?(user_configuration_file)
-        YAML.load(File.open(user_configuration_file))
+    def read_configuration
+      if File.exists?(configuration_file)
+        YAML.load(File.open(configuration_file))
       else
         nil
       end
     end
 
-    def user_configuration_file
+    def configuration_file
       "#{self.loldir}/config.yml"
     end
 
@@ -95,50 +95,56 @@ module Lolcommits
     end
 
     def puts_plugins
-      names = Lolcommits::PLUGINS.collect {|p| p.new(nil).name }
-      puts "Available plugins: #{names.join(', ')}"
+      puts "Available plugins: #{Lolcommits::PLUGINS.map(&:name).join(', ')}"
     end
 
-    def do_configure!(plugin, forced_options=nil)
-      if plugin.nil? || plugin.strip == ''
-        puts_plugins
-        print "Name of plugin to configure: "
-        plugin = STDIN.gets.strip
-      end
+    def ask_for_plugin_name
+      puts_plugins
+      print "Name of plugin to configure: "
+      STDIN.gets.strip
+    end
 
-      plugins = Lolcommits::PLUGINS.inject(Hash.new) do |acc, val|
-        p = val.new(nil)
-        acc.merge(p.name => p)
-      end
-
-      plugin_object = plugins[plugin]
-
-      if plugin_object.nil?
-        puts "Unable to find plugin: #{plugin}"
-        return
-      end
-
-      if forced_options.nil?
-        options = plugin_object.options.inject(Hash.new) do |acc, option|
-          print "#{option}: "
-          val = STDIN.gets.strip
-          val = true  if val == 'true'
-          val = false if val == 'false'
-
-          acc.merge(option => val)
+    def find_plugin(plugin_name)
+      Lolcommits::PLUGINS.each do |plugin|
+        if plugin.name == plugin_name
+          return plugin.new(nil)
         end
-      else
-        options = forced_options
       end
 
-      config = self.user_configuration || Hash.new
-      config[plugin] = options
-      File.open(self.user_configuration_file, 'w') do |f|
-        f.write(config.to_yaml)
+      puts "Unable to find plugin: '#{plugin_name}'"
+      puts_plugins
+    end
+
+    def do_configure!(plugin_name)
+      if plugin_name.to_s.strip.empty?
+        plugin_name = ask_for_plugin_name
       end
 
-      puts "#{config.to_yaml}\n"
-      puts "Successfully Configured"
+      if plugin = find_plugin(plugin_name)
+        config = self.read_configuration || Hash.new
+        plugin_config = plugin.configure_options!
+        # having a plugin_config, means configuring went OK
+        if plugin_config
+          # save plugin and print config
+          config[plugin_name] = plugin_config
+          save(config)
+          puts self
+          puts "\nSuccessfully configured plugin: #{plugin_name}"
+        else
+          puts "\nAborted plugin configuration for: #{plugin_name}"
+        end
+      end
+    end
+
+    def save(config)
+      config_file_contents = config.to_yaml
+      File.open(self.configuration_file, 'w') do |f|
+        f.write(config_file_contents)
+      end
+    end
+
+    def to_s
+      read_configuration.to_yaml.to_s
     end
 
     def self.is_mac?

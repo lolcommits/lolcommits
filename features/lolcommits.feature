@@ -134,7 +134,7 @@ Feature: Basic UI functionality
     Then the output should contain a list of plugins
     And the output should contain "Name of plugin to configure:"
     Then the output should contain "enabled:"
-    Then the output should contain "Successfully Configured"
+    Then the output should contain "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
@@ -146,7 +146,7 @@ Feature: Basic UI functionality
     And I run `lolcommits --config` and wait for output
     When I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
-    Then I should be presented "Successfully Configured"
+    Then I should be presented "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
@@ -158,7 +158,7 @@ Feature: Basic UI functionality
     And I run `lolcommits --config --test` and wait for output
     And I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
-    Then I should be presented "Successfully Configured"
+    Then I should be presented "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
     Then the output should contain "loltext:"

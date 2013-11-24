@@ -3,22 +3,21 @@ module Lolcommits
 
     def initialize(runner)
       super
-
       @font_location = runner ? runner.font : nil
+    end
 
-      self.name    = 'loltext'
-      self.default = true
+    # enabled by default (if no configuration exists)
+    def is_enabled?
+      !is_configured? || super
     end
 
     def run
-      mm_run
-    end
+      font_location = @font_location || File.join(Configuration::LOLCOMMITS_ROOT,
+                                                  "vendor",
+                                                  "fonts",
+                                                  "Impact.ttf")
 
-    # use minimagick wrapper
-    def mm_run
-      font_location = @font_location || File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
-
-      plugdebug "Annotating image via MiniMagick"
+      debug "Annotating image via MiniMagick"
       image = MiniMagick::Image.open(self.runner.main_image)
       image.combine_options do |c|
         c.gravity 'SouthWest'
@@ -41,34 +40,14 @@ module Lolcommits
         c.annotate '0', self.runner.sha
       end
 
-      plugdebug "Writing changed file to #{self.runner.main_image}"
+      debug "Writing changed file to #{self.runner.main_image}"
       image.write self.runner.main_image
     end
 
-    # use Rmagick wrapper (deprecated, no longer works in IM6.10+)
-    # def rm_run
-    #   canvas = ImageList.new(self.runner.main_image)
-    #   draw = Magick::Draw.new
-    #   draw.font = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+    def self.name
+     'loltext'
+    end
 
-    #   draw.fill   = 'white'
-    #   draw.stroke = 'black'
-
-    #   draw.annotate(canvas, 0, 0, 0, 0, self.runner.sha) do
-    #     self.gravity = NorthEastGravity
-    #     self.pointsize = 32
-    #     self.stroke_width = 2
-    #   end
-
-    #   draw.annotate(canvas, 0, 0, 0, 0, word_wrap(self.runner.message)) do
-    #     self.gravity = SouthWestGravity
-    #     self.pointsize = 48
-    #     self.interline_spacing = -(48 / 5) if self.respond_to?(:interline_spacing)
-    #     self.stroke_width = 2
-    #   end
-
-    #   canvas.write(runner.main_image)
-    # end
 
     private
 

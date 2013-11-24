@@ -440,7 +440,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:configure]
     do_configure()
   elsif Choice.choices[:show_config]
-    puts configuration.user_configuration.to_yaml
+    puts configuration
   elsif Choice.choices[:plugins]
     configuration.puts_plugins()
   elsif Choice.choices[:last]
