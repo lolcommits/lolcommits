@@ -34,6 +34,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
   s.add_development_dependency('travis')
+  s.add_development_dependency('coveralls')
 
   # plugin dependencies
   s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
