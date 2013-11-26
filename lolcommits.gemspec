@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('travis')
 
   # plugin dependencies
-  s.add_runtime_dependency('twitter')                 #twitter
+  s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
   s.add_runtime_dependency('oauth')                   #twitter
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
