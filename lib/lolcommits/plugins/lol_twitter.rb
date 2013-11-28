@@ -17,6 +17,11 @@ module Lolcommits
       super
       self.name    = 'twitter'
       self.default = false
+
+      Twitter.configure do |config|
+        config.consumer_key = TWITTER_CONSUMER_KEY
+        config.consumer_secret = TWITTER_CONSUMER_SECRET
+      end
     end
 
     def initial_twitter_auth
@@ -64,30 +69,21 @@ module Lolcommits
     end
 
     def run
-      commit_msg = self.runner.message
-      available_commit_msg_size = 128 
-      tweet_msg = commit_msg.length > available_commit_msg_size ? "#{commit_msg[0..(available_commit_msg_size-3)]}..." : commit_msg
-      tweet_text = "#{tweet_msg} #lolcommits"
-      puts "Tweeting: #{tweet_text}"
-
-      if configuration['access_token'].nil? || configuration['secret'].nil?
-        initial_twitter_auth()
-      end
-
-      if configuration['access_token'].nil? || configuration['secret'].nil?
+      unless configured?
         puts "Missing Twitter Credentials - Skipping The Tweet"
         return
       end
 
-      Twitter.configure do |config|
-        config.consumer_key = TWITTER_CONSUMER_KEY
-        config.consumer_secret = TWITTER_CONSUMER_SECRET
+      tag = " #lolcommits"
+      commit_msg = self.runner.message
+      available_commit_msg_size = max_tweet_size - tag.length
+      if commit_msg.length > available_commit_msg_size
+        commit_msg = "#{commit_msg[0..(available_commit_msg_size-3)]}..."
       end
+      tweet_text = commit_msg + tag
 
-      client = Twitter::Client.new(
-        :oauth_token => configuration['access_token'],
-        :oauth_token_secret => configuration['secret']
-      )
+      puts "Tweeting: #{tweet_text}"
+
       retries = 2
       begin
         if client.update_with_media(tweet_text, File.open(self.runner.main_image, 'r'))
@@ -98,6 +94,26 @@ module Lolcommits
         retry if retries > 0
         puts "\t ! --> Tweet 500 Error - Tweet Not Posted"
       end
+    end
+
+    private
+
+    def configured?
+      if configuration['access_token'].nil? || configuration['secret'].nil?
+        initial_twitter_auth()
+      end
+      configuration['access_token'] and configuration['secret']
+    end
+
+    def client
+      @client ||= Twitter::Client.new(
+        :oauth_token => configuration['access_token'],
+        :oauth_token_secret => configuration['secret']
+      )
+    end
+
+    def max_tweet_size
+      139 - client.configuration.characters_reserved_per_media
     end
   end
 end
