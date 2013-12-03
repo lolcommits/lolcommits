@@ -100,17 +100,14 @@ module Lolcommits
 
     extend Lolspeak
 
-    def initialize(runner)
-      super
-
-      self.name    = 'tranzlate'
-      self.default = false
+    def run
+      debug "Commit message before: #{self.runner.message}"
+      self.runner.message = self.class.tranzlate(self.runner.message)
+      debug "Commit message after: #{self.runner.message}"
     end
 
-    def run
-      plugdebug "Commit message before: #{self.runner.message}"
-      self.runner.message = self.class.tranzlate(self.runner.message)
-      plugdebug "Commit message after: #{self.runner.message}"
+    def self.name
+      'tranzlate'
     end
   end
 end

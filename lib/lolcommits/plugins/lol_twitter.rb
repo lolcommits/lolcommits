@@ -3,101 +3,123 @@ require 'oauth'
 
 # twitter gem currently spams stdout when activated, surpress warnings just during the inital require
 original_verbose, $VERBOSE = $VERBOSE, nil # Supress warning messages.
-  require 'twitter'
-$VERBOSE = original_verbose # Activate warning messages again.
-
-TWITTER_CONSUMER_KEY = 'qc096dJJCxIiqDNUqEsqQ'
-TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
+require 'twitter'
+$VERBOSE = original_verbose # activate warning messages again.
 
 module Lolcommits
-
   class LolTwitter < Plugin
 
-    def initialize(runner)
-      super
-      self.name    = 'twitter'
-      self.default = false
+    TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'
+    TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
+    TWITTER_RETRIES         = 2
+    TWITTER_PIN_REGEX       = /^\d{4,}$/ # 4 or more digits
+
+    def run
+      return unless valid_configuration?
+
+      attempts = 0
+
+      begin
+        attempts += 1
+        tweet = build_tweet(self.runner.message)
+        puts "Tweeting: #{tweet}"
+        debug "--> Tweeting! (attempt: #{attempts}, tweet size: #{tweet.length} chars)"
+        if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
+          puts "\t--> Tweet Sent!"
+        end
+      rescue Twitter::Error::InternalServerError,
+               Twitter::Error::BadRequest,
+               Twitter::Error::ClientError => e
+        debug "Tweet FAILED! #{e.class} - #{e.message}"
+        retry if attempts < TWITTER_RETRIES
+        puts "ERROR: Tweet FAILED! (after #{attempts} attempts) - #{e.message}"
+      end
     end
 
-    def initial_twitter_auth
-      puts "\n--------------------------------------------"
-      puts "Need to grab twitter tokens (first time only)"
-      puts "---------------------------------------------"
+    def build_tweet(commit_message, tag = "#lolcommits")
+      available_commit_msg_size = max_tweet_size - (tag.length + 1)
+      if commit_message.length > available_commit_msg_size
+        commit_message = "#{commit_message[0..(available_commit_msg_size-3)]}..."
+      end
+      "#{commit_message} #{tag}"
+    end
 
-      consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY, 
+    def configure_options!
+      options = super
+      # ask user to configure tokens if enabling
+      if options['enabled'] == true
+        if auth_config = configure_auth!
+          options.merge!(auth_config)
+        else
+          # return nil if configure_auth failed
+          return
+        end
+      end
+      return options
+    end
+
+    def configure_auth!
+      puts "---------------------------"
+      puts "Need to grab twitter tokens"
+      puts "---------------------------"
+
+      consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY,
                                      TWITTER_CONSUMER_SECRET,
                                      :site => 'http://api.twitter.com',
                                      :request_endpoint => 'http://api.twitter.com',
                                      :sign_in => true)
 
       request_token = consumer.get_request_token
-      rtoken  = request_token.token
-      rsecret = request_token.secret
+      rtoken        = request_token.token
+      rsecret       = request_token.secret
 
-      puts "\n1.) Open the following url in your browser, get the PIN:\n\n"
+      print "\n1) Please open this url in your browser to get a PIN for lolcommits:\n\n"
       puts request_token.authorize_url
-      puts "\n2.) Enter PIN, then press enter:"
+      print "\n2) Enter PIN, then press enter: "
+      twitter_pin = STDIN.gets.strip.downcase.to_s
 
-      begin
-        STDOUT.flush
-        twitter_pin = STDIN.gets.chomp
-      rescue
-      end
-
-      if (twitter_pin.nil?) || (twitter_pin.length == 0)
-        puts "\n\tERROR: Could not read PIN, auth fail"
+      unless twitter_pin =~ TWITTER_PIN_REGEX
+        puts "\nERROR: '#{twitter_pin}' is not a valid Twitter Auth PIN"
         return
       end
 
       begin
+        debug "Requesting Twitter OAuth Token with PIN: #{twitter_pin}"
         OAuth::RequestToken.new(consumer, rtoken, rsecret)
         access_token = request_token.get_access_token(:oauth_verifier => twitter_pin)
-      rescue Twitter::Unauthorized
-        puts "> FAIL!"
+      rescue OAuth::Unauthorized
+        puts "\nERROR: Twitter PIN Auth FAILED!"
         return
       end
 
-      # saves the config back to yaml file.
-      self.runner.config.do_configure!('twitter', { 'enabled'      => true,
-                                                    'access_token' => access_token.token,
-                                                    'secret'       => access_token.secret })
+      if access_token.token && access_token.secret
+        print "\n3) Thanks! Twitter Auth Succeeded\n"
+        return { 'access_token' => access_token.token,
+                 'secret'       => access_token.secret }
+      end
     end
 
-    def run
-      commit_msg = self.runner.message
-      available_commit_msg_size = 128 
-      tweet_msg = commit_msg.length > available_commit_msg_size ? "#{commit_msg[0..(available_commit_msg_size-3)]}..." : commit_msg
-      tweet_text = "#{tweet_msg} #lolcommits"
-      puts "Tweeting: #{tweet_text}"
+    def is_configured?
+      !configuration['enabled'].nil? &&
+        configuration['access_token'] &&
+        configuration['secret']
+    end
 
-      if configuration['access_token'].nil? || configuration['secret'].nil?
-        initial_twitter_auth()
-      end
-
-      if configuration['access_token'].nil? || configuration['secret'].nil?
-        puts "Missing Twitter Credentials - Skipping The Tweet"
-        return
-      end
-
-      Twitter.configure do |config|
-        config.consumer_key = TWITTER_CONSUMER_KEY
-        config.consumer_secret = TWITTER_CONSUMER_SECRET
-      end
-
-      client = Twitter::Client.new(
-        :oauth_token => configuration['access_token'],
+    def client
+      @client ||= Twitter::Client.new(
+        :consumer_key       => TWITTER_CONSUMER_KEY,
+        :consumer_secret    => TWITTER_CONSUMER_SECRET,
+        :oauth_token        => configuration['access_token'],
         :oauth_token_secret => configuration['secret']
       )
-      retries = 2
-      begin
-        if client.update_with_media(tweet_text, File.open(self.runner.main_image, 'r'))
-          puts "\t--> Tweet Sent!"
-        end
-      rescue Twitter::Error::InternalServerError
-        retries -= 1
-        retry if retries > 0
-        puts "\t ! --> Tweet 500 Error - Tweet Not Posted"
-      end
+    end
+
+    def max_tweet_size
+      139 - client.configuration.characters_reserved_per_media
+    end
+
+    def self.name
+      'twitter'
     end
   end
 end
