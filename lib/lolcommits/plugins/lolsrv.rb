@@ -26,9 +26,7 @@ module Lolcommits
     def sync
       existing = get_existing_lols
       unless existing.nil?
-        Dir.glob(self.runner.config.loldir + "/*.jpg") do |item|
-          next if item == "." or item == ".."
-          # do work on real items
+        Dir[self.runner.config.loldir + "/*.{jpg,gif}"].each do |item|
           sha = File.basename(item, ".*")
           unless existing.include?(sha) || sha == "tmp_snapshot"
             upload(item, sha)
