@@ -17,7 +17,7 @@ module Lolcommits
     def run
       return unless valid_configuration?
       fork { sync() }
-    end
+      end
 
     def is_configured?
       !configuration["enabled"].nil? && configuration["server"]
@@ -51,9 +51,11 @@ module Lolcommits
         RestClient.post(
           configuration["server"] + "/uplol",
           :lol => File.new(file),
-          :sha => sha
-        )
-      rescue => e
+          :url => self.runner.url + sha,
+          :repo => self.runner.repo,
+          :date => File.ctime(file),
+          :sha => sha)
+      rescue => error
         log_error(e,"ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
         return
       end

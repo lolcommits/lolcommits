@@ -4,7 +4,7 @@ module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
       :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-      :font, :capture_animate
+      :font, :capture_animate, :url
 
     include Methadone::CLILogging
     include ActiveSupport::Callbacks
@@ -31,6 +31,7 @@ module Lolcommits
         self.message = git_info.message if self.message.nil?
         self.repo_internal_path = git_info.repo_internal_path
         self.repo = git_info.repo
+        self.url  = git_info.url
       end
     end
 
