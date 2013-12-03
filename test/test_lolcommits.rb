@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require 'test/unit'
 # Loads lolcommits directly from the lib folder so don't have to create
 # a gem before testing
