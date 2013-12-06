@@ -13,7 +13,7 @@ module Lolcommits
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
-      self.url    = g.remote.url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/'
+      self.url    = g.remote.url ? g.remote.url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/': ''
 
       regex = /.*[:]([\/\w\-]*).git/
       match = g.remote.url.match regex if g.remote.url
