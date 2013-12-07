@@ -11,6 +11,10 @@ module Lolcommits
 
   class LolYammer < Plugin
 
+    def self.name
+      'yammer'
+    end
+
     def initialize(runner)
       super
       self.name    = 'yammer'
