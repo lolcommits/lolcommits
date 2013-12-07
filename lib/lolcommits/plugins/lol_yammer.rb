@@ -27,12 +27,7 @@ module Lolcommits
     end
 
     def run
-      if configuration['access_token'].nil?
-        puts "Run configuration first:"
-        puts "lolcommits --config --plugin yammer"
-        puts "Missing Yammer Credentials - Skipping post"
-        return
-      end
+      return unless valid_configuration?
 
       commit_msg = self.runner.message
       post = "#{commit_msg} #lolcommits"
