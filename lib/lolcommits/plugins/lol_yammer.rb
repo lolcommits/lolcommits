@@ -15,11 +15,8 @@ module Lolcommits
       'yammer'
     end
 
-    def initialize(runner)
-      super
-      self.name    = 'yammer'
-      self.default = false
-      self.options.concat(['access_token'])
+    def is_configured?
+      !configuration['access_token'].nil?
     end
 
     def set_access_token(code)
