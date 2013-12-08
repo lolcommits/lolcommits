@@ -18,8 +18,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.post_install_message = "To use Yammer: Open the URL below and copy the `code` param from query after redirected, enter it as `access_token`:\nhttps://www.yammer.com/dialog/oauth?client_id=bgORyeKtnjZJSMwp8oln9g\nRun: lolcommits --config --plugin yammer"
-
   # core gem dependencies
   s.add_runtime_dependency('mini_magick', '~> 3.5')
   s.add_runtime_dependency('git', '~> 1.2.5')
