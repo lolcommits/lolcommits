@@ -18,10 +18,23 @@ module Lolcommits
       !configuration['access_token'].nil?
     end
 
-    def get_access_token(code)
-      url = "#{YAMMER_ACCESS_TOKEN_URL}?client_id=%s&client_secret=%s&code=%s" % [YAMMER_CLIENT_ID, YAMMER_CLIENT_SECRET, code]
-      plugdebug "access_token url: #{url}"
-      result = JSON.parse(RestClient.get(url))
+    def get_access_token
+      print "Open the URL below and copy the `code` param from query after redirected, enter it as `access_token`:\n"
+      print "https://www.yammer.com/dialog/oauth?client_id=#{YAMMER_CLIENT_ID}&response_type=code\n"
+      print "Enter code param from the redirected URL, then press enter: "
+      code = STDIN.gets.to_s.strip
+
+      url = "#{YAMMER_ACCESS_TOKEN_URL}"
+      debug "access_token url: #{url}"
+      params = {
+        "client_id" => YAMMER_CLIENT_ID,
+        "client_secret" => YAMMER_CLIENT_SECRET,
+        "code" => code
+      }
+      debug "params : #{params.inspect}"
+      result = JSON.parse(RestClient.post(url, params))
+      debug "response : #{result.inspect}"
+      # no need for 'return', last line is always the return value
       {'access_token' => result["access_token"]["token"]}
     end
 
