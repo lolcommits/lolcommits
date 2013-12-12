@@ -3,6 +3,10 @@ module Lolcommits
     include Methadone::CLILogging
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url
 
+    def remote_https_url(url)
+        url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/'
+    end
+
     def initialize
       debug "GitInfo: attempting to read local repository"
       g    = Git.open('.')
@@ -13,7 +17,7 @@ module Lolcommits
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
-      self.url    = g.remote.url ? g.remote.url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/': ''
+      self.url = remote_https_url(g.remote.url) if g.remote.url
 
       regex = /.*[:]([\/\w\-]*).git/
       match = g.remote.url.match regex if g.remote.url
