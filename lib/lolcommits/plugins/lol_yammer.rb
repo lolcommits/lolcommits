@@ -50,13 +50,6 @@ module Lolcommits
       options
     end
 
-    def yammer_client
-      @yammer_client ||= Yammer.configure do |c|
-        c.client_id = YAMMER_CLIENT_ID
-        c.client_secret = YAMMER_CLIENT_SECRET
-      end
-    end
-
     def run
       return unless valid_configuration?
 
@@ -64,10 +57,19 @@ module Lolcommits
       post = "#{commit_msg} #lolcommits"
       puts "Yammer post: #{post}" unless self.runner.capture_stealth
 
+      Yammer.configure do |c|
+        c.client_id = YAMMER_CLIENT_ID
+        c.client_secret = YAMMER_CLIENT_SECRET
+      end
+
+      client = Yammer::Client.new(:access_token  => configuration['access_token'])
+
       retries = 2
       begin
         lolimage = File.new(self.runner.main_image)
-        if yammer_client.create_message(post, :attachment1 => lolimage)
+        response = client.create_message(post)
+        debug response.body.inspect
+        if response
           puts "\t--> Status posted!" unless self.runner.capture_stealth
         end
       rescue => e
