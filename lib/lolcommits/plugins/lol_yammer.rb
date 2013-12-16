@@ -67,6 +67,8 @@ module Lolcommits
       retries = 2
       begin
         lolimage = File.new(self.runner.main_image)
+        attacment = client.create_pending_attachment(lolimage)
+        debug attacment.body.inspect
         response = client.create_message(post)
         debug response.body.inspect
         if response
