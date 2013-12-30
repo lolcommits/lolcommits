@@ -291,10 +291,22 @@ def do_gif
   puts "*** #{gif.path} generated."
 end
 
+def print_version_and_exit
+  puts Lolcommits::VERSION
+  exit 0
+end
+
 #
 # Command line parsing fun
 #
 Choice.options do
+
+  option :version do
+    long "--version"
+    short "-v"
+    desc "print version and exit"
+    action { print_version_and_exit }
+  end
 
   option :enable do
     long "--enable"
