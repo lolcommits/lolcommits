@@ -4,7 +4,7 @@ module Lolcommits
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url
 
     def remote_https_url(url)
-        url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/'
+      url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/'
     end
 
     def initialize
