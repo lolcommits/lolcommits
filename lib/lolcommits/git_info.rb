@@ -1,7 +1,11 @@
 module Lolcommits
   class GitInfo
     include Methadone::CLILogging
-    attr_accessor :sha, :message, :repo_internal_path, :repo
+    attr_accessor :sha, :message, :repo_internal_path, :repo, :url
+
+    def remote_https_url(url)
+      url.gsub(':','/').gsub(/^git@/,'https://').gsub(/\.git$/,'') + '/commit/'
+    end
 
     def initialize
       debug "GitInfo: attempting to read local repository"
@@ -13,7 +17,9 @@ module Lolcommits
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
-      regex = /.*[:\/]([\w\-]*).git/
+      self.url = remote_https_url(g.remote.url) if g.remote.url
+
+      regex = /.*[:]([\/\w\-]*).git/
       match = g.remote.url.match regex if g.remote.url
       if match
         self.repo = match[1]
@@ -24,7 +30,7 @@ module Lolcommits
       debug "GitInfo: parsed the following values from commit:"
       debug "GitInfo: \t#{self.message}"
       debug "GitInfo: \t#{self.sha}"
-      debug "GitInfo: \t#{self.repo_internal_path}" 
+      debug "GitInfo: \t#{self.repo_internal_path}"
       debug "GitInfo: \t#{self.repo}"
     end
   end
