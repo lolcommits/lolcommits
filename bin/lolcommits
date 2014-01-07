@@ -296,6 +296,19 @@ def print_version_and_exit
   exit 0
 end
 
+def change_dir_to_root_or_repo!
+  debug "Walking up dir tree"
+  while true
+    cur=File.expand_path('.')
+    nxt=File.expand_path('..', cur)
+    if File.directory?(File.expand_path('.git')) || nxt == cur
+      # found root or git dir
+      return
+    end
+    Dir.chdir(nxt)
+  end
+end
+
 #
 # Command line parsing fun
 #
@@ -442,6 +455,11 @@ end
 # check for fatal conditions before execution
 #
 die_on_fatal_conditions!
+
+#
+# change working dir to either a repo or the fs root
+#
+change_dir_to_root_or_repo!
 
 #
 # Handle actions manually since choice seems weird
