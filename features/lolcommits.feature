@@ -184,6 +184,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the exit status should be 0
 
+  @in-tempdir
   Scenario: last command should fail gracefully if not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --last`
@@ -205,6 +206,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
+  @in-tempdir
   Scenario: browse command should fail gracefully when not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --browse`
