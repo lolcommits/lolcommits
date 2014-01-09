@@ -184,6 +184,15 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the exit status should be 0
 
+  Scenario: last command should work properly when in a lolrepo subdirectory
+    Given I am in a git repository named "randomgitrepo"
+      And a loldir named "randomgitrepo" with 2 lolimages
+      And a directory named "randomdir"
+      And I cd to "randomdir"
+    When I run `lolcommits --last`
+    Then the output should not contain "Can't do that since we're not in a valid git repository!"
+     And the exit status should be 0
+
   @in-tempdir
   Scenario: last command should fail gracefully if not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
@@ -205,6 +214,15 @@ Feature: Basic UI functionality
       And I cd to "randomgitrepo"
     When I run `lolcommits --browse`
     Then the exit status should be 0
+
+  Scenario: browse command should work properly when in a lolrepo subdirectory
+    Given I am in a git repository named "randomgitrepo"
+      And a loldir named "randomgitrepo" with 2 lolimages
+      And a directory named "randomdir"
+      And I cd to "randomdir"
+    When I run `lolcommits --browse`
+    Then the output should not contain "Can't do that since we're not in a valid git repository!"
+     And the exit status should be 0
 
   @in-tempdir
   Scenario: browse command should fail gracefully when not in a lolrepo
