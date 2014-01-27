@@ -21,7 +21,7 @@ Feature: Basic UI functionality
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
@@ -32,7 +32,7 @@ Feature: Basic UI functionality
       And the "loltest" repository "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
@@ -53,7 +53,7 @@ Feature: Basic UI functionality
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable -w 5 --fork`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture -w 5 --fork"
