@@ -24,7 +24,7 @@ class LolTest < Test::Unit::TestCase
   # issue #57, https://github.com/mroth/lolcommits/issues/57
   #
   def test_tranzlate
-    [["what the hell","(WH|W)UT TEH HELL"],["seriously wtf", "SRSLEH WTF"]].each do |normal, lol|
+    [["what the hell", "(WH|W)UT TEH HELL"], ["seriously wtf", "SRSLEH WTF"]].each do |normal, lol|
       tranzlated = Lolcommits::Tranzlate.tranzlate(normal)
       assert_match /^#{lol}/, tranzlated
     end

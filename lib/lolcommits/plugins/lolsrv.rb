@@ -56,7 +56,7 @@ module Lolcommits
           :date => File.ctime(file),
           :sha => sha)
       rescue => e
-        log_error(e,"ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
+        log_error(e, "ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
         return
       end
     end

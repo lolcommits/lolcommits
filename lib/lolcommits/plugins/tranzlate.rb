@@ -33,7 +33,7 @@ module Lolspeak
     /age/              => %w{uj},
     /like/             => %w{likez liek licks},
     /love/             => %w{lovez lub lubs luv lurve lurves},
-    /\bis\b/           => ['ar teh','ar'],
+    /\bis\b/           => ['ar teh', 'ar'],
     /nd\b/             => %w{n n'},
     /who/              => %w{hoo},
     /'/                => [''],
