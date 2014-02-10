@@ -29,7 +29,7 @@ Before do
   # ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )
 
   @original_home = ENV['HOME']
-  ENV['HOME'] = File.expand_path( current_dir )
+  ENV['HOME'] = File.expand_path(current_dir)
 
   ENV['LAUNCHY_DRY_RUN'] = 'true'
 end

@@ -68,7 +68,7 @@ Given /^a loldir named "(.*?)" with (\d+) lolimages$/ do |repo_name, num_images|
   mkdir_p loldir
   num_images.to_i.times do
     random_hex = "%011x" % (rand * 0xfffffffffff)
-    cp "test/images/test_image.jpg", File.join( loldir, "#{random_hex}.jpg")
+    cp "test/images/test_image.jpg", File.join(loldir, "#{random_hex}.jpg")
   end
 end
 

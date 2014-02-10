@@ -29,7 +29,7 @@ module Lolcommits
       debug "LinuxCapturer: calling out to mplayer to capture image"
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_location)
       debug "LinuxCapturer: cleaning up"
-      FileUtils.rm_rf( tmpdir )
+      FileUtils.rm_rf(tmpdir)
     end
 
   end
