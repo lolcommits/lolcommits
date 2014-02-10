@@ -39,6 +39,7 @@ CaseEquality:
 
 # Offence count: 1
 # Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep.
+# NOTE: Not sure I agree with this one. -mroth
 CaseIndentation:
   Enabled: false
 
