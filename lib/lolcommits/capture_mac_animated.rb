@@ -46,7 +46,7 @@ module Lolcommits
 
     def frame_skip(fps)
       # of frames to skip depends on movie fps
-      case(fps)
+      case (fps)
       when 0..15
         2
       when 16..28

@@ -176,8 +176,8 @@ SignalException:
 
 # Offence count: 1
 # Cop supports --auto-correct.
-SpaceAfterControlKeyword:
-  Enabled: false
+# SpaceAfterControlKeyword:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
