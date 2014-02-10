@@ -98,8 +98,8 @@ IfUnlessModifier:
   Enabled: false
 
 # Offence count: 2
-IndentationWidth:
-  Enabled: false
+# IndentationWidth:
+#   Enabled: true
 
 # Offence count: 8
 # Cop supports --auto-correct.

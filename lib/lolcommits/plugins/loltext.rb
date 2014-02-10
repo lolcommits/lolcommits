@@ -46,7 +46,7 @@ module Lolcommits
     end
 
     def self.name
-     'loltext'
+      'loltext'
     end
 
     private
