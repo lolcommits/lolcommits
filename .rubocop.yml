@@ -1,1 +1,5 @@
 inherit_from: rubocop-todo.yml
+
+# Enforce Ruby 1.8.7 compatible syntax
+HashSyntax:
+  EnforcedStyle: hash_rockets

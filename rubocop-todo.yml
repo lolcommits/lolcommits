@@ -93,12 +93,6 @@ FavorSprintf:
 FavorUnlessOverNegatedIf:
   Enabled: false
 
-# Offence count: 43
-# Cop supports --auto-correct.
-# Configuration parameters: SupportedStyles.
-HashSyntax:
-  EnforcedStyle: hash_rockets
-
 # Offence count: 7
 IfUnlessModifier:
   Enabled: false
