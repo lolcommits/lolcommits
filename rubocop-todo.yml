@@ -213,7 +213,7 @@ SpaceInsideParens:
 # Offence count: 1
 # Cop supports --auto-correct.
 SpecialGlobalVars:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 178
 # Cop supports --auto-correct.
