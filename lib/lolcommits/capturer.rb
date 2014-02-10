@@ -5,7 +5,7 @@ module Lolcommits
     attr_accessor :capture_device, :capture_delay, :snapshot_location, :font,
                   :video_location, :frames_location, :animated_duration
 
-    def initialize(attributes = Hash.new)
+    def initialize(attributes = {})
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end

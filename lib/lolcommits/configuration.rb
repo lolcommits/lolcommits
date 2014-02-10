@@ -122,7 +122,7 @@ module Lolcommits
       end
 
       if plugin = find_plugin(plugin_name)
-        config = self.read_configuration || Hash.new
+        config = self.read_configuration || {}
         plugin_config = plugin.configure_options!
         # having a plugin_config, means configuring went OK
         if plugin_config

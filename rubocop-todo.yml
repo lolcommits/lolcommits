@@ -82,8 +82,8 @@ Documentation:
 
 # Offence count: 4
 # Cop supports --auto-correct.
-EmptyLiteral:
-  Enabled: false
+# EmptyLiteral:
+#   Enabled: true
 
 # Offence count: 2
 FavorSprintf:

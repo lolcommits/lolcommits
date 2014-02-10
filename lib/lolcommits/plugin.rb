@@ -26,8 +26,8 @@ module Lolcommits
 
     def configuration
       config = runner.config.read_configuration if runner
-      return Hash.new unless config
-      config[self.class.name] || Hash.new
+      return {} unless config
+      config[self.class.name] || {}
     end
 
     # ask for plugin options
