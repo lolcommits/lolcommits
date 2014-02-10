@@ -62,6 +62,7 @@ module Lolcommits
     end
 
     private
+
     def capturer_class
       "Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}".constantize
     end
@@ -72,6 +73,7 @@ module Lolcommits
   end
 
   protected
+
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
     if not self.repo_internal_path.nil?

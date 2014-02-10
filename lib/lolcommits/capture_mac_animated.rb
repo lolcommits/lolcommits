@@ -27,6 +27,7 @@ module Lolcommits
     end
 
     private
+
     def system_call(call_str, capture_output = false)
       debug "Capturer: making system call for \n #{call_str}"
       capture_output ? `#{call_str}` : system(call_str)
