@@ -449,21 +449,21 @@ die_on_fatal_conditions!
 #
 if not (Choice.choices[:enable] || Choice.choices[:disable])
   if Choice.choices[:capture]
-    do_capture()
+    do_capture
   elsif Choice.choices[:configure]
-    do_configure()
+    do_configure
   elsif Choice.choices[:show_config]
     puts configuration
   elsif Choice.choices[:plugins]
-    configuration.puts_plugins()
+    configuration.puts_plugins
   elsif Choice.choices[:last]
-    do_last()
+    do_last
   elsif Choice.choices[:browse]
     die_if_not_git_repo!
     Launchy.open configuration.loldir
   elsif Choice.choices[:gif]
-    do_gif()
+    do_gif
   else
-    do_noargs()
+    do_noargs
   end
 end

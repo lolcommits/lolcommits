@@ -16,7 +16,7 @@ module Lolcommits
 
     def run
       return unless valid_configuration?
-      fork { sync() }
+      fork { sync }
     end
 
     def is_configured?
