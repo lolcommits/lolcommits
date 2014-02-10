@@ -7,4 +7,3 @@ module Lolcommits
 
   end
 end
-

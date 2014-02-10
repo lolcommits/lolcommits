@@ -78,7 +78,7 @@ module Lolspeak
     /ea/               => %w{ee},
     /can\si\s(?:ple(?:a|e)(?:s|z)e?)?\s?have\sa/ => ['i can haz'],
     /(?:hello|\bhi\b|\bhey\b|howdy|\byo\b),?/    => ['oh hai,'],
-    /(?:god\b|allah|buddah?|diety|lord)/         => ['ceiling cat'],
+    /(?:god\b|allah|buddah?|diety|lord)/         => ['ceiling cat']
   }
 
   def tranzlate(str)

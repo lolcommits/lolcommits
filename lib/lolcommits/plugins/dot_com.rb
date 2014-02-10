@@ -20,7 +20,7 @@ module Lolcommits
                                     :image            => File.open(self.runner.main_image),
                                     :raw              => File.open(self.runner.snapshot_loc)
                                   },
-                        
+
                                   :key   => configuration['api_key'],
                                   :t     => t,
                                   :token =>  Digest::SHA1.hexdigest(configuration['api_secret'] + t)

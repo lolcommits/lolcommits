@@ -230,17 +230,17 @@ StringLiterals:
 # Offence count: 1
 # Cop supports --auto-correct.
 TrailingBlankLines:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 1
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
 TrailingComma:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
 TrailingWhitespace:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 2
 UselessAssignment:
