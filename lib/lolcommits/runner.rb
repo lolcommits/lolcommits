@@ -3,8 +3,8 @@ module Lolcommits
 
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
-      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-      :font, :capture_animate, :url
+                  :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
+                  :font, :capture_animate, :url
 
     include Methadone::CLILogging
     include ActiveSupport::Callbacks

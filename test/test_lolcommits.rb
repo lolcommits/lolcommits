@@ -53,11 +53,11 @@ where the streets have no name... where the streets have no name }.gsub("\n", ' 
       imagesnap_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")).mode & 0777
       videosnap_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")).mode & 0777
       assert impact_perms == 0644 || impact_perms == 0664,
-        "expected perms of 644/664 but instead got #{sprintf '%o', impact_perms}"
+             "expected perms of 644/664 but instead got #{sprintf '%o', impact_perms}"
       assert imagesnap_perms == 0755 || imagesnap_perms == 0775,
-        "expected perms of 755/775 but instead got #{sprintf '%o', imagesnap_perms}"
+             "expected perms of 755/775 but instead got #{sprintf '%o', imagesnap_perms}"
       assert videosnap_perms == 0755 || videosnap_perms == 0775,
-        "expected perms of 755/775 but instead got #{sprintf '%o', videosnap_perms}"
+             "expected perms of 755/775 but instead got #{sprintf '%o', videosnap_perms}"
     end
 
     # Hmm.. webcam capture breaks travis-ci tests

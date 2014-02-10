@@ -18,8 +18,8 @@ module Lolcommits
       else
         debug "Calling " + configuration['endpoint'] + " with repo " + repo
         RestClient.post(configuration['endpoint'],
-          :file => File.new(self.runner.main_image),
-          :repo => repo)
+                        :file => File.new(self.runner.main_image),
+                        :repo => repo)
       end
     end
 

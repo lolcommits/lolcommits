@@ -17,7 +17,7 @@ AlignArray:
 # Offence count: 7
 # Cop supports --auto-correct.
 AlignParameters:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 22
 AmbiguousRegexpLiteral:
