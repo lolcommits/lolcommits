@@ -7,7 +7,6 @@ require 'cucumber'
 require 'cucumber/rake/task'
 gem 'rdoc' # we need the installed RDoc gem, not the system one
 require 'rdoc/task'
-require 'rubocop/rake_task'
 
 include Rake::DSL
 
@@ -42,10 +41,14 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
 end
 
-Rubocop::RakeTask.new
-
-task :default => [:rubocop,:test,:features]
-
+# only run rubocop on platforms where it is supported, sigh
+if RUBY_VERSION >= '1.9.2'
+  require 'rubocop/rake_task'
+  Rubocop::RakeTask.new
+  task :default => [:rubocop,:test,:features]
+else
+  task :default => [:test,:features]
+end
 
 
 desc "Migrate an existing local .lolcommits directory to Dropbox"
