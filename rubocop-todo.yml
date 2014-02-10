@@ -11,13 +11,13 @@ AccessorMethodName:
 
 # Offence count: 2
 # Cop supports --auto-correct.
-AlignArray:
-  Enabled: true
+# AlignArray:
+#   Enabled: true
 
 # Offence count: 7
 # Cop supports --auto-correct.
-AlignParameters:
-  Enabled: true
+# AlignParameters:
+#   Enabled: true
 
 # Offence count: 22
 AmbiguousRegexpLiteral:
@@ -30,8 +30,8 @@ AssignmentInCondition:
 
 # Offence count: 2
 # Cop supports --auto-correct.
-Blocks:
-  Enabled: true
+# Blocks:
+#   Enabled: true
 
 # Offence count: 1
 CaseEquality:
@@ -50,13 +50,13 @@ ClassLength:
 # Offence count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredMethods.
-CollectionMethods:
-  Enabled: true
+# CollectionMethods:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
-ColonMethodCall:
-  Enabled: true
+# ColonMethodCall:
+#   Enabled: true
 
 # Offence count: 3
 CyclomaticComplexity:
@@ -68,12 +68,12 @@ Documentation:
 
 # Offence count: 1
 # Cop supports --auto-correct.
-EmptyLines:
-  Enabled: true
+# EmptyLines:
+#   Enabled: true
 
 # Offence count: 3
-EmptyLinesAroundAccessModifier:
-  Enabled: true
+# EmptyLinesAroundAccessModifier:
+#   Enabled: true
 
 # Offence count: 19
 # Cop supports --auto-correct.
@@ -181,24 +181,24 @@ SpaceAfterControlKeyword:
 
 # Offence count: 1
 # Cop supports --auto-correct.
-SpaceAfterNot:
-  Enabled: true
+# SpaceAfterNot:
+#   Enabled: true
 
 # Offence count: 4
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, EnforcedStyleForEmptyBraces, SpaceBeforeBlockParameters.
-SpaceAroundBlockBraces:
-  Enabled: true
+# SpaceAroundBlockBraces:
+#   Enabled: true
 
 # Offence count: 2
 # Cop supports --auto-correct.
-SpaceAroundEqualsInParameterDefault:
-  Enabled: true
+# SpaceAroundEqualsInParameterDefault:
+#   Enabled: true
 
 # Offence count: 4
 # Cop supports --auto-correct.
-SpaceAroundOperators:
-  Enabled: true
+# SpaceAroundOperators:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
@@ -207,13 +207,13 @@ SpaceInsideBrackets:
 
 # Offence count: 5
 # Cop supports --auto-correct.
-SpaceInsideParens:
-  Enabled: true
+# SpaceInsideParens:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
-SpecialGlobalVars:
-  Enabled: true
+# SpecialGlobalVars:
+#   Enabled: true
 
 # Offence count: 178
 # Cop supports --auto-correct.
@@ -223,18 +223,18 @@ StringLiterals:
 
 # Offence count: 1
 # Cop supports --auto-correct.
-TrailingBlankLines:
-  Enabled: true
+# TrailingBlankLines:
+#   Enabled: true
 
 # Offence count: 1
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-TrailingComma:
-  Enabled: true
+# TrailingComma:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
-TrailingWhitespace:
-  Enabled: true
+# TrailingWhitespace:
+#   Enabled: true
 
 # Offence count: 2
 UselessAssignment:
