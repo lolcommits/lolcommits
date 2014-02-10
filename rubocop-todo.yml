@@ -56,7 +56,7 @@ CollectionMethods:
 # Offence count: 1
 # Cop supports --auto-correct.
 ColonMethodCall:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 3
 CyclomaticComplexity:

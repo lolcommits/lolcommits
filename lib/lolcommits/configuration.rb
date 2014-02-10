@@ -177,7 +177,7 @@ module Lolcommits
       return false unless self.command_which('mogrify')
       # you'd expect the below to work on its own, but it only handles old versions
       # and will throw an exception if IM is not installed in PATH
-      MiniMagick::valid_version_installed?
+      MiniMagick.valid_version_installed?
     end
 
     def self.valid_ffmpeg_installed?
