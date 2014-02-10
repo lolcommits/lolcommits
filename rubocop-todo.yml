@@ -103,8 +103,8 @@ IfUnlessModifier:
 
 # Offence count: 8
 # Cop supports --auto-correct.
-LeadingCommentSpace:
-  Enabled: false
+# LeadingCommentSpace:
+#   Enabled: true
 
 # Offence count: 73
 LineLength:

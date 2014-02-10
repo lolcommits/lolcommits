@@ -96,7 +96,7 @@ end
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
 def do_noargs
-  #TODO: make this a contextual helper to know status of whether lolcommits is enabled
+  # TODO: make this a contextual helper to know status of whether lolcommits is enabled
   puts "Do what exactly?"
   puts "Try: lolcommits --enable   (when in a git repository)"
   puts "Or:  lolcommits --help"
@@ -114,7 +114,7 @@ def do_enable
     exit 1
   end
 
-  #its possible a hooks dir doesnt exist, so create it if so
+  # its possible a hooks dir doesnt exist, so create it if so
   if not File.directory?(HOOK_DIR)
     Dir.mkdir(HOOK_DIR)
   end

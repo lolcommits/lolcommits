@@ -63,10 +63,10 @@ where the streets have no name... where the streets have no name }.gsub("\n", ' 
   end
 
   # Hmm.. webcam capture breaks travis-ci tests
-  #def test_can_capture
+  # def test_can_capture
   #  assert_nothing_raised do
   #    Lolcommits.capture(0,true,'test commit message','test-sha-001')
   #  end
-  #end
+  # end
 
 end
