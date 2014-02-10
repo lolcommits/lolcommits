@@ -88,7 +88,7 @@ module Lolcommits
   def resize_snapshot!
     debug "Runner: resizing snapshot"
     image = MiniMagick::Image.open(self.snapshot_loc)
-    if (image[:width] > 640 || image[:height] > 480)
+    if image[:width] > 640 || image[:height] > 480
       # this is ghetto resize-to-fill
       image.combine_options do |c|
         c.resize '640x480^'

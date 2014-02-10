@@ -131,8 +131,8 @@ OneLineConditional:
 # Offence count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: AllowSafeAssignment.
-ParenthesesAroundCondition:
-  Enabled: false
+# ParenthesesAroundCondition:
+#   Enabled: true
 
 # Offence count: 13
 # Configuration parameters: NamePrefixBlacklist.
