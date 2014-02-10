@@ -68,11 +68,11 @@ module Lolcommits
     end
 
     def most_recent
-      Dir.glob(File.join self.loldir, "*.jpg").max_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, "*.jpg").max_by { |f| File.mtime(f) }
     end
 
     def images
-      Dir.glob(File.join self.loldir, "*.jpg").sort_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, "*.jpg").sort_by { |f| File.mtime(f) }
     end
 
     def images_today
