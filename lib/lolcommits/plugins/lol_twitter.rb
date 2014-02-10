@@ -28,8 +28,8 @@ module Lolcommits
           puts "\t--> Tweet Sent!"
         end
       rescue Twitter::Error::InternalServerError,
-               Twitter::Error::BadRequest,
-               Twitter::Error::ClientError => e
+             Twitter::Error::BadRequest,
+             Twitter::Error::ClientError => e
         debug "Tweet FAILED! #{e.class} - #{e.message}"
         retry if attempts < TWITTER_RETRIES
         puts "ERROR: Tweet FAILED! (after #{attempts} attempts) - #{e.message}"

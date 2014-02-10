@@ -12,7 +12,7 @@ AccessorMethodName:
 # Offence count: 2
 # Cop supports --auto-correct.
 AlignArray:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 7
 # Cop supports --auto-correct.
