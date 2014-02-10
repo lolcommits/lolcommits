@@ -202,8 +202,8 @@ SpaceAfterControlKeyword:
 
 # Offence count: 1
 # Cop supports --auto-correct.
-SpaceInsideBrackets:
-  Enabled: false
+# SpaceInsideBrackets:
+#   Enabled: true
 
 # Offence count: 5
 # Cop supports --auto-correct.
