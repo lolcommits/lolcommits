@@ -7,6 +7,7 @@ require 'cucumber'
 require 'cucumber/rake/task'
 gem 'rdoc' # we need the installed RDoc gem, not the system one
 require 'rdoc/task'
+require 'rubocop/rake_task'
 
 include Rake::DSL
 
@@ -37,13 +38,13 @@ Cucumber::Rake::Task.new(:features) do |t|
 end
 
 Rake::RDocTask.new do |rd|
-  
   rd.main = "README.rdoc"
-  
   rd.rdoc_files.include("README.rdoc","lib/**/*.rb","bin/**/*")
 end
 
-task :default => [:test,:features]
+Rubocop::RakeTask.new
+
+task :default => [:rubocop,:test,:features]
 
 
 
