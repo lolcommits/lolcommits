@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rest_client'
 
 module Lolcommits

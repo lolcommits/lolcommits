@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureLinux < Capturer
     def capture_device_string

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Adapted and expanded from https://github.com/rwtnorton/moar-lolspeak
 # which was largely taken from an old Perl script and is sadly is not
 # available via rubygems

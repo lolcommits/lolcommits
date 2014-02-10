@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 include FileUtils
 
 Given /^I am in a directory named "(.*?)"$/ do |dir_name|

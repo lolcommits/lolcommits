@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('faker')
   s.add_development_dependency('travis')
   s.add_development_dependency('coveralls')
+  s.add_development_dependency('magic_encoding')
   if RUBY_VERSION >= '1.9.2'
     s.add_development_dependency('rubocop', '~> 0.18.1')
   end
