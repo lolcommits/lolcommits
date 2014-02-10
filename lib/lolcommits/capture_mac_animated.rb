@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureMacAnimated < Capturer
-
     def capture
       # make a fresh frames directory
       FileUtils.rm_rf(frames_location)
@@ -68,6 +67,5 @@ module Lolcommits
     def capture_delay_string
       "-w '#{capture_delay}' " if capture_delay.to_i > 0
     end
-
   end
 end

@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 module PathHelpers
-
   def reject_paths_with_cmd(cmd)
     @original_path = ENV['PATH']
     # make a new subdir that still contains cmds
@@ -36,5 +35,4 @@ module PathHelpers
   def reset_path
     ENV['PATH'] = @original_path
   end
-
 end

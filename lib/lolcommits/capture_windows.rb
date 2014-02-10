@@ -15,7 +15,5 @@ module Lolcommits
       # looks like we still need to read the output for something to happen
       r.read
     end
-
   end
-
 end

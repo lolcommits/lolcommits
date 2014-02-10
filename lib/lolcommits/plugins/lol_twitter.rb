@@ -9,7 +9,6 @@ $VERBOSE = original_verbose # activate warning messages again.
 
 module Lolcommits
   class LolTwitter < Plugin
-
     TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'
     TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
     TWITTER_RETRIES         = 2

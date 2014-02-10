@@ -3,7 +3,6 @@ require 'httmultiparty'
 
 module Lolcommits
   class DotCom < Plugin
-
     def initialize(runner)
       super
       self.options.concat(['api_key', 'api_secret', 'repo_id'])

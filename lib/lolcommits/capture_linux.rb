@@ -31,7 +31,5 @@ module Lolcommits
       debug "LinuxCapturer: cleaning up"
       FileUtils.rm_rf(tmpdir)
     end
-
   end
-
 end

@@ -77,8 +77,8 @@ Documentation:
 
 # Offence count: 19
 # Cop supports --auto-correct.
-EmptyLinesAroundBody:
-  Enabled: false
+# EmptyLinesAroundBody:
+#   Enabled: true
 
 # Offence count: 4
 # Cop supports --auto-correct.

@@ -6,7 +6,6 @@ require "logger"
 
 module Lolcommits
   class Lolsrv < Plugin
-
     def initialize(runner)
       super
       self.options << 'server'

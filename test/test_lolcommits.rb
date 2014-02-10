@@ -12,7 +12,6 @@ require 'lolcommits'
 include Lolcommits
 
 class LolTest < Test::Unit::TestCase
-
   def test_can_parse_git
     assert_nothing_raised do
       gi = GitInfo.new
@@ -68,5 +67,4 @@ where the streets have no name... where the streets have no name }.gsub("\n", ' 
   #    Lolcommits.capture(0,true,'test commit message','test-sha-001')
   #  end
   # end
-
 end

@@ -4,7 +4,6 @@
 # available via rubygems
 
 module Lolspeak
-
   LOL_DICTIONARY = {
     /what/             => %w{wut whut},
     /you\b/            => %w{yu yous yoo u yooz},
@@ -98,7 +97,6 @@ end
 
 module Lolcommits
   class Tranzlate < Plugin
-
     extend Lolspeak
 
     def run

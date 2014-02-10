@@ -206,6 +206,5 @@ module Lolcommits
       end
       return nil
     end
-
   end
 end

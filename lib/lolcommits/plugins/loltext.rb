@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class Loltext < Plugin
-
     def initialize(runner)
       super
       @font_location = runner ? runner.font : nil
