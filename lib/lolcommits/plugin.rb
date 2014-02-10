@@ -32,7 +32,7 @@ module Lolcommits
     # ask for plugin options
     def configure_options!
       puts "Configuring plugin: #{self.class.name}\n"
-      options.inject(Hash.new) do |acc, option|
+      options.reduce(Hash.new) do |acc, option|
         print "#{option}: "
         val = STDIN.gets.strip.downcase
         if %w(true yes).include?(val)

@@ -51,7 +51,7 @@ ClassLength:
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredMethods.
 CollectionMethods:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
