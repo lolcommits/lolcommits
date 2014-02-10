@@ -192,10 +192,10 @@ end
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
-  capture_delay   = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
-  capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
-  capture_device  = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
-  capture_font    = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
+  capture_delay   = Choice.choices[:delay]    || ENV['LOLCOMMITS_DELAY']    || 0
+  capture_stealth = Choice.choices[:stealth]  || ENV['LOLCOMMITS_STEALTH']  || nil
+  capture_device  = Choice.choices[:device]   || ENV['LOLCOMMITS_DEVICE']   || nil
+  capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
 
   fork_me? do
     if Choice.choices[:test]
