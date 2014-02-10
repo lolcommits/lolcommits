@@ -39,7 +39,7 @@ module Lolcommits
     def build_tweet(commit_message, tag = "#lolcommits")
       available_commit_msg_size = max_tweet_size - (tag.length + 1)
       if commit_message.length > available_commit_msg_size
-        commit_message = "#{commit_message[0..(available_commit_msg_size-3)]}..."
+        commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
       "#{commit_message} #{tag}"
     end

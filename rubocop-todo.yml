@@ -204,7 +204,7 @@ SpaceAroundEqualsInParameterDefault:
 # Offence count: 4
 # Cop supports --auto-correct.
 SpaceAroundOperators:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.

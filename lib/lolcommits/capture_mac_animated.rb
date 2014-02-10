@@ -33,7 +33,7 @@ module Lolcommits
 
     def frame_delay(fps, skip)
       # calculate frame delay
-      delay = ((100.0 * skip)/fps.to_f).to_i
+      delay = ((100.0 * skip) / fps.to_f).to_i
       delay < 6 ? 6 : delay # hard limit for IE browsers
     end
 

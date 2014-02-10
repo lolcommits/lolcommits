@@ -54,7 +54,7 @@ end
 def die_if_not_git_repo!
   begin
     debug "Checking for valid git repo"
-    g=Git.open('.')
+    g = Git.open('.')
   rescue ArgumentError
     # ruby-git throws an argument error if path isnt for a valid git repo...
     fatal "Erm? Can't do that since we're not in a valid git repository!"
@@ -372,7 +372,7 @@ Choice.options do
     desc "pass SHA manually [TEST-MODE]"
     long "--sha"
     short '-s'
-    default "test-#{rand(10 ** 10)}"
+    default "test-#{rand(10**10)}"
   end
 
   option :msg do
