@@ -48,7 +48,6 @@ module Lolcommits
      'loltext'
     end
 
-
     private
 
     # do whatever is required to commit message to get it clean and ready for imagemagick

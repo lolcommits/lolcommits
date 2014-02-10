@@ -69,7 +69,7 @@ Documentation:
 # Offence count: 1
 # Cop supports --auto-correct.
 EmptyLines:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 3
 EmptyLinesAroundAccessModifier:
