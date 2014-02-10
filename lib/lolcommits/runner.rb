@@ -21,7 +21,7 @@ module Lolcommits
     set_callback :run, :after,  :execute_lolcommits_loltext
     # Executed First
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end

@@ -5,7 +5,7 @@ module Lolcommits
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
     attr_writer :loldir
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end
