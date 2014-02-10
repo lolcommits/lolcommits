@@ -157,7 +157,7 @@ module Lolcommits
     end
 
     def self.is_windows?
-      !! RUBY_PLATFORM.match(/(win|w)32/)
+      !!RUBY_PLATFORM.match(/(win|w)32/)
     end
 
     def self.is_cygwin?

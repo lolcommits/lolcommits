@@ -182,7 +182,7 @@ SpaceAfterControlKeyword:
 # Offence count: 1
 # Cop supports --auto-correct.
 SpaceAfterNot:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 4
 # Cop supports --auto-correct.
