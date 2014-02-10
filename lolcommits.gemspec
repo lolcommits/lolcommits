@@ -36,6 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('travis')
   s.add_development_dependency('coveralls')
   s.add_development_dependency('rubocop', '~> 0.18.1')
+  s.add_development_dependency('rainbow', '1.99.2') #seems to be only version satistifies both ruby1.8.7 and rubocop
 
   # plugin dependencies
   s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
