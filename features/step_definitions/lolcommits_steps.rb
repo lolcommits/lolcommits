@@ -117,7 +117,5 @@ Given /^I am using a "(.*?)" platform$/ do |platform_name|
 end
 
 When /^I wait for the child process to exit in "(.*?)"$/ do |repo_name|
-  while File.exist?("tmp/aruba/.lolcommits/#{repo_name}/lolcommits.pid")
-    sleep 0.1
-  end
+  sleep 0.1 while File.exist?("tmp/aruba/.lolcommits/#{repo_name}/lolcommits.pid")
 end
