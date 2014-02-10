@@ -11,10 +11,10 @@ module PathHelpers
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     newpaths = ENV['PATH'].split(File::PATH_SEPARATOR).reject do |path|
       found_cmd = false
-      exts.each { |ext|
+      exts.each do |ext|
         exe = "#{path}/#{cmd}#{ext}"
         found_cmd = true if File.executable? exe
-      }
+      end
       found_cmd
     end
 
