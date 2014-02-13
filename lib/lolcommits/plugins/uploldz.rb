@@ -6,7 +6,7 @@ module Lolcommits
 
     def initialize(runner)
       super
-      self.options << 'endpoint'
+      self.options.concat(['endpoint', 'optional_key'])
     end
 
     def run
@@ -19,7 +19,8 @@ module Lolcommits
         debug "Calling " + configuration['endpoint'] + " with repo " + repo
         RestClient.post(configuration['endpoint'],
           :file => File.new(self.runner.main_image),
-          :repo => repo)
+          :repo => repo,
+          :key => configuration['optional_key'])
       end
     end
 
