@@ -65,8 +65,8 @@ module Lolcommits
 
       consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY,
                                      TWITTER_CONSUMER_SECRET,
-                                     :site => 'http://api.twitter.com',
-                                     :request_endpoint => 'http://api.twitter.com',
+                                     :site => 'https://api.twitter.com',
+                                     :request_endpoint => 'https://api.twitter.com',
                                      :sign_in => true)
 
       request_token = consumer.get_request_token
