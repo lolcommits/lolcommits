@@ -4,11 +4,16 @@ rvm:
  - 1.9.2
  - 1.9.3
  - 2.0.0
+ - 2.1.0
 
 before_install:
- # imagemagick is installed by default on normal travis image now
+ # use earlier version of Rubygems to avoid fatal bundler error on 1.8.7
+ - gem update --system 2.1.11
+ - gem --version
  - sudo apt-get update -qq
- - sudo apt-get install -qq -y mplayer 
+ - sudo apt-get install -qq -y mplayer
+ - sudo apt-get install ffmpeg
+ # imagemagick is installed by default on normal travis image now
  # - sudo apt-get install -qq -y imagemagick libmagickwand-dev
 
 # matrix:
@@ -18,3 +23,15 @@ before_install:
 branches:
   except:
     - gh-pages
+
+notifications:
+  irc: "chat.freenode.net#lolcommits"
+
+deploy:
+  provider: rubygems
+  api_key:
+    secure: Y7FFOMDahITtHYRV3UQAw+BA2JbqoArN/Ii9PUTU6RaLmTIvpZBzqtvR3r8ah3SdXNh0Cx10gVf0pRc6HXKTNQdwMWCkOQwukAb+9kLDKFxl3x+w4X2u6yWmtsyNMTWK1gF4hEF1IHnsdg2dYEoFfE2M5bHex85ND/Q6820sPa8=
+  gem: lolcommits
+  on:
+    tags: true
+    repo: mroth/lolcommits

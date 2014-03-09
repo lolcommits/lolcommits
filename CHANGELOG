@@ -1,5 +1,35 @@
-0.5.0 (in development)
+0.x.x (in development)
   * TODO: figure out problems with GUI clients
+
+0.5.2 (5 December 2013)
+  * Allow lolsrv plugin to sync/upload gifs (@matthutchinson #180)
+  * Plugins refactor, can now configure themselves (@matthutchinson #179)
+    - also closes issue #136 and issue #73
+  * Fix for Twitter gem dependency issue (@matthutchinson #178)
+  * Added coveralls support (@Aaron1011 #177)
+    - gitignore updated, coveralls badge added to README
+  * Refactor tranzlate plugin, lolspeak now in plugin (@matthutchinson #176)
+  * Fix for 'Cannot satisfy json dependancy' (@matthutchinson #175)
+  * Better post commit hook enabling/disabling (@matthutchinson #173)
+  * Improved --enable option, accepts passing arguments (@matthutchinson #154)
+    - README updated to explain enabling with options
+
+0.5.1 (13 November 2013)
+  * Fix JSON gem issue #163 (@matthutchinson, #171)
+  * Enable image capture under Cygwin (@cwc, #105)
+  * Add Ruby PATH to post-commit hook (@matthutchinson, #155)
+  * "Stealth mode" where no notification is given (@sionide21, #156)
+  * BUGFIX: comparison error for animate (@Yabes, #151)
+
+0.5.0 (10 September 2013)
+  * better handling of LOLCOMMITS_DELAY (thx @leewillis77, #125)
+  * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, #139)
+  * better handling of repository names (thx @drocamor and @andromedado, #145 and #146)
+  * added new LOLCOMMITS_ANIMATE (or `--animate`) option (Mac/OSX only) (#114, #108)
+    - defaults to a 320x240 sized animated gif
+    - new vendored binary videosnap - https://github.com/matthutchinson/videosnap
+    - feature requires ffmpeg
+    - README updated with details and an example
 
 0.4.6 (12 August 2013)
   * Fix for incorrect permissioning in gem issue (see #112)
@@ -23,7 +53,7 @@
 
 0.4.1 (17 February 2013)
   * add lolsrv plugin (thx @sebastianmarr!, #82)
-  * enable feature to change font (thx @fukayatsu!, #89) 
+  * enable feature to change font (thx @fukayatsu!, #89)
   * correct activesupport gem name in bundle (thx @djbender!, #90)
   * graceful detection of imagemagick not being installed (#87)
   * restructure logging slightly to use Methadone::CLILogging in most places

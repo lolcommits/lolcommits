@@ -33,13 +33,17 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rake',' ~> 10.0.2')
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
+  s.add_development_dependency('travis')
+  s.add_development_dependency('coveralls')
 
   # plugin dependencies
-  s.add_runtime_dependency('twitter')                 #twitter
-  s.add_runtime_dependency('oauth')                   #twitter, pump.io
+  s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
+  s.add_runtime_dependency('oauth')                   #twitter
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
+  s.add_runtime_dependency('httparty', "~> 0.11.0")   #dot_com
   s.add_runtime_dependency('json', '~> 1.7.6')        #lolsrv
+  s.add_runtime_dependency('mime-types', '~> 1.25')
   s.add_runtime_dependency('laraib', '~> 0.0.1.1')    #pump.io
 
 end

@@ -27,6 +27,12 @@ Given /^the git repository named "(.*?)" has a "(.*?)" hook$/ do |repo_name, hoo
   touch(hook_file) if not File.exists? hook_file
 end
 
+Given /^the "(.*?)" repository "(.*?)" hook has content "(.*?)"$/ do |repo_name, hook_name, hook_content|
+  step %{the git repository named "#{repo_name}" has a "#{hook_name}" hook}
+  hook_file = File.join current_dir, repo_name, ".git", "hooks", hook_name
+  File.open(hook_file, 'w') { |f| f.write(hook_content) }
+end
+
 Given /^a git repository named "(.*?)" with (a|no) "(.*?)" hook$/ do |repo_name, yesno_modifier, hook_name|
   step %{a git repository named "#{repo_name}"}
   step %{the git repository named "#{repo_name}" has #{yesno_modifier} "#{hook_name}" hook}
@@ -44,6 +50,10 @@ Given /^I am in a git repository named "(.*?)" with lolcommits enabled$/ do |rep
     Given I am in a git repository named "#{repo_name}"
     And I successfully run `lolcommits --enable`
   }
+end
+
+Given /^I have environment variable (.*?) set to (.*?)$/ do |var, value|
+  set_env var, value
 end
 
 When /^I run `(.*?)` and wait for output$/ do |command|
@@ -70,7 +80,7 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
   @stdin.puts input
 end
 
-Then /^there should be (?:exactly|only) (.*?) (jpg|gif)(?:s?) in "(.*?)"$/ do |n, type, folder|
+Then /^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/ do |n, type, folder|
   assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.#{type}"].count
 end
 
@@ -102,3 +112,12 @@ Then /^there should be (\d+) commit entries in the git log$/ do |n|
   assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
 
+Given /^I am using a "(.*?)" platform$/ do |platform_name|
+  ENV['LOLCOMMITS_FAKEPLATFORM'] = platform_name
+end
+
+When /^I wait for the child process to exit in "(.*?)"$/ do |repo_name|
+  while File.exist?("tmp/aruba/.lolcommits/#{repo_name}/lolcommits.pid")
+    sleep 0.1
+  end
+end

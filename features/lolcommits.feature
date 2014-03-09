@@ -5,20 +5,66 @@ Feature: Basic UI functionality
     Then the exit status should be 0
     And the banner should be present
 
+  Scenario: Help should show the animate option on a Mac platform
+    Given I am using a "Mac" platform
+    When I get help for "lolcommits"
+    Then the following options should be documented:
+      |--animate|which is optional|
+      |-a       |which is optional|
+
+  Scenario: Help should not show the animate option on a Linux plaftorm
+    Given I am using a "Linux" platform
+    When I get help for "lolcommits"
+    Then the output should not match /\-a\, \-\-animate\=SECONDS/
+
   Scenario: Enable in a naked git repository
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    Then the output should contain "installed lolcommmit hook as:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
+      And the exit status should be 0
+
+  Scenario: Enable in a git repository that already has a post-commit hook
+    Given a git repository named "loltest" with a "post-commit" hook
+      And the "loltest" repository "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
+    When I cd to "loltest"
+    And I successfully run `lolcommits --enable`
+    Then the output should contain "installed lolcommit hook to:"
+      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
+      And the file ".git/hooks/post-commit" should contain "/my/own/script"
+      And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
+      And the exit status should be 0
+
+  Scenario: Enable in a git repository that already has post-commit hook with a bad shebang
+    Given a git repository named "loltest" with a "post-commit" hook
+      And the "loltest" repository "post-commit" hook has content "#!/bin/ruby"
+    When I cd to "loltest"
+    And I run `lolcommits --enable`
+    Then the output should contain "doesn't start with with a good shebang"
+      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
+      And the exit status should be 1
+
+  Scenario: Enable in a git repository passing capture arguments
+    Given a git repository named "loltest" with no "post-commit" hook
+    When I cd to "loltest"
+    And I successfully run `lolcommits --enable -w 5 --fork`
+    Then the output should contain "installed lolcommit hook to:"
+      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should contain "lolcommits --capture -w 5 --fork"
       And the exit status should be 0
 
   Scenario: Disable in a enabled git repository
     Given I am in a git repository named "lolenabled" with lolcommits enabled
     When I successfully run `lolcommits --disable`
-    Then the output should contain "removed"
-      And a file named ".git/hooks/post-commit" should not exist
+    Then the output should contain "uninstalled"
+      And a file named ".git/hooks/post-commit" should exist
+      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
       And the exit status should be 0
 
   Scenario: Trying to enable while not in a git repo fails
@@ -31,7 +77,8 @@ Feature: Basic UI functionality
     Given I am in a git repository named "testforkcapture"
     And I do a git commit
     When I successfully run `lolcommits --capture --fork`
-    And I successfully run `sleep 3`
+    Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
+    When I wait for the child process to exit in "testforkcapture"
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testforkcapture" should exist
       And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
@@ -56,6 +103,20 @@ Feature: Basic UI functionality
       And a directory named "../../.lolcommits/subdir" should not exist
       And there should be exactly 1 jpg in "../../.lolcommits/testcapture"
 
+  Scenario: Stealth mode does not alert the user
+    Given I am in a git repository named "teststealth"
+    And I do a git commit
+    When I run `lolcommits --stealth --capture`
+    Then the output should not contain "*** Preserving this moment in history."
+      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+
+  Scenario: Commiting in stealth mode triggers successful capture without alerting the committer
+    Given I am in a git repository named "teststealth" with lolcommits enabled
+        And I have environment variable LOLCOMMITS_STEALTH set to 1
+    When I do a git commit
+    Then the output should not contain "*** Preserving this moment in history."
+      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+
   Scenario: Show plugins
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
@@ -73,7 +134,7 @@ Feature: Basic UI functionality
     Then the output should contain a list of plugins
     And the output should contain "Name of plugin to configure:"
     Then the output should contain "enabled:"
-    Then the output should contain "Successfully Configured"
+    Then the output should contain "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
@@ -85,19 +146,19 @@ Feature: Basic UI functionality
     And I run `lolcommits --config` and wait for output
     When I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
-    Then I should be presented "Successfully Configured"
+    Then I should be presented "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
-  
+
   Scenario: Configuring Plugin In Test Mode
     Given a git repository named "testmode-config-test"
     When I cd to "testmode-config-test"
     And I run `lolcommits --config --test` and wait for output
     And I enter "loltext" for "Name of plugin to configure"
     And I enter "true" for "enabled"
-    Then I should be presented "Successfully Configured"
+    Then I should be presented "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
     Then the output should contain "loltext:"
@@ -169,3 +230,22 @@ Feature: Basic UI functionality
       And a loldir named "randomgitrepo" with 2 lolimages
     When I successfully run `lolcommits -g today`
       And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"
+
+  @mac-only
+  Scenario: should generate an animated gif on the Mac platform
+    Given I am in a git repository named "testanimatedcapture"
+      And I do a git commit
+      And I am using a "Mac" platform
+    When I run `lolcommits --capture --animate=1`
+    Then the output should contain "*** Preserving this moment in history."
+      And a directory named "../.lolcommits/testanimatedcapture" should exist
+      And a file named "../.lolcommits/testanimatedcapture/tmp_video.mov" should not exist
+      And a directory named "../.lolcommits/testanimatedcapture/tmp_frames" should not exist
+      And there should be exactly 1 gif in "../.lolcommits/testanimatedcapture"
+
+  @fake-no-ffmpeg
+  Scenario: gracefully fail when ffmpeg is not installed and animate option is used
+    Given I am using a "Mac" platform
+    When I run `lolcommits --animate=3`
+    Then the output should contain "ffmpeg does not appear to be properly installed"
+    And the exit status should be 1

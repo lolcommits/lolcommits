@@ -18,26 +18,26 @@ include Methadone::CLILogging
 # CHECK FOR FURTHER DEPENDENCIES
 #
 
-# which replacement http://stackoverflow.com/q/2108727
-def command?(name)
-  `which #{name}`
-  $?.success?
-end
-
 def die_on_fatal_conditions!
   if Configuration.is_mac?
-    unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
-      fatal "Couldn't properly execute imagesnap for some reason, please file a bug?!"
-      exit 1
+    %w(imagesnap videosnap).each do |executable|
+      unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", executable, executable)
+        fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
+        exit 1
+      end
     end
   elsif Configuration.is_linux?
-    if not command?('mplayer')
+    if not Configuration.command_which('mplayer')
       fatal "Couldn't find mplayer in your PATH!"
       exit 1
     end
   end
   unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
     fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
+    exit 1
+  end
+  if !Configuration.valid_ffmpeg_installed? && capture_animate
+    fatal "FATAL: ffmpeg does not appear to be properly installed!"
     exit 1
   end
   unless Configuration.valid_imagemagick_installed?
@@ -60,6 +60,35 @@ def die_if_not_git_repo!
     fatal "Erm? Can't do that since we're not in a valid git repository!"
     exit 1
   end
+end
+
+def good_shebang?
+  File.read(HOOK_PATH).lines.first =~ /^\#\!\/bin\/.*sh/
+end
+
+def lolcommits_hook?
+  File.exists?(HOOK_PATH) &&
+    File.read(HOOK_PATH).to_s =~ /lolcommits.*\(begin\)(.*\n)*.*lolcommits.*\(end\)/
+end
+
+def remove_existing_hook
+  hook = File.read(HOOK_PATH)
+  out  = File.open(HOOK_PATH, 'w')
+  skip = false
+
+  hook.lines.each do |line|
+    if !skip && (line =~ /lolcommits.*\(begin\)/)
+      skip = true
+    end
+
+    out << line unless skip
+
+    if skip && (line =~ /lolcommits.*\(end\)/)
+      skip = false
+    end
+  end
+
+  out.close
 end
 
 #
@@ -89,32 +118,58 @@ def do_enable
     Dir.mkdir(HOOK_DIR)
   end
 
-  if File.exists? HOOK_PATH
-    fatal "A post-commit hook already exists for this project."
-    #TODO: disambiguate between OUR post-commit hook and something else
-    exit 1
+  # clear away any existing lolcommits hook
+  if hook_exists = File.exists?(HOOK_PATH)
+    remove_existing_hook
+
+    # check for a good shebang line in the existing hook
+    unless good_shebang?
+      warn "the existing hook (at #{HOOK_PATH}) doesn't start with with a good shebang; like #!/bin/sh"
+      exit 1
+    end
   end
 
-  doc = "#!/bin/sh\nlolcommits --capture\n"
-  File.open(HOOK_PATH, 'w') {|f| f.write(doc) }
+  File.open(HOOK_PATH, hook_exists ? 'a' : 'w') do |f|
+    f.write(hook_script(!hook_exists))
+  end
+
   FileUtils.chmod 0755, HOOK_PATH
-  info "installed lolcommmit hook as:"
+
+  info "installed lolcommit hook to:"
   info "  -> #{File.expand_path(HOOK_PATH)}"
   info "(to remove later, you can use: lolcommits --disable)"
   # we dont symlink, but rather install a small stub that calls the one from path
   # that way, as gem version changes, script updates even if new file thus breaking symlink
 end
 
+def hook_script(add_shebang = true)
+  shebang      = add_shebang ? "#!/bin/sh\n\n" : ''
+  ruby_path    = Lolcommits::Configuration.command_which('ruby')
+  hook_export  = "export PATH=\"#{ruby_path}:$PATH\"\n" if ruby_path
+  capture_cmd  = 'lolcommits --capture'
+  capture_args = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
+
+  <<-EOS
+#{shebang}### lolcommits hook (begin) ###
+#{hook_export}#{capture_cmd}#{capture_args}
+###  lolcommits hook (end)  ###
+EOS
+end
+
 #
 # IF --DISABLE, DO DISABLE
 #
 def do_disable
-  if File.exists? HOOK_PATH
-    #TODO: check if hook file has been modified before removing
-    FileUtils.rm HOOK_PATH
-    info "removed #{HOOK_PATH}"
+  if lolcommits_hook?
+    remove_existing_hook
+    info "uninstalled lolcommits hook (from #{HOOK_PATH})"
+  elsif File.exists?(HOOK_PATH)
+    info "couldn't find an lolcommits hook (at #{HOOK_PATH})"
+    if File.read(HOOK_PATH) =~ /lolcommit/
+      info "warning: an older-style lolcommit hook may still exist, edit #{HOOK_PATH} to remove it manually"
+    end
   else
-    info "lolcommits is not enabled for this directory, so there is nothing to uninstall."
+    info "no post commit hook found (at #{HOOK_PATH}), so there is nothing to uninstall"
   end
 end
 
@@ -126,32 +181,45 @@ def configuration
   end
 end
 
+def capture_animate
+  if Configuration.can_animate?
+    Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
+  end
+end
+
 #
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
-  capture_delay = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
-  capture_device = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
-  capture_font = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
+  capture_delay   = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
+  capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
+  capture_device  = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
+  capture_font    = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
 
   fork_me? do
     if Choice.choices[:test]
       info "*** Capturing in test mode."
-      runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-        :capture_device => capture_device,
-        :message        => Choice.choices[:msg],
-        :sha            => Choice.choices[:sha],
-        :config         => configuration,
-        :font           => capture_font
-    )
+      runner = Lolcommits::Runner.new(
+        :capture_delay   => capture_delay,
+        :capture_stealth => capture_stealth,
+        :capture_device  => capture_device,
+        :capture_animate => capture_animate,
+        :message         => Choice.choices[:msg],
+        :sha             => Choice.choices[:sha],
+        :config          => configuration,
+        :font            => capture_font
+      )
       runner.run
 
       Launchy.open(runner.main_image)
     else
-      runner = Lolcommits::Runner.new(:capture_delay => capture_delay,
-        :capture_device => capture_device,
-        :config         => configuration,
-        :font           => capture_font
+      runner = Lolcommits::Runner.new(
+        :capture_delay   => capture_delay,
+        :capture_stealth => capture_stealth,
+        :capture_device  => capture_device,
+        :capture_animate => capture_animate,
+        :config          => configuration,
+        :font            => capture_font
       )
       runner.run
     end
@@ -160,10 +228,26 @@ end
 
 def fork_me?(&block)
   if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
-    fork { yield block }
+    $stdout.sync = true
+    write_pid fork {
+      yield block
+      delete_pid
+    }
   else
     yield block
   end
+end
+
+def write_pid(pid)
+  File.open(pid_file, 'w') { |f| f.write(pid) }
+end
+
+def delete_pid
+  File.delete(pid_file) if File.exist?(pid_file)
+end
+
+def pid_file
+  File.join(configuration.loldir, 'lolcommits.pid')
 end
 
 def do_configure
@@ -207,10 +291,22 @@ def do_gif
   puts "*** #{gif.path} generated."
 end
 
+def print_version_and_exit
+  puts Lolcommits::VERSION
+  exit 0
+end
+
 #
 # Command line parsing fun
 #
 Choice.options do
+
+  option :version do
+    long "--version"
+    short "-v"
+    desc "print version and exit"
+    action { print_version_and_exit }
+  end
 
   option :enable do
     long "--enable"
@@ -293,9 +389,14 @@ Choice.options do
     short '-w'
   end
 
+  option :stealth do
+    long "--stealth"
+    desc "capture image in stealth mode"
+  end
+
   option :device do
     long "--device=DEVICE"
-    desc "the device name used to take the snapshot (only mac)"
+    desc "the device name used to take the snapshot (only mac/linux)"
   end
 
   option :debug do
@@ -312,7 +413,16 @@ Choice.options do
   option :gif do
     long "--gif"
     short "-g"
-    desc "generate animated gif"
+    desc "generate animated timeline gif from captured images"
+  end
+
+  if Configuration.can_animate?
+    option :animate do
+      long "--animate=SECONDS"
+      short "-a"
+      cast Integer
+      desc "enable animated gif captures with duration (seconds)"
+    end
   end
 
   option :fork do
@@ -342,7 +452,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:configure]
     do_configure()
   elsif Choice.choices[:show_config]
-    puts configuration.user_configuration.to_yaml
+    puts configuration
   elsif Choice.choices[:plugins]
     configuration.puts_plugins()
   elsif Choice.choices[:last]

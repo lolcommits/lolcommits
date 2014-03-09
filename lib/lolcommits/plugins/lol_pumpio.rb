@@ -9,14 +9,30 @@ module Lolcommits
 
   class LolPumpio < Plugin
 
+    attr_accessor :runner, :options
+
     def initialize(runner)
-      super
-      self.name    = 'pumpio'
-      self.default = false
+      debug "Initializing"
+      self.runner = runner
+      self.options = ['enabled']
     end
 
-    def initial_pumpio_auth
-      puts "\n------------------------------------"
+    def configure_options!
+      options = super
+      # ask user to configure tokens if enabling
+      if options['enabled'] == true
+        if auth_config = configure_auth!
+          options.merge!(auth_config)
+        else
+          # return nil if configure_auth failed
+          return
+        end
+      end
+      return options
+    end
+
+    def configure_auth!
+      puts "-------------------------------------"
       puts "Need to authorize this Pump.io client"
       puts "-------------------------------------"
       # This logics is heavily based on laraib's bin/laraib-genconf
@@ -66,34 +82,37 @@ module Lolcommits
 
       pumpio_access_token = pumpio_request_token.get_access_token(:oauth_verifier => pumpio_verifier)
 
-      # saves the config back to yaml file.
-      self.runner.config.do_configure!('pumpio', { 'enabled'      => true,
+      return {
 	      :url             => pumpio_url,
 	      :user            => pumpio_user,
 	      :consumer_key    => pumpio_access_token.consumer.key,
 	      :consumer_secret => pumpio_access_token.consumer.secret,
 	      :token           => pumpio_access_token.params[:oauth_token],
 	      :token_secret    => pumpio_access_token.params[:oauth_token_secret]
-      })
+      }
+    end
+
+    def is_configured?
+      !configuration['enabled'].nil? &&
+        configuration[:url] &&
+        configuration[:user] &&
+        configuration[:consumer_key] &&
+        configuration[:consumer_secret] &&
+        configuration[:token] &&
+        configuration[:token_secret]
     end
 
     def run
+      return unless valid_configuration?
+
       display_name = self.runner.message
       content = self.runner.details
-
-      if configuration[:token].nil? || configuration[:token_secret].nil?
-        initial_pumpio_auth()
-      end
-      if configuration[:token].nil? || configuration[:token_secret].nil?
-        puts "Missing Pump.io Credentials - Skipping"
-        return
-      end
 
       client = Laraib::Client.new(configuration)
 
       puts "Pumping: #{display_name}"
       begin
-	      #puts "Uploading image to /api/user/#{configuration[:user]}/uploads..."
+	      debug "Uploading image to /api/user/#{configuration[:user]}/uploads..."
 	      image_object = client.post(
 		      "/api/user/#{configuration[:user]}/uploads",
 		      File.open(self.runner.main_image, 'r'), "image/jpeg")
@@ -107,19 +126,26 @@ module Lolcommits
 			      "image" => image_object["image"],
 		      },
 	      }
-	      #puts "Posting #{note} to /api/user/#{configuration[:user]}/feed..."
+	      debug "Posting #{note} to /api/user/#{configuration[:user]}/feed..."
 	      post_resp = client.post("/api/user/#{configuration[:user]}/feed", JSON.dump(note))
 
 	      post_resp["verb"] = "update"
 	      post_resp["object"]["displayName"] = display_name
 	      post_resp["object"]["content"] = content
-	      #puts "Posting #{note} to /api/user/#{configuration[:user]}/feed..."
+	      debug "Posting #{note} to /api/user/#{configuration[:user]}/feed..."
 	      update_resp = client.post("/api/user/#{configuration[:user]}/feed", JSON.dump(post_resp))
-	      #puts "Pumped: #{update_resp["object"]["id"]}"
+	      debug "Pumped: #{update_resp["object"]["id"]}"
 
       rescue Exception => e
 	      puts "Error pumping: #{e}"
       end
     end
+
+    def self.name
+	    'pumpio'
+    end
+
   end
 end
+
+# vim: sw=2

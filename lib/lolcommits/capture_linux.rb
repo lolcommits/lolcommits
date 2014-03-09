@@ -1,16 +1,24 @@
 module Lolcommits
   class CaptureLinux < Capturer
+    def capture_device_string
+      @capture_device.nil? ? nil : "-tv device=\"#{@capture_device}\""
+    end
+
     def capture
       debug "LinuxCapturer: making tmp directory"
       tmpdir = Dir.mktmpdir
 
+      # Default delay is 1s
+      delay = if capture_delay != 0 then capture_delay else 1 end
+
       # There's no way to give a capture delay in mplayer, but a number of frame
-      # I've found that 6 is a good value for me.
-      frames = if capture_delay != 0 then capture_delay else 6 end
+      # mplayer's "delay" is actually a number of frames at 25fps
+      # multiply the set value (in seconds) by 25
+      frames = delay.to_i * 25
 
       debug "LinuxCapturer: calling out to mplayer to capture image"
       # mplayer's output is ugly and useless, let's throw it away
-      _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} -frames #{frames} tv://")
+      _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} tv://")
       # looks like we still need to read the output for something to happen
       r.read
 

@@ -2,9 +2,9 @@ module Lolcommits
   PLUGINS = Lolcommits::Plugin.subclasses
 
   class Runner
-    attr_accessor :capture_delay, :capture_device, :message, :details, :sha,
+    attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :details, :sha,
       :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-      :font
+      :font, :capture_animate, :url
 
     include Methadone::CLILogging
     include ActiveSupport::Callbacks
@@ -33,6 +33,7 @@ module Lolcommits
         self.details = git_info.details if self.details.nil?
         self.repo_internal_path = git_info.repo_internal_path
         self.repo = git_info.repo
+        self.url  = git_info.url
       end
     end
 
@@ -40,18 +41,34 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history."
-        self.snapshot_loc = self.config.raw_image
-        self.main_image   = self.config.main_image(self.sha)
-        capturer = "Lolcommits::Capture#{Configuration.platform}".constantize.new(
+        puts "*** Preserving this moment in history." unless capture_stealth
+        self.snapshot_loc = self.config.raw_image(image_file_type)
+        self.main_image   = self.config.main_image(self.sha, image_file_type)
+        capturer = capturer_class.new(
           :capture_device    => self.capture_device,
           :capture_delay     => self.capture_delay,
           :snapshot_location => self.snapshot_loc,
-          :font              => self.font
+          :font              => self.font,
+          :video_location    => self.config.video_loc,
+          :frames_location   => self.config.frames_loc,
+          :animated_duration => self.capture_animate
         )
         capturer.capture
         resize_snapshot!
       end
+    end
+
+    def animate?
+      capture_animate && (capture_animate.to_i > 0)
+    end
+
+    private
+    def capturer_class
+      "Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}".constantize
+    end
+
+    def image_file_type
+      animate? ? 'gif' : 'jpg'
     end
   end
 
@@ -86,8 +103,10 @@ module Lolcommits
 
   def cleanup!
     debug "Runner: running cleanup"
-    #clean up the captured image
+    # clean up the captured image and any other raw assets
     FileUtils.rm(self.snapshot_loc)
+    FileUtils.rm_f(self.config.video_loc)
+    FileUtils.rm_rf(self.config.frames_loc)
   end
 
   # register a method called "execute_lolcommits_#{plugin_name}"
