@@ -76,3 +76,13 @@ end
 After('@fake-no-ffmpeg') do
   reset_path
 end
+
+# do test in temporary directory so our own git repo-ness doesn't affect it
+Before('@in-tempdir') do
+  @dirs = [Dir.mktmpdir]
+end
+
+After('@in-tempdir') do
+  FileUtils.rm_rf( @dirs.first )
+end
+
