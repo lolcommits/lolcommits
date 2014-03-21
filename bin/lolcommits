@@ -409,12 +409,17 @@ Choice.options do
 
   option :device do
     long "--device=DEVICE"
-    desc "the device name used to take the snapshot (only mac/linux)"
+    desc "the device name used to take the snapshot (mac/linux only)"
+  end
+
+  option :devices do
+    long "--devices"
+    desc "list all video devices available (mac only)"
   end
 
   option :debug do
     long "--debug"
-    desc "Output debugging information"
+    desc "output debugging information"
   end
 
   option :font do
@@ -473,6 +478,8 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
     puts configuration
   elsif Choice.choices[:plugins]
     configuration.puts_plugins()
+  elsif Choice.choices[:devices]
+    configuration.puts_devices()
   elsif Choice.choices[:last]
     do_last()
   elsif Choice.choices[:browse]
