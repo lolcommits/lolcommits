@@ -125,8 +125,8 @@ MethodLength:
 Not:
   Enabled: false
 
-# Eh, I don't like this one, I think they are more readable? -mroth
 # Offence count: 1
+# NOTE: Eh, I don't like this one, I think they are more readable? -mroth
 OneLineConditional:
   Enabled: false
 
@@ -158,6 +158,7 @@ RedundantReturn:
 
 # Offence count: 67
 # Cop supports --auto-correct.
+# NOTE: I want to understand this one better before auto it -mroth
 RedundantSelf:
   Enabled: false
 
@@ -169,7 +170,7 @@ RegexpLiteral:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 SignalException:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 7
 # Cop supports --auto-correct.

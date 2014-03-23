@@ -147,7 +147,7 @@ module Lolcommits
       elsif platform_cygwin?
         'Cygwin'
       else
-        raise 'Unknown / Unsupported Platform.'
+        fail 'Unknown / Unsupported Platform.'
       end
     end
 
