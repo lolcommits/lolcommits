@@ -5,33 +5,9 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offence count: 1
-# AccessorMethodName:
-#   Enabled: true
-
-# Offence count: 2
-# Cop supports --auto-correct.
-# AlignArray:
-#   Enabled: true
-
-# Offence count: 7
-# Cop supports --auto-correct.
-# AlignParameters:
-#   Enabled: true
-
 # Offence count: 22
 AmbiguousRegexpLiteral:
   Enabled: false
-
-# Offence count: 3
-# Configuration parameters: AllowSafeAssignment.
-# AssignmentInCondition:
-#   Enabled: true
-
-# Offence count: 2
-# Cop supports --auto-correct.
-# Blocks:
-#   Enabled: true
 
 # Offence count: 1
 CaseEquality:
@@ -42,49 +18,6 @@ CaseEquality:
 # NOTE: Not sure I agree with this one. -mroth
 CaseIndentation:
   Enabled: false
-
-# Offence count: 1
-# Configuration parameters: CountComments.
-ClassLength:
-  Max: 169
-
-# Offence count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredMethods.
-# CollectionMethods:
-#   Enabled: true
-
-# Offence count: 1
-# Cop supports --auto-correct.
-# ColonMethodCall:
-#   Enabled: true
-
-# Offence count: 3
-CyclomaticComplexity:
-  Max: 10
-
-# Offence count: 23
-Documentation:
-  Enabled: false
-
-# Offence count: 1
-# Cop supports --auto-correct.
-# EmptyLines:
-#   Enabled: true
-
-# Offence count: 3
-# EmptyLinesAroundAccessModifier:
-#   Enabled: true
-
-# Offence count: 19
-# Cop supports --auto-correct.
-# EmptyLinesAroundBody:
-#   Enabled: true
-
-# Offence count: 4
-# Cop supports --auto-correct.
-# EmptyLiteral:
-#   Enabled: true
 
 # Offence count: 2
 FavorSprintf:
@@ -98,48 +31,9 @@ FavorUnlessOverNegatedIf:
 IfUnlessModifier:
   Enabled: false
 
-# Offence count: 2
-# IndentationWidth:
-#   Enabled: true
-
-# Offence count: 8
-# Cop supports --auto-correct.
-# LeadingCommentSpace:
-#   Enabled: true
-
-# Offence count: 73
-LineLength:
-  Max: 179
-
-# Offence count: 7
-# Cop supports --auto-correct.
-# MethodCallParentheses:
-#   Enabled: true
-
-# Offence count: 19
-# Configuration parameters: CountComments.
-MethodLength:
-  Max: 32
-
 # Offence count: 8
 Not:
   Enabled: false
-
-# Offence count: 1
-# NOTE: Eh, I don't like this one, I think they are more readable? -mroth
-OneLineConditional:
-  Enabled: false
-
-# Offence count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment.
-# ParenthesesAroundCondition:
-#   Enabled: true
-
-# Offence count: 13
-# Configuration parameters: NamePrefixBlacklist.
-# PredicateName:
-#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
@@ -163,14 +57,129 @@ RedundantSelf:
   Enabled: false
 
 # Offence count: 1
+# NOTE: Eh, I don't like this one, I think they are more readable? -mroth
+OneLineConditional:
+  Enabled: false
+
+# Offence count: 2
+UselessAssignment:
+  Enabled: false
+
+# Offence count: 23
+Documentation:
+  Enabled: false
+
+# Offence count: 1
+# Configuration parameters: CountComments.
+ClassLength:
+  Max: 169
+
+# Offence count: 73
+LineLength:
+  Max: 179
+
+# Offence count: 19
+# Configuration parameters: CountComments.
+MethodLength:
+  Max: 32
+
+# Offence count: 2
+# Cop supports --auto-correct.
+WordArray:
+  MinSize: 3
+
+# Offence count: 1
 RegexpLiteral:
   MaxSlashes: 2
+
+# Offence count: 3
+CyclomaticComplexity:
+  Max: 10
+
+# Offence count: 1
+# AccessorMethodName:
+#   Enabled: true
+
+# Offence count: 2
+# Cop supports --auto-correct.
+# AlignArray:
+#   Enabled: true
+
+# Offence count: 7
+# Cop supports --auto-correct.
+# AlignParameters:
+#   Enabled: true
+
+# Offence count: 3
+# Configuration parameters: AllowSafeAssignment.
+# AssignmentInCondition:
+#   Enabled: true
+
+# Offence count: 2
+# Cop supports --auto-correct.
+# Blocks:
+#   Enabled: true
+
+# Offence count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: PreferredMethods.
+# CollectionMethods:
+#   Enabled: true
+
+# Offence count: 1
+# Cop supports --auto-correct.
+# ColonMethodCall:
+#   Enabled: true
+
+# Offence count: 1
+# Cop supports --auto-correct.
+# EmptyLines:
+#   Enabled: true
+
+# Offence count: 3
+# EmptyLinesAroundAccessModifier:
+#   Enabled: true
+
+# Offence count: 19
+# Cop supports --auto-correct.
+# EmptyLinesAroundBody:
+#   Enabled: true
+
+# Offence count: 4
+# Cop supports --auto-correct.
+# EmptyLiteral:
+#   Enabled: true
+
+# Offence count: 2
+# IndentationWidth:
+#   Enabled: true
+
+# Offence count: 8
+# Cop supports --auto-correct.
+# LeadingCommentSpace:
+#   Enabled: true
+
+# Offence count: 7
+# Cop supports --auto-correct.
+# MethodCallParentheses:
+#   Enabled: true
+
+# Offence count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: AllowSafeAssignment.
+# ParenthesesAroundCondition:
+#   Enabled: true
+
+# Offence count: 13
+# Configuration parameters: NamePrefixBlacklist.
+# PredicateName:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-SignalException:
-  Enabled: true
+# SignalException:
+#   Enabled: true
 
 # Offence count: 7
 # Cop supports --auto-correct.
@@ -238,12 +247,3 @@ SignalException:
 # Cop supports --auto-correct.
 # TrailingWhitespace:
 #   Enabled: true
-
-# Offence count: 2
-UselessAssignment:
-  Enabled: false
-
-# Offence count: 2
-# Cop supports --auto-correct.
-WordArray:
-  MinSize: 3
