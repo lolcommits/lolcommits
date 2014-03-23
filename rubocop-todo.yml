@@ -6,8 +6,8 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offence count: 1
-AccessorMethodName:
-  Enabled: false
+# AccessorMethodName:
+#   Enabled: true
 
 # Offence count: 2
 # Cop supports --auto-correct.
@@ -25,8 +25,8 @@ AmbiguousRegexpLiteral:
 
 # Offence count: 3
 # Configuration parameters: AllowSafeAssignment.
-AssignmentInCondition:
-  Enabled: true
+# AssignmentInCondition:
+#   Enabled: true
 
 # Offence count: 2
 # Cop supports --auto-correct.

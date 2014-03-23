@@ -24,7 +24,7 @@ module Lolcommits
     end
 
     def sync
-      existing = get_existing_lols
+      existing = existing_lols
       unless existing.nil?
         Dir[self.runner.config.loldir + "/*.{jpg,gif}"].each do |item|
           sha = File.basename(item, ".*")
@@ -35,7 +35,7 @@ module Lolcommits
       end
     end
 
-    def get_existing_lols
+    def existing_lols
       begin
         lols = JSON.parse(
         RestClient.get(configuration['server'] + "/lols"))
