@@ -44,12 +44,6 @@ Proc:
 RedundantBegin:
   Enabled: false
 
-# Offence count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleReturnValues.
-RedundantReturn:
-  Enabled: false
-
 # Offence count: 67
 # Cop supports --auto-correct.
 # NOTE: I want to understand this one better before auto it -mroth
@@ -95,6 +89,12 @@ RegexpLiteral:
 # Offence count: 3
 CyclomaticComplexity:
   Max: 10
+
+# Offence count: 2
+# Cop supports --auto-correct.
+# Configuration parameters: AllowMultipleReturnValues.
+# RedundantReturn:
+#   Enabled: true
 
 # Offence count: 1
 # AccessorMethodName:

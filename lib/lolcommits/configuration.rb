@@ -216,7 +216,7 @@ module Lolcommits
           return exe if File.executable? exe
         end
       end
-      return nil
+      nil
     end
   end
 end

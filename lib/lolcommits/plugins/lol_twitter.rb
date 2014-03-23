@@ -55,7 +55,7 @@ module Lolcommits
           return # return nil if configure_auth failed
         end
       end
-      return options
+      options
     end
 
     def configure_auth!
