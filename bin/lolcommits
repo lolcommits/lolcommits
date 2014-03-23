@@ -297,6 +297,19 @@ def print_version_and_exit
   exit 0
 end
 
+def change_dir_to_root_or_repo!
+  debug "Walking up dir tree"
+  while true
+    cur=File.expand_path('.')
+    nxt=File.expand_path('..', cur)
+    if File.directory?(File.expand_path('.git')) || nxt == cur
+      # found root or git dir
+      return
+    end
+    Dir.chdir(nxt)
+  end
+end
+
 #
 # Command line parsing fun
 #
@@ -397,12 +410,17 @@ Choice.options do
 
   option :device do
     long "--device=DEVICE"
-    desc "the device name used to take the snapshot (only mac/linux)"
+    desc "the device name used to take the snapshot (mac/linux only)"
+  end
+
+  option :devices do
+    long "--devices"
+    desc "list all video devices available (mac only)"
   end
 
   option :debug do
     long "--debug"
-    desc "Output debugging information"
+    desc "output debugging information"
   end
 
   option :font do
@@ -445,6 +463,11 @@ end
 die_on_fatal_conditions!
 
 #
+# change working dir to either a repo or the fs root
+#
+change_dir_to_root_or_repo!
+
+#
 # Handle actions manually since choice seems weird
 #
 if not (Choice.choices[:enable] || Choice.choices[:disable])
@@ -455,7 +478,9 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:show_config]
     puts configuration
   elsif Choice.choices[:plugins]
-    configuration.puts_plugins
+    configuration.puts_plugins()
+  elsif Choice.choices[:devices]
+    configuration.puts_devices()
   elsif Choice.choices[:last]
     do_last
   elsif Choice.choices[:browse]

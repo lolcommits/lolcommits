@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureLinux < Capturer
+
     def capture_device_string
       @capture_device.nil? ? nil : "-tv device=\"#{@capture_device}\""
     end
@@ -19,7 +20,7 @@ module Lolcommits
 
       debug "LinuxCapturer: calling out to mplayer to capture image"
       # mplayer's output is ugly and useless, let's throw it away
-      _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} tv://")
+      _, r, _ = Open3.popen3("#{executable_path} -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} tv://")
       # looks like we still need to read the output for something to happen
       r.read
 
@@ -30,6 +31,10 @@ module Lolcommits
       FileUtils.mv(tmpdir + "/%08d.jpg" % frames, snapshot_location)
       debug "LinuxCapturer: cleaning up"
       FileUtils.rm_rf(tmpdir)
+    end
+
+    def executable_path
+      "mplayer"
     end
   end
 end

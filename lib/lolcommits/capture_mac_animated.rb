@@ -7,7 +7,7 @@ module Lolcommits
       FileUtils.mkdir_p(frames_location)
 
       # capture the raw video with videosnap
-      system_call "#{videosnap_bin} -s 240 #{capture_device_string}#{capture_delay_string}-t #{animated_duration} --no-audio #{video_location} > /dev/null"
+      system_call "#{executable_path} -s 240 #{capture_device_string}#{capture_delay_string}-t #{animated_duration} --no-audio #{video_location} > /dev/null"
       if File.exists?(video_location)
         # convert raw video to png frames with ffmpeg
         system_call "ffmpeg -v quiet -i #{video_location} -t #{animated_duration} #{frames_location}/%09d.png"
@@ -23,6 +23,10 @@ module Lolcommits
         # convert to animated gif with delay and gif optimisation
         system_call "convert -layers OptimizeTransparency -delay #{delay} -loop 0 `#{seq_command}` -coalesce #{snapshot_location}"
       end
+    end
+
+    def executable_path
+      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'videosnap', 'videosnap')
     end
 
     private
@@ -54,10 +58,6 @@ module Lolcommits
       else
         4
       end
-    end
-
-    def videosnap_bin
-      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'videosnap', 'videosnap')
     end
 
     def capture_device_string
