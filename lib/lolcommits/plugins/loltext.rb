@@ -7,8 +7,8 @@ module Lolcommits
     end
 
     # enabled by default (if no configuration exists)
-    def is_enabled?
-      !is_configured? || super
+    def enabled?
+      !configured? || super
     end
 
     def run

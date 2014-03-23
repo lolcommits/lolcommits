@@ -125,6 +125,7 @@ MethodLength:
 Not:
   Enabled: false
 
+# Eh, I don't like this one, I think they are more readable? -mroth
 # Offence count: 1
 OneLineConditional:
   Enabled: false
@@ -138,7 +139,7 @@ OneLineConditional:
 # Offence count: 13
 # Configuration parameters: NamePrefixBlacklist.
 PredicateName:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.

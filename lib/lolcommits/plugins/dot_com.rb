@@ -28,7 +28,7 @@ module Lolcommits
       )
     end
 
-    def is_configured?
+    def configured?
       !configuration['enabled'].nil? &&
         configuration['api_key'] &&
         configuration['api_secret'] &&

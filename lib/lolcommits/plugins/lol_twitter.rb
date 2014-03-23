@@ -99,7 +99,7 @@ module Lolcommits
       end
     end
 
-    def is_configured?
+    def configured?
       !configuration['enabled'].nil? &&
         configuration['access_token'] &&
         configuration['secret']

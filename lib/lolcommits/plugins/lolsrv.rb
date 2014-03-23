@@ -19,7 +19,7 @@ module Lolcommits
       fork { sync }
     end
 
-    def is_configured?
+    def configured?
       !configuration["enabled"].nil? && configuration["server"]
     end
 

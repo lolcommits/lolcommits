@@ -25,7 +25,7 @@ module Lolcommits
       end
     end
 
-    def is_configured?
+    def configured?
       !configuration["enabled"].nil? && configuration["endpoint"]
     end
 

@@ -12,7 +12,7 @@ module Lolcommits
     end
 
     def execute
-      if is_enabled?
+      if enabled?
         debug "I am enabled, about to run"
         run
       else
@@ -45,13 +45,13 @@ module Lolcommits
       end
     end
 
-    def is_enabled?
+    def enabled?
       configuration['enabled'] == true
     end
 
     # check config is valid
     def valid_configuration?
-      if is_configured?
+      if configured?
         true
       else
         puts "Missing #{self.class.name} config - configure with: lolcommits --config -p #{self.class.name}"
@@ -60,7 +60,7 @@ module Lolcommits
     end
 
     # empty plugin configuration
-    def is_configured?
+    def configured?
       !configuration.empty?
     end
 

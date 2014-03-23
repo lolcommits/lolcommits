@@ -20,14 +20,14 @@ include Methadone::CLILogging
 #
 
 def die_on_fatal_conditions!
-  if Configuration.is_mac?
+  if Configuration.platform_mac?
     %w(imagesnap videosnap).each do |executable|
       unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", executable, executable)
         fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
         exit 1
       end
     end
-  elsif Configuration.is_linux?
+  elsif Configuration.platform_linux?
     if not Configuration.command_which('mplayer')
       fatal "Couldn't find mplayer in your PATH!"
       exit 1

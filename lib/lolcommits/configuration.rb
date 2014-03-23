@@ -70,7 +70,7 @@ module Lolcommits
 
     def puts_devices
       # TODO: handle other platforms here (linux/windows)
-      if self.class.is_mac?
+      if self.class.platform_mac?
         capturer = Lolcommits::CaptureMacAnimated.new
         puts `#{capturer.executable_path} -l`
         puts "Specify a device with --device=\"{device name}\" or set the LOLCOMMITS_DEVICE env variable"
@@ -134,17 +134,17 @@ module Lolcommits
     # class methods
 
     def self.platform
-      if is_fakeplatform?
+      if platform_fakeplatform?
         ENV['LOLCOMMITS_FAKEPLATFORM']
-      elsif is_fakecapture?
+      elsif platform_fakecapture?
         'Fake'
-      elsif is_mac?
+      elsif platform_mac?
         'Mac'
-      elsif is_linux?
+      elsif platform_linux?
         'Linux'
-      elsif is_windows?
+      elsif platform_windows?
         'Windows'
-      elsif is_cygwin?
+      elsif platform_cygwin?
         'Cygwin'
       else
         raise "Unknown / Unsupported Platform."
@@ -160,27 +160,27 @@ module Lolcommits
       loldir
     end
 
-    def self.is_mac?
+    def self.platform_mac?
       RUBY_PLATFORM.to_s.downcase.include?("darwin")
     end
 
-    def self.is_linux?
+    def self.platform_linux?
       RUBY_PLATFORM.to_s.downcase.include?("linux")
     end
 
-    def self.is_windows?
+    def self.platform_windows?
       !!RUBY_PLATFORM.match(/(win|w)32/)
     end
 
-    def self.is_cygwin?
+    def self.platform_cygwin?
       RUBY_PLATFORM.to_s.downcase.include?("cygwin")
     end
 
-    def self.is_fakecapture?
+    def self.platform_fakecapture?
       (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
     end
 
-    def self.is_fakeplatform?
+    def self.platform_fakeplatform?
       ENV['LOLCOMMITS_FAKEPLATFORM']
     end
 
