@@ -10,24 +10,6 @@ module Lolcommits
       end
     end
 
-    def self.platform
-      if is_fakeplatform?
-        ENV['LOLCOMMITS_FAKEPLATFORM']
-      elsif is_fakecapture?
-        'Fake'
-      elsif is_mac?
-        'Mac'
-      elsif is_linux?
-        'Linux'
-      elsif is_windows?
-        'Windows'
-      elsif is_cygwin?
-        'Cygwin'
-      else
-        raise "Unknown / Unsupported Platform."
-      end
-    end
-
     def read_configuration
       if File.exists?(configuration_file)
         YAML.load(File.open(configuration_file))
@@ -57,15 +39,6 @@ module Lolcommits
       dir
     end
 
-    def self.loldir_for(basename)
-      loldir = File.join(LOLBASEDIR, basename)
-
-      if not File.directory? loldir
-        FileUtils.mkdir_p loldir
-      end
-      loldir
-    end
-
     def most_recent
       Dir.glob(File.join self.loldir, "*.jpg").max_by {|f| File.mtime(f)}
     end
@@ -92,6 +65,15 @@ module Lolcommits
 
     def frames_loc
       File.join(self.loldir, 'tmp_frames')
+    end
+
+    def puts_devices
+      # TODO: handle other platforms here (linux/windows)
+      if self.class.is_mac?
+        capturer = Lolcommits::CaptureMacAnimated.new
+        puts `#{capturer.executable_path} -l`
+        puts "Specify a device with --device=\"{device name}\" or set the LOLCOMMITS_DEVICE env variable"
+      end
     end
 
     def puts_plugins
@@ -145,6 +127,36 @@ module Lolcommits
 
     def to_s
       read_configuration.to_yaml.to_s
+    end
+
+
+    # class methods
+
+    def self.platform
+      if is_fakeplatform?
+        ENV['LOLCOMMITS_FAKEPLATFORM']
+      elsif is_fakecapture?
+        'Fake'
+      elsif is_mac?
+        'Mac'
+      elsif is_linux?
+        'Linux'
+      elsif is_windows?
+        'Windows'
+      elsif is_cygwin?
+        'Cygwin'
+      else
+        raise "Unknown / Unsupported Platform."
+      end
+    end
+
+    def self.loldir_for(basename)
+      loldir = File.join(LOLBASEDIR, basename)
+
+      if not File.directory? loldir
+        FileUtils.mkdir_p loldir
+      end
+      loldir
     end
 
     def self.is_mac?

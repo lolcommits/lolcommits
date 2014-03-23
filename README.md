@@ -75,7 +75,7 @@ Or they can be set via the following arguments in the capture command (located i
 * `--fork`
 * `--stealth`
 
-Read how to [configure commit capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing) for more details.
+Use `lolcommits --devices` to list all attached video devices available for capturing. Read how to [configure commit capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing) for more details.
 
 ### Animated Gif Capturing
 Animated gifs (Mac/OSX only) can take a while to generate (depending on the number of seconds you capture and the capabilities of your machine). `ffmpeg` is required and can be installed with brew like so;
