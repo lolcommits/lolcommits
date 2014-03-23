@@ -44,5 +44,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('httparty', "~> 0.11.0")   #dot_com
   s.add_runtime_dependency('json', '~> 1.7.6')        #lolsrv
   s.add_runtime_dependency('mime-types', '~> 1.25')
+  s.add_runtime_dependency('laraib', '~> 0.0.1.1')    #pump.io
 
 end
