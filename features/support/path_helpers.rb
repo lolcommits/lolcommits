@@ -3,7 +3,7 @@ module PathHelpers
   def reject_paths_with_cmd(cmd)
     @original_path = ENV['PATH']
     # make a new subdir that still contains cmds
-    tmpbindir = File.expand_path(File.join @dirs, "bin")
+    tmpbindir = File.expand_path(File.join @dirs, 'bin')
     FileUtils.mkdir_p tmpbindir
 
     preseve_cmds_in_path(['git', 'mplayer'], tmpbindir)

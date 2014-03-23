@@ -138,8 +138,8 @@ OneLineConditional:
 
 # Offence count: 13
 # Configuration parameters: NamePrefixBlacklist.
-PredicateName:
-  Enabled: true
+# PredicateName:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.
@@ -220,8 +220,8 @@ SignalException:
 # Offence count: 178
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
-StringLiterals:
-  Enabled: false
+# StringLiterals:
+#   Enabled: true
 
 # Offence count: 1
 # Cop supports --auto-correct.

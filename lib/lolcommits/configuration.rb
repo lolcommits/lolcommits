@@ -41,11 +41,11 @@ module Lolcommits
     end
 
     def most_recent
-      Dir.glob(File.join self.loldir, "*.jpg").max_by { |f| File.mtime(f) }
+      Dir.glob(File.join self.loldir, '*.jpg').max_by { |f| File.mtime(f) }
     end
 
     def images
-      Dir.glob(File.join self.loldir, "*.jpg").sort_by { |f| File.mtime(f) }
+      Dir.glob(File.join self.loldir, '*.jpg').sort_by { |f| File.mtime(f) }
     end
 
     def images_today
@@ -83,7 +83,7 @@ module Lolcommits
 
     def ask_for_plugin_name
       puts_plugins
-      print "Name of plugin to configure: "
+      print 'Name of plugin to configure: '
       STDIN.gets.strip
     end
 
@@ -147,7 +147,7 @@ module Lolcommits
       elsif platform_cygwin?
         'Cygwin'
       else
-        raise "Unknown / Unsupported Platform."
+        raise 'Unknown / Unsupported Platform.'
       end
     end
 
@@ -161,11 +161,11 @@ module Lolcommits
     end
 
     def self.platform_mac?
-      RUBY_PLATFORM.to_s.downcase.include?("darwin")
+      RUBY_PLATFORM.to_s.downcase.include?('darwin')
     end
 
     def self.platform_linux?
-      RUBY_PLATFORM.to_s.downcase.include?("linux")
+      RUBY_PLATFORM.to_s.downcase.include?('linux')
     end
 
     def self.platform_windows?
@@ -173,7 +173,7 @@ module Lolcommits
     end
 
     def self.platform_cygwin?
-      RUBY_PLATFORM.to_s.downcase.include?("cygwin")
+      RUBY_PLATFORM.to_s.downcase.include?('cygwin')
     end
 
     def self.platform_fakecapture?

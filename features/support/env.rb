@@ -23,7 +23,7 @@ Before do
   ENV['RUBYLIB'] = LIB_DIR + File::PATH_SEPARATOR + ENV['RUBYLIB'].to_s
 
   @original_fakecapture = ENV['LOLCOMMITS_FAKECAPTURE']
-  ENV['LOLCOMMITS_FAKECAPTURE'] = "1"
+  ENV['LOLCOMMITS_FAKECAPTURE'] = '1'
 
   # @original_loldir = ENV['LOLCOMMITS_DIR']
   # ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )

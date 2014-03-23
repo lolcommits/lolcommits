@@ -4,14 +4,14 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class Installation
-    HOOK_PATH = File.join ".git", "hooks", "post-commit"
-    HOOK_DIR = File.join ".git", "hooks"
+    HOOK_PATH = File.join '.git', 'hooks', 'post-commit'
+    HOOK_DIR = File.join '.git', 'hooks'
 
     #
     # IF --ENABLE, DO ENABLE
     #
     def self.do_enable
-      if not File.directory?(".git")
+      if not File.directory?('.git')
         fatal "You don't appear to be in the base directory of a git project."
         exit 1
       end
@@ -38,9 +38,9 @@ module Lolcommits
 
       FileUtils.chmod 0755, HOOK_PATH
 
-      info "installed lolcommit hook to:"
+      info 'installed lolcommit hook to:'
       info "  -> #{File.expand_path(HOOK_PATH)}"
-      info "(to remove later, you can use: lolcommits --disable)"
+      info '(to remove later, you can use: lolcommits --disable)'
       # we dont symlink, but rather install a small stub that calls the one from path
       # that way, as gem version changes, script updates even if new file thus breaking symlink
     end

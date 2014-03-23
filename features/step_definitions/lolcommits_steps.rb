@@ -12,25 +12,25 @@ Given /^a git repository named "(.*?)"$/ do |repo_name|
   repo_dir = File.join current_dir, repo_name
   mkdir_p repo_dir
   Dir.chdir repo_dir do
-    system "git init --quiet ."
+    system 'git init --quiet .'
     system "git config user.name 'Testy McTesterson'"
     system "git config user.email 'testy@tester.com'"
   end
 end
 
 Given /^the git repository named "(.*?)" has no "(.*?)" hook$/ do |repo_name, hook_name|
-  hook_file = File.join current_dir, repo_name, ".git", "hooks", hook_name
+  hook_file = File.join current_dir, repo_name, '.git', 'hooks', hook_name
   delete(hook_file) if File.exists? hook_file
 end
 
 Given /^the git repository named "(.*?)" has a "(.*?)" hook$/ do |repo_name, hook_name|
-  hook_file = File.join current_dir, repo_name, ".git", "hooks", hook_name
+  hook_file = File.join current_dir, repo_name, '.git', 'hooks', hook_name
   touch(hook_file) if not File.exists? hook_file
 end
 
 Given /^the "(.*?)" repository "(.*?)" hook has content "(.*?)"$/ do |repo_name, hook_name, hook_content|
   step %{the git repository named "#{repo_name}" has a "#{hook_name}" hook}
-  hook_file = File.join current_dir, repo_name, ".git", "hooks", hook_name
+  hook_file = File.join current_dir, repo_name, '.git', 'hooks', hook_name
   File.open(hook_file, 'w') { |f| f.write(hook_content) }
 end
 
@@ -67,8 +67,8 @@ Given /^a loldir named "(.*?)" with (\d+) lolimages$/ do |repo_name, num_images|
   loldir = "tmp/aruba/.lolcommits/#{repo_name}"
   mkdir_p loldir
   num_images.to_i.times do
-    random_hex = "%011x" % (rand * 0xfffffffffff)
-    cp "test/images/test_image.jpg", File.join(loldir, "#{random_hex}.jpg")
+    random_hex = '%011x' % (rand * 0xfffffffffff)
+    cp 'test/images/test_image.jpg', File.join(loldir, "#{random_hex}.jpg")
   end
 end
 

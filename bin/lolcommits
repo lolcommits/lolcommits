@@ -9,8 +9,8 @@ rescue LoadError
 end
 
 include Lolcommits
-require "launchy"
-require "choice"
+require 'launchy'
+require 'choice'
 
 require 'methadone'
 include Methadone::CLILogging
@@ -22,7 +22,7 @@ include Methadone::CLILogging
 def die_on_fatal_conditions!
   if Configuration.platform_mac?
     %w(imagesnap videosnap).each do |executable|
-      unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", executable, executable)
+      unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
         fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
         exit 1
       end
@@ -33,16 +33,16 @@ def die_on_fatal_conditions!
       exit 1
     end
   end
-  unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "fonts", "Impact.ttf")
+  unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
     fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
     exit 1
   end
   if !Configuration.valid_ffmpeg_installed? && capture_animate
-    fatal "FATAL: ffmpeg does not appear to be properly installed!"
+    fatal 'FATAL: ffmpeg does not appear to be properly installed!'
     exit 1
   end
   unless Configuration.valid_imagemagick_installed?
-    fatal "FATAL: ImageMagick does not appear to be properly installed!"
+    fatal 'FATAL: ImageMagick does not appear to be properly installed!'
     exit 1
   end
   if Configuration.git_config_color_always?
@@ -54,7 +54,7 @@ end
 
 def die_if_not_git_repo!
   begin
-    debug "Checking for valid git repo"
+    debug 'Checking for valid git repo'
     g = Git.open('.')
   rescue ArgumentError
     # ruby-git throws an argument error if path isnt for a valid git repo...
@@ -68,9 +68,9 @@ end
 #
 def do_noargs
   # TODO: make this a contextual helper to know status of whether lolcommits is enabled
-  puts "Do what exactly?"
-  puts "Try: lolcommits --enable   (when in a git repository)"
-  puts "Or:  lolcommits --help"
+  puts 'Do what exactly?'
+  puts 'Try: lolcommits --enable   (when in a git repository)'
+  puts 'Or:  lolcommits --help'
 end
 
 def configuration
@@ -98,7 +98,7 @@ def do_capture
 
   fork_me? do
     if Choice.choices[:test]
-      info "*** Capturing in test mode."
+      info '*** Capturing in test mode.'
       runner = Lolcommits::Runner.new(
         :capture_delay   => capture_delay,
         :capture_stealth => capture_stealth,
@@ -158,7 +158,7 @@ def do_last
   die_if_not_git_repo!
   lolimage = configuration.most_recent
   if lolimage.nil?
-    warn "No lolcommits have been captured for this repository yet."
+    warn 'No lolcommits have been captured for this repository yet.'
     exit 1
   end
   Launchy.open lolimage
@@ -168,25 +168,25 @@ def do_gif
   die_if_not_git_repo!
 
   case Choice.choices[:gif]
-    when "today"
+    when 'today'
       lolimages = configuration.images_today
       filename  = "#{Date.today.to_s}.gif"
     else
       lolimages = configuration.images
-      filename  = "archive.gif"
+      filename  = 'archive.gif'
   end
 
   if lolimages.empty?
-    warn "No lolcommits have been captured for this time yet."
+    warn 'No lolcommits have been captured for this time yet.'
     exit 1
   end
 
-  puts "*** Generating animated gif."
+  puts '*** Generating animated gif.'
 
   gif = MiniMagick::Image.new File.join configuration.archivedir, filename
 
   # This is for ruby 1.8.7, *lolimages just doesn't work with ruby 187
-  gif.run_command("convert", *["-delay", "50", "-loop", "0", lolimages, "#{gif.path}"].flatten)
+  gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, "#{gif.path}"].flatten)
 
   puts "*** #{gif.path} generated."
 end
@@ -197,7 +197,7 @@ def print_version_and_exit
 end
 
 def change_dir_to_root_or_repo!
-  debug "Walking up dir tree"
+  debug 'Walking up dir tree'
   loop do
     cur = File.expand_path('.')
     nxt = File.expand_path('..', cur)
@@ -214,137 +214,137 @@ end
 Choice.options do
 
   option :version do
-    long "--version"
-    short "-v"
-    desc "print version and exit"
+    long '--version'
+    short '-v'
+    desc 'print version and exit'
     action { print_version_and_exit }
   end
 
   option :enable do
-    long "--enable"
+    long '--enable'
     short '-e'
     action { Installation.do_enable }
-    desc "install lolcommits for this repo"
+    desc 'install lolcommits for this repo'
   end
 
   option :disable do
-    long "--disable"
+    long '--disable'
     short '-d'
     action { Installation.do_disable }
-    desc "uninstall lolcommits for this repo"
+    desc 'uninstall lolcommits for this repo'
   end
 
   option :capture do
-    long "--capture"
+    long '--capture'
     short '-c'
-    desc "capture lolcommit based on last git commit"
+    desc 'capture lolcommit based on last git commit'
   end
 
   option :last do
-    long "--last"
-    short "-l"
-    desc "view the most recent lolcommit"
+    long '--last'
+    short '-l'
+    desc 'view the most recent lolcommit'
   end
 
   option :browse do
-    long "--browse"
-    short "-b"
+    long '--browse'
+    short '-b'
     desc "browse this repo's lolcommits"
   end
 
   option :configure do
-    long "--config"
-    desc "configure a plugin"
+    long '--config'
+    desc 'configure a plugin'
   end
 
   option :show_config do
-    short "-sc"
-    long  "--show-config"
-    desc "display configuration file"
+    short '-sc'
+    long  '--show-config'
+    desc 'display configuration file'
   end
 
   option :plugin do
-    desc "pass plugin name for --config"
-    long "--plugin"
-    short "-p"
+    desc 'pass plugin name for --config'
+    long '--plugin'
+    short '-p'
     default nil
   end
 
   option :plugins do
-    desc "list all available plugins"
-    long "--plugins"
+    desc 'list all available plugins'
+    long '--plugins'
   end
 
   option :test do
-    long "--test"
-    desc "Run in test mode"
+    long '--test'
+    desc 'Run in test mode'
   end
 
   option :sha do
-    desc "pass SHA manually [TEST-MODE]"
-    long "--sha"
+    desc 'pass SHA manually [TEST-MODE]'
+    long '--sha'
     short '-s'
     default "test-#{rand(10**10)}"
   end
 
   option :msg do
-    desc "pass commit msg manually [TEST-MODE]"
-    long "--msg"
+    desc 'pass commit msg manually [TEST-MODE]'
+    long '--msg'
     short '-m'
-    default "this is a test message i didnt really commit something"
+    default 'this is a test message i didnt really commit something'
   end
 
   option :delay do
-    long "--delay=SECONDS"
-    desc "delay taking of the snapshot by n seconds"
+    long '--delay=SECONDS'
+    desc 'delay taking of the snapshot by n seconds'
     cast Integer
     short '-w'
   end
 
   option :stealth do
-    long "--stealth"
-    desc "capture image in stealth mode"
+    long '--stealth'
+    desc 'capture image in stealth mode'
   end
 
   option :device do
-    long "--device=DEVICE"
-    desc "the device name used to take the snapshot (mac/linux only)"
+    long '--device=DEVICE'
+    desc 'the device name used to take the snapshot (mac/linux only)'
   end
 
   option :devices do
-    long "--devices"
-    desc "list all video devices available (mac only)"
+    long '--devices'
+    desc 'list all video devices available (mac only)'
   end
 
   option :debug do
-    long "--debug"
-    desc "output debugging information"
+    long '--debug'
+    desc 'output debugging information'
   end
 
   option :font do
-    long "--font=FONT_PATH"
-    short "-f"
-    desc "pass font file location"
+    long '--font=FONT_PATH'
+    short '-f'
+    desc 'pass font file location'
   end
 
   option :gif do
-    long "--gif"
-    short "-g"
-    desc "generate animated timeline gif from captured images"
+    long '--gif'
+    short '-g'
+    desc 'generate animated timeline gif from captured images'
   end
 
   if Configuration.can_animate?
     option :animate do
-      long "--animate=SECONDS"
-      short "-a"
+      long '--animate=SECONDS'
+      short '-a'
       cast Integer
-      desc "enable animated gif captures with duration (seconds)"
+      desc 'enable animated gif captures with duration (seconds)'
     end
   end
 
   option :fork do
-    long "--fork"
-    desc "fork the lolcommits runner to the background"
+    long '--fork'
+    desc 'fork the lolcommits runner to the background'
   end
 end
 
@@ -352,7 +352,7 @@ end
 debug_mode = Choice.choices[:debug] || ENV['LOLCOMMITS_DEBUG'] || nil
 if debug_mode
   logger.level = Logger::DEBUG
-  debug "Outputting at DEBUG verbosity"
+  debug 'Outputting at DEBUG verbosity'
 end
 
 #

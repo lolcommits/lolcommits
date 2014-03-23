@@ -10,7 +10,7 @@ module Lolcommits
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end
-      debug "Capturer: initializing new instance " + self.to_s
+      debug 'Capturer: initializing new instance ' + self.to_s
     end
   end
 end

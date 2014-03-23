@@ -13,11 +13,11 @@ module Lolcommits
 
     def run
       font_location = @font_location || File.join(Configuration::LOLCOMMITS_ROOT,
-                                                  "vendor",
-                                                  "fonts",
-                                                  "Impact.ttf")
+                                                  'vendor',
+                                                  'fonts',
+                                                  'Impact.ttf')
 
-      debug "Annotating image via MiniMagick"
+      debug 'Annotating image via MiniMagick'
       image = MiniMagick::Image.open(self.runner.main_image)
       image.combine_options do |c|
         c.gravity 'SouthWest'

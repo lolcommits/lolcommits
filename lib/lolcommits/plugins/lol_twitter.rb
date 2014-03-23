@@ -36,7 +36,7 @@ module Lolcommits
       end
     end
 
-    def build_tweet(commit_message, tag = "#lolcommits")
+    def build_tweet(commit_message, tag = '#lolcommits')
       available_commit_msg_size = max_tweet_size - (tag.length + 1)
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
@@ -59,9 +59,9 @@ module Lolcommits
     end
 
     def configure_auth!
-      puts "---------------------------"
-      puts "Need to grab twitter tokens"
-      puts "---------------------------"
+      puts '---------------------------'
+      puts 'Need to grab twitter tokens'
+      puts '---------------------------'
 
       consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY,
                                      TWITTER_CONSUMER_SECRET,

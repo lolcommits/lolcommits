@@ -6,22 +6,22 @@ module Lolcommits
     attr_accessor :runner, :options
 
     def initialize(runner)
-      debug "Initializing"
+      debug 'Initializing'
       self.runner = runner
       self.options = ['enabled']
     end
 
     def execute
       if enabled?
-        debug "I am enabled, about to run"
+        debug 'I am enabled, about to run'
         run
       else
-        debug "Disabled, doing nothing for execution"
+        debug 'Disabled, doing nothing for execution'
       end
     end
 
     def run
-      debug "base plugin, does nothing to anything"
+      debug 'base plugin, does nothing to anything'
     end
 
     def configuration

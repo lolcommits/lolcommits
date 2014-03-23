@@ -40,7 +40,7 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history." unless capture_stealth
+        puts '*** Preserving this moment in history.' unless capture_stealth
         self.snapshot_loc = self.config.raw_image(image_file_type)
         self.main_image   = self.config.main_image(self.sha, image_file_type)
         capturer = capturer_class.new(
@@ -77,16 +77,16 @@ module Lolcommits
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
     if not self.repo_internal_path.nil?
-      mergeclue = File.join self.repo_internal_path, "rebase-merge"
+      mergeclue = File.join self.repo_internal_path, 'rebase-merge'
       if File.directory? mergeclue
-        debug "Runner: Rebase detected, silently exiting!"
+        debug 'Runner: Rebase detected, silently exiting!'
         exit 0
       end
     end
   end
 
   def resize_snapshot!
-    debug "Runner: resizing snapshot"
+    debug 'Runner: resizing snapshot'
     image = MiniMagick::Image.open(self.snapshot_loc)
     if image[:width] > 640 || image[:height] > 480
       # this is ghetto resize-to-fill
@@ -103,7 +103,7 @@ module Lolcommits
   end
 
   def cleanup!
-    debug "Runner: running cleanup"
+    debug 'Runner: running cleanup'
     # clean up the captured image and any other raw assets
     FileUtils.rm(self.snapshot_loc)
     FileUtils.rm_f(self.config.video_loc)

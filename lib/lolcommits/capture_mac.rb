@@ -12,7 +12,7 @@ module Lolcommits
     end
 
     def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
+      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'imagesnap', 'imagesnap')
     end
   end
 end

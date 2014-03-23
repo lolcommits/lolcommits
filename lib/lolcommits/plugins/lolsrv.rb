@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
-require "rest_client"
-require "pp"
-require "json"
-require "logger"
+require 'rest_client'
+require 'pp'
+require 'json'
+require 'logger'
 
 module Lolcommits
   class Lolsrv < Plugin
@@ -10,7 +10,7 @@ module Lolcommits
       super
       self.options << 'server'
       if self.runner
-        @logger = Logger.new(File.new(self.runner.config.loldir + "/lolsrv.log", "a+"))
+        @logger = Logger.new(File.new(self.runner.config.loldir + '/lolsrv.log', 'a+'))
       end
     end
 
@@ -20,15 +20,15 @@ module Lolcommits
     end
 
     def configured?
-      !configuration["enabled"].nil? && configuration["server"]
+      !configuration['enabled'].nil? && configuration['server']
     end
 
     def sync
       existing = existing_lols
       unless existing.nil?
-        Dir[self.runner.config.loldir + "/*.{jpg,gif}"].each do |item|
-          sha = File.basename(item, ".*")
-          unless existing.include?(sha) || sha == "tmp_snapshot"
+        Dir[self.runner.config.loldir + '/*.{jpg,gif}'].each do |item|
+          sha = File.basename(item, '.*')
+          unless existing.include?(sha) || sha == 'tmp_snapshot'
             upload(item, sha)
           end
         end
@@ -38,8 +38,8 @@ module Lolcommits
     def existing_lols
       begin
         lols = JSON.parse(
-        RestClient.get(configuration['server'] + "/lols"))
-        lols.map { |lol| lol["sha"] }
+        RestClient.get(configuration['server'] + '/lols'))
+        lols.map { |lol| lol['sha'] }
       rescue => e
         log_error(e, "ERROR: existing lols could not be retrieved #{e.class} - #{e.message}")
         return nil
@@ -49,7 +49,7 @@ module Lolcommits
     def upload(file, sha)
       begin
         RestClient.post(
-          configuration["server"] + "/uplol",
+          configuration['server'] + '/uplol',
           :lol => File.new(file),
           :url => self.runner.url + sha,
           :repo => self.runner.repo,
@@ -68,7 +68,7 @@ module Lolcommits
     end
 
     def self.name
-      "lolsrv"
+      'lolsrv'
     end
   end
 end
