@@ -67,9 +67,15 @@ def good_shebang?
   File.read(HOOK_PATH).lines.first =~ /^\#\!\/bin\/.*sh/
 end
 
-def lolcommits_hook?
-  File.exists?(HOOK_PATH) &&
+# does a git hook exist with lolcommits commands?
+def lolcommits_hook_exists?
+  hook_file_exists? &&
     File.read(HOOK_PATH).to_s =~ /lolcommits.*\(begin\)(.*\n)*.*lolcommits.*\(end\)/
+end
+
+# does a git hook exist at all?
+def hook_file_exists?
+  File.exists?(HOOK_PATH)
 end
 
 def remove_existing_hook
@@ -120,8 +126,8 @@ def do_enable
   end
 
   # clear away any existing lolcommits hook
-  if hook_exists = File.exists?(HOOK_PATH)
-    remove_existing_hook
+  if hook_file_exists?
+    remove_existing_hook if lolcommits_hook_exists?
 
     # check for a good shebang line in the existing hook
     unless good_shebang?
@@ -130,8 +136,8 @@ def do_enable
     end
   end
 
-  File.open(HOOK_PATH, hook_exists ? 'a' : 'w') do |f|
-    f.write(hook_script(!hook_exists))
+  File.open(HOOK_PATH, hook_file_exists? ? 'a' : 'w') do |f|
+    f.write(hook_script(!hook_file_exists?))
   end
 
   FileUtils.chmod 0755, HOOK_PATH
@@ -161,7 +167,7 @@ end
 # IF --DISABLE, DO DISABLE
 #
 def do_disable
-  if lolcommits_hook?
+  if lolcommits_hook_exists?
     remove_existing_hook
     info "uninstalled lolcommits hook (from #{HOOK_PATH})"
   elsif File.exists?(HOOK_PATH)
