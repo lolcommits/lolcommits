@@ -26,7 +26,7 @@ AmbiguousRegexpLiteral:
 # Offence count: 3
 # Configuration parameters: AllowSafeAssignment.
 AssignmentInCondition:
-  Enabled: false
+  Enabled: true
 
 # Offence count: 2
 # Cop supports --auto-correct.
@@ -46,7 +46,7 @@ CaseIndentation:
 # Offence count: 1
 # Configuration parameters: CountComments.
 ClassLength:
-  Max: 168
+  Max: 169
 
 # Offence count: 1
 # Cop supports --auto-correct.

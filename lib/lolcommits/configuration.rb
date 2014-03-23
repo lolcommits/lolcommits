@@ -103,7 +103,8 @@ module Lolcommits
         plugin_name = ask_for_plugin_name
       end
 
-      if plugin = find_plugin(plugin_name)
+      plugin = find_plugin(plugin_name)
+      if plugin
         config = self.read_configuration || {}
         plugin_config = plugin.configure_options!
         # having a plugin_config, means configuring went OK
