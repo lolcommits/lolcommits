@@ -299,12 +299,11 @@ end
 
 def change_dir_to_root_or_repo!
   debug "Walking up dir tree"
-  while true
+  loop do
     cur = File.expand_path('.')
     nxt = File.expand_path('..', cur)
     if File.directory?(File.expand_path('.git')) || nxt == cur
-      # found root or git dir
-      return
+      return # found root or git dir
     end
     Dir.chdir(nxt)
   end
