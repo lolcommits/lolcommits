@@ -84,6 +84,5 @@ Before('@in-tempdir') do
 end
 
 After('@in-tempdir') do
-  FileUtils.rm_rf( @dirs.first )
+  FileUtils.rm_rf(@dirs.first)
 end
-

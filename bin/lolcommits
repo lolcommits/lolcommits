@@ -300,8 +300,8 @@ end
 def change_dir_to_root_or_repo!
   debug "Walking up dir tree"
   while true
-    cur=File.expand_path('.')
-    nxt=File.expand_path('..', cur)
+    cur = File.expand_path('.')
+    nxt = File.expand_path('..', cur)
     if File.directory?(File.expand_path('.git')) || nxt == cur
       # found root or git dir
       return
@@ -478,9 +478,9 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:show_config]
     puts configuration
   elsif Choice.choices[:plugins]
-    configuration.puts_plugins()
+    configuration.puts_plugins
   elsif Choice.choices[:devices]
-    configuration.puts_devices()
+    configuration.puts_devices
   elsif Choice.choices[:last]
     do_last
   elsif Choice.choices[:browse]

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureLinux < Capturer
-
     def capture_device_string
       @capture_device.nil? ? nil : "-tv device=\"#{@capture_device}\""
     end

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureCygwin < Capturer
-
     def capture
       # DirectShow takes a while to show... at least for me anyway
       delaycmd = " /delay 3000"

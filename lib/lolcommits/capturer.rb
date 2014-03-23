@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class Capturer
-
     include Methadone::CLILogging
 
     attr_accessor :capture_device, :capture_delay, :snapshot_location, :font,

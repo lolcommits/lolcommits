@@ -130,7 +130,6 @@ module Lolcommits
       read_configuration.to_yaml.to_s
     end
 
-
     # class methods
 
     def self.platform
