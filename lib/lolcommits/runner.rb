@@ -1,10 +1,11 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   PLUGINS = Lolcommits::Plugin.subclasses
 
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
-      :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-      :font, :capture_animate, :url
+                  :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
+                  :font, :capture_animate, :url
 
     include Methadone::CLILogging
     include ActiveSupport::Callbacks
@@ -20,7 +21,7 @@ module Lolcommits
     set_callback :run, :after,  :execute_lolcommits_loltext
     # Executed First
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
       end
@@ -39,7 +40,7 @@ module Lolcommits
       die_if_rebasing!
 
       run_callbacks :run do
-        puts "*** Preserving this moment in history." unless capture_stealth
+        puts '*** Preserving this moment in history.' unless capture_stealth
         self.snapshot_loc = self.config.raw_image(image_file_type)
         self.main_image   = self.config.main_image(self.sha, image_file_type)
         capturer = capturer_class.new(
@@ -61,6 +62,7 @@ module Lolcommits
     end
 
     private
+
     def capturer_class
       "Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}".constantize
     end
@@ -71,22 +73,23 @@ module Lolcommits
   end
 
   protected
+
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
     if not self.repo_internal_path.nil?
-      mergeclue = File.join self.repo_internal_path, "rebase-merge"
+      mergeclue = File.join self.repo_internal_path, 'rebase-merge'
       if File.directory? mergeclue
-        debug "Runner: Rebase detected, silently exiting!"
+        debug 'Runner: Rebase detected, silently exiting!'
         exit 0
       end
     end
   end
 
   def resize_snapshot!
-    debug "Runner: resizing snapshot"
+    debug 'Runner: resizing snapshot'
     image = MiniMagick::Image.open(self.snapshot_loc)
-    if (image[:width] > 640 || image[:height] > 480)
-      #this is ghetto resize-to-fill
+    if image[:width] > 640 || image[:height] > 480
+      # this is ghetto resize-to-fill
       image.combine_options do |c|
         c.resize '640x480^'
         c.gravity 'center'
@@ -100,7 +103,7 @@ module Lolcommits
   end
 
   def cleanup!
-    debug "Runner: running cleanup"
+    debug 'Runner: running cleanup'
     # clean up the captured image and any other raw assets
     FileUtils.rm(self.snapshot_loc)
     FileUtils.rm_f(self.config.video_loc)

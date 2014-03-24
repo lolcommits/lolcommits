@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'yaml'
 require 'oauth'
 
@@ -8,7 +9,6 @@ $VERBOSE = original_verbose # activate warning messages again.
 
 module Lolcommits
   class LolTwitter < Plugin
-
     TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'
     TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
     TWITTER_RETRIES         = 2
@@ -28,18 +28,18 @@ module Lolcommits
           puts "\t--> Tweet Sent!"
         end
       rescue Twitter::Error::InternalServerError,
-               Twitter::Error::BadRequest,
-               Twitter::Error::ClientError => e
+             Twitter::Error::BadRequest,
+             Twitter::Error::ClientError => e
         debug "Tweet FAILED! #{e.class} - #{e.message}"
         retry if attempts < TWITTER_RETRIES
         puts "ERROR: Tweet FAILED! (after #{attempts} attempts) - #{e.message}"
       end
     end
 
-    def build_tweet(commit_message, tag = "#lolcommits")
+    def build_tweet(commit_message, tag = '#lolcommits')
       available_commit_msg_size = max_tweet_size - (tag.length + 1)
       if commit_message.length > available_commit_msg_size
-        commit_message = "#{commit_message[0..(available_commit_msg_size-3)]}..."
+        commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
       "#{commit_message} #{tag}"
     end
@@ -48,20 +48,20 @@ module Lolcommits
       options = super
       # ask user to configure tokens if enabling
       if options['enabled'] == true
-        if auth_config = configure_auth!
+        auth_config = configure_auth!
+        if auth_config
           options.merge!(auth_config)
         else
-          # return nil if configure_auth failed
-          return
+          return # return nil if configure_auth failed
         end
       end
-      return options
+      options
     end
 
     def configure_auth!
-      puts "---------------------------"
-      puts "Need to grab twitter tokens"
-      puts "---------------------------"
+      puts '---------------------------'
+      puts 'Need to grab twitter tokens'
+      puts '---------------------------'
 
       consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY,
                                      TWITTER_CONSUMER_SECRET,
@@ -99,7 +99,7 @@ module Lolcommits
       end
     end
 
-    def is_configured?
+    def configured?
       !configuration['enabled'].nil? &&
         configuration['access_token'] &&
         configuration['secret']

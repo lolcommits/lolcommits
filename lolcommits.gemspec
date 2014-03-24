@@ -30,11 +30,15 @@ Gem::Specification.new do |s|
   # development dependencies
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba', '~> 0.5.1')
-  s.add_development_dependency('rake',' ~> 10.0.2')
+  s.add_development_dependency('rake', '~> 10.0.2')
   s.add_development_dependency('fivemat')
   s.add_development_dependency('faker')
   s.add_development_dependency('travis')
   s.add_development_dependency('coveralls')
+  s.add_development_dependency('magic_encoding')
+  if RUBY_VERSION >= '1.9.2'
+    s.add_development_dependency('rubocop', '~> 0.18.1')
+  end
 
   # plugin dependencies
   s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter

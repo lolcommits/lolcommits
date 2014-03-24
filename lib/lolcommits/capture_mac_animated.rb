@@ -1,6 +1,6 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureMacAnimated < Capturer
-
     def capture
       # make a fresh frames directory
       FileUtils.rm_rf(frames_location)
@@ -38,7 +38,7 @@ module Lolcommits
 
     def frame_delay(fps, skip)
       # calculate frame delay
-      delay = ((100.0 * skip)/fps.to_f).to_i
+      delay = ((100.0 * skip) / fps.to_f).to_i
       delay < 6 ? 6 : delay # hard limit for IE browsers
     end
 
@@ -50,7 +50,7 @@ module Lolcommits
 
     def frame_skip(fps)
       # of frames to skip depends on movie fps
-      case(fps)
+      case (fps)
       when 0..15
         2
       when 16..28

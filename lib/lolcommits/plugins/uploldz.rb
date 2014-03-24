@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rest_client'
 
 module Lolcommits
@@ -14,18 +15,18 @@ module Lolcommits
 
       repo = self.runner.repo.to_s
       if repo.empty?
-        puts "Repo is empty, skipping upload"
+        puts 'Repo is empty, skipping upload'
       else
-        debug "Calling " + configuration['endpoint'] + " with repo " + repo
+        debug 'Calling ' + configuration['endpoint'] + ' with repo ' + repo
         RestClient.post(configuration['endpoint'],
-          :file => File.new(self.runner.main_image),
-          :repo => repo,
-          :key => configuration['optional_key'])
+                        :file => File.new(self.runner.main_image),
+                        :repo => repo,
+                        :key => configuration['optional_key'])
       end
     end
 
-    def is_configured?
-      !configuration["enabled"].nil? && configuration["endpoint"]
+    def configured?
+      !configuration['enabled'].nil? && configuration['endpoint']
     end
 
     def self.name

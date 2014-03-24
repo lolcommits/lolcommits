@@ -1,6 +1,6 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureMac < Capturer
-
     def capture_device_string
       @capture_device.nil? ? nil : "-d \"#{@capture_device}\""
     end
@@ -12,7 +12,7 @@ module Lolcommits
     end
 
     def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
+      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'imagesnap', 'imagesnap')
     end
   end
 end

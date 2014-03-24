@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class Plugin
     include Methadone::CLILogging
@@ -5,34 +6,34 @@ module Lolcommits
     attr_accessor :runner, :options
 
     def initialize(runner)
-      debug "Initializing"
+      debug 'Initializing'
       self.runner = runner
       self.options = ['enabled']
     end
 
     def execute
-      if is_enabled?
-        debug "I am enabled, about to run"
+      if enabled?
+        debug 'I am enabled, about to run'
         run
       else
-        debug "Disabled, doing nothing for execution"
+        debug 'Disabled, doing nothing for execution'
       end
     end
 
     def run
-      debug "base plugin, does nothing to anything"
+      debug 'base plugin, does nothing to anything'
     end
 
     def configuration
       config = runner.config.read_configuration if runner
-      return Hash.new unless config
-      config[self.class.name] || Hash.new
+      return {} unless config
+      config[self.class.name] || {}
     end
 
     # ask for plugin options
     def configure_options!
       puts "Configuring plugin: #{self.class.name}\n"
-      options.inject(Hash.new) do |acc, option|
+      options.reduce(Hash.new) do |acc, option|
         print "#{option}: "
         val = STDIN.gets.strip.downcase
         if %w(true yes).include?(val)
@@ -44,13 +45,13 @@ module Lolcommits
       end
     end
 
-    def is_enabled?
+    def enabled?
       configuration['enabled'] == true
     end
 
     # check config is valid
     def valid_configuration?
-      if is_configured?
+      if configured?
         true
       else
         puts "Missing #{self.class.name} config - configure with: lolcommits --config -p #{self.class.name}"
@@ -59,7 +60,7 @@ module Lolcommits
     end
 
     # empty plugin configuration
-    def is_configured?
+    def configured?
       !configuration.empty?
     end
 
