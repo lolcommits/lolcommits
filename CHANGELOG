@@ -1,6 +1,13 @@
 0.x.x (in development)
   * TODO: figure out problems with GUI clients
   * Added `--devices` option, mac only for now (@matthutchinson #183, #174)
+  * Replace http with https in twitter plugin (@kleinschmidt #195)
+  * RuboCop gem added for development (@mroth #194)
+  * Added optional key to uploldz plugin (@Numan1617 #192)
+  * Fixed lolcommmits typo: too much mmm (@penyaskito #189)
+  * Work when in subdirectory of a git repo (@ilkka #186)
+  * Added --version (-v) flag (@bfontaine #184)
+  * Send more VCS details to lolsrv (@drewwells #181)
 
 0.5.2 (5 December 2013)
   * Allow lolsrv plugin to sync/upload gifs (@matthutchinson #180)
