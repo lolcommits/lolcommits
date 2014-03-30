@@ -16,7 +16,13 @@ task :fix_permissions do
   # Reset all permissions.
   system 'bash -c "find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;"'
   # Executable files.
-  system 'bash -c "chmod +x ./bin/* vendor/ext/imagesnap/imagesnap vendor/ext/videosnap/videosnap"'
+  executables = %w(
+    vendor/ext/imagesnap/imagesnap
+    vendor/ext/videosnap/videosnap
+    vendor/ext/CommandCam/CommandCam.exe
+  )
+
+  system "bash -c \"chmod +x ./bin/* #{executables.join(' ')}\""
 end
 
 Rake::Task[:build].prerequisites.unshift :fix_permissions
@@ -57,25 +63,25 @@ task :dropboxify do
   dropbox_loldir = "#{$home}/Dropbox/lolcommits"
   loldir = "#{$home}/.lolcommits"
   backup_loldir = "#{$home}/.lolcommits.old"
-  
+
   #check whether we've done this already
   if File.symlink? loldir
     abort "already dropboxified!"
   end
-  
+
   #create dropbox folder
   if not File.directory? dropbox_loldir
     FileUtils.mkdir_p dropbox_loldir
   end
-  
+
   #backup existing loldir
   if File.directory? loldir
     FileUtils.mv( loldir, backup_loldir )
   end
-  
+
   #symlink dropbox to local
   FileUtils.ln_s( dropbox_loldir, loldir )
-  
+
   #copy over existing files
   FileUtils.cp_r( "#{backup_loldir}/.", loldir)
 end
