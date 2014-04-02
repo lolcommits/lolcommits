@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rdoc')
   s.add_development_dependency('aruba', '~> 0.5.1')
   s.add_development_dependency('rake', '~> 10.0.2')
-  s.add_development_dependency('fivemat')
+  s.add_development_dependency('fivemat', '~> 1.2.1')
   s.add_development_dependency('faker')
   s.add_development_dependency('travis')
   s.add_development_dependency('coveralls')
