@@ -5,6 +5,7 @@ require 'rest_client'
 YAMMER_CLIENT_ID        = 'bgORyeKtnjZJSMwp8oln9g'
 YAMMER_CLIENT_SECRET    = 'oer2WdGzh74a5QBbW3INUxblHK3yg9KvCZmiBa2r0'
 YAMMER_ACCESS_TOKEN_URL = "https://www.yammer.com/oauth2/access_token.json"
+YAMMER_RETRY_COUNT      = 2
 
 module Lolcommits
 
@@ -64,7 +65,7 @@ module Lolcommits
 
       client = Yammer::Client.new(:access_token  => configuration['access_token'])
 
-      retries = 2
+      retries = YAMMER_RETRY_COUNT
       begin
         lolimage = File.new(self.runner.main_image)
         response = client.create_message(post, :attachment1 => lolimage)
