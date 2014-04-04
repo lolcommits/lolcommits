@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'yammer'
 require 'rest_client'
 
