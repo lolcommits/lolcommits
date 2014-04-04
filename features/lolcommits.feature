@@ -21,7 +21,7 @@ Feature: Basic UI functionality
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
@@ -32,7 +32,7 @@ Feature: Basic UI functionality
       And the "loltest" repository "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
@@ -53,7 +53,7 @@ Feature: Basic UI functionality
     Given a git repository named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable -w 5 --fork`
-    Then the output should contain "installed lolcommmit hook to:"
+    Then the output should contain "installed lolcommit hook to:"
       And the output should contain "(to remove later, you can use: lolcommits --disable)"
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture -w 5 --fork"
@@ -184,6 +184,16 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the exit status should be 0
 
+  Scenario: last command should work properly when in a lolrepo subdirectory
+    Given I am in a git repository named "randomgitrepo"
+      And a loldir named "randomgitrepo" with 2 lolimages
+      And a directory named "randomdir"
+      And I cd to "randomdir"
+    When I run `lolcommits --last`
+    Then the output should not contain "Can't do that since we're not in a valid git repository!"
+     And the exit status should be 0
+
+  @in-tempdir
   Scenario: last command should fail gracefully if not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --last`
@@ -205,6 +215,16 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
+  Scenario: browse command should work properly when in a lolrepo subdirectory
+    Given I am in a git repository named "randomgitrepo"
+      And a loldir named "randomgitrepo" with 2 lolimages
+      And a directory named "randomdir"
+      And I cd to "randomdir"
+    When I run `lolcommits --browse`
+    Then the output should not contain "Can't do that since we're not in a valid git repository!"
+     And the exit status should be 0
+
+  @in-tempdir
   Scenario: browse command should fail gracefully when not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --browse`

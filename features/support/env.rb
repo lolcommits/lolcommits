@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'aruba/cucumber'
 require 'methadone/cucumber'
 require 'open3'
@@ -9,7 +10,7 @@ require File.join(File.expand_path(File.dirname(__FILE__)), 'path_helpers')
 include Lolcommits
 
 ENV['PATH'] = "#{File.expand_path(File.dirname(__FILE__) + '/../../bin')}#{File::PATH_SEPARATOR}#{ENV['PATH']}"
-LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)),'..','..','lib')
+LIB_DIR = File.join(File.expand_path(File.dirname(__FILE__)), '..', '..', 'lib')
 
 World(PathHelpers)
 
@@ -22,13 +23,13 @@ Before do
   ENV['RUBYLIB'] = LIB_DIR + File::PATH_SEPARATOR + ENV['RUBYLIB'].to_s
 
   @original_fakecapture = ENV['LOLCOMMITS_FAKECAPTURE']
-  ENV['LOLCOMMITS_FAKECAPTURE'] = "1"
+  ENV['LOLCOMMITS_FAKECAPTURE'] = '1'
 
   # @original_loldir = ENV['LOLCOMMITS_DIR']
   # ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )
 
   @original_home = ENV['HOME']
-  ENV['HOME'] = File.expand_path( current_dir )
+  ENV['HOME'] = File.expand_path(current_dir)
 
   ENV['LAUNCHY_DRY_RUN'] = 'true'
 end
@@ -47,7 +48,7 @@ Before('@fake-interactive-rebase') do
   # we replace the editor with a script that simply squashes a few random commits
   @original_git_editor = ENV['GIT_EDITOR']
   # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'" #every other commit
-  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'" #lines 3-5
+  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'" # lines 3-5
 end
 
 After('@fake-interactive-rebase') do
@@ -75,4 +76,13 @@ end
 
 After('@fake-no-ffmpeg') do
   reset_path
+end
+
+# do test in temporary directory so our own git repo-ness doesn't affect it
+Before('@in-tempdir') do
+  @dirs = [Dir.mktmpdir]
+end
+
+After('@in-tempdir') do
+  FileUtils.rm_rf(@dirs.first)
 end

@@ -1,30 +1,13 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class Configuration
     LOLBASEDIR = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
     attr_writer :loldir
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       attributes.each do |attr, val|
         self.send("#{attr}=", val)
-      end
-    end
-
-    def self.platform
-      if is_fakeplatform?
-        ENV['LOLCOMMITS_FAKEPLATFORM']
-      elsif is_fakecapture?
-        'Fake'
-      elsif is_mac?
-        'Mac'
-      elsif is_linux?
-        'Linux'
-      elsif is_windows?
-        'Windows'
-      elsif is_cygwin?
-        'Cygwin'
-      else
-        raise "Unknown / Unsupported Platform."
       end
     end
 
@@ -57,21 +40,12 @@ module Lolcommits
       dir
     end
 
-    def self.loldir_for(basename)
-      loldir = File.join(LOLBASEDIR, basename)
-
-      if not File.directory? loldir
-        FileUtils.mkdir_p loldir
-      end
-      loldir
-    end
-
     def most_recent
-      Dir.glob(File.join self.loldir, "*.jpg").max_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, '*.jpg').max_by { |f| File.mtime(f) }
     end
 
     def images
-      Dir.glob(File.join self.loldir, "*.jpg").sort_by {|f| File.mtime(f)}
+      Dir.glob(File.join self.loldir, '*.jpg').sort_by { |f| File.mtime(f) }
     end
 
     def images_today
@@ -94,13 +68,22 @@ module Lolcommits
       File.join(self.loldir, 'tmp_frames')
     end
 
+    def puts_devices
+      # TODO: handle other platforms here (linux/windows)
+      if self.class.platform_mac?
+        capturer = Lolcommits::CaptureMacAnimated.new
+        puts `#{capturer.executable_path} -l`
+        puts "Specify a device with --device=\"{device name}\" or set the LOLCOMMITS_DEVICE env variable"
+      end
+    end
+
     def puts_plugins
       puts "Available plugins: #{Lolcommits::PLUGINS.map(&:name).join(', ')}"
     end
 
     def ask_for_plugin_name
       puts_plugins
-      print "Name of plugin to configure: "
+      print 'Name of plugin to configure: '
       STDIN.gets.strip
     end
 
@@ -120,8 +103,9 @@ module Lolcommits
         plugin_name = ask_for_plugin_name
       end
 
-      if plugin = find_plugin(plugin_name)
-        config = self.read_configuration || Hash.new
+      plugin = find_plugin(plugin_name)
+      if plugin
+        config = self.read_configuration || {}
         plugin_config = plugin.configure_options!
         # having a plugin_config, means configuring went OK
         if plugin_config
@@ -147,27 +131,56 @@ module Lolcommits
       read_configuration.to_yaml.to_s
     end
 
-    def self.is_mac?
-      RUBY_PLATFORM.to_s.downcase.include?("darwin")
+    # class methods
+
+    def self.platform
+      if platform_fakeplatform?
+        ENV['LOLCOMMITS_FAKEPLATFORM']
+      elsif platform_fakecapture?
+        'Fake'
+      elsif platform_mac?
+        'Mac'
+      elsif platform_linux?
+        'Linux'
+      elsif platform_windows?
+        'Windows'
+      elsif platform_cygwin?
+        'Cygwin'
+      else
+        fail 'Unknown / Unsupported Platform.'
+      end
     end
 
-    def self.is_linux?
-      RUBY_PLATFORM.to_s.downcase.include?("linux")
+    def self.loldir_for(basename)
+      loldir = File.join(LOLBASEDIR, basename)
+
+      if not File.directory? loldir
+        FileUtils.mkdir_p loldir
+      end
+      loldir
     end
 
-    def self.is_windows?
-      !! RUBY_PLATFORM.match(/(win|w)32/)
+    def self.platform_mac?
+      RUBY_PLATFORM.to_s.downcase.include?('darwin')
     end
 
-    def self.is_cygwin?
-      RUBY_PLATFORM.to_s.downcase.include?("cygwin")
+    def self.platform_linux?
+      RUBY_PLATFORM.to_s.downcase.include?('linux')
     end
 
-    def self.is_fakecapture?
+    def self.platform_windows?
+      !!RUBY_PLATFORM.match(/(win|w)32/)
+    end
+
+    def self.platform_cygwin?
+      RUBY_PLATFORM.to_s.downcase.include?('cygwin')
+    end
+
+    def self.platform_fakecapture?
       (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
     end
 
-    def self.is_fakeplatform?
+    def self.platform_fakeplatform?
       ENV['LOLCOMMITS_FAKEPLATFORM']
     end
 
@@ -176,7 +189,7 @@ module Lolcommits
       return false unless self.command_which('mogrify')
       # you'd expect the below to work on its own, but it only handles old versions
       # and will throw an exception if IM is not installed in PATH
-      MiniMagick::valid_version_installed?
+      MiniMagick.valid_version_installed?
     end
 
     def self.valid_ffmpeg_installed?
@@ -198,13 +211,12 @@ module Lolcommits
     def self.command_which(cmd)
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-        exts.each { |ext|
+        exts.each do |ext|
           exe = "#{path}/#{cmd}#{ext}"
           return exe if File.executable? exe
-        }
+        end
       end
-      return nil
+      nil
     end
-
   end
 end

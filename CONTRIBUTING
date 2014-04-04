@@ -9,3 +9,5 @@ GUIDELINES FOR CONTRIBUTING
 You can run the existing test-suite via `rake`.  Ensure nothing is broken, but since the test since is far from complete, it'd be awesome if you manually tested for regressions as well.
 
 Please, if at all possible, write a passing test for the functionality you added.
+
+The default rake task uses Rubocop on default settings to ensure Ruby Style Guidelines.  If you want to run tests before conforming to this to verify functionality you can just run `rake test` and `rake features` manually.

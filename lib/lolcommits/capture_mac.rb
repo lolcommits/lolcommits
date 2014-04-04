@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureMac < Capturer
     def capture_device_string
@@ -5,15 +6,13 @@ module Lolcommits
     end
 
     def capture
-      call_str = "#{imagesnap_bin} -q \"#{snapshot_location}\" -w #{capture_delay} #{capture_device_string}"
+      call_str = "#{executable_path} -q \"#{snapshot_location}\" -w #{capture_delay} #{capture_device_string}"
       debug "Capturer: making system call for #{call_str}"
       system(call_str)
     end
 
-    private
-
-    def imagesnap_bin
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
+    def executable_path
+      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'imagesnap', 'imagesnap')
     end
   end
 end

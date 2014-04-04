@@ -1,9 +1,9 @@
+# -*- encoding : utf-8 -*-
 # Adapted and expanded from https://github.com/rwtnorton/moar-lolspeak
 # which was largely taken from an old Perl script and is sadly is not
 # available via rubygems
 
 module Lolspeak
-
   LOL_DICTIONARY = {
     /what/             => %w{wut whut},
     /you\b/            => %w{yu yous yoo u yooz},
@@ -33,7 +33,7 @@ module Lolspeak
     /age/              => %w{uj},
     /like/             => %w{likez liek licks},
     /love/             => %w{lovez lub lubs luv lurve lurves},
-    /\bis\b/           => ['ar teh','ar'],
+    /\bis\b/           => ['ar teh', 'ar'],
     /nd\b/             => %w{n n'},
     /who/              => %w{hoo},
     /'/                => [''],
@@ -78,13 +78,13 @@ module Lolspeak
     /ea/               => %w{ee},
     /can\si\s(?:ple(?:a|e)(?:s|z)e?)?\s?have\sa/ => ['i can haz'],
     /(?:hello|\bhi\b|\bhey\b|howdy|\byo\b),?/    => ['oh hai,'],
-    /(?:god\b|allah|buddah?|diety|lord)/         => ['ceiling cat'],
+    /(?:god\b|allah|buddah?|diety|lord)/         => ['ceiling cat']
   }
 
   def tranzlate(str)
     lolstr = str.dup
     LOL_DICTIONARY.each do |english, lolspeak|
-      #ghetto ruby1.8/1.9 agnostic version of choice vs sample
+      # ghetto ruby1.8/1.9 agnostic version of choice vs sample
       lolstr.gsub!(english, lolspeak.shuffle.first)
     end
 
@@ -97,7 +97,6 @@ end
 
 module Lolcommits
   class Tranzlate < Plugin
-
     extend Lolspeak
 
     def run

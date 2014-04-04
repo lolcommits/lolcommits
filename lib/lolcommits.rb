@@ -1,4 +1,5 @@
-$:.unshift File.expand_path('.')
+# -*- encoding : utf-8 -*-
+$LOAD_PATH.unshift File.expand_path('.')
 
 require 'core_ext/class'
 require 'mini_magick'
@@ -21,6 +22,7 @@ require 'lolcommits/capture_windows'
 require 'lolcommits/capture_cygwin'
 require 'lolcommits/capture_fake'
 require 'lolcommits/git_info'
+require 'lolcommits/installation'
 require 'lolcommits/plugin'
 require 'lolcommits/plugins/loltext'
 require 'lolcommits/plugins/dot_com'

@@ -4,8 +4,12 @@ rvm:
  - 1.9.2
  - 1.9.3
  - 2.0.0
+ - 2.1.0
 
 before_install:
+ # use earlier version of Rubygems to avoid fatal bundler error on 1.8.7
+ - gem update --system 2.1.11
+ - gem --version
  - sudo apt-get update -qq
  - sudo apt-get install -qq -y mplayer
  - sudo apt-get install ffmpeg
