@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
 
   # plugin dependencies
   s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
+  s.add_runtime_dependency('yam', '~> 2.0.1')         #yammer
   s.add_runtime_dependency('oauth')                   #twitter
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
