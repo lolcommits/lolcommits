@@ -8,19 +8,6 @@ module Lolcommits
                   :font, :capture_animate, :url
 
     include Methadone::CLILogging
-    include ActiveSupport::Callbacks
-    define_callbacks :run
-    set_callback :run, :before, :execute_lolcommits_tranzlate
-
-    # Executed Last
-    set_callback :run, :after,  :cleanup!
-    set_callback :run, :after,  :execute_lolcommits_uploldz
-    set_callback :run, :after,  :execute_lolcommits_lolsrv
-    set_callback :run, :after,  :execute_lolcommits_lol_twitter
-    set_callback :run, :after,  :execute_lolcommits_dot_com
-    set_callback :run, :after,  :execute_lolcommits_lol_yammer
-    set_callback :run, :after,  :execute_lolcommits_loltext
-    # Executed First
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -37,25 +24,54 @@ module Lolcommits
       end
     end
 
+    # wrap run to handle things that should happen before and after
+    # this used to be handled with ActiveSupport::Callbacks, but
+    # now we're just using a simple procedural list
     def run
+      # do things that need to happen before capture and plugins
+
+      # do native plugins that need to happen before capture
+
+      # do third party plugins that need to happen before capture
+      execute_lolcommits_tranzlate
+
+      # **** do the main capture ****
+      run_capture_and_resize
+
+      # do native plugins that need to happen after capture
+      execute_lolcommits_loltext
+
+      # do third party plugins that need to happen after capture
+      execute_lolcommits_uploldz
+      execute_lolcommits_lolsrv
+      execute_lolcommits_lol_twitter
+      execute_lolcommits_dot_com
+      execute_lolcommits_lol_yammer
+
+      # do things that should happen last
+      cleanup!
+    end
+
+    # the main capture and resize operation, critical
+    def run_capture_and_resize
       die_if_rebasing!
 
-      run_callbacks :run do
-        puts '*** Preserving this moment in history.' unless capture_stealth
-        self.snapshot_loc = self.config.raw_image(image_file_type)
-        self.main_image   = self.config.main_image(self.sha, image_file_type)
-        capturer = capturer_class.new(
-          :capture_device    => self.capture_device,
-          :capture_delay     => self.capture_delay,
-          :snapshot_location => self.snapshot_loc,
-          :font              => self.font,
-          :video_location    => self.config.video_loc,
-          :frames_location   => self.config.frames_loc,
-          :animated_duration => self.capture_animate
-        )
-        capturer.capture
-        resize_snapshot!
-      end
+      # run_callbacks :run do
+      puts '*** Preserving this moment in history.' unless capture_stealth
+      self.snapshot_loc = self.config.raw_image(image_file_type)
+      self.main_image   = self.config.main_image(self.sha, image_file_type)
+      capturer = capturer_class.new(
+        :capture_device    => self.capture_device,
+        :capture_delay     => self.capture_delay,
+        :snapshot_location => self.snapshot_loc,
+        :font              => self.font,
+        :video_location    => self.config.video_loc,
+        :frames_location   => self.config.frames_loc,
+        :animated_duration => self.capture_animate
+      )
+      capturer.capture
+      resize_snapshot!
+      # end
     end
 
     def animate?
