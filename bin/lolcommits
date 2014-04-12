@@ -96,31 +96,32 @@ def do_capture
   capture_device  = Choice.choices[:device]   || ENV['LOLCOMMITS_DEVICE']   || nil
   capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
 
+  capture_options = {
+    :capture_delay   => capture_delay,
+    :capture_stealth => capture_stealth,
+    :capture_device  => capture_device,
+    :font            => capture_font,
+    :capture_animate => capture_animate,
+    :config          => configuration
+  }
+
   fork_me? do
     if Choice.choices[:test]
       info '*** Capturing in test mode.'
-      runner = Lolcommits::Runner.new(
-        :capture_delay   => capture_delay,
-        :capture_stealth => capture_stealth,
-        :capture_device  => capture_device,
-        :capture_animate => capture_animate,
-        :message         => Choice.choices[:msg],
-        :sha             => Choice.choices[:sha],
-        :config          => configuration,
-        :font            => capture_font
-      )
+
+      # get optional fake commit msg and sha from command line
+      override_text = {
+        :message => Choice.choices[:msg],
+        :sha     => Choice.choices[:sha]
+      }
+
+      runner = Lolcommits::Runner.new(capture_options.merge override_text)
       runner.run
 
+      # automatically open so the user can see the test image results immediately
       Launchy.open(runner.main_image)
     else
-      runner = Lolcommits::Runner.new(
-        :capture_delay   => capture_delay,
-        :capture_stealth => capture_stealth,
-        :capture_device  => capture_device,
-        :capture_animate => capture_animate,
-        :config          => configuration,
-        :font            => capture_font
-      )
+      runner = Lolcommits::Runner.new(capture_options)
       runner.run
     end
   end
