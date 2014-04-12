@@ -2,16 +2,12 @@
 require 'rest_client'
 require 'pp'
 require 'json'
-require 'logger'
 
 module Lolcommits
   class Lolsrv < Plugin
     def initialize(runner)
       super
       self.options << 'server'
-      if self.runner
-        @logger = Logger.new(File.new(self.runner.config.loldir + '/lolsrv.log', 'a+'))
-      end
     end
 
     def run
@@ -63,8 +59,7 @@ module Lolcommits
 
     def log_error(e, message)
       debug message
-      @logger.info message
-      @logger.info e.backtrace
+      debug e.backtrace
     end
 
     def self.name
