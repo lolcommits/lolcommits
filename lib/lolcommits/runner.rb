@@ -88,7 +88,9 @@ module Lolcommits
     private
 
     def capturer_class
-      Object.const_get("Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}")
+      capturer_module = 'Lolcommits'
+      capturer_class  = "Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}"
+      Object.const_get(capturer_module).const_get(capturer_class)
     end
 
     def image_file_type
