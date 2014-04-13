@@ -80,5 +80,11 @@ module Lolcommits
     def self.name
       'plugin'
     end
+
+    # a plugin requests to be run by the runner in one of the possible positions.
+    # valid options are [:precapture, :postcapture]
+    def self.runner_order
+      nil
+    end
   end
 end

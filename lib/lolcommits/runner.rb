@@ -31,32 +31,40 @@ module Lolcommits
       # do things that need to happen before capture and plugins
 
       # do native plugins that need to happen before capture
+      plugins_for(:precapture).each do |plugin|
+        debug "precapture: about to execute #{plugin}"
+        plugin.new(self).execute
+      end
 
-      # do third party plugins that need to happen before capture
-      execute_lolcommits_tranzlate
+      # do gem plugins that need to happen before capture?
 
       # **** do the main capture ****
       run_capture_and_resize
 
-      # do native plugins that need to happen after capture
-      execute_lolcommits_loltext
+      # do native plugins that need to happen immediately after capture
+      # this is effectively the "image processing" phase
+      # for now, reserve just for us and handle manually...?
+      Lolcommits::Loltext.new(self).execute
 
-      # do third party plugins that need to happen after capture
-      execute_lolcommits_uploldz
-      execute_lolcommits_lolsrv
-      execute_lolcommits_lol_twitter
-      execute_lolcommits_dot_com
-      execute_lolcommits_lol_yammer
+      # do native plugins that need to happen after capture
+      plugins_for(:postcapture).each do |plugin|
+        plugin.new(self).execute
+      end
+
+      # do gem plugins that need to happen after capture?
 
       # do things that should happen last
       cleanup!
+    end
+
+    def plugins_for(position)
+      Lolcommits::PLUGINS.select { |p| p.runner_order == position }
     end
 
     # the main capture and resize operation, critical
     def run_capture_and_resize
       die_if_rebasing!
 
-      # run_callbacks :run do
       puts '*** Preserving this moment in history.' unless capture_stealth
       self.snapshot_loc = self.config.raw_image(image_file_type)
       self.main_image   = self.config.main_image(self.sha, image_file_type)
@@ -71,7 +79,6 @@ module Lolcommits
       )
       capturer.capture
       resize_snapshot!
-      # end
     end
 
     def animate?
@@ -125,14 +132,5 @@ module Lolcommits
     FileUtils.rm(self.snapshot_loc)
     FileUtils.rm_f(self.config.video_loc)
     FileUtils.rm_rf(self.config.frames_loc)
-  end
-
-  # register a method called "execute_lolcommits_#{plugin_name}"
-  # for each subclass of plugin.  these methods should be used as
-  # callbacks to the run method.
-  Lolcommits::PLUGINS.each do |plugin|
-    define_method "execute_#{plugin.to_s.underscore.gsub('/', '_')}" do
-      plugin.new(self).execute
-    end
   end
 end

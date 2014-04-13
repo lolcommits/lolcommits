@@ -32,5 +32,9 @@ module Lolcommits
     def self.name
       'uploldz'
     end
+
+    def self.runner_order
+      :postcapture
+    end
   end
 end

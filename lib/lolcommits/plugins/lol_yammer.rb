@@ -14,6 +14,10 @@ module Lolcommits
       'yammer'
     end
 
+    def self.runner_order
+      :postcapture
+    end
+
     def configured?
       !configuration['access_token'].nil?
     end

@@ -121,5 +121,9 @@ module Lolcommits
     def self.name
       'twitter'
     end
+
+    def self.runner_order
+      :postcapture
+    end
   end
 end

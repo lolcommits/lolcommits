@@ -108,5 +108,9 @@ module Lolcommits
     def self.name
       'tranzlate'
     end
+
+    def self.runner_order
+      :precapture
+    end
   end
 end

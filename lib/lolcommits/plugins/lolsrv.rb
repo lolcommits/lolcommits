@@ -65,5 +65,9 @@ module Lolcommits
     def self.name
       'lolsrv'
     end
+
+    def self.runner_order
+      :postcapture
+    end
   end
 end
