@@ -88,7 +88,7 @@ module Lolcommits
     private
 
     def capturer_class
-      "Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}".constantize
+      Object.const_get("Lolcommits::Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}")
     end
 
     def image_file_type
