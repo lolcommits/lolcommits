@@ -5,10 +5,10 @@ Git blame has never been so much fun.
 
 By default, the lolimages are stored by a Github style short SHA in a `~/.lolcommits` directory created for you.
 
-[![Gem Version](https://badge.fury.io/rb/lolcommits.png)](http://badge.fury.io/rb/lolcommits)
-[![Build Status](https://secure.travis-ci.org/mroth/lolcommits.png?branch=master)](http://travis-ci.org/mroth/lolcommits)
-[![Dependency Status](https://gemnasium.com/mroth/lolcommits.png)](https://gemnasium.com/mroth/lolcommits)
-[![Coverage Status](https://coveralls.io/repos/mroth/lolcommits/badge.png)](https://coveralls.io/r/mroth/lolcommits)
+[![Gem Version](http://img.shields.io/gem/v/lolcommits.svg)](https://rubygems.org/gems/lolcommits)
+[![Build Status](http://img.shields.io/travis/mroth/lolcommits.svg)](https://travis-ci.org/mroth/lolcommits)
+[![Dependency Status](http://img.shields.io/gemnasium/mroth/lolcommits.svg)](https://gemnasium.com/mroth/lolcommits)
+[![Coverage Status](http://img.shields.io/coveralls/mroth/lolcommits.svg)](https://coveralls.io/r/mroth/lolcommits)
 
 ## Sample images
 <img src="http://blog.mroth.info/images/postcontent/yearinsideprojects/lolcommits_users2.jpg" />
