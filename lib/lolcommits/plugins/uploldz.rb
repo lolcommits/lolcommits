@@ -10,7 +10,7 @@ module Lolcommits
       self.options.concat(['endpoint', 'optional_key'])
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       repo = self.runner.repo.to_s

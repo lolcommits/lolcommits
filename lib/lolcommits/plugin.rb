@@ -11,16 +11,29 @@ module Lolcommits
       self.options = ['enabled']
     end
 
-    def execute
+    def execute_precapture
       if enabled?
-        debug 'I am enabled, about to run'
-        run
+        debug 'I am enabled, about to run precapture'
+        run_precapture
       else
-        debug 'Disabled, doing nothing for execution'
+        debug 'Disabled, doing nothing for precapture execution'
       end
     end
 
-    def run
+    def execute_postcapture
+      if enabled?
+        debug 'I am enabled, about to run postcapture'
+        run_postcapture
+      else
+        debug 'Disabled, doing nothing for postcapture execution'
+      end
+    end
+
+    def run_precapture
+      debug 'base plugin, does nothing to anything'
+    end
+
+    def run_postcapture
       debug 'base plugin, does nothing to anything'
     end
 

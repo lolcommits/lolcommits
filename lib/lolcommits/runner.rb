@@ -33,7 +33,7 @@ module Lolcommits
       # do native plugins that need to happen before capture
       plugins_for(:precapture).each do |plugin|
         debug "precapture: about to execute #{plugin}"
-        plugin.new(self).execute
+        plugin.new(self).execute_precapture
       end
 
       # do gem plugins that need to happen before capture?
@@ -44,11 +44,11 @@ module Lolcommits
       # do native plugins that need to happen immediately after capture
       # this is effectively the "image processing" phase
       # for now, reserve just for us and handle manually...?
-      Lolcommits::Loltext.new(self).execute
+      Lolcommits::Loltext.new(self).execute_postcapture
 
       # do native plugins that need to happen after capture
       plugins_for(:postcapture).each do |plugin|
-        plugin.new(self).execute
+        plugin.new(self).execute_postcapture
       end
 
       # do gem plugins that need to happen after capture?

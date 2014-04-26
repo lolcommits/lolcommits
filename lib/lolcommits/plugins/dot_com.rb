@@ -8,7 +8,7 @@ module Lolcommits
       self.options.concat(['api_key', 'api_secret', 'repo_id'])
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       t = Time.now.to_i.to_s

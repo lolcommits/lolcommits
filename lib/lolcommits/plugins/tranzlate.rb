@@ -99,7 +99,7 @@ module Lolcommits
   class Tranzlate < Plugin
     extend Lolspeak
 
-    def run
+    def run_precapture
       debug "Commit message before: #{self.runner.message}"
       self.runner.message = self.class.tranzlate(self.runner.message)
       debug "Commit message after: #{self.runner.message}"

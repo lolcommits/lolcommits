@@ -55,7 +55,7 @@ module Lolcommits
       options
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       commit_msg = self.runner.message

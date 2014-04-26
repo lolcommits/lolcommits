@@ -10,7 +10,7 @@ module Lolcommits
       self.options << 'server'
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
       fork { sync }
     end

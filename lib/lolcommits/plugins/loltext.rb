@@ -11,7 +11,7 @@ module Lolcommits
       !configured? || super
     end
 
-    def run
+    def run_postcapture
       font_location = @font_location || File.join(Configuration::LOLCOMMITS_ROOT,
                                                   'vendor',
                                                   'fonts',

@@ -14,7 +14,7 @@ module Lolcommits
     TWITTER_RETRIES         = 2
     TWITTER_PIN_REGEX       = /^\d{4,}$/ # 4 or more digits
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       attempts = 0
