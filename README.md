@@ -8,6 +8,7 @@ By default, the lolimages are stored by a Github style short SHA in a `~/.lolcom
 [![Gem Version](http://img.shields.io/gem/v/lolcommits.svg)](https://rubygems.org/gems/lolcommits)
 [![Build Status](http://img.shields.io/travis/mroth/lolcommits.svg)](https://travis-ci.org/mroth/lolcommits)
 [![Dependency Status](http://img.shields.io/gemnasium/mroth/lolcommits.svg)](https://gemnasium.com/mroth/lolcommits)
+[![CodeClimate Status](http://img.shields.io/codeclimate/github/mroth/lolcommits.svg)](https://codeclimate.com/github/mroth/lolcommits)
 [![Coverage Status](http://img.shields.io/coveralls/mroth/lolcommits.svg)](https://coveralls.io/r/mroth/lolcommits)
 
 ## Sample images
