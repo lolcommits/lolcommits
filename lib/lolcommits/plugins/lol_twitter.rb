@@ -41,7 +41,7 @@ module Lolcommits
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
-      "#{commit_message} @jdpage #donutgloves #{tag}"
+      "@_jdpage #{commit_message} #donutgloves #{tag}"
     end
 
     def configure_options!
