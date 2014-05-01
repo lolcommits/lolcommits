@@ -32,34 +32,23 @@ module Lolcommits
     end
 
     def existing_lols
-      begin
-        lols = JSON.parse(
-        RestClient.get(configuration['server'] + '/lols'))
-        lols.map { |lol| lol['sha'] }
-      rescue => e
-        log_error(e, "ERROR: existing lols could not be retrieved #{e.class} - #{e.message}")
-        return nil
-      end
+      lols = JSON.parse(
+      RestClient.get(configuration['server'] + '/lols'))
+      lols.map { |lol| lol['sha'] }
+    rescue => e
+      log_error(e, "ERROR: existing lols could not be retrieved #{e.class} - #{e.message}")
+      return nil
     end
 
     def upload(file, sha)
-      begin
-        RestClient.post(
-          configuration['server'] + '/uplol',
-          :lol => File.new(file),
-          :url => self.runner.url + sha,
-          :repo => self.runner.repo,
-          :date => File.ctime(file),
-          :sha => sha)
-      rescue => e
-        log_error(e, "ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
-        return
-      end
-    end
-
-    def log_error(e, message)
-      debug message
-      debug e.backtrace
+      RestClient.post(configuration['server'] + '/uplol',
+                      :lol => File.new(file),
+                      :url => self.runner.url + sha,
+                      :repo => self.runner.repo,
+                      :date => File.ctime(file),
+                      :sha => sha)
+    rescue => e
+      log_error(e, "ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
     end
 
     def self.name

@@ -84,6 +84,12 @@ module Lolcommits
       super(args)
     end
 
+    # helper to log errors with a message via debug
+    def log_error(e, message)
+      debug message
+      debug e.backtrace.join("\n")
+    end
+
     # uniform debug logging for plugins
     def debug(msg)
       super("Plugin: #{self.class.to_s}: " + msg)

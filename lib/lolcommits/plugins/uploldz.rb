@@ -23,6 +23,8 @@ module Lolcommits
                         :repo => repo,
                         :key => configuration['optional_key'])
       end
+    rescue => e
+      log_error(e, "ERROR: RestClient POST FAILED #{e.class} - #{e.message}")
     end
 
     def configured?
