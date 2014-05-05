@@ -37,12 +37,12 @@ module Lolcommits
     end
 
     def build_tweet(commit_message)
-      prefix = configuration['prefix']
-      suffix = configuration['suffix']
       available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length + 2)
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
+      prefix = configuration['prefix']
+      suffix = configuration['suffix']
       "#{prefix} #{commit_message} #{suffix}"
     end
 
