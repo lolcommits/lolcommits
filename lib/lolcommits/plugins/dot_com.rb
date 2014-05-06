@@ -8,7 +8,7 @@ module Lolcommits
       self.options.concat(['api_key', 'api_secret', 'repo_id'])
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       t = Time.now.to_i.to_s
@@ -26,6 +26,8 @@ module Lolcommits
                                   :token =>  Digest::SHA1.hexdigest(configuration['api_secret'] + t)
                                 }
       )
+    rescue => e
+      log_error(e, "ERROR: HTTMultiParty POST FAILED #{e.class} - #{e.message}")
     end
 
     def configured?
@@ -37,6 +39,10 @@ module Lolcommits
 
     def self.name
       'dot_com'
+    end
+
+    def self.runner_order
+      :postcapture
     end
   end
 end

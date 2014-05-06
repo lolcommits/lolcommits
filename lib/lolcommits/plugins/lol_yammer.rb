@@ -14,6 +14,10 @@ module Lolcommits
       'yammer'
     end
 
+    def self.runner_order
+      :postcapture
+    end
+
     def configured?
       !configuration['access_token'].nil?
     end
@@ -51,7 +55,7 @@ module Lolcommits
       options
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       commit_msg = self.runner.message

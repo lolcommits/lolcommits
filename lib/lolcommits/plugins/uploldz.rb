@@ -10,7 +10,7 @@ module Lolcommits
       self.options.concat(['endpoint', 'optional_key'])
     end
 
-    def run
+    def run_postcapture
       return unless valid_configuration?
 
       repo = self.runner.repo.to_s
@@ -23,6 +23,8 @@ module Lolcommits
                         :repo => repo,
                         :key => configuration['optional_key'])
       end
+    rescue => e
+      log_error(e, "ERROR: RestClient POST FAILED #{e.class} - #{e.message}")
     end
 
     def configured?
@@ -31,6 +33,10 @@ module Lolcommits
 
     def self.name
       'uploldz'
+    end
+
+    def self.runner_order
+      :postcapture
     end
   end
 end
