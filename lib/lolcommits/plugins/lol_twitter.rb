@@ -19,9 +19,10 @@ module Lolcommits
 
       attempts = 0
 
+      tweet = build_tweet(self.runner.message)
+
       begin
         attempts += 1
-        tweet = build_tweet(self.runner.message)
         puts "Tweeting: #{tweet}"
         debug "--> Tweeting! (attempt: #{attempts}, tweet size: #{tweet.length} chars)"
         if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
@@ -108,8 +109,9 @@ module Lolcommits
       # these should probably not go in the configure_auth! (since they aren't to do with authentication)
       print "\n4) If you would like to precede your tweets with something (such as an @user), enter it now: "
       prefix = STDIN.gets.strip
-      print "\n5) If you would like to end your tweets with something (such as #lolcommits), enter it now: "
-      suffix = STDIN.gets.strip
+      print "\n5) If you would like to end your tweets with something (such as a hashtag), enter it now: #lolcommits "
+      suffix = "#lolcommits " + STDIN.gets.strip
+      suffix = suffix.strip
 
       if access_token.token && access_token.secret
         return { 'access_token' => access_token.token,
