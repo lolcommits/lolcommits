@@ -37,8 +37,16 @@ module Lolcommits
     end
 
     def build_tweet(commit_message)
-      prefix = configuration['prefix']
-      suffix = configuration['suffix']
+      if configuration['prefix']
+        prefix = configuration['prefix']
+      else # this case may arise if the user has the old style of config.yml file stored
+        prefix = ""
+      end
+      if configuration['suffix']
+        suffix = configuration['suffix']
+      else # this case may arise if the user has the old style of config.yml file stored
+        suffix = ""
+      end
       available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length + 2)
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
@@ -50,6 +58,7 @@ module Lolcommits
       options = super
       # ask user to configure tokens if enabling
       if options['enabled'] == true
+        # note that (for now) configure_auth! also includes setting prefix and suffix
         auth_config = configure_auth!
         if auth_config
           options.merge!(auth_config)
@@ -96,6 +105,7 @@ module Lolcommits
 
       print "\n3) Thanks! Twitter Auth Succeeded\n"
 
+      # these should probably not go in the configure_auth! (since they aren't to do with authentication)
       print "\n4) If you would like to precede your tweets with something (such as an @user), enter it now: "
       prefix = STDIN.gets.strip
       print "\n5) If you would like to end your tweets with something (such as #lolcommits), enter it now: "
