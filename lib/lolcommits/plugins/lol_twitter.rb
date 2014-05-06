@@ -108,8 +108,8 @@ module Lolcommits
       # these should probably not go in the configure_auth! (since they aren't to do with authentication)
       print "\n4) If you would like to precede your tweets with something (such as an @user), enter it now: "
       prefix = STDIN.gets.strip
-      print "\n5) If you would like to end your tweets with something (such as #lolcommits), enter it now: "
-      suffix = STDIN.gets.strip
+      print "\n5) If you would like to end your tweets with something (such as a hashtag), enter it now: #lolcommits "
+      suffix = "#lolcommits " + STDIN.gets.strip
 
       if access_token.token && access_token.secret
         return { 'access_token' => access_token.token,
