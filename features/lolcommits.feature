@@ -45,7 +45,7 @@ Feature: Basic UI functionality
       And the "loltest" repository "post-commit" hook has content "#!/bin/ruby"
     When I cd to "loltest"
     And I run `lolcommits --enable`
-    Then the output should contain "doesn't start with with a good shebang"
+    Then the output should contain "doesn't start with a good shebang"
       And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
       And the exit status should be 1
 

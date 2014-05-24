@@ -27,7 +27,7 @@ module Lolcommits
 
         # check for a good shebang line in the existing hook
         unless good_shebang?
-          warn "the existing hook (at #{HOOK_PATH}) doesn't start with with a good shebang; like #!/bin/sh"
+          warn "the existing hook (at #{HOOK_PATH}) doesn't start with a good shebang; like #!/bin/sh"
           exit 1
         end
       end
