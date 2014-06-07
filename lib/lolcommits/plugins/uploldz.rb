@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'rest_client'
+require 'base64'
 
 module Lolcommits
   class Uploldz < Plugin
@@ -19,7 +20,7 @@ module Lolcommits
       else
         debug 'Calling ' + configuration['endpoint'] + ' with repo ' + repo
         RestClient.post(configuration['endpoint'],
-                        :file => File.new(self.runner.main_image),
+                        :file => Base64.encode64(File.read(self.runner.main_image)),
                         :repo => repo,
                         :key => configuration['optional_key'])
       end
@@ -34,7 +35,6 @@ module Lolcommits
     def self.name
       'uploldz'
     end
-
     def self.runner_order
       :postcapture
     end
