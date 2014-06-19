@@ -41,15 +41,15 @@ module Lolcommits
     end
 
     def most_recent
-      Dir.glob(File.join self.loldir, '*.jpg').max_by { |f| File.mtime(f) }
+      Dir.glob(File.join self.loldir, '*.{jpg,gif}').max_by { |f| File.mtime(f) }
     end
 
-    def images
+    def jpg_images
       Dir.glob(File.join self.loldir, '*.jpg').sort_by { |f| File.mtime(f) }
     end
 
-    def images_today
-      images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
+    def jpg_images_today
+      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
     end
 
     def raw_image(image_file_type = 'jpg')

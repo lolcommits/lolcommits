@@ -170,10 +170,10 @@ def do_gif
 
   case Choice.choices[:gif]
     when 'today'
-      lolimages = configuration.images_today
+      lolimages = configuration.jpg_images_today
       filename  = "#{Date.today.to_s}.gif"
     else
-      lolimages = configuration.images
+      lolimages = configuration.jpg_images
       filename  = 'archive.gif'
   end
 
