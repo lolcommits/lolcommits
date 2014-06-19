@@ -19,7 +19,7 @@ module Lolcommits
 
       debug 'LinuxCapturer: calling out to mplayer to capture image'
       # mplayer's output is ugly and useless, let's throw it away
-      _, r, _ = Open3.popen3("#{executable_path} -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} tv://")
+      _, r, _ = Open3.popen3("#{executable_path} -vo png:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} tv://")
       # looks like we still need to read the output for something to happen
       r.read
 
@@ -27,7 +27,7 @@ module Lolcommits
       include FileUtils::Verbose if logger.level == 0
 
       debug 'LinuxCapturer: calling out to mplayer to capture image'
-      FileUtils.mv(tmpdir + '/%08d.jpg' % frames, snapshot_location)
+      FileUtils.mv(tmpdir + '/%08d.png' % frames, snapshot_location)
       debug 'LinuxCapturer: cleaning up'
       FileUtils.rm_rf(tmpdir)
     end
