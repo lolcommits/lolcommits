@@ -54,12 +54,17 @@ module Lolcommits
     def clean_msg(text)
       wrapped_text = word_wrap text
       escape_quotes wrapped_text
+      ignore_mentions wrapped_text
     end
 
     # conversion for quotation marks to avoid shell interpretation
     # does not seem to be a safe way to escape cross-platform?
     def escape_quotes(text)
       text.gsub(/"/, "''")
+    end
+
+    def ignore_mentions(text)
+      text.gsub(/@\w+ /, "")
     end
 
     # convenience method for word wrapping
