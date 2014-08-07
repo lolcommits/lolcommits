@@ -64,7 +64,7 @@ module Lolcommits
     end
 
     def ignore_mentions(text)
-      text.gsub(/@\w+ /, "")
+      text.gsub(/@\w+ /, '')
     end
 
     # convenience method for word wrapping
