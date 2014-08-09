@@ -54,7 +54,7 @@ module Lolcommits
     def clean_msg(text)
       wrapped_text = word_wrap text
       escape_quotes wrapped_text
-      ignore_mentions wrapped_text
+      escape_ats wrapped_text
     end
 
     # conversion for quotation marks to avoid shell interpretation
@@ -63,8 +63,8 @@ module Lolcommits
       text.gsub(/"/, "''")
     end
 
-    def ignore_mentions(text)
-      text.gsub(/@\w+ /, '')
+    def escape_ats(text)
+      text.gsub(/@/, '\@')
     end
 
     # convenience method for word wrapping
