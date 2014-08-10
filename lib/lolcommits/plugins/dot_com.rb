@@ -3,6 +3,8 @@ require 'httmultiparty'
 
 module Lolcommits
   class DotCom < Plugin
+    BASE_URL = 'http://lolcommits-dot-com.herokuapp.com'
+
     def initialize(runner)
       super
       self.options.concat(['api_key', 'api_secret', 'repo_id'])
@@ -12,7 +14,7 @@ module Lolcommits
       return unless valid_configuration?
 
       t = Time.now.to_i.to_s
-      resp = HTTMultiParty.post('http://www.lolcommits.com/git_commits.json',
+      resp = HTTMultiParty.post("#{BASE_URL}/git_commits.json",
                                 :body => {
                                   :git_commit => {
                                     :sha              => self.runner.sha,
