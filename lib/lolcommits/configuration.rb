@@ -25,10 +25,8 @@ module Lolcommits
 
     def loldir
       return @loldir if @loldir
-
       basename ||= File.basename(Git.open('.').dir.to_s).sub(/^\./, 'dot')
       basename.sub!(/ /, '-')
-
       @loldir = Configuration.loldir_for(basename)
     end
 
@@ -161,7 +159,7 @@ module Lolcommits
         rescue Errno::EPERM
           # abort if permissions cannot be met
           puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV['USER']}'"
-          puts "Try changing the directory permissions to 755"
+          puts 'Try changing the directory permissions to 755'
           exit 1
         end
       else

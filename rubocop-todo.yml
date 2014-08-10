@@ -63,10 +63,10 @@ UselessAssignment:
 Documentation:
   Enabled: false
 
-# Offence count: 1
+# Offence count: 2
 # Configuration parameters: CountComments.
 ClassLength:
-  Max: 169
+  Max: 178
 
 # Offence count: 73
 LineLength:
