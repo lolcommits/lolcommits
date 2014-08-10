@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class Configuration
-    LOLBASEDIR = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
+    LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
     attr_writer :loldir
 
@@ -152,9 +152,19 @@ module Lolcommits
     end
 
     def self.loldir_for(basename)
-      loldir = File.join(LOLBASEDIR, basename)
+      loldir = File.join(LOLCOMMITS_BASE, basename)
 
-      if not File.directory? loldir
+      if File.directory? loldir
+        begin
+          # ensure 755 permissions for loldir
+          File.chmod(0755, loldir)
+        rescue Errno::EPERM
+          # abort if permissions cannot be met
+          puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV['USER']}'"
+          puts "Try changing the directory permissions to 755"
+          exit 1
+        end
+      else
         FileUtils.mkdir_p loldir
       end
       loldir
