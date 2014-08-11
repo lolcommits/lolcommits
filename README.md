@@ -66,6 +66,7 @@ lolcommits has some capture options for additional lulz. You can enable these vi
 * `LOLCOMMITS_FONT` set font file location for lolcommit text
 * `LOLCOMMITS_FORK` fork lolcommit runner (capture command forks to a new process, speedily returning you to your terminal)
 * `LOLCOMMITS_STEALTH` disable notification messages at commit time
+* `LOLCOMMITS_NOTEXT` disable the lolcommit text
 
 Or they can be set via the following arguments in the capture command (located in your repository's `.git/hooks/post-commit` file).
 
@@ -75,6 +76,7 @@ Or they can be set via the following arguments in the capture command (located i
 * `--font=FONT_PATH` or `-f FONT_PATH`
 * `--fork`
 * `--stealth`
+* `--no-text`
 
 Use `lolcommits --devices` to list all attached video devices available for capturing. Read how to [configure commit capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing) for more details.
 
