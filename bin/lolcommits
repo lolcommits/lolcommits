@@ -95,6 +95,7 @@ def do_capture
   capture_stealth = Choice.choices[:stealth]  || ENV['LOLCOMMITS_STEALTH']  || nil
   capture_device  = Choice.choices[:device]   || ENV['LOLCOMMITS_DEVICE']   || nil
   capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
+  capture_text    = !(Choice.choices[:no_text] || ENV['LOLCOMMITS_NOTEXT']) && true
 
   capture_options = {
     :capture_delay   => capture_delay,
@@ -102,7 +103,8 @@ def do_capture
     :capture_device  => capture_device,
     :font            => capture_font,
     :capture_animate => capture_animate,
-    :config          => configuration
+    :config          => configuration,
+    :capture_text    => capture_text
   }
 
   fork_me? do
@@ -305,6 +307,11 @@ Choice.options do
   option :stealth do
     long '--stealth'
     desc 'capture image in stealth mode'
+  end
+
+  option :no_text do
+    long '--no-text'
+    desc 'capture image without information text'
   end
 
   option :device do

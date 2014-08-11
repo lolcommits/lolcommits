@@ -5,7 +5,7 @@ module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
                   :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-                  :font, :capture_animate, :url
+                  :font, :capture_animate, :url, :capture_text
 
     include Methadone::CLILogging
 
@@ -44,7 +44,10 @@ module Lolcommits
       # do native plugins that need to happen immediately after capture
       # this is effectively the "image processing" phase
       # for now, reserve just for us and handle manually...?
-      Lolcommits::Loltext.new(self).execute_postcapture
+
+      if self.capture_text
+        Lolcommits::Loltext.new(self).execute_postcapture
+      end
 
       # do native plugins that need to happen after capture
       plugins_for(:postcapture).each do |plugin|
