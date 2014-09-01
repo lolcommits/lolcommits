@@ -209,7 +209,7 @@ module Lolcommits
     end
 
     def self.can_animate?
-      platform == 'Mac'
+      ['Mac', 'Linux'].include? platform
     end
 
     # Cross-platform way of finding an executable in the $PATH.
