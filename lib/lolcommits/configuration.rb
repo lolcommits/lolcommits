@@ -213,15 +213,18 @@ module Lolcommits
     end
 
     # Cross-platform way of finding an executable in the $PATH.
-    # idea taken from http://bit.ly/qDaTbY
+    # idea taken from http://bit.ly/qDaTbY, if only_path is true, only the path
+    # is returned (not the path and command)
     #
     #   which('ruby') #=> /usr/bin/ruby
-    def self.command_which(cmd)
+    def self.command_which(cmd, only_path = false)
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|
           exe = "#{path}/#{cmd}#{ext}"
-          return exe if File.executable? exe
+          if File.executable? exe
+            return only_path ? path : exe
+          end
         end
       end
       nil
