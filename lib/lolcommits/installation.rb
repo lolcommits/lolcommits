@@ -21,19 +21,29 @@ module Lolcommits
         Dir.mkdir(HOOK_DIR)
       end
 
-      # clear away any existing lolcommits hook
+      # should add a shebang (or not) adding will rewrite hook file
+      add_shebang = false
       if hook_file_exists?
+        # clear away any existing lolcommits hook
         remove_existing_hook! if lolcommits_hook_exists?
 
-        # check for a good shebang line in the existing hook
-        unless good_shebang?
+        # if file is empty we should add a shebang (and rewrite hook)
+        if File.read(HOOK_PATH).strip.empty?
+          add_shebang = true
+        elsif !good_shebang?
+          # look for good shebang in existing hook, abort if none found
           warn "the existing hook (at #{HOOK_PATH}) doesn't start with a good shebang; like #!/bin/sh"
           exit 1
         end
+      else
+        add_shebang = true
       end
 
-      File.open(HOOK_PATH, hook_file_exists? ? 'a' : 'w') do |f|
-        f.write(hook_script(!hook_file_exists?))
+      File.open(HOOK_PATH, add_shebang ? 'w' : 'a') do |f|
+        if add_shebang
+          f.write("#!/bin/sh\n")
+        end
+        f.write(hook_script)
       end
 
       FileUtils.chmod 0755, HOOK_PATH
@@ -65,17 +75,16 @@ module Lolcommits
     protected
 
     def self.hook_script(add_shebang = true)
-      shebang      = add_shebang ? "#!/bin/sh\n\n" : ''
       ruby_path    = Lolcommits::Configuration.command_which('ruby')
       hook_export  = "export PATH=\"#{ruby_path}:$PATH\"\n" if ruby_path
       capture_cmd  = 'lolcommits --capture'
       capture_args = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
 
       <<-EOS
-    #{shebang}### lolcommits hook (begin) ###
-    #{hook_export}#{capture_cmd}#{capture_args}
-    ###  lolcommits hook (end)  ###
-    EOS
+### lolcommits hook (begin) ###
+#{hook_export}#{capture_cmd}#{capture_args}
+###  lolcommits hook (end)  ###
+EOS
     end
 
     # does a git hook exist at all?
