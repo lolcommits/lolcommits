@@ -48,13 +48,24 @@ module Lolcommits
       puts "Configuring plugin: #{self.class.name}\n"
       options.reduce(Hash.new) do |acc, option|
         print "#{option}: "
-        val = STDIN.gets.strip.downcase
-        if %w(true yes).include?(val)
-          val = true
-        elsif %(false no).include?(val)
-          val = false
+        val = parse_user_input(STDIN.gets.strip)
+        # check enabled option isn't a String
+        if (option == 'enabled') && val.is_a?(String)
+          puts "Aborting - please enable with 'true' or 'false'"
+          exit 1
+        else
+          acc.merge(option => val)
         end
-        acc.merge(option => val)
+      end
+    end
+
+    def parse_user_input(str)
+      if 'true'.casecmp(str) == 0
+        true
+      elsif 'false'.casecmp(str) == 0
+        false
+      else
+        str
       end
     end
 

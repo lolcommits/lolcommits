@@ -44,7 +44,7 @@ module Lolcommits
 
     def configure_options!
       options = super
-      if options['enabled'] == true
+      if enabled?
         auth_config = configure_access_token
         if auth_config
           options.merge!(auth_config)
