@@ -36,6 +36,9 @@ Then install the gem with:
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
 default MacOSX Ruby install is dumb and requires it.
 
+If [Boxen](https://boxen.github.com) is your thing, [try
+this](https://github.com/AssuredLabor/puppet-lolcommits).
+
 ### Linux
 
 Install dependencies using your package manager of choice, for example in
