@@ -12,8 +12,8 @@ Feature: Basic UI functionality
       |--animate|which is optional|
       |-a       |which is optional|
 
-  Scenario: Help should not show the animate option on a Linux plaftorm
-    Given I am using a "Linux" platform
+  Scenario: Help should not show the animate option on a Windows plaftorm
+    Given I am using a "Windows" platform
     When I get help for "lolcommits"
     Then the output should not match /\-a\, \-\-animate\=SECONDS/
 
