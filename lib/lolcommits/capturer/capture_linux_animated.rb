@@ -57,7 +57,7 @@ module Lolcommits
     end
 
     def capture_device_string
-      "'#{capture_device}' " if capture_device
+      capture_device || '/dev/video0'
     end
 
     def capture_delay_string
