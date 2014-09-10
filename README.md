@@ -96,7 +96,7 @@ via environment variables like so;
 
 * `LOLCOMMITS_DEVICE` set a webcam device - **mac and linux only**
 * `LOLCOMMITS_ANIMATE` (in seconds) set time for capturing an animated gif -
-  **mac only & requires ffmpeg**
+  **requires ffmpeg**
 * `LOLCOMMITS_DELAY` (in seconds) set delay persistently (for slow webcams to
   warmup)
 * `LOLCOMMITS_FONT` set font file location for lolcommit text
@@ -121,18 +121,21 @@ for more details.
 
 ### Animated Gif Capturing
 
-Animated gifs (Mac/OSX only) can take a while to generate (depending on the
-number of seconds you capture and the capabilities of your machine). `ffmpeg` is
-required and can be installed with brew like so;
+Animated gifs can take a while to generate (depending on the number of seconds
+you capture and the capabilities of your machine).
+[ffmpeg](https://www.ffmpeg.org) is required and can be installed like so;
 
-    brew install ffmpeg
+* Linux - [follow this guide](https://www.ffmpeg.org/download.html#build-linux)
+* OSX - `brew install ffmpeg`
 
 To enable, just set the `LOLCOMMITS_ANIMATE` environment variable with the
-number of seconds to capture.  And like regular image captures you can use the
-env variables `LOLCOMMITS_DEVICE` and `LOLCOMMITS_DELAY` to change the capture
-device or delay time (seconds) before capturing.  If you find capturing an
-animated gif takes too long, try setting the `LOLCOMMITS_FORK=true` env
-variable.
+number of seconds to capture. Like regular image captures you can use the env
+variables `LOLCOMMITS_DEVICE` and `LOLCOMMITS_DELAY` to change the capture
+device or delay time (seconds) before capturing.
+
+If you find capturing an animated gif takes too long, try setting the
+`LOLCOMMITS_FORK=true` env variable. Animated gif captures are currently NOT
+supported on Windows.
 
 ![Example animated lolcommit
 gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif "Example
