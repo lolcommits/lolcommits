@@ -19,9 +19,10 @@ module Lolcommits
 
       attempts = 0
 
+      tweet = build_tweet(self.runner.message)
+
       begin
         attempts += 1
-        tweet = build_tweet(self.runner.message)
         puts "Tweeting: #{tweet}"
         debug "--> Tweeting! (attempt: #{attempts}, tweet size: #{tweet.length} chars)"
         if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
@@ -36,18 +37,29 @@ module Lolcommits
       end
     end
 
-    def build_tweet(commit_message, tag = '#lolcommits')
-      available_commit_msg_size = max_tweet_size - (tag.length + 1)
+    def build_tweet(commit_message)
+      if configuration['prefix']
+        prefix = configuration['prefix']
+      else # this case may arise if the user has the old style of config.yml file stored
+        prefix = ""
+      end
+      if configuration['suffix']
+        suffix = configuration['suffix']
+      else # this case may arise if the user has the old style of config.yml file stored
+        suffix = ""
+      end
+      available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length + 2)
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
-      "#{commit_message} #{tag}"
+      "#{prefix} #{commit_message} #{suffix}"
     end
 
     def configure_options!
       options = super
       # ask user to configure tokens if enabling
       if options['enabled'] == true
+        # note that (for now) configure_auth! also includes setting prefix and suffix
         auth_config = configure_auth!
         if auth_config
           options.merge!(auth_config)
@@ -92,10 +104,20 @@ module Lolcommits
         return
       end
 
+      print "\n3) Thanks! Twitter Auth Succeeded\n"
+
+      # these should probably not go in the configure_auth! (since they aren't to do with authentication)
+      print "\n4) If you would like to precede your tweets with something (such as an @user), enter it now: "
+      prefix = STDIN.gets.strip
+      print "\n5) If you would like to end your tweets with something (such as a hashtag), enter it now: #lolcommits "
+      suffix = "#lolcommits " + STDIN.gets.strip
+      suffix = suffix.strip
+
       if access_token.token && access_token.secret
-        print "\n3) Thanks! Twitter Auth Succeeded\n"
         return { 'access_token' => access_token.token,
-                 'secret'       => access_token.secret }
+                 'secret'       => access_token.secret,
+                 'prefix'       => prefix,
+                 'suffix'       => suffix }
       end
     end
 
