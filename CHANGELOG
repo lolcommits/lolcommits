@@ -1,6 +1,14 @@
-0.5.5 (in development)
-  * TODO: figure out problems with GUI clients
+0.5.6 (in development)
+
+0.5.5 (27 September 2014)
   * Animated gif capture support (@theY4Kman #226)
+  * Fix plugin config issues with user input (@matthutchinson #225 #223)
+  * Fix Linux FPS timing issues (@matthutchinson #215)
+  * Fix hook enable/disable issue (@matthutchinson #206)
+  * Fix Git GUI issues (@matthutchinson #196 #168 #193 #188 #159 #133 #123 #119 #104 #83)
+  * Mention Boxen script in README (@matthutchinson #208)
+  * Explain global Git hooks how-to in README (@matthutchinson #212 #112)
+  * Minor improvments to Linux Capturer (@matthutchinson)
 
 0.5.4 (13 April 2014)
   * Excluded vendor/bundle from rubocop cops (@matthutchinson)
