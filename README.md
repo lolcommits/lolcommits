@@ -36,6 +36,9 @@ Then install the gem with:
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
 default MacOSX Ruby install is dumb and requires it.
 
+If [Boxen](https://boxen.github.com) is your thing, [try
+this](https://github.com/AssuredLabor/puppet-lolcommits).
+
 ### Linux
 
 Install dependencies using your package manager of choice, for example in
@@ -150,8 +153,13 @@ page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 ## Troubles?
 
-Started a [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ). Or take a read
-through our [wiki](https://github.com/mroth/lolcommits/wiki)
+Try our trouble-shooting [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ), or
+take a read through our [wiki](https://github.com/mroth/lolcommits/wiki) for
+more information. If you think something is broken or missing, raise a [GitHub
+issue](https://github.com/mroth/lolcommits/issues) (and please take a little
+time to check if we haven't [already
+addressed](https://github.com/mroth/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
+it).
 
 ## Timelapse?
 

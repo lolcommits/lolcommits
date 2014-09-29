@@ -11,3 +11,4 @@ html
 tmp
 *.swp
 *.swo
+vendor/bundle
