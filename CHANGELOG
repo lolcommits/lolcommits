@@ -1,6 +1,6 @@
 0.5.6 (in development)
 
-0.5.5 (27 September 2014)
+0.5.5 (29 September 2014)
   * Animated gif capture support (@theY4Kman #226)
   * Fix plugin config issues with user input (@matthutchinson #225 #223)
   * Fix Linux FPS timing issues (@matthutchinson #215)
