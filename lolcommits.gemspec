@@ -3,18 +3,19 @@ $:.push File.expand_path("../lib", __FILE__)
 require "lolcommits/version"
 
 Gem::Specification.new do |s|
-  s.name        = "lolcommits"
+  s.name        = 'lolcommits'
   s.version     = Lolcommits::VERSION
   s.authors     = ['Matthew Rothenberg',    'Matt Hutchinson']
   s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
-  s.homepage    = "http://mroth.github.com/lolcommits/"
-  s.summary     = %q{Capture webcam image on git commit for lulz.}
+  s.homepage    = 'http://mroth.github.com/lolcommits/'
+  s.license     = 'LGPL-3'
+  s.summary     = 'Capture webcam image on git commit for lulz.'
+
   s.description = <<-EOF
   lolcommits takes a snapshot with your webcam every time you git commit code,
   and archives a lolcat style image with it. It's selfies for software
   developers. `git blame` has never been so much fun.
   EOF
-  s.license     = "LGPL-3"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
