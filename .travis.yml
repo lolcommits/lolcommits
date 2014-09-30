@@ -6,6 +6,7 @@ rvm:
  - 2.0.0
  - 2.1.0
  - 2.1.2
+ - ruby-head
 
 before_install:
  # use earlier version of Rubygems to avoid fatal bundler error on 1.8.7
@@ -17,9 +18,9 @@ before_install:
  # imagemagick is installed by default on normal travis image now
  # - sudo apt-get install -qq -y imagemagick libmagickwand-dev
 
-# matrix:
-  # allow_failures:
-    # - rvm: 2.0.0
+matrix:
+  allow_failures:
+    - rvm: ruby-head
 
 branches:
   except:
