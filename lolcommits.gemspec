@@ -17,6 +17,8 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  # non-gem dependencies
+  s.required_ruby_version = '>= 1.8.7'
   # core gem dependencies
   s.add_runtime_dependency('mini_magick', '~> 3.5')
   s.add_runtime_dependency('git', '~> 1.2.5')
