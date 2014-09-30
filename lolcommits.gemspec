@@ -3,20 +3,29 @@ $:.push File.expand_path("../lib", __FILE__)
 require "lolcommits/version"
 
 Gem::Specification.new do |s|
-  s.name        = "lolcommits"
+  s.name        = 'lolcommits'
   s.version     = Lolcommits::VERSION
-  s.authors     = ["Matthew Rothenberg"]
-  s.email       = ["mrothenberg@gmail.com"]
-  s.homepage    = "http://mroth.github.com/lolcommits/"
-  s.summary     = %q{Capture webcam image on git commit for lulz.}
-  s.description = %q{Takes a snapshot with your webcam every time you git commit code, and archives a lolcat style image with it.}
-  s.license     = "LGPL-3"
-  s.rubyforge_project = "lolcommits"
+  s.authors     = ['Matthew Rothenberg',    'Matt Hutchinson']
+  s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
+  s.homepage    = 'http://mroth.github.com/lolcommits/'
+  s.license     = 'LGPL-3'
+  s.summary     = 'Capture webcam image on git commit for lulz.'
+
+  s.description = <<-EOF
+  lolcommits takes a snapshot with your webcam every time you git commit code,
+  and archives a lolcat style image with it. It's selfies for software
+  developers. `git blame` has never been so much fun.
+  EOF
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  # non-gem dependencies
+  s.required_ruby_version = '>= 1.8.7'
+  s.requirements << 'imagemagick'
+  s.requirements << 'a webcam'
 
   # core gem dependencies
   s.add_runtime_dependency('mini_magick', '~> 3.5')
