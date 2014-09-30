@@ -19,6 +19,9 @@ Gem::Specification.new do |s|
 
   # non-gem dependencies
   s.required_ruby_version = '>= 1.8.7'
+  s.requirements << 'imagemagick'
+  s.requirements << 'a webcam'
+
   # core gem dependencies
   s.add_runtime_dependency('mini_magick', '~> 3.5')
   s.add_runtime_dependency('git', '~> 1.2.5')
