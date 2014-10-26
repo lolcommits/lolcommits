@@ -79,8 +79,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --capture --fork`
     Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
     When I wait for the child process to exit in "testforkcapture"
-    Then the output should contain "*** Preserving this moment in history."
-      And a directory named "../.lolcommits/testforkcapture" should exist
+    Then a directory named "../.lolcommits/testforkcapture" should exist
       And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
       And there should be exactly 1 jpg in "../.lolcommits/testforkcapture"
 

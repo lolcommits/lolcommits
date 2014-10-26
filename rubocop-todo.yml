@@ -66,7 +66,7 @@ Documentation:
 # Offence count: 3
 # Configuration parameters: CountComments.
 ClassLength:
-  Max: 179
+  Max: 190
 
 # Offence count: 73
 LineLength:
