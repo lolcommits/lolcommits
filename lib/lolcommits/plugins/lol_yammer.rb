@@ -44,12 +44,13 @@ module Lolcommits
 
     def configure_options!
       options = super
-      if enabled?
+      # ask user to configure tokens if enabling
+      if options['enabled']
         auth_config = configure_access_token
         if auth_config
           options.merge!(auth_config)
         else
-          return
+          return # return nil if configure_auth failed
         end
       end
       options
