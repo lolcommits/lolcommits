@@ -1,4 +1,5 @@
 0.5.6 (in development)
+  * Improved error message when ImageMagick install has issues #159
   * Fix twitter plugin config issue #231
   * update gems!
   * prepare plugins for extraction
