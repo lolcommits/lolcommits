@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.requirements << 'a webcam'
 
   # core gem dependencies
-  s.add_runtime_dependency('mini_magick', '~> 3.5')
+  s.add_runtime_dependency('mini_magick', '~> 3.8.1')
   s.add_runtime_dependency('git', '~> 1.2.5')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.2.0')
