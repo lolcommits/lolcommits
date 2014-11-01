@@ -106,6 +106,7 @@ via environment variables like so;
 * `LOLCOMMITS_FORK` fork lolcommit runner (capture command forks to a new
   process, speedily returning you to your terminal)
 * `LOLCOMMITS_STEALTH` disable notification messages at commit time
+* `LOLCOMMITS_DIR` set the output directory (defaults to ~/.lolcommits)
 
 Or they can be set via the following arguments in the capture command (located
 in your repository's `.git/hooks/post-commit` file).
