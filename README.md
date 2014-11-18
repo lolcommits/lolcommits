@@ -45,6 +45,8 @@ Install dependencies using your package manager of choice, for example in
 Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
+    
+For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no longer ships with the default Ubuntu sources. [Downloads for ffmpeg](http://ffmpeg.org/download.html)
 
 Then install the gem with:
 
