@@ -28,43 +28,55 @@ module Lolcommits
     # this used to be handled with ActiveSupport::Callbacks, but
     # now we're just using a simple procedural list
     def run
+      # abort if we are in a rebase
+      die_if_rebasing!
+
       # do things that need to happen before capture and plugins
 
       # do native plugins that need to happen before capture
       plugins_for(:precapture).each do |plugin|
-        debug "precapture: about to execute #{plugin}"
+        debug "Runner: precapture about to execute #{plugin}"
         plugin.new(self).execute_precapture
       end
 
       # do gem plugins that need to happen before capture?
 
-      # **** do the main capture ****
-      run_capture_and_resize
+      # do main capture to snapshot_loc
+      run_capture
 
-      # do native plugins that need to happen immediately after capture
-      # this is effectively the "image processing" phase
-      # for now, reserve just for us and handle manually...?
-      Lolcommits::Loltext.new(self).execute_postcapture
+      # check capture succeded, file must exist
+      if File.exists?(self.snapshot_loc)
 
-      # do native plugins that need to happen after capture
-      plugins_for(:postcapture).each do |plugin|
-        plugin.new(self).execute_postcapture
+        ## resize snapshot first
+        resize_snapshot!
+
+        # do native plugins that need to happen immediately after capture and
+        # resize this is effectively the "image processing" phase for now,
+        # reserve just for us and handle manually...?
+        Lolcommits::Loltext.new(self).execute_postcapture
+
+        # do native plugins that need to happen after capture
+        plugins_for(:postcapture).each do |plugin|
+          debug "Runner: postcapture about to execute #{plugin}"
+          plugin.new(self).execute_postcapture
+        end
+
+        # do gem plugins that need to happen after capture?
+
+        # do things that should happen last
+        cleanup!
+      else
+        debug 'Runner: failed to capture a snapshot'
+        exit 1
       end
-
-      # do gem plugins that need to happen after capture?
-
-      # do things that should happen last
-      cleanup!
     end
 
     def plugins_for(position)
       Lolcommits::PLUGINS.select { |p| p.runner_order == position }
     end
 
-    # the main capture and resize operation, critical
-    def run_capture_and_resize
-      die_if_rebasing!
-
+    # the main capture
+    def run_capture
       puts '*** Preserving this moment in history.' unless capture_stealth
       self.snapshot_loc = self.config.raw_image(image_file_type)
       self.main_image   = self.config.main_image(self.sha, image_file_type)
@@ -78,7 +90,6 @@ module Lolcommits
         :animated_duration => self.capture_animate
       )
       capturer.capture
-      resize_snapshot!
     end
 
     def animate?
