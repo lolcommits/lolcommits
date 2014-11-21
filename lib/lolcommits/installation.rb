@@ -75,15 +75,16 @@ module Lolcommits
     protected
 
     def self.hook_script(add_shebang = true)
-      ruby_path    = Lolcommits::Configuration.command_which('ruby', true)
-      imagick_path = Lolcommits::Configuration.command_which('identify', true)
-      hook_export  = "export PATH=\"#{ruby_path}:#{imagick_path}:$PATH\"\n"
-      capture_cmd  = 'lolcommits --capture'
-      capture_args = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
+      ruby_path     = Lolcommits::Configuration.command_which('ruby', true)
+      imagick_path  = Lolcommits::Configuration.command_which('identify', true)
+      locale_export = "export LANG=\"#{ENV['LANG']}\"\n"
+      hook_export   = "export PATH=\"#{ruby_path}:#{imagick_path}:$PATH\"\n"
+      capture_cmd   = 'lolcommits --capture'
+      capture_args  = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
 
       <<-EOS
 ### lolcommits hook (begin) ###
-#{hook_export}#{capture_cmd}#{capture_args}
+#{locale_export}#{hook_export}#{capture_cmd}#{capture_args}
 ###  lolcommits hook (end)  ###
 EOS
     end
