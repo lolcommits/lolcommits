@@ -1,9 +1,17 @@
-0.5.6 (in development)
+0.5.7 (WIP)
+  * upgrade gems
+  * seperate gems for all plugins
+
+0.5.6 (24 November 2014)
+  * Updates and clean ups on the gemspec (@mroth #228)
+  * Travis CI now includes ruby-head (@mroth #229)
   * Improved error message for ImageMagick issues #159 (@matthutchinson #233)
   * Fix twitter plugin config issue #231 (@matthutchinson #232)
   * Update mini_magick gem to 3.8.1 (@matthutchinson #234)
   * Improve README for LOLCOMMITS_DIR (@dagar #235)
-  * other WIP
+  * Update README to include ffmpeg installation (@VictorBjelkholm #236)
+  * Better failover when no snapshot created  (@matthutchinson #237)
+  * Export LANG to post-commit hook, fixes GitHub client (@matthutchinson #240)
 
 0.5.5 (29 September 2014)
   * Animated gif capture support (@theY4Kman #226)
