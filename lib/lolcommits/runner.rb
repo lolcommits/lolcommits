@@ -3,9 +3,9 @@ module Lolcommits
   PLUGINS = Lolcommits::Plugin.subclasses
 
   class Runner
-    attr_accessor :capture_delay, :capture_stealth, :capture_device, :message, :sha,
-                  :snapshot_loc, :main_image, :repo, :config, :repo_internal_path,
-                  :font, :capture_animate, :url
+    attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
+                  :sha, :snapshot_loc, :main_image, :config, :font, :git_info,
+                  :capture_animate
 
     include Methadone::CLILogging
 
@@ -15,12 +15,9 @@ module Lolcommits
       end
 
       if self.sha.nil? || self.message.nil?
-        git_info = GitInfo.new
-        self.sha = git_info.sha if self.sha.nil?
-        self.message = git_info.message if self.message.nil?
-        self.repo_internal_path = git_info.repo_internal_path
-        self.repo = git_info.repo
-        self.url  = git_info.url
+        self.git_info = GitInfo.new
+        self.sha      = git_info.sha if self.sha.nil?
+        self.message  = git_info.message if self.message.nil?
       end
     end
 
@@ -113,8 +110,8 @@ module Lolcommits
 
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
-    if not self.repo_internal_path.nil?
-      mergeclue = File.join self.repo_internal_path, 'rebase-merge'
+    if self.git_info && !self.git_info.repo_internal_path.nil?
+      mergeclue = File.join self.git_info.repo_internal_path, 'rebase-merge'
       if File.directory? mergeclue
         debug 'Runner: Rebase detected, silently exiting!'
         exit 0
