@@ -13,15 +13,18 @@ module Lolcommits
     def run_postcapture
       return unless valid_configuration?
 
-      repo = self.runner.repo.to_s
-      if repo.empty?
+      if self.runner.git_info.repo.empty?
         puts 'Repo is empty, skipping upload'
       else
-        debug 'Calling ' + configuration['endpoint'] + ' with repo ' + repo
+        debug "Posting capture to #{configuration['endpoint']}"
         RestClient.post(configuration['endpoint'],
-                        :file => File.new(self.runner.main_image),
-                        :repo => repo,
-                        :key => configuration['optional_key'])
+                        :file         => File.new(self.runner.main_image),
+                        :message      => self.runner.message,
+                        :repo         => self.runner.git_info.repo,
+                        :author_name  => self.runner.git_info.author_name,
+                        :author_email => self.runner.git_info.author_email,
+                        :sha          => self.runner.sha,
+                        :key          => configuration['optional_key'])
       end
     rescue => e
       log_error(e, "ERROR: RestClient POST FAILED #{e.class} - #{e.message}")

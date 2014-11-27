@@ -42,11 +42,11 @@ module Lolcommits
 
     def upload(file, sha)
       RestClient.post(configuration['server'] + '/uplol',
-                      :lol => File.new(file),
-                      :url => self.runner.url + sha,
-                      :repo => self.runner.repo,
+                      :lol  => File.new(file),
+                      :url  => self.runner.git_info.url + sha,
+                      :repo => self.runner.git_info.repo,
                       :date => File.ctime(file),
-                      :sha => sha)
+                      :sha  => sha)
     rescue => e
       log_error(e, "ERROR: Upload of lol #{sha} FAILED #{e.class} - #{e.message}")
     end
