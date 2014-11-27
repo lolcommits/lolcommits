@@ -1,4 +1,5 @@
 0.5.7 (WIP)
+  * Uploldz plugin sends more post params (@clops #224 @matthutchinson #241)
   * upgrade gems
   * seperate gems for all plugins
 
