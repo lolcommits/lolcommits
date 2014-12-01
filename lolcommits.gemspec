@@ -49,13 +49,13 @@ Gem::Specification.new do |s|
   end
 
   # plugin dependencies
-  s.add_runtime_dependency('twitter', '~> 4.8.1')     #twitter
+  s.add_runtime_dependency('twitter', '~> 5.13.0')    #twitter
+  s.add_runtime_dependency('oauth', '~> 0.4.7')       #twitter oauth
   s.add_runtime_dependency('yam', '~> 2.0.1')         #yammer
-  s.add_runtime_dependency('oauth')                   #twitter
   s.add_runtime_dependency('rest-client')             #uploldz
   s.add_runtime_dependency('httmultiparty')           #dot_com
   s.add_runtime_dependency('httparty', "~> 0.11.0")   #dot_com
-  s.add_runtime_dependency('json', '~> 1.7.6')        #lolsrv
+  s.add_runtime_dependency('json', '~> 1.8.1')        #lolsrv
   s.add_runtime_dependency('mime-types', '~> 1.25')
 
 end

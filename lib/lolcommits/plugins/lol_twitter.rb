@@ -9,26 +9,26 @@ $VERBOSE = original_verbose # activate warning messages again.
 
 module Lolcommits
   class LolTwitter < Plugin
+    TWITTER_API_ENDPOINT    = 'https://api.twitter.com'
     TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'
     TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
     TWITTER_RETRIES         = 2
     TWITTER_PIN_REGEX       = /^\d{4,}$/ # 4 or more digits
+    DEFAULT_SUFFIX          = '#lolcommits'
 
     def run_postcapture
       return unless valid_configuration?
+      tweet = build_tweet(self.runner.message)
 
       attempts = 0
-
       begin
         attempts += 1
-        tweet = build_tweet(self.runner.message)
         puts "Tweeting: #{tweet}"
-        debug "--> Tweeting! (attempt: #{attempts}, tweet size: #{tweet.length} chars)"
+        debug "--> Tweeting! (attempt: #{attempts}, tweet length: #{tweet.length} chars)"
         if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
           puts "\t--> Tweet Sent!"
         end
-      rescue Twitter::Error::InternalServerError,
-             Twitter::Error::BadRequest,
+      rescue Twitter::Error::ServerError,
              Twitter::Error::ClientError => e
         debug "Tweet FAILED! #{e.class} - #{e.message}"
         retry if attempts < TWITTER_RETRIES
@@ -36,12 +36,19 @@ module Lolcommits
       end
     end
 
-    def build_tweet(commit_message, tag = '#lolcommits')
-      available_commit_msg_size = max_tweet_size - (tag.length + 1)
+    def build_tweet(commit_message)
+      prefix = config_with_default('prefix', '')
+      suffix = " #{config_with_default('suffix', DEFAULT_SUFFIX)}"
+      unless prefix.empty?
+        prefix = "#{prefix} "
+      end
+
+      available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length)
       if commit_message.length > available_commit_msg_size
         commit_message = "#{commit_message[0..(available_commit_msg_size - 3)]}..."
       end
-      "#{commit_message} #{tag}"
+
+      "#{prefix}#{commit_message}#{suffix}"
     end
 
     def configure_options!
@@ -50,7 +57,7 @@ module Lolcommits
       if options['enabled']
         auth_config = configure_auth!
         if auth_config
-          options.merge!(auth_config)
+          options = options.merge(auth_config).merge(configure_prefix_suffix)
         else
           return # return nil if configure_auth failed
         end
@@ -63,13 +70,7 @@ module Lolcommits
       puts 'Need to grab twitter tokens'
       puts '---------------------------'
 
-      consumer = OAuth::Consumer.new(TWITTER_CONSUMER_KEY,
-                                     TWITTER_CONSUMER_SECRET,
-                                     :site => 'https://api.twitter.com',
-                                     :request_endpoint => 'https://api.twitter.com',
-                                     :sign_in => true)
-
-      request_token = consumer.get_request_token
+      request_token = oauth_consumer.get_request_token
       rtoken        = request_token.token
       rsecret       = request_token.secret
 
@@ -85,7 +86,7 @@ module Lolcommits
 
       begin
         debug "Requesting Twitter OAuth Token with PIN: #{twitter_pin}"
-        OAuth::RequestToken.new(consumer, rtoken, rsecret)
+        OAuth::RequestToken.new(oauth_consumer, rtoken, rsecret)
         access_token = request_token.get_access_token(:oauth_verifier => twitter_pin)
       rescue OAuth::Unauthorized
         puts "\nERROR: Twitter PIN Auth FAILED!"
@@ -93,10 +94,27 @@ module Lolcommits
       end
 
       if access_token.token && access_token.secret
-        print "\n3) Thanks! Twitter Auth Succeeded\n"
-        return { 'access_token' => access_token.token,
-                 'secret'       => access_token.secret }
+        puts ''
+        puts '------------------------------'
+        puts 'Thanks! Twitter Auth Succeeded'
+        puts '------------------------------'
+        {
+          'access_token' => access_token.token,
+          'secret'       => access_token.secret
+         }
       end
+    end
+
+    def configure_prefix_suffix
+      print "\n3) Prefix all tweets with something? e.g. @user (leave blank for no prefix): "
+      prefix = STDIN.gets.strip
+      print "\n4) End all tweets with something? e.g. #hashtag (leave blank for default suffix #{DEFAULT_SUFFIX}): "
+      suffix = STDIN.gets.strip
+
+      config = {}
+      config['prefix'] = prefix unless prefix.empty?
+      config['suffix'] = suffix unless suffix.empty?
+      config
     end
 
     def configured?
@@ -106,12 +124,30 @@ module Lolcommits
     end
 
     def client
-      @client ||= Twitter::Client.new(
-        :consumer_key       => TWITTER_CONSUMER_KEY,
-        :consumer_secret    => TWITTER_CONSUMER_SECRET,
-        :oauth_token        => configuration['access_token'],
-        :oauth_token_secret => configuration['secret']
+      @client ||= Twitter::REST::Client.new do |config|
+        config.consumer_key        = TWITTER_CONSUMER_KEY
+        config.consumer_secret     = TWITTER_CONSUMER_SECRET
+        config.access_token        = configuration['access_token']
+        config.access_token_secret = configuration['secret']
+      end
+    end
+
+    def oauth_consumer
+      @oauth_consumer ||= OAuth::Consumer.new(
+        TWITTER_CONSUMER_KEY,
+        TWITTER_CONSUMER_SECRET,
+        :site             => TWITTER_API_ENDPOINT,
+        :request_endpoint => TWITTER_API_ENDPOINT,
+        :sign_in          => true
       )
+    end
+
+    def config_with_default(key, default = nil)
+      if configuration[key]
+        configuration[key].strip.empty? ? default : configuration[key]
+      else
+        default
+      end
     end
 
     def max_tweet_size

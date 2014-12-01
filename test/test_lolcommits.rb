@@ -45,6 +45,19 @@ where the streets have no name... where the streets have no name }.gsub("\n", ' 
     assert_match 'I wanna run, I want to hide, I want to tear down the walls that hold me inside. I want to reach out, a... #lolcommits', plugin.build_tweet(long_commit_message)
   end
 
+  def test_lol_twitter_prefix_suffix
+    plugin = Lolcommits::LolTwitter.new(nil)
+    Lolcommits::LolTwitter.send(:define_method, :max_tweet_size, Proc.new { 116 })
+    assert_match 'commit msg #lolcommits', plugin.build_tweet('commit msg')
+
+    plugin_config = {
+      'prefix' => '@prefixing!',
+      'suffix' => '#suffixing!'
+    }
+    Lolcommits::LolTwitter.send(:define_method, :configuration, Proc.new { plugin_config })
+    assert_match '@prefixing! commit msg #suffixing!', plugin.build_tweet('commit msg')
+  end
+
   #
   # issue #53, https://github.com/mroth/lolcommits/issues/53
   # this will test the permissions but only locally, important before building a gem package!

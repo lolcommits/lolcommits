@@ -1,7 +1,8 @@
 0.5.7 (WIP)
   * Uploldz plugin sends more post params (@clops #224 @matthutchinson #241)
-  * upgrade gems
-  * seperate gems for all plugins
+  * More configurable twitter plugin (@woodrowbarlow #207 @matthutchinson)
+  * Upgrade Twitter, Oauth and Json gems (@matthutchinson)
+  * wip .. upgrade all dependent gems
 
 0.5.6 (24 November 2014)
   * Updates and clean ups on the gemspec (@mroth #228)
