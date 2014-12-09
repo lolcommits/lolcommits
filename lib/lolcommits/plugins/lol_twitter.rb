@@ -101,7 +101,7 @@ module Lolcommits
         {
           'access_token' => access_token.token,
           'secret'       => access_token.secret
-         }
+        }
       end
     end
 

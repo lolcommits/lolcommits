@@ -1,10 +1,9 @@
 AllCops:
-  Excludes:
-    - vendor/bundle/**
+  Exclude:
+    - vendor/bundle/**/*
 
-inherit_from: rubocop-todo.yml
+inherit_from: .rubocop_todo.yml
 
 # Enforce Ruby 1.8.7 compatible syntax
 HashSyntax:
   EnforcedStyle: hash_rockets
-

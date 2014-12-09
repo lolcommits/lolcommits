@@ -27,35 +27,34 @@ Gem::Specification.new do |s|
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
-  # core gem dependencies
-  s.add_runtime_dependency('mini_magick', '~> 3.8.1')
-  s.add_runtime_dependency('git', '~> 1.2.5')
+  # hold back upgrading
+  s.add_runtime_dependency('rest-client', '~> 1.6.7') # uploldz (coveralls requires uses this older version)
+  s.add_runtime_dependency('mini_magick', '~> 3.8.1') # ~> 4+ fails with JRuby
+  s.add_runtime_dependency('mime-types', '~> 1.25')   # ~> 2+ requires Ruby >= 1.9.2
+  s.add_runtime_dependency('httparty', '~> 0.11.0')   # ~> 0.13+ requires Ruby >= 1.9.3
+
+  # safe to upgrade
+  s.add_runtime_dependency('git', '~> 1.2.8')
   s.add_runtime_dependency('choice', '~> 0.1.6')
-  s.add_runtime_dependency('launchy', '~> 2.2.0')
-  s.add_runtime_dependency('methadone', '~> 1.2.4')
-  s.add_runtime_dependency('open4', '~> 1.3.0')
+  s.add_runtime_dependency('launchy', '~> 2.4.3')
+  s.add_runtime_dependency('methadone', '~> 1.8.0')
+  s.add_runtime_dependency('open4', '~> 1.3.4')
+  # plugins gems
+  s.add_runtime_dependency('twitter', '~> 5.13.0')       # twitter
+  s.add_runtime_dependency('oauth', '~> 0.4.7')          # twitter oauth
+  s.add_runtime_dependency('yam', '~> 2.4.0')            # yammer
+  s.add_runtime_dependency('json', '~> 1.8.1')           # lolsrv
+  s.add_runtime_dependency('httmultiparty', '~> 0.3.16') # dot_com
 
-  # development dependencies
-  s.add_development_dependency('rdoc')
-  s.add_development_dependency('aruba', '~> 0.5.1')
-  s.add_development_dependency('rake', '~> 10.0.2')
-  s.add_development_dependency('fivemat', '~> 1.2.1')
-  s.add_development_dependency('faker')
-  s.add_development_dependency('travis')
-  s.add_development_dependency('coveralls')
-  s.add_development_dependency('magic_encoding')
+  # development gems
+  s.add_development_dependency('fivemat', '~> 1.3.1')
+  s.add_development_dependency('rdoc', '~> 4.2.0')
+  s.add_development_dependency('aruba', '~> 0.6.1')
+  s.add_development_dependency('rake', '~> 10.4.2')
+  s.add_development_dependency('ffaker', '~> 1.25.0')
+  s.add_development_dependency('travis', '~> 1.7.4')
+  s.add_development_dependency('coveralls', '~> 0.7.2')
   if RUBY_VERSION >= '1.9.2'
-    s.add_development_dependency('rubocop', '~> 0.18.1')
+    s.add_development_dependency('rubocop', '~> 0.27.1')
   end
-
-  # plugin dependencies
-  s.add_runtime_dependency('twitter', '~> 5.13.0')    #twitter
-  s.add_runtime_dependency('oauth', '~> 0.4.7')       #twitter oauth
-  s.add_runtime_dependency('yam', '~> 2.0.1')         #yammer
-  s.add_runtime_dependency('rest-client')             #uploldz
-  s.add_runtime_dependency('httmultiparty')           #dot_com
-  s.add_runtime_dependency('httparty', "~> 0.11.0")   #dot_com
-  s.add_runtime_dependency('json', '~> 1.8.1')        #lolsrv
-  s.add_runtime_dependency('mime-types', '~> 1.25')
-
 end
