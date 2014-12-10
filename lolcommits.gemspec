@@ -27,19 +27,20 @@ Gem::Specification.new do |s|
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
-  # hold back upgrading
+  # hold back upgrading (and why)
   s.add_runtime_dependency('rest-client', '~> 1.6.7') # uploldz (coveralls requires uses this older version)
   s.add_runtime_dependency('mini_magick', '~> 3.8.1') # ~> 4+ fails with JRuby
   s.add_runtime_dependency('mime-types', '~> 1.25')   # ~> 2+ requires Ruby >= 1.9.2
   s.add_runtime_dependency('httparty', '~> 0.11.0')   # ~> 0.13+ requires Ruby >= 1.9.3
 
-  # safe to upgrade
+  # core
   s.add_runtime_dependency('git', '~> 1.2.8')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.4.3')
   s.add_runtime_dependency('methadone', '~> 1.8.0')
   s.add_runtime_dependency('open4', '~> 1.3.4')
-  # plugins gems
+
+  # plugin gems
   s.add_runtime_dependency('twitter', '~> 5.13.0')       # twitter
   s.add_runtime_dependency('oauth', '~> 0.4.7')          # twitter oauth
   s.add_runtime_dependency('yam', '~> 2.4.0')            # yammer
@@ -54,7 +55,9 @@ Gem::Specification.new do |s|
   s.add_development_dependency('ffaker', '~> 1.25.0')
   s.add_development_dependency('travis', '~> 1.7.4')
   s.add_development_dependency('coveralls', '~> 0.7.2')
-  if RUBY_VERSION >= '1.9.2'
+  s.add_development_dependency('test-unit', '~> 3.0.7')
+
+  if RUBY_VERSION >= '1.9.3'
     s.add_development_dependency('rubocop', '~> 0.27.1')
   end
 end

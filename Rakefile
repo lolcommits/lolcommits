@@ -48,7 +48,7 @@ Rake::RDocTask.new do |rd|
 end
 
 # only run rubocop on platforms where it is supported, sigh
-if RUBY_VERSION >= '1.9.2'
+if RUBY_VERSION >= '1.9.3'
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new
   task :default => [:rubocop, :test, :features]
