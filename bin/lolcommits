@@ -87,13 +87,23 @@ def capture_animate
   end
 end
 
+def default_device
+  result = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE']
+
+  if Configuration.platform_linux?
+    result ||= Dir.glob('/dev/video*').first
+  end
+
+  result
+end
+
 #
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
   capture_delay   = Choice.choices[:delay]    || ENV['LOLCOMMITS_DELAY']    || 0
   capture_stealth = Choice.choices[:stealth]  || ENV['LOLCOMMITS_STEALTH']  || nil
-  capture_device  = Choice.choices[:device]   || ENV['LOLCOMMITS_DEVICE']   || nil
+  capture_device  = default_device
   capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
 
   capture_options = {
