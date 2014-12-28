@@ -4,7 +4,7 @@ require 'methadone/cucumber'
 require 'open3'
 require 'test/unit/assertions'
 include Test::Unit::Assertions
-require 'faker'
+require 'ffaker'
 require 'lolcommits/configuration'
 require File.join(File.expand_path(File.dirname(__FILE__)), 'path_helpers')
 include Lolcommits

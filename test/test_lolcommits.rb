@@ -3,6 +3,7 @@ require 'coveralls'
 Coveralls.wear!
 
 require 'test/unit'
+require 'ffaker'
 # Loads lolcommits directly from the lib folder so don't have to create
 # a gem before testing
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -33,16 +34,13 @@ class LolTest < Test::Unit::TestCase
   #
   # issue #136, https://github.com/mroth/lolcommits/issues/136
   def test_lol_twitter_build_tweet
-    long_commit_message = %q{I wanna run, I want to hide, I want to tear down
-the walls that hold me inside. I want to reach out, and touch the flame...
-Where the streets have no name.. ah ah ah.. I want to feel sunlight on my
-face... I see the dust clouds disappear, without a trace... I want to take
-shelter... from the poison rain...  where the streets have no name... oahhhhh
-where the streets have no name... where the streets have no name }.gsub("\n", ' ')
+    long_commit_message = Faker::Lorem.sentence(500)
+    plugin              = Lolcommits::LolTwitter.new(nil)
+    max_tweet_size      = 116
+    suffix              = '... #lolcommits'
 
-    plugin = Lolcommits::LolTwitter.new(nil)
-    Lolcommits::LolTwitter.send(:define_method, :max_tweet_size, Proc.new { 116 })
-    assert_match 'I wanna run, I want to hide, I want to tear down the walls that hold me inside. I want to reach out, a... #lolcommits', plugin.build_tweet(long_commit_message)
+    Lolcommits::LolTwitter.send(:define_method, :max_tweet_size, Proc.new { max_tweet_size })
+    assert_match "#{long_commit_message[0..(max_tweet_size - suffix.length)]}#{suffix}", plugin.build_tweet(long_commit_message)
   end
 
   def test_lol_twitter_prefix_suffix
@@ -77,11 +75,4 @@ where the streets have no name... where the streets have no name }.gsub("\n", ' 
     assert commandcam_perms == 0755 || commandcam_perms == 0775,
            "expected perms of 755/775 but instead got #{sprintf '%o', commandcam_perms}"
   end
-
-  # Hmm.. webcam capture breaks travis-ci tests
-  # def test_can_capture
-  #  assert_nothing_raised do
-  #    Lolcommits.capture(0,true,'test commit message','test-sha-001')
-  #  end
-  # end
 end
