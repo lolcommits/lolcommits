@@ -1,8 +1,12 @@
-0.5.7 (WIP)
+0.6.0 (WIP)
+  * extract plugins to seperate gems ...
+
+0.5.7 (28 December 2014)
   * Uploldz plugin sends more post params (@clops #224 @matthutchinson #241)
   * More configurable twitter plugin (@woodrowbarlow #207 @matthutchinson)
-  * Upgrade Twitter, Oauth and Json gems (@matthutchinson)
-  * wip .. upgrade all dependent gems
+  * Upgrade all gems that can be, 4 held back (#244 @matthutchinson)
+  * Ruby 2.2.0 compatible (#244 @matthutchinson)
+  * Glob /dev/video* for default video device (linux only) (#246 @Ferada)
 
 0.5.6 (24 November 2014)
   * Updates and clean ups on the gemspec (@mroth #228)
