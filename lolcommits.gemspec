@@ -58,6 +58,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('test-unit', '~> 3.0.7')
 
   if RUBY_VERSION >= '1.9.3'
-    s.add_development_dependency('rubocop', '~> 0.27.1')
+    s.add_development_dependency('rubocop', '~> 0.28')
   end
 end

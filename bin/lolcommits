@@ -223,7 +223,6 @@ end
 # Command line parsing fun
 #
 Choice.options do
-
   option :version do
     long '--version'
     short '-v'

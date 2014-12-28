@@ -14,8 +14,6 @@ module Lolcommits
     def read_configuration
       if File.exists?(configuration_file)
         YAML.load(File.open(configuration_file))
-      else
-        nil
       end
     end
 
