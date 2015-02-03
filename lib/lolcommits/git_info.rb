@@ -10,9 +10,9 @@ module Lolcommits
     def initialize
       debug 'GitInfo: reading commits logs'
 
-      if commit.author
-        self.author_name = commit.author.name
-        self.author_email = commit.author.email
+      if last_commit.author
+        self.author_name = last_commit.author.name
+        self.author_email = last_commit.author.email
       end
 
       debug 'GitInfo: parsed the following values from commit:'
