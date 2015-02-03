@@ -10,8 +10,6 @@ module Lolcommits
     def initialize
       debug 'GitInfo: reading commits logs'
 
-
-
       if repository.remote.url
         self.url = remote_https_url(repository.remote.url)
         match = repository.remote.url.match(GIT_URL_REGEX)
@@ -47,7 +45,7 @@ module Lolcommits
     end
 
     def sha
-      self.sha = last_commit.sha[0..10]
+      self.sha ||= last_commit.sha[0..10]
     end
 
     def repo_internal_path
