@@ -9,7 +9,7 @@ module Lolcommits
 
     def initialize
       debug 'GitInfo: reading commits logs'
-      commit = repository.log.first
+
       debug "GitInfo: most recent commit is '#{commit}'"
 
       self.message = commit.message.split("\n").first
@@ -54,6 +54,10 @@ module Lolcommits
 
     def repository(path = '.')
       Git.open(path)
+    end
+
+    def last_commit
+      @commit ||= repository.log.first
     end
   end
 end
