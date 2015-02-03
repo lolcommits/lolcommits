@@ -16,8 +16,7 @@ module Lolcommits
         api_url,
         {
           :files        => [File.new(self.runner.main_image)],
-          :message      => message,
-          :key          => configuration['optional_key']
+          :message      => message
         },
         {
           "X-Protonet-Token" => configuration['api_token']
