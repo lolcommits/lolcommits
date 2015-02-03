@@ -35,7 +35,9 @@ module Lolcommits
     end
 
     def url
-      @url ||= remote_https_url(repository.remote.try(:url))
+      @url ||= if repository.remote
+        remote_https_url(repository.remote.url)
+      end
     end
 
     def repo
@@ -50,11 +52,11 @@ module Lolcommits
     end
 
     def author_name
-      @author_name ||= last_commit.author.try(:name)
+      @author_name ||= last_commit.author.name if last_commit.author
     end
 
     def author_email
-      @author_email ||= last_commit.author.try(:email)
+      @author_email ||= last_commit.author.email if last_commit.author
     end
 
     private
