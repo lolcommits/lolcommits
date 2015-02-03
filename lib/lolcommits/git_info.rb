@@ -63,7 +63,7 @@ module Lolcommits
     end
 
     def repository(path = '.')
-      Git.open(path)
+      @repository ||= Git.open(path)
     end
 
     def last_commit
