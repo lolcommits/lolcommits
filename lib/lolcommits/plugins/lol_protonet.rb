@@ -37,7 +37,7 @@ module Lolcommits
     end
 
     def random_adjective
-      adjectives = %w{"awesome", "great", "interesting", "cool", "EPIC", "gut", "good", "pansy",
+      adjectives = ["awesome", "great", "interesting", "cool", "EPIC", "gut", "good", "pansy",
                       "powerful", "boring", "quirky", "untested", "german", "iranian", "neutral", "crazy", "well tested",
                       "jimmy style", "nasty", "bibliographical (we received complaints about the original wording)",
                       "bombdiggidy", "narly", "spiffy", "smashing", "xing style",
@@ -47,7 +47,7 @@ module Lolcommits
                       "- ze goggles zey do nothing! -", "almost working", "legen- wait for it -", "-dairy!",
                       " - Tavonius would be proud of this - ", "Meg FAILMAN!", "- very brofessional of you -",
                       "heartbleeding", "juciy", "supercalifragilisticexpialidocious", "failing", "loving"
-                   }
+                   ]
       adjectives.sample
     end
 
