@@ -3,7 +3,7 @@ module Lolcommits
   class GitInfo
     include Methadone::CLILogging
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
-                  :author_name, :author_email
+                  :author_name, :author_email, :branch
 
     GIT_URL_REGEX = /.*[:]([\/\w\-]*).git/
 
@@ -14,6 +14,7 @@ module Lolcommits
       commit = g.log.first
       debug "GitInfo: most recent commit is '#{commit}'"
 
+      self.branch  = g.current_branch
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = g.repo.path
@@ -39,6 +40,7 @@ module Lolcommits
       debug "GitInfo: \t#{sha}"
       debug "GitInfo: \t#{repo_internal_path}"
       debug "GitInfo: \t#{repo}"
+      debug "GitInfo: \t#{branch}"
       debug "GitInfo: \t#{author_name}" if author_name
       debug "GitInfo: \t#{author_email}" if author_email
     end
