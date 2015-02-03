@@ -11,7 +11,6 @@ module Lolcommits
       debug 'GitInfo: reading commits logs'
 
 
-      self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = repository.repo.path
 
@@ -43,6 +42,10 @@ module Lolcommits
 
     def branch
       self.branch ||= repository.current_branch
+    end
+
+    def message
+      self.message ||= last_commit.message.split("\n").first
     end
 
     private
