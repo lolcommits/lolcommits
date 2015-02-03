@@ -11,7 +11,6 @@ module Lolcommits
       debug 'GitInfo: reading commits logs'
 
 
-      self.sha     = commit.sha[0..10]
       self.repo_internal_path = repository.repo.path
 
       if repository.remote.url
@@ -46,6 +45,10 @@ module Lolcommits
 
     def message
       self.message ||= last_commit.message.split("\n").first
+    end
+
+    def sha
+      self.sha = last_commit.sha[0..10]
     end
 
     private
