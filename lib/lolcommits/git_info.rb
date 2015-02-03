@@ -35,8 +35,8 @@ module Lolcommits
     end
 
     def url
-      @url ||= if repository.remote
-        remote_https_url(repository.remote.url)
+      @url ||= begin
+        remote_https_url(repository.remote.url) if repository.remote
       end
     end
 
