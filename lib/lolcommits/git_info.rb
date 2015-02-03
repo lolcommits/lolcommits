@@ -10,17 +10,6 @@ module Lolcommits
     def initialize
       debug 'GitInfo: reading commits logs'
 
-      if repository.remote.url
-        self.url = remote_https_url(repository.remote.url)
-        match = repository.remote.url.match(GIT_URL_REGEX)
-      end
-
-      if match
-        self.repo = match[1]
-      elsif !repository.repo.path.empty?
-        self.repo = repository.repo.path.split(File::SEPARATOR)[-2]
-      end
-
       if commit.author
         self.author_name = commit.author.name
         self.author_email = commit.author.email
@@ -50,6 +39,21 @@ module Lolcommits
 
     def repo_internal_path
       self.repo_internal_path ||= repository.repo.path
+    end
+
+    def url
+      self.url ||= remote_https_url(repository.remote.try(:url))
+    end
+
+    def repo
+      self.repo ||= begin
+        match = repository.remote.url.match(GIT_URL_REGEX)
+        if match
+          match[1]
+        elsif !repository.repo.path.empty?
+          repository.repo.path.split(File::SEPARATOR)[-2]
+        end
+      end
     end
 
     private
