@@ -10,7 +10,6 @@ module Lolcommits
     def initialize
       debug 'GitInfo: reading commits logs'
 
-      debug "GitInfo: most recent commit is '#{commit}'"
 
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
