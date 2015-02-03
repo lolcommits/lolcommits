@@ -26,27 +26,27 @@ module Lolcommits
     end
 
     def branch
-      self.branch ||= repository.current_branch
+      @branch ||= repository.current_branch
     end
 
     def message
-      self.message ||= last_commit.message.split("\n").first
+      @message ||= "test" #last_commit.message.split("\n").first
     end
 
     def sha
-      self.sha ||= last_commit.sha[0..10]
+      @sha ||= last_commit.sha[0..10]
     end
 
     def repo_internal_path
-      self.repo_internal_path ||= repository.repo.path
+      @repo_internal_path ||= repository.repo.path
     end
 
     def url
-      self.url ||= remote_https_url(repository.remote.try(:url))
+      @url ||= remote_https_url(repository.remote.try(:url))
     end
 
     def repo
-      self.repo ||= begin
+      @repo ||= begin
         match = repository.remote.url.match(GIT_URL_REGEX)
         if match
           match[1]
