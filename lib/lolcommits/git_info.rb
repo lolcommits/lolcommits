@@ -8,26 +8,24 @@ module Lolcommits
     GIT_URL_REGEX = /.*[:]([\/\w\-]*).git/
 
     def initialize
-      debug 'GitInfo: attempting to read local repository'
-      g    = Git.open('.')
       debug 'GitInfo: reading commits logs'
-      commit = g.log.first
+      commit = repository.log.first
       debug "GitInfo: most recent commit is '#{commit}'"
 
-      self.branch  = g.current_branch
+      self.branch  = repository.current_branch
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
-      self.repo_internal_path = g.repo.path
+      self.repo_internal_path = repository.repo.path
 
-      if g.remote.url
-        self.url = remote_https_url(g.remote.url)
-        match = g.remote.url.match(GIT_URL_REGEX)
+      if repository.remote.url
+        self.url = remote_https_url(repository.remote.url)
+        match = repository.remote.url.match(GIT_URL_REGEX)
       end
 
       if match
         self.repo = match[1]
-      elsif !g.repo.path.empty?
-        self.repo = g.repo.path.split(File::SEPARATOR)[-2]
+      elsif !repository.repo.path.empty?
+        self.repo = repository.repo.path.split(File::SEPARATOR)[-2]
       end
 
       if commit.author
@@ -49,6 +47,10 @@ module Lolcommits
 
     def remote_https_url(url)
       url.gsub(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '') + '/commit/'
+    end
+
+    def repository(path = '.')
+      Git.open(path)
     end
   end
 end
