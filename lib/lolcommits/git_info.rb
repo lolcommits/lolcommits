@@ -8,13 +8,6 @@ module Lolcommits
     GIT_URL_REGEX = /.*[:]([\/\w\-]*).git/
 
     def initialize
-      debug 'GitInfo: reading commits logs'
-
-      if last_commit.author
-        self.author_name = last_commit.author.name
-        self.author_email = last_commit.author.email
-      end
-
       debug 'GitInfo: parsed the following values from commit:'
       debug "GitInfo: \t#{message}"
       debug "GitInfo: \t#{sha}"
@@ -54,6 +47,14 @@ module Lolcommits
           repository.repo.path.split(File::SEPARATOR)[-2]
         end
       end
+    end
+
+    def author_name
+      @author_name ||= last_commit.author.try(:name)
+    end
+
+    def author_email
+      @author_email ||= last_commit.author.try(:email)
     end
 
     private
