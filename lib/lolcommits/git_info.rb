@@ -12,7 +12,6 @@ module Lolcommits
       commit = repository.log.first
       debug "GitInfo: most recent commit is '#{commit}'"
 
-      self.branch  = repository.current_branch
       self.message = commit.message.split("\n").first
       self.sha     = commit.sha[0..10]
       self.repo_internal_path = repository.repo.path
@@ -41,6 +40,10 @@ module Lolcommits
       debug "GitInfo: \t#{branch}"
       debug "GitInfo: \t#{author_name}" if author_name
       debug "GitInfo: \t#{author_email}" if author_email
+    end
+
+    def branch
+      self.branch ||= repository.current_branch
     end
 
     private
