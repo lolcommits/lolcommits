@@ -33,7 +33,7 @@ module Lolcommits
 
     def existing_lols
       lols = JSON.parse(
-      RestClient.get(configuration['server'] + '/lols'))
+        RestClient.get(configuration['server'] + '/lols'))
       lols.map { |lol| lol['sha'] }
     rescue => e
       log_error(e, "ERROR: existing lols could not be retrieved #{e.class} - #{e.message}")
