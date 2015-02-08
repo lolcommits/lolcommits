@@ -46,7 +46,7 @@ module Lolcommits
     # ask for plugin options
     def configure_options!
       puts "Configuring plugin: #{self.class.name}\n"
-      options.reduce(Hash.new) do |acc, option|
+      options.reduce({}) do |acc, option|
         print "#{option}: "
         val = parse_user_input(STDIN.gets.strip)
         # check enabled option isn't a String

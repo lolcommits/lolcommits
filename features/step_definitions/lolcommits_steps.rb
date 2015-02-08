@@ -60,7 +60,7 @@ end
 When /^I run `(.*?)` and wait for output$/ do |command|
   command = "cd #{current_dir} && #{command}"
   @stdin, @stdout, @stderr = Open3.popen3(command)
-  @fields = Hash.new
+  @fields = {}
 end
 
 Given /^a loldir named "(.*?)" with (\d+) lolimages$/ do |repo_name, num_images|
