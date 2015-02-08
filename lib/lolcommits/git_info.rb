@@ -42,7 +42,7 @@ module Lolcommits
 
     def repo
       @repo ||= begin
-        match = repository.remote.url.match(GIT_URL_REGEX)
+        match = repository.remote.try(:url).try(:match,GIT_URL_REGEX)
         if match
           match[1]
         elsif !repository.repo.path.empty?
