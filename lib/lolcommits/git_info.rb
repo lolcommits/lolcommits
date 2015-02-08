@@ -23,7 +23,10 @@ module Lolcommits
     end
 
     def message
-      @message ||= (last_commit.message || "").split("\n").first
+      @message ||= begin
+        message = last_commit.message || ""
+        message.split("\n").first
+      end
     end
 
     def sha
