@@ -219,6 +219,13 @@ def change_dir_to_root_or_repo!
   end
 end
 
+def load_local_plugins!
+  plugins_dir = Configuration.loldir_for('.plugins')
+  Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
+    load plugin
+  end
+end
+
 #
 # Command line parsing fun
 #
@@ -374,6 +381,12 @@ die_on_fatal_conditions!
 # change working dir to either a repo or the fs root
 #
 change_dir_to_root_or_repo!
+
+#
+# load system local plugins
+#
+load_local_plugins!
+
 
 #
 # Handle actions manually since choice seems weird

@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
-  PLUGINS = Lolcommits::Plugin.subclasses
-
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
                   :sha, :snapshot_loc, :main_image, :config, :font, :git_info,
@@ -69,7 +67,11 @@ module Lolcommits
     end
 
     def plugins_for(position)
-      Lolcommits::PLUGINS.select { |p| p.runner_order == position }
+      self.class.plugins.select { |p| p.runner_order == position }
+    end
+
+    def self.plugins
+      Lolcommits::Plugin.subclasses
     end
 
     # the main capture

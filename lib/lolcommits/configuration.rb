@@ -74,7 +74,7 @@ module Lolcommits
     end
 
     def puts_plugins
-      puts "Available plugins: #{Lolcommits::PLUGINS.map(&:name).join(', ')}"
+      puts "Available plugins: #{Lolcommits::Runner.plugins.map(&:name).join(', ')}"
     end
 
     def ask_for_plugin_name
@@ -84,7 +84,7 @@ module Lolcommits
     end
 
     def find_plugin(plugin_name)
-      Lolcommits::PLUGINS.each do |plugin|
+      Lolcommits::Runner.plugins.each do |plugin|
         if plugin.name == plugin_name
           return plugin.new(nil)
         end
