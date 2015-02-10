@@ -9,6 +9,8 @@ rescue LoadError
 end
 
 include Lolcommits
+include Lolcommits::Helper
+
 require 'launchy'
 require 'choice'
 
@@ -20,15 +22,15 @@ include Methadone::CLILogging
 #
 
 def die_on_fatal_conditions!
-  if Configuration.platform_mac?
+  if Platform.platform_mac?
     %w(imagesnap videosnap).each do |executable|
       unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
         fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
         exit 1
       end
     end
-  elsif Configuration.platform_linux?
-    if not Configuration.command_which('mplayer')
+  elsif Platform.platform_linux?
+    if not Platform.command_which('mplayer')
       fatal "Couldn't find mplayer in your PATH!"
       exit 1
     end
@@ -37,15 +39,15 @@ def die_on_fatal_conditions!
     fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
     exit 1
   end
-  if !Configuration.valid_ffmpeg_installed? && capture_animate
+  if !Platform.valid_ffmpeg_installed? && capture_animate
     fatal 'FATAL: ffmpeg does not appear to be properly installed!'
     exit 1
   end
-  unless Configuration.valid_imagemagick_installed?
+  unless Platform.valid_imagemagick_installed?
     fatal 'FATAL: ImageMagick does not appear to be properly installed!'
     exit 1
   end
-  if Configuration.git_config_color_always?
+  if Platform.git_config_color_always?
     fatal "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
     fatal "Try setting it to 'auto' instead!"
     exit 1
@@ -82,7 +84,7 @@ def configuration
 end
 
 def capture_animate
-  if Configuration.can_animate?
+  if Platform.can_animate?
     Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
   end
 end
@@ -90,7 +92,7 @@ end
 def default_device
   result = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE']
 
-  if Configuration.platform_linux?
+  if Platform.platform_linux?
     result ||= Dir.glob('/dev/video*').first
   end
 
@@ -350,7 +352,7 @@ Choice.options do
     desc 'generate animated timeline gif from captured images'
   end
 
-  if Configuration.can_animate?
+  if Platform.can_animate?
     option :animate do
       long '--animate=SECONDS'
       short '-a'

@@ -16,6 +16,8 @@ require 'lolcommits/git_info'
 require 'lolcommits/installation'
 require 'lolcommits/plugin'
 
+require 'lolcommits/helpers/platform'
+
 require 'lolcommits/plugins/loltext'
 require 'lolcommits/plugins/dot_com'
 require 'lolcommits/plugins/tranzlate'

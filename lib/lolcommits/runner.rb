@@ -1,10 +1,13 @@
 # -*- encoding : utf-8 -*-
+require_relative 'helpers/platform'
+
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
                   :sha, :snapshot_loc, :main_image, :config, :font, :git_info,
                   :capture_animate
 
+    include Lolcommits::Helper
     include Methadone::CLILogging
 
     def initialize(attributes = {})
@@ -99,7 +102,7 @@ module Lolcommits
 
     def capturer_class
       capturer_module = 'Lolcommits'
-      capturer_class  = "Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}"
+      capturer_class  = "Capture#{Platform.platform}#{animate? ? 'Animated' : nil}"
       Object.const_get(capturer_module).const_get(capturer_class)
     end
 
