@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-require_relative 'helpers/platform'
+require 'lolcommits/platform'
 
 module Lolcommits
   class Runner
@@ -7,7 +7,6 @@ module Lolcommits
                   :sha, :snapshot_loc, :main_image, :config, :font, :git_info,
                   :capture_animate
 
-    include Lolcommits::Helper
     include Methadone::CLILogging
 
     def initialize(attributes = {})

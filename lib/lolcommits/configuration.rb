@@ -1,10 +1,8 @@
 # -*- encoding : utf-8 -*-
-require_relative 'helpers/platform'
+require 'lolcommits/platform'
 
 module Lolcommits
   class Configuration
-    include Lolcommits::Helper
-
     LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
     attr_writer :loldir

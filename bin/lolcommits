@@ -9,7 +9,6 @@ rescue LoadError
 end
 
 include Lolcommits
-include Lolcommits::Helper
 
 require 'launchy'
 require 'choice'
