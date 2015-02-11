@@ -5,18 +5,12 @@ module Lolcommits
   module Helper
     class Platform
       def self.platform
-        if platform_fakeplatform?
-          ENV['LOLCOMMITS_FAKEPLATFORM']
-        elsif platform_fakecapture?
-          'Fake'
-        elsif platform_mac?
-          'Mac'
-        elsif platform_linux?
-          'Linux'
-        elsif platform_windows?
-          'Windows'
-        elsif platform_cygwin?
-          'Cygwin'
+        if platform_fakeplatform?   then ENV['LOLCOMMITS_FAKEPLATFORM']
+        elsif platform_fakecapture? then 'Fake'
+        elsif platform_mac?         then 'Mac'
+        elsif platform_linux?       then 'Linux'
+        elsif platform_windows?     then 'Windows'
+        elsif platform_cygwin?      then 'Cygwin'
         else
           fail 'Unknown / Unsupported Platform.'
         end
