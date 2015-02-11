@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'lolcommits/platform'
 
 module Lolcommits
   class Configuration
@@ -64,15 +63,6 @@ module Lolcommits
 
     def frames_loc
       File.join(self.loldir, 'tmp_frames')
-    end
-
-    def puts_devices
-      # TODO: handle other platforms here (linux/windows)
-      if Platform.platform_mac?
-        capturer = Lolcommits::CaptureMacAnimated.new
-        puts `#{capturer.executable_path} -l`
-        puts "Specify a device with --device=\"{device name}\" or set the LOLCOMMITS_DEVICE env variable"
-      end
     end
 
     def puts_plugins

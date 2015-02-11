@@ -402,7 +402,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:plugins]
     configuration.puts_plugins
   elsif Choice.choices[:devices]
-    configuration.puts_devices
+    Platform.puts_devices
   elsif Choice.choices[:last]
     do_last
   elsif Choice.choices[:browse]

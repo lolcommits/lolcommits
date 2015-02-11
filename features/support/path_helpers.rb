@@ -1,4 +1,7 @@
 # -*- encoding : utf-8 -*-
+require 'fileutils'
+require 'lolcommits/platform'
+
 module PathHelpers
   def reject_paths_with_cmd(cmd)
     @original_path = ENV['PATH']

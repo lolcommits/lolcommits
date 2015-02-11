@@ -95,5 +95,17 @@ module Lolcommits
     def self.git_config_color_always?
       `git config color.ui`.chomp =~ /always/
     end
+
+    # Prints a list of system camera devices to stdout.
+    #
+    # Currently only functions on Mac.
+    def self.puts_devices
+      # TODO: handle other platforms here (linux/windows)
+      if Platform.platform_mac?
+        capturer = Lolcommits::CaptureMacAnimated.new
+        puts `#{capturer.executable_path} -l`
+        puts "Specify a device with --device=\"{device name}\" or set the LOLCOMMITS_DEVICE env variable"
+      end
+    end
   end
 end
