@@ -44,7 +44,7 @@ def die_on_fatal_conditions!
     exit 1
   end
   unless Platform.valid_imagemagick_installed?
-    fatal 'FATAL: ImageMagick does not appear to be properly installed!'
+    fatal 'FATAL: ImageMagick does not appear to be properly installed! (or version is too old)'
     exit 1
   end
   if Platform.git_config_color_always?

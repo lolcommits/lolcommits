@@ -64,10 +64,7 @@ module Lolcommits
         # and will throw an exception if IM is not installed in PATH
         MiniMagick.valid_version_installed?
       rescue
-        puts "FATAL: ImageMagick >= #{MiniMagick.minimum_image_magick_version} required (http://imagemagick.org)"
-        puts 'Please check the following command works and returns a valid version number'
-        puts '=> mogrify --version'
-        exit 1
+        return false
       end
 
       # Is a valid install of ffmpeg present on the system?
