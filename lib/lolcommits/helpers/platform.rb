@@ -46,10 +46,17 @@ module Lolcommits
         ENV['LOLCOMMITS_FAKEPLATFORM']
       end
 
+      # Is the platform capable of capturing animated GIFs from webcam?
       def self.can_animate?
+        # FIXME: this is currently matching against string instead of
+        # simply returning platform_mac? || platform_linux?
+        # This is not ideal... but otherwise overriding platform via
+        # LOLCOMMITS_FAKEPLATFORM when running cucumber tests won't work.
+        # We should come up with a better solution.
         ['Mac', 'Linux'].include? platform
       end
 
+      # Is a valid install of imagemagick present on the system?
       def self.valid_imagemagick_installed?
         return false unless self.command_which('identify')
         return false unless self.command_which('mogrify')
@@ -63,6 +70,9 @@ module Lolcommits
         exit 1
       end
 
+      # Is a valid install of ffmpeg present on the system?
+      #
+      # For now, this just checks for presence, any version should work.
       def self.valid_ffmpeg_installed?
         self.command_which('ffmpeg')
       end
@@ -85,6 +95,13 @@ module Lolcommits
         nil
       end
 
+      # Is `git config color.ui` set to 'always'?
+      #
+      # Due to a bug in the ruby-git library, git config for color.ui cannot be
+      # set to 'always' or it won't read properly.
+      #
+      # This helper method let's us check for that error condition so we can
+      # alert the user in the CLI tool.
       def self.git_config_color_always?
         `git config color.ui`.chomp =~ /always/
       end
