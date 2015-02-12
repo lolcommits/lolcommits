@@ -73,7 +73,7 @@ Given /^a loldir named "(.*?)" with (\d+) lolimages$/ do |repo_name, num_images|
 end
 
 Then /^I should be (prompted for|presented) "(.*?)"$/ do |_, prompt|
-  assert @stdout.read.to_s.include?(prompt)
+  expect(@stdout.read.to_s).to include(prompt)
 end
 
 When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
@@ -82,7 +82,7 @@ When /^I enter "(.*?)" for "(.*?)"$/ do |input, field|
 end
 
 Then /^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/ do |n, type, folder|
-  assert_equal n.to_i, Dir["#{current_dir}/#{folder}/*.#{type}"].count
+  expect(n.to_i).to eq(Dir["#{current_dir}/#{folder}/*.#{type}"].count)
 end
 
 Then /^the output should contain a list of plugins$/ do
@@ -110,7 +110,7 @@ end
 
 Then /^there should be (\d+) commit entries in the git log$/ do |n|
   sleep 1 # let the file writing catch up
-  assert_equal n.to_i, `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
+  expect(n.to_i).to eq `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
 
 Given /^I am using a "(.*?)" platform$/ do |platform_name|
