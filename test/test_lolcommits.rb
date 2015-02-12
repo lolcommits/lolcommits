@@ -20,7 +20,7 @@ class LolTest < MiniTest::Test
   def test_tranzlate
     [['what the hell', '(WH|W)UT TEH HELL'], ['seriously wtf', 'SRSLEH WTF']].each do |normal, lol|
       tranzlated = Lolcommits::Tranzlate.tranzlate(normal)
-      assert_match /^#{lol}/, tranzlated
+      assert_match(/^#{lol}/, tranzlated)
     end
   end
 
