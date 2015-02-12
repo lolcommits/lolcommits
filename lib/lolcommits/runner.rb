@@ -1,4 +1,6 @@
 # -*- encoding : utf-8 -*-
+require 'lolcommits/platform'
+
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
@@ -99,7 +101,7 @@ module Lolcommits
 
     def capturer_class
       capturer_module = 'Lolcommits'
-      capturer_class  = "Capture#{Configuration.platform}#{animate? ? 'Animated' : nil}"
+      capturer_class  = "Capture#{Platform.platform}#{animate? ? 'Animated' : nil}"
       Object.const_get(capturer_module).const_get(capturer_class)
     end
 

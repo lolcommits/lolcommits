@@ -5,7 +5,8 @@ require 'open3'
 require 'test/unit/assertions'
 include Test::Unit::Assertions
 require 'ffaker'
-require 'lolcommits/configuration'
+require 'fileutils'
+
 require File.join(File.expand_path(File.dirname(__FILE__)), 'path_helpers')
 include Lolcommits
 

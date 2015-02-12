@@ -1,4 +1,7 @@
 # -*- encoding : utf-8 -*-
+require 'fileutils'
+require 'lolcommits/platform'
+
 module PathHelpers
   def reject_paths_with_cmd(cmd)
     @original_path = ENV['PATH']
@@ -25,7 +28,7 @@ module PathHelpers
 
   def preseve_cmds_in_path(cmds, tmpbindir)
     cmds.each do |cmd|
-      whichcmd = Lolcommits::Configuration.command_which(cmd)
+      whichcmd = Lolcommits::Platform.command_which(cmd)
       unless whichcmd.nil?
         FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
       end

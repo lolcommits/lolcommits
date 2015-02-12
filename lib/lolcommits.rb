@@ -11,20 +11,12 @@ require 'date'
 
 require 'lolcommits/version'
 require 'lolcommits/configuration'
-
 require 'lolcommits/capturer'
-require 'lolcommits/capturer/capture_mac'
-require 'lolcommits/capturer/capture_mac_animated'
-require 'lolcommits/capturer/capture_linux'
-require 'lolcommits/capturer/capture_linux_animated'
-require 'lolcommits/capturer/capture_windows'
-require 'lolcommits/capturer/capture_cygwin'
-require 'lolcommits/capturer/capture_fake'
-
 require 'lolcommits/git_info'
 require 'lolcommits/installation'
-
 require 'lolcommits/plugin'
+require 'lolcommits/platform'
+
 require 'lolcommits/plugins/loltext'
 require 'lolcommits/plugins/dot_com'
 require 'lolcommits/plugins/tranzlate'
