@@ -55,7 +55,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('ffaker', '~> 1.25.0')
   s.add_development_dependency('travis', '~> 1.7.4')
   s.add_development_dependency('coveralls', '~> 0.7.2')
-  s.add_development_dependency('test-unit', '~> 3.0.7')
+  s.add_development_dependency('minitest', '~> 5.5.1')
 
   if RUBY_VERSION >= '1.9.3'
     s.add_development_dependency('rubocop', '~> 0.28')

@@ -2,8 +2,9 @@
 require 'coveralls'
 Coveralls.wear!
 
-require 'test/unit'
+require 'minitest/autorun'
 require 'ffaker'
+
 # Loads lolcommits directly from the lib folder so don't have to create
 # a gem before testing
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -12,7 +13,7 @@ require 'lolcommits'
 
 include Lolcommits
 
-class LolTest < Test::Unit::TestCase
+class LolTest < MiniTest::Test
   def test_can_parse_git
     assert_nothing_raised do
       gi = GitInfo.new
