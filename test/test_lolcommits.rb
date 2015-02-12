@@ -14,14 +14,6 @@ require 'lolcommits'
 include Lolcommits
 
 class LolTest < MiniTest::Test
-  def test_can_parse_git
-    assert_nothing_raised do
-      gi = GitInfo.new
-      assert_not_nil gi.message
-      assert_not_nil gi.sha
-    end
-  end
-
   #
   # issue #57, https://github.com/mroth/lolcommits/issues/57
   #
