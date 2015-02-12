@@ -14,7 +14,6 @@ require 'lolcommits'
 include Lolcommits
 
 class PluginsTest < MiniTest::Test
-
   #
   # issue #57, https://github.com/mroth/lolcommits/issues/57
   #
@@ -49,5 +48,4 @@ class PluginsTest < MiniTest::Test
     Lolcommits::LolTwitter.send(:define_method, :configuration, Proc.new { plugin_config })
     assert_match '@prefixing! commit msg #suffixing!', plugin.build_tweet('commit msg')
   end
-
 end
