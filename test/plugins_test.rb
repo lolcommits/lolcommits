@@ -33,7 +33,7 @@ class PluginsTest < MiniTest::Test
     suffix              = '... #lolcommits'
 
     Lolcommits::LolTwitter.send(:define_method, :max_tweet_size, Proc.new { max_tweet_size })
-    assert_match "#{long_commit_message[0..(max_tweet_size - suffix.length)]}#{suffix}", plugin.build_tweet(long_commit_message)
+    assert_equal "#{long_commit_message[0..(max_tweet_size - suffix.length)]}#{suffix}", plugin.build_tweet(long_commit_message)
   end
 
   def test_lol_twitter_prefix_suffix
@@ -46,6 +46,6 @@ class PluginsTest < MiniTest::Test
       'suffix' => '#suffixing!'
     }
     Lolcommits::LolTwitter.send(:define_method, :configuration, Proc.new { plugin_config })
-    assert_match '@prefixing! commit msg #suffixing!', plugin.build_tweet('commit msg')
+    assert_equal '@prefixing! commit msg #suffixing!', plugin.build_tweet('commit msg')
   end
 end
