@@ -33,6 +33,7 @@ class PluginsTest < MiniTest::Test
     suffix              = '... #lolcommits'
 
     Lolcommits::LolTwitter.send(:define_method, :max_tweet_size, Proc.new { max_tweet_size })
+    Lolcommits::LolTwitter.send(:define_method, :configuration, Proc.new { {} })
     assert_equal "#{long_commit_message[0..(max_tweet_size - suffix.length)]}#{suffix}", plugin.build_tweet(long_commit_message)
   end
 
