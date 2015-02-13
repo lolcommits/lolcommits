@@ -11,6 +11,7 @@ end
 require 'lolcommits/cli/fatals'
 require 'lolcommits/cli/launcher'
 require 'lolcommits/cli/process_runner'
+require 'lolcommits/cli/history_animator'
 
 include Lolcommits
 include Lolcommits::CLI
@@ -123,33 +124,6 @@ def do_last
     exit 1
   end
   Launcher.open_image(lolimage)
-end
-
-def do_gif
-  Fatals.die_if_not_git_repo!
-
-  case Choice.choices[:gif]
-    when 'today'
-      lolimages = configuration.jpg_images_today
-      filename  = "#{Date.today.to_s}.gif"
-    else
-      lolimages = configuration.jpg_images
-      filename  = 'archive.gif'
-  end
-
-  if lolimages.empty?
-    warn 'No lolcommits have been captured for this time yet.'
-    exit 1
-  end
-
-  puts '*** Generating animated gif.'
-
-  gif = MiniMagick::Image.new File.join configuration.archivedir, filename
-
-  # This is for ruby 1.8.7, *lolimages just doesn't work with ruby 187
-  gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, "#{gif.path}"].flatten)
-
-  puts "*** #{gif.path} generated."
 end
 
 def print_version_and_exit
@@ -361,7 +335,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
     Fatals.die_if_not_git_repo!
     Launcher.open_folder(configuration.loldir)
   elsif Choice.choices[:gif]
-    do_gif
+    HistoryAnimator.new(configuration).run(Choice.choices[:gif])
   else
     do_noargs
   end
