@@ -23,7 +23,7 @@ include Methadone::CLILogging
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
 def do_noargs
-  # TODO: make this a contextual helper to know status of whether lolcommits is enabled
+  # TODO: make this a contextual helper to know whether lolcommits is enabled
   puts 'Do what exactly?'
   puts 'Try: lolcommits --enable   (when in a git repository)'
   puts 'Or:  lolcommits --help'
@@ -49,7 +49,7 @@ end
 # returns nil instead.
 #
 # FIXME: we really should standardize this to always return integer, and remove
-# all the to_i calls elsewhere.
+#   all the to_i calls elsewhere.
 #
 # @return [Integer, String, nil]
 def capture_animate
@@ -72,10 +72,10 @@ end
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
-  capture_delay   = Choice.choices[:delay]    || ENV['LOLCOMMITS_DELAY']    || 0
-  capture_stealth = Choice.choices[:stealth]  || ENV['LOLCOMMITS_STEALTH']  || nil
+  capture_delay   = Choice.choices[:delay]   || ENV['LOLCOMMITS_DELAY']   || 0
+  capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
+  capture_font    = Choice.choices[:font]    || ENV['LOLCOMMITS_FONT']    || nil
   capture_device  = default_device
-  capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
 
   capture_options = {
     :capture_delay   => capture_delay,
