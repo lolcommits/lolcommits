@@ -34,6 +34,17 @@ def configuration
   end
 end
 
+# Duration for animated capture.
+#
+# If animation is enabled, returns an integer representing seconds OR a string
+# containing the char representation of an integer.
+# If animation is disabled, or if the platform doesn't support animated capture,
+# returns nil instead.
+#
+# FIXME: we really should standardize this to always return integer, and remove
+# all the to_i calls elsewhere.
+#
+# @return [Integer, String, nil]
 def capture_animate
   if Platform.can_animate?
     Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
@@ -328,6 +339,7 @@ end
 #
 # check for fatal conditions before execution
 #
+die_if_no_valid_ffmpeg_installed! if capture_animate
 die_on_fatal_platform_conditions!
 
 #

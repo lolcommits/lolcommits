@@ -36,13 +36,6 @@ module Lolcommits
           exit 1
         end
 
-        # if performing animated capture, make sure ffmpeg is installed
-        # TODO: should this be moved to that specific code path?
-        if !Platform.valid_ffmpeg_installed? && capture_animate
-          fatal 'FATAL: ffmpeg does not appear to be properly installed!'
-          exit 1
-        end
-
         # make sure imagemagick is around and good to go
         unless Platform.valid_imagemagick_installed?
           fatal "FATAL: ImageMagick does not appear to be properly installed!"\
@@ -55,6 +48,16 @@ module Lolcommits
           fatal "Due to a bug in the ruby-git library, git config for color.ui"\
                 " cannot be set to 'always'."
           fatal "Try setting it to 'auto' instead!"
+          exit 1
+        end
+      end
+
+      # Die with an informative error message if ffmpeg is not installed.
+      # This is only used for certain functions (such as animation), so only run
+      # this when you know the user wants to perform one of them.
+      def die_if_no_valid_ffmpeg_installed!
+        if !Platform.valid_ffmpeg_installed?
+          fatal 'FATAL: ffmpeg does not appear to be properly installed!'
           exit 1
         end
       end
