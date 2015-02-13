@@ -9,12 +9,12 @@ rescue LoadError
 end
 
 require 'lolcommits/cli/fatals'
+require 'lolcommits/cli/launcher'
 require 'lolcommits/cli/process_runner'
 
 include Lolcommits
 include Lolcommits::CLI
 
-require 'launchy'
 require 'choice'
 require 'methadone'
 include Methadone::CLILogging
@@ -98,11 +98,12 @@ def do_capture
         :sha     => Choice.choices[:sha]
       }
 
+      # fire off runner with the overriden fake commit metadata
       runner = Lolcommits::Runner.new(capture_options.merge override_text)
       runner.run
 
-      # automatically open so the user can see the test image results immediately
-      Launchy.open(runner.main_image)
+      # automatically open so user can see the test image results immediately
+      Launcher.open_image(runner.main_image)
     else
       runner = Lolcommits::Runner.new(capture_options)
       runner.run
@@ -121,7 +122,7 @@ def do_last
     warn 'No lolcommits have been captured for this repository yet.'
     exit 1
   end
-  Launchy.open lolimage
+  Launcher.open_image(lolimage)
 end
 
 def do_gif
@@ -358,7 +359,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
     do_last
   elsif Choice.choices[:browse]
     Fatals.die_if_not_git_repo!
-    Launchy.open configuration.loldir
+    Launcher.open_folder(configuration.loldir)
   elsif Choice.choices[:gif]
     do_gif
   else
