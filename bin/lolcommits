@@ -9,6 +9,7 @@ rescue LoadError
 end
 
 require 'lolcommits/cli/fatals'
+require 'lolcommits/cli/process_runner'
 
 include Lolcommits
 include Lolcommits::CLI
@@ -28,6 +29,10 @@ def do_noargs
   puts 'Or:  lolcommits --help'
 end
 
+# Gets a configuration object.  If running in test mode will override the
+# LOLDIR for the configuration.
+#
+# @return [Lolcommits::Configuration]
 def configuration
   if Choice.choices[:test]
     Configuration.new(:loldir => Configuration.loldir_for('test'))
@@ -81,7 +86,9 @@ def do_capture
     :config          => configuration
   }
 
-  fork_me? do
+  process_runner = ProcessRunner.new(configuration)
+  should_we_fork = Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
+  process_runner.fork_me?(should_we_fork) do
     if Choice.choices[:test]
       info '*** Capturing in test mode.'
 
@@ -101,30 +108,6 @@ def do_capture
       runner.run
     end
   end
-end
-
-def fork_me?(&block)
-  if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
-    $stdout.sync = true
-    write_pid fork {
-      yield block
-      delete_pid
-    }
-  else
-    yield block
-  end
-end
-
-def write_pid(pid)
-  File.open(pid_file, 'w') { |f| f.write(pid) }
-end
-
-def delete_pid
-  File.delete(pid_file) if File.exist?(pid_file)
-end
-
-def pid_file
-  File.join(configuration.loldir, 'lolcommits.pid')
 end
 
 def do_configure
