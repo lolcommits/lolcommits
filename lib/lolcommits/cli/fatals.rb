@@ -13,7 +13,7 @@ module Lolcommits
       # working properly.
       #
       # Die with an informative error message if any occur.
-      def die_on_fatal_platform_conditions!
+      def self.die_on_fatal_platform_conditions!
         # make sure the capture binaries are in a good state
         if Platform.platform_mac?
           %w(imagesnap videosnap).each do |executable|
@@ -55,7 +55,7 @@ module Lolcommits
       # Die with an informative error message if ffmpeg is not installed.
       # This is only used for certain functions (such as animation), so only run
       # this when you know the user wants to perform one of them.
-      def die_if_no_valid_ffmpeg_installed!
+      def self.die_if_no_valid_ffmpeg_installed!
         if !Platform.valid_ffmpeg_installed?
           fatal 'FATAL: ffmpeg does not appear to be properly installed!'
           exit 1
@@ -64,7 +64,7 @@ module Lolcommits
 
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
-      def die_if_not_git_repo!
+      def self.die_if_not_git_repo!
         begin
           debug 'Checking for valid git repo'
           g = Git.open('.') #FIXME: should be extracted to GitInfo class

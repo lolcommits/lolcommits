@@ -9,7 +9,9 @@ rescue LoadError
 end
 
 require 'lolcommits/cli/fatals'
-include Lolcommits::CLI::Fatals
+
+include Lolcommits
+include Lolcommits::CLI
 
 require 'launchy'
 require 'choice'
@@ -130,7 +132,7 @@ def do_configure
 end
 
 def do_last
-  die_if_not_git_repo!
+  Fatals.die_if_not_git_repo!
   lolimage = configuration.most_recent
   if lolimage.nil?
     warn 'No lolcommits have been captured for this repository yet.'
@@ -140,7 +142,7 @@ def do_last
 end
 
 def do_gif
-  die_if_not_git_repo!
+  Fatals.die_if_not_git_repo!
 
   case Choice.choices[:gif]
     when 'today'
@@ -339,8 +341,8 @@ end
 #
 # check for fatal conditions before execution
 #
-die_if_no_valid_ffmpeg_installed! if capture_animate
-die_on_fatal_platform_conditions!
+Fatals.die_if_no_valid_ffmpeg_installed! if capture_animate
+Fatals.die_on_fatal_platform_conditions!
 
 #
 # change working dir to either a repo or the fs root
@@ -372,7 +374,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:last]
     do_last
   elsif Choice.choices[:browse]
-    die_if_not_git_repo!
+    Fatals.die_if_not_git_repo!
     Launchy.open configuration.loldir
   elsif Choice.choices[:gif]
     do_gif
