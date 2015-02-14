@@ -28,7 +28,7 @@ end
 Rake::Task[:build].prerequisites.unshift :fix_permissions
 
 Rake::TestTask.new do |t|
-  t.pattern = 'test/test_*.rb'
+  t.pattern = 'test/*_test.rb'
 end
 
 Rake::FileUtilsExt.verbose(false)

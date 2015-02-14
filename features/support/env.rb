@@ -2,8 +2,6 @@
 require 'aruba/cucumber'
 require 'methadone/cucumber'
 require 'open3'
-require 'test/unit/assertions'
-include Test::Unit::Assertions
 require 'ffaker'
 require 'fileutils'
 
