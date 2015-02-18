@@ -143,6 +143,7 @@ def change_dir_to_root_or_repo!
   end
 end
 
+# FIXME: this should be moved out of the CLI, but to where?
 def load_local_plugins!
   plugins_dir = Configuration.loldir_for('.plugins')
   Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
