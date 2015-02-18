@@ -8,72 +8,32 @@ rescue LoadError
   require 'lolcommits'
 end
 
+require 'lolcommits/cli/fatals'
+require 'lolcommits/cli/launcher'
+require 'lolcommits/cli/process_runner'
+require 'lolcommits/cli/timelapse_gif'
+
 include Lolcommits
+include Lolcommits::CLI
 
-require 'launchy'
 require 'choice'
-
 require 'methadone'
 include Methadone::CLILogging
-
-#
-# CHECK FOR FURTHER DEPENDENCIES
-#
-
-def die_on_fatal_conditions!
-  if Platform.platform_mac?
-    %w(imagesnap videosnap).each do |executable|
-      unless File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
-        fatal "Couldn't properly execute #{executable} for some reason, please file a bug?!"
-        exit 1
-      end
-    end
-  elsif Platform.platform_linux?
-    if not Platform.command_which('mplayer')
-      fatal "Couldn't find mplayer in your PATH!"
-      exit 1
-    end
-  end
-  unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
-    fatal "Couldn't properly read Impact font from gem package, please file a bug?!"
-    exit 1
-  end
-  if !Platform.valid_ffmpeg_installed? && capture_animate
-    fatal 'FATAL: ffmpeg does not appear to be properly installed!'
-    exit 1
-  end
-  unless Platform.valid_imagemagick_installed?
-    fatal 'FATAL: ImageMagick does not appear to be properly installed! (or version is too old)'
-    exit 1
-  end
-  if Platform.git_config_color_always?
-    fatal "Due to a bug in the ruby-git library, git config for color.ui cannot be set to 'always'."
-    fatal "Try setting it to 'auto' instead!"
-    exit 1
-  end
-end
-
-def die_if_not_git_repo!
-  begin
-    debug 'Checking for valid git repo'
-    g = Git.open('.')
-  rescue ArgumentError
-    # ruby-git throws an argument error if path isnt for a valid git repo...
-    fatal "Erm? Can't do that since we're not in a valid git repository!"
-    exit 1
-  end
-end
 
 #
 # NO ARGUMENTS SPECIFIED, HELP THE USER OUT
 #
 def do_noargs
-  # TODO: make this a contextual helper to know status of whether lolcommits is enabled
+  # TODO: make this a contextual helper to know whether lolcommits is enabled
   puts 'Do what exactly?'
   puts 'Try: lolcommits --enable   (when in a git repository)'
   puts 'Or:  lolcommits --help'
 end
 
+# Gets a configuration object.  If running in test mode will override the
+# LOLDIR for the configuration.
+#
+# @return [Lolcommits::Configuration]
 def configuration
   if Choice.choices[:test]
     Configuration.new(:loldir => Configuration.loldir_for('test'))
@@ -82,6 +42,17 @@ def configuration
   end
 end
 
+# Duration for animated capture.
+#
+# If animation is enabled, returns an integer representing seconds OR a string
+# containing the char representation of an integer.
+# If animation is disabled, or if the platform doesn't support animated capture,
+# returns nil instead.
+#
+# FIXME: we really should standardize this to always return integer, and remove
+#   all the to_i calls elsewhere.
+#
+# @return [Integer, String, nil]
 def capture_animate
   if Platform.can_animate?
     Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
@@ -102,10 +73,10 @@ end
 # IF --CAPTURE, DO CAPTURE
 #
 def do_capture
-  capture_delay   = Choice.choices[:delay]    || ENV['LOLCOMMITS_DELAY']    || 0
-  capture_stealth = Choice.choices[:stealth]  || ENV['LOLCOMMITS_STEALTH']  || nil
+  capture_delay   = Choice.choices[:delay]   || ENV['LOLCOMMITS_DELAY']   || 0
+  capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
+  capture_font    = Choice.choices[:font]    || ENV['LOLCOMMITS_FONT']    || nil
   capture_device  = default_device
-  capture_font    = Choice.choices[:font]     || ENV['LOLCOMMITS_FONT']     || nil
 
   capture_options = {
     :capture_delay   => capture_delay,
@@ -116,7 +87,9 @@ def do_capture
     :config          => configuration
   }
 
-  fork_me? do
+  process_runner = ProcessRunner.new(configuration)
+  should_we_fork = Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
+  process_runner.fork_me?(should_we_fork) do
     if Choice.choices[:test]
       info '*** Capturing in test mode.'
 
@@ -126,11 +99,12 @@ def do_capture
         :sha     => Choice.choices[:sha]
       }
 
+      # fire off runner with the overriden fake commit metadata
       runner = Lolcommits::Runner.new(capture_options.merge override_text)
       runner.run
 
-      # automatically open so the user can see the test image results immediately
-      Launchy.open(runner.main_image)
+      # automatically open so user can see the test image results immediately
+      Launcher.open_image(runner.main_image)
     else
       runner = Lolcommits::Runner.new(capture_options)
       runner.run
@@ -138,69 +112,18 @@ def do_capture
   end
 end
 
-def fork_me?(&block)
-  if Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
-    $stdout.sync = true
-    write_pid fork {
-      yield block
-      delete_pid
-    }
-  else
-    yield block
-  end
-end
-
-def write_pid(pid)
-  File.open(pid_file, 'w') { |f| f.write(pid) }
-end
-
-def delete_pid
-  File.delete(pid_file) if File.exist?(pid_file)
-end
-
-def pid_file
-  File.join(configuration.loldir, 'lolcommits.pid')
-end
-
 def do_configure
   configuration.do_configure! Choice.choices[:plugin]
 end
 
 def do_last
-  die_if_not_git_repo!
+  Fatals.die_if_not_git_repo!
   lolimage = configuration.most_recent
   if lolimage.nil?
     warn 'No lolcommits have been captured for this repository yet.'
     exit 1
   end
-  Launchy.open lolimage
-end
-
-def do_gif
-  die_if_not_git_repo!
-
-  case Choice.choices[:gif]
-    when 'today'
-      lolimages = configuration.jpg_images_today
-      filename  = "#{Date.today.to_s}.gif"
-    else
-      lolimages = configuration.jpg_images
-      filename  = 'archive.gif'
-  end
-
-  if lolimages.empty?
-    warn 'No lolcommits have been captured for this time yet.'
-    exit 1
-  end
-
-  puts '*** Generating animated gif.'
-
-  gif = MiniMagick::Image.new File.join configuration.archivedir, filename
-
-  # This is for ruby 1.8.7, *lolimages just doesn't work with ruby 187
-  gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, "#{gif.path}"].flatten)
-
-  puts "*** #{gif.path} generated."
+  Launcher.open_image(lolimage)
 end
 
 def print_version_and_exit
@@ -220,6 +143,7 @@ def change_dir_to_root_or_repo!
   end
 end
 
+# FIXME: this should be moved out of the CLI, but to where?
 def load_local_plugins!
   plugins_dir = Configuration.loldir_for('.plugins')
   Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
@@ -376,7 +300,8 @@ end
 #
 # check for fatal conditions before execution
 #
-die_on_fatal_conditions!
+Fatals.die_if_no_valid_ffmpeg_installed! if capture_animate
+Fatals.die_on_fatal_platform_conditions!
 
 #
 # change working dir to either a repo or the fs root
@@ -408,10 +333,10 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
   elsif Choice.choices[:last]
     do_last
   elsif Choice.choices[:browse]
-    die_if_not_git_repo!
-    Launchy.open configuration.loldir
+    Fatals.die_if_not_git_repo!
+    Launcher.open_folder(configuration.loldir)
   elsif Choice.choices[:gif]
-    do_gif
+    TimelapseGif.new(configuration).run(Choice.choices[:gif])
   else
     do_noargs
   end
