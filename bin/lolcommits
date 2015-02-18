@@ -11,7 +11,7 @@ end
 require 'lolcommits/cli/fatals'
 require 'lolcommits/cli/launcher'
 require 'lolcommits/cli/process_runner'
-require 'lolcommits/cli/history_animator'
+require 'lolcommits/cli/timelapse_gif'
 
 include Lolcommits
 include Lolcommits::CLI
@@ -335,7 +335,7 @@ if not (Choice.choices[:enable] || Choice.choices[:disable])
     Fatals.die_if_not_git_repo!
     Launcher.open_folder(configuration.loldir)
   elsif Choice.choices[:gif]
-    HistoryAnimator.new(configuration).run(Choice.choices[:gif])
+    TimelapseGif.new(configuration).run(Choice.choices[:gif])
   else
     do_noargs
   end

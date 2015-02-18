@@ -6,7 +6,7 @@ require 'mini_magick'
 module Lolcommits
   module CLI
     # Creates an animated timeline GIF of lolcommits history.
-    class HistoryAnimator
+    class TimelapseGif
       # param config [Lolcommits::Configuration]
       def initialize(config)
         @configuration = config
