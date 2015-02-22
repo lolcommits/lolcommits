@@ -28,6 +28,7 @@ def do_noargs
   puts 'Do what exactly?'
   puts 'Try: lolcommits --enable   (when in a git repository)'
   puts 'Or:  lolcommits --help'
+  exit 1
 end
 
 # Gets a configuration object.  If running in test mode will override the
