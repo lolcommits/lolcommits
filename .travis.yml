@@ -1,4 +1,6 @@
+sudo: false
 language: ruby
+cache: bundler
 rvm:
  - 1.8.7
  - 1.9.2
@@ -9,8 +11,8 @@ rvm:
  - ruby-head
 
 before_install:
- - sudo apt-get update -qq
- - sudo apt-get install -qq -y mplayer ffmpeg
+ # - sudo apt-get update -qq
+ # - sudo apt-get install -qq -y mplayer ffmpeg
 
 matrix:
   allow_failures:
