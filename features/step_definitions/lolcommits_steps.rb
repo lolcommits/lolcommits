@@ -114,7 +114,7 @@ Then /^there should be (\d+) commit entries in the git log$/ do |n|
 end
 
 Given /^I am using a "(.*?)" platform$/ do |platform_name|
-  ENV['LOLCOMMITS_FAKEPLATFORM'] = platform_name
+  set_env 'LOLCOMMITS_FAKEPLATFORM', platform_name
 end
 
 When /^I wait for the child process to exit in "(.*?)"$/ do |repo_name|

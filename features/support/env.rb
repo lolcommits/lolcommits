@@ -17,27 +17,14 @@ Before do
   @puts = true
   @aruba_timeout_seconds = 20
 
-  @original_fakecapture = ENV['LOLCOMMITS_FAKECAPTURE']
-  ENV['LOLCOMMITS_FAKECAPTURE'] = '1'
-
-  ENV['LAUNCHY_DRY_RUN'] = 'true'
+  set_env 'LOLCOMMITS_FAKECAPTURE', '1'
+  set_env 'LAUNCHY_DRY_RUN', 'true'
 end
 
-After do
-  ENV['LOLCOMMITS_FAKECAPTURE'] = @original_fakecapture
-  ENV['LAUNCHY_DRY_RUN'] = nil
-  ENV['LOLCOMMITS_FAKEPLATFORM'] = nil
-end
-
+# in order to fake an interactive rebase, we replace the editor with a script
+# to simply squash a few random commits. in this case, using lines 3-5.
 Before('@fake-interactive-rebase') do
-  # in order to fake an interactive rebase,
-  # we replace the editor with a script that simply squashes a few random commits
-  @original_git_editor = ENV['GIT_EDITOR']
-  ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'" # lines 3-5
-end
-
-After('@fake-interactive-rebase') do
-  ENV['GIT_EDITOR'] = @original_git_editor
+  set_env 'GIT_EDITOR', "sed -i -e '3,5 s/pick/squash/g'"
 end
 
 Before('@slow_process') do
