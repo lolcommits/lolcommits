@@ -113,6 +113,7 @@ def do_capture
 end
 
 def do_configure
+  $stdout.sync = true
   configuration.do_configure! Choice.choices[:plugin]
 end
 

@@ -12,8 +12,8 @@ Feature: Basic UI functionality
     Given I am using a "Mac" platform
     When I get help for "lolcommits"
     Then the following options should be documented:
-      |--animate|which is optional|
-      |-a       |which is optional|
+      | --animate | which is optional |
+      | -a        | which is optional |
 
   Scenario: Help should not show the animate option on a Windows plaftorm
     Given I am using a "Windows" platform
@@ -123,48 +123,30 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
 
-  #
-  # a stab at recreating ken's scenarios with native aruba steps, not quite there yet in terms
-  # of elegance, but its passing so might as well leave in for now.
-  #
-  Scenario: Configuring plugin (with native aruba steps)
-    Given a git repo named "config-test"
-    When I cd to "config-test"
-    And I run `lolcommits --config` interactively
-    When I type "loltext"
-    When I type "true"
-    Then the output should contain a list of plugins
-    And the output should contain "Name of plugin to configure:"
-    Then the output should contain "enabled:"
+  Scenario: Configuring plugin
+    Given I am in a git repo named "config-test"
+    When I run `lolcommits --config` interactively
+      And I wait for output to contain "Name of plugin to configure:"
+      Then I type "loltext"
+      And I wait for output to contain "enabled:"
+      Then I type "true"
     Then the output should contain "Successfully configured plugin: loltext"
+    And the output should contain a list of plugins
     And a file named "../.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
-    Then the output should contain "loltext:"
-    And the output should contain "enabled: true"
+    Then the output should match /loltext:\s+enabled: true/
 
-  Scenario: Configuring Plugin
-    Given a git repo named "config-test"
-    When I cd to "config-test"
-    And I run `lolcommits --config` and wait for output
-    When I enter "loltext" for "Name of plugin to configure"
-    And I enter "true" for "enabled"
-    Then I should be presented "Successfully configured plugin: loltext"
-    And a file named "../.lolcommits/config-test/config.yml" should exist
-    When I successfully run `lolcommits --show-config`
-    Then the output should contain "loltext:"
-    And the output should contain "enabled: true"
-
-  Scenario: Configuring Plugin In Test Mode
-    Given a git repo named "testmode-config-test"
-    When I cd to "testmode-config-test"
-    And I run `lolcommits --config --test` and wait for output
-    And I enter "loltext" for "Name of plugin to configure"
-    And I enter "true" for "enabled"
-    Then I should be presented "Successfully configured plugin: loltext"
+  Scenario: Configuring plugin in test mode
+    Given I am in a git repo named "testmode-config-test"
+    When I run `lolcommits --config --test` interactively
+      And I wait for output to contain "Name of plugin to configure:"
+      Then I type "loltext"
+      And I wait for output to contain "enabled:"
+      Then I type "true"
+    Then the output should contain "Successfully configured plugin: loltext"
     And a file named "../.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
-    Then the output should contain "loltext:"
-    And the output should contain "enabled: true"
+    Then the output should match /loltext:\s+enabled: true/
 
   Scenario: test capture should work regardless of whether in a git repo
     Given I am in a directory named "nothingtoseehere"

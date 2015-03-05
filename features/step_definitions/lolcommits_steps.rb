@@ -71,15 +71,6 @@ Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   end
 end
 
-Then(/^I should be (prompted for|presented) "(.*?)"$/) do |_, prompt|
-  expect(@stdout.read.to_s).to include(prompt)
-end
-
-When(/^I enter "(.*?)" for "(.*?)"$/) do |input, field|
-  @fields[field] = input
-  @stdin.puts input
-end
-
 Then(/^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/) do |n, type, folder|
   expect(n.to_i).to eq(Dir["#{current_dir}/#{folder}/*.#{type}"].count)
 end
