@@ -17,23 +17,3 @@ Feature: Plugins Work
     Then the output should contain "*** Preserving this moment in history."
     And there should be exactly 1 jpg in "../.lolcommits/dot_com"
 
-  Scenario: Disable loltext
-    Given I am in a git repo named "loltext" with lolcommits enabled
-    And I run `lolcommits --config` and wait for output
-    And I enter "loltext" for "Plugin Name"
-    And I enter "false" for "enabled"
-    Then I should be presented "Successfully configured plugin: loltext"
-    When I do a git commit
-    Then the output should contain "*** Preserving this moment in history."
-    And there should be exactly 1 jpg in "../.lolcommits/loltext"
-
-  Scenario: lolsrv integration works
-    Given I am in a git repo named "lolsrv" with lolcommits enabled
-    When I run `lolcommits --config` and wait for output
-    And I enter "lolsrv" for "Plugin Name"
-    And I enter "true" for "enabled"
-    And I enter "http://localhost" for "server"
-    Then I should be presented "Successfully configured plugin: lolsrv"
-    When I do a git commit
-    Then the output should contain "*** Preserving this moment in history."
-    And there should be exactly 1 jpg in "../.lolcommits/lolsrv"
