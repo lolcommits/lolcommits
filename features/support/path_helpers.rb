@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'fileutils'
+require 'aruba/api'
 require 'lolcommits/platform'
 
 module PathHelpers
   def reject_paths_with_cmd(cmd)
-    @original_path = ENV['PATH']
     # make a new subdir that still contains cmds
     tmpbindir = File.expand_path(File.join @dirs, 'bin')
     FileUtils.mkdir_p tmpbindir
@@ -23,7 +23,9 @@ module PathHelpers
 
     # add the temporary directory with git in it back into the path
     newpaths << tmpbindir
-    ENV['PATH'] = newpaths.join(File::PATH_SEPARATOR)
+
+    # use aruba/api set_env to set PATH, which will be automaticaly restored
+    set_env 'PATH', newpaths.join(File::PATH_SEPARATOR)
   end
 
   def preseve_cmds_in_path(cmds, tmpbindir)
@@ -33,9 +35,5 @@ module PathHelpers
         FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
       end
     end
-  end
-
-  def reset_path
-    ENV['PATH'] = @original_path
   end
 end
