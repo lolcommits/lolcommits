@@ -77,16 +77,16 @@ When(/^I run `(.*?)` and wait for output$/) do |command|
 end
 
 Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
-  loldir = "tmp/aruba/.lolcommits/#{repo}"
+  loldir = absolute_path("~/.lolcommits/#{repo}")
   FileUtils.mkdir_p loldir
   num_images.to_i.times do
-    random_hex = '%011x' % (rand * 0xfffffffffff)
-    cp 'test/images/test_image.jpg', File.join(loldir, "#{random_hex}.jpg")
+    hex = '%011x' % (rand * 0xfffffffffff)
+    FileUtils.cp 'test/images/test_image.jpg', File.join(loldir, "#{hex}.jpg")
   end
 end
 
 Then(/^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/) do |n, type, folder|
-  expect(n.to_i).to eq(Dir["#{current_dir}/#{folder}/*.#{type}"].count)
+  expect(Dir[absolute_path(folder, "*.#{type}")].count).to eq(n.to_i)
 end
 
 Then(/^the output should contain a list of plugins$/) do
@@ -123,5 +123,6 @@ Given(/^I am using a "(.*?)" platform$/) do |platform_name|
 end
 
 When(/^I wait for the child process to exit in "(.*?)"$/) do |repo_name|
-  sleep 0.1 while File.exist?("tmp/aruba/.lolcommits/#{repo_name}/lolcommits.pid")
+  pid_loc = absolute_path("~/.lolcommits/#{repo_name}/lolcommits.pid")
+  sleep 0.1 while File.exist?(pid_loc)
 end
