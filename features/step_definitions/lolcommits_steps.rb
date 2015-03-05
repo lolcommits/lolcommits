@@ -70,12 +70,6 @@ Given(/^I have environment variable (.*?) set to (.*?)$/) do |var, value|
   set_env var, value
 end
 
-When(/^I run `(.*?)` and wait for output$/) do |command|
-  command = "cd #{current_dir} && #{command}"
-  @stdin, @stdout, @stderr = Open3.popen3(command)
-  @fields = {}
-end
-
 Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   loldir = absolute_path("~/.lolcommits/#{repo}")
   FileUtils.mkdir_p loldir
