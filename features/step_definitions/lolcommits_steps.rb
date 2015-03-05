@@ -10,13 +10,9 @@ Given(/^I am in a directory named "(.*?)"$/) do |dir_name|
 end
 
 Given(/^a git repo named "(.*?)"$/) do |repo_name|
-  repo_dir = File.join current_dir, repo_name
-  FileUtils.mkdir_p repo_dir
-  Dir.chdir repo_dir do
-    system 'git init --quiet .'
-    system "git config user.name 'Testy McTesterson'"
-    system "git config user.email 'testy@tester.com'"
-  end
+  steps %Q{
+   Given I successfully run `git init --quiet "#{repo_name}"`
+  }
 end
 
 Given(/^the git repo named "(.*?)" has no "(.*?)" hook$/) do |repo, hook_name|
