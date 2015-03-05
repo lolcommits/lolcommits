@@ -17,12 +17,12 @@ end
 
 Given(/^the git repo named "(.*?)" has no "(.*?)" hook$/) do |repo, hook_name|
   hook_file = File.join current_dir, repo, '.git', 'hooks', hook_name
-  delete(hook_file) if File.exists? hook_file
+  FileUtils.delete(hook_file) if File.exists? hook_file
 end
 
 Given(/^the git repo named "(.*?)" has a "(.*?)" hook$/) do |repo, hook_name|
   hook_file = File.join current_dir, repo, '.git', 'hooks', hook_name
-  touch(hook_file) if not File.exists? hook_file
+  FileUtils.touch(hook_file) if not File.exists? hook_file
 end
 
 Given(/^the "(.*?)" repo "(.*?)" hook has content "(.*?)"$/) do |repo, hook_name, hook_content|
@@ -32,8 +32,10 @@ Given(/^the "(.*?)" repo "(.*?)" hook has content "(.*?)"$/) do |repo, hook_name
 end
 
 Given(/^a git repo named "(.*?)" with (a|no) "(.*?)" hook$/) do |repo, yesno_modifier, hook_name|
-  step %{a git repo named "#{repo}"}
-  step %{the git repo named "#{repo}" has #{yesno_modifier} "#{hook_name}" hook}
+  steps %Q{
+    Given a git repo named "#{repo}"
+    And the git repo named "#{repo}" has #{yesno_modifier} "#{hook_name}" hook
+  }
 end
 
 Given(/^I am in a git repo named "(.*?)"$/) do |repo|
@@ -88,14 +90,15 @@ end
 
 When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|
   filename = Faker::Lorem.words(1).first
-  step %{a 98 byte file named "#{filename}"}
-  step %{I successfully run `git add #{filename}`}
-  step %{I successfully run `git commit -m "#{commit_msg}"`}
+  steps %Q{
+    Given a 98 byte file named "#{filename}"
+    And I successfully run `git add #{filename}`
+    And I successfully run `git commit -m "#{commit_msg}"`
+  }
 end
 
 When(/^I do a git commit$/) do
-  commit_msg = Faker::Lorem.sentence
-  step %{I do a git commit with commit message "#{commit_msg}"}
+  step %{I do a git commit with commit message "#{Faker::Lorem.sentence}"}
 end
 
 When(/^I do (\d+) git commits$/) do |n|
