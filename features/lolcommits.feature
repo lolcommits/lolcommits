@@ -20,8 +20,8 @@ Feature: Basic UI functionality
     When I get help for "lolcommits"
     Then the output should not match /\-a\, \-\-animate\=SECONDS/
 
-  Scenario: Enable in a naked git repository
-    Given a git repository named "loltest" with no "post-commit" hook
+  Scenario: Enable in a naked git repo
+    Given a git repo named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
@@ -30,9 +30,9 @@ Feature: Basic UI functionality
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
       And the exit status should be 0
 
-  Scenario: Enable in a git repository that already has a post-commit hook
-    Given a git repository named "loltest" with a "post-commit" hook
-      And the "loltest" repository "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
+  Scenario: Enable in a git repo that already has a post-commit hook
+    Given a git repo named "loltest" with a "post-commit" hook
+      And the "loltest" repo "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
@@ -43,17 +43,17 @@ Feature: Basic UI functionality
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
       And the exit status should be 0
 
-  Scenario: Enable in a git repository that already has post-commit hook with a bad shebang
-    Given a git repository named "loltest" with a "post-commit" hook
-      And the "loltest" repository "post-commit" hook has content "#!/bin/ruby"
+  Scenario: Enable in a git repo that already has post-commit hook with a bad shebang
+    Given a git repo named "loltest" with a "post-commit" hook
+      And the "loltest" repo "post-commit" hook has content "#!/bin/ruby"
     When I cd to "loltest"
     And I run `lolcommits --enable`
     Then the output should contain "doesn't start with a good shebang"
       And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
       And the exit status should be 1
 
-  Scenario: Enable in a git repository passing capture arguments
-    Given a git repository named "loltest" with no "post-commit" hook
+  Scenario: Enable in a git repo passing capture arguments
+    Given a git repo named "loltest" with no "post-commit" hook
     When I cd to "loltest"
     And I successfully run `lolcommits --enable -w 5 --fork`
     Then the output should contain "installed lolcommit hook to:"
@@ -62,8 +62,8 @@ Feature: Basic UI functionality
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture -w 5 --fork"
       And the exit status should be 0
 
-  Scenario: Disable in a enabled git repository
-    Given I am in a git repository named "lolenabled" with lolcommits enabled
+  Scenario: Disable in a enabled git repo
+    Given I am in a git repo named "lolenabled" with lolcommits enabled
     When I successfully run `lolcommits --disable`
     Then the output should contain "uninstalled"
       And a file named ".git/hooks/post-commit" should exist
@@ -77,7 +77,7 @@ Feature: Basic UI functionality
       And the exit status should be 1
 
   Scenario: Capture doesnt break in forked mode
-    Given I am in a git repository named "testforkcapture"
+    Given I am in a git repo named "testforkcapture"
     And I do a git commit
     When I successfully run `lolcommits --capture --fork`
     Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
@@ -87,7 +87,7 @@ Feature: Basic UI functionality
       And there should be exactly 1 jpg in "../.lolcommits/testforkcapture"
 
   Scenario: Commiting in an enabled repo triggers successful capture
-    Given I am in a git repository named "testcapture" with lolcommits enabled
+    Given I am in a git repo named "testcapture" with lolcommits enabled
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "../.lolcommits/testcapture" should exist
@@ -95,7 +95,7 @@ Feature: Basic UI functionality
       And there should be exactly 1 jpg in "../.lolcommits/testcapture"
 
   Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
-    Given I am in a git repository named "testcapture" with lolcommits enabled
+    Given I am in a git repo named "testcapture" with lolcommits enabled
       And a directory named "subdir"
       And an empty file named "subdir/FOOBAR"
     When I cd to "subdir/"
@@ -106,14 +106,14 @@ Feature: Basic UI functionality
       And there should be exactly 1 jpg in "../../.lolcommits/testcapture"
 
   Scenario: Stealth mode does not alert the user
-    Given I am in a git repository named "teststealth"
+    Given I am in a git repo named "teststealth"
     And I do a git commit
     When I run `lolcommits --stealth --capture`
     Then the output should not contain "*** Preserving this moment in history."
       And there should be exactly 1 jpg in "../.lolcommits/teststealth"
 
   Scenario: Commiting in stealth mode triggers successful capture without alerting the committer
-    Given I am in a git repository named "teststealth" with lolcommits enabled
+    Given I am in a git repo named "teststealth" with lolcommits enabled
         And I have environment variable LOLCOMMITS_STEALTH set to 1
     When I do a git commit
     Then the output should not contain "*** Preserving this moment in history."
@@ -128,7 +128,7 @@ Feature: Basic UI functionality
   # of elegance, but its passing so might as well leave in for now.
   #
   Scenario: Configuring plugin (with native aruba steps)
-    Given a git repository named "config-test"
+    Given a git repo named "config-test"
     When I cd to "config-test"
     And I run `lolcommits --config` interactively
     When I type "loltext"
@@ -143,7 +143,7 @@ Feature: Basic UI functionality
     And the output should contain "enabled: true"
 
   Scenario: Configuring Plugin
-    Given a git repository named "config-test"
+    Given a git repo named "config-test"
     When I cd to "config-test"
     And I run `lolcommits --config` and wait for output
     When I enter "loltext" for "Name of plugin to configure"
@@ -155,7 +155,7 @@ Feature: Basic UI functionality
     And the output should contain "enabled: true"
 
   Scenario: Configuring Plugin In Test Mode
-    Given a git repository named "testmode-config-test"
+    Given a git repo named "testmode-config-test"
     When I cd to "testmode-config-test"
     And I run `lolcommits --config --test` and wait for output
     And I enter "loltext" for "Name of plugin to configure"
@@ -166,7 +166,7 @@ Feature: Basic UI functionality
     Then the output should contain "loltext:"
     And the output should contain "enabled: true"
 
-  Scenario: test capture should work regardless of whether in a git repository
+  Scenario: test capture should work regardless of whether in a git repo
     Given I am in a directory named "nothingtoseehere"
     When I run `lolcommits --test --capture`
     Then the output should contain "*** Capturing in test mode."
@@ -174,20 +174,20 @@ Feature: Basic UI functionality
       And the exit status should be 0
 
   Scenario: test capture should store in its own test directory
-    Given I am in a git repository named "randomgitrepo" with lolcommits enabled
+    Given I am in a git repo named "randomgitrepo" with lolcommits enabled
     When I successfully run `lolcommits --test --capture`
     Then a directory named "../.lolcommits/test" should exist
     And a directory named "../.lolcommits/randomgitrepo" should not exist
 
   Scenario: last command should work properly when in a lolrepo
-    Given a git repository named "randomgitrepo"
+    Given a git repo named "randomgitrepo"
       And a loldir named "randomgitrepo" with 2 lolimages
       And I cd to "randomgitrepo"
     When I run `lolcommits --last`
     Then the exit status should be 0
 
   Scenario: last command should work properly when in a lolrepo subdirectory
-    Given I am in a git repository named "randomgitrepo"
+    Given I am in a git repo named "randomgitrepo"
       And a loldir named "randomgitrepo" with 2 lolimages
       And a directory named "randomdir"
       And I cd to "randomdir"
@@ -203,7 +203,7 @@ Feature: Basic UI functionality
     And the exit status should be 1
 
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
-    Given a git repository named "randomgitrepo"
+    Given a git repo named "randomgitrepo"
     And a loldir named "randomgitrepo" with 0 lolimages
     And I cd to "randomgitrepo"
     When I run `lolcommits --last`
@@ -211,14 +211,14 @@ Feature: Basic UI functionality
     Then the exit status should be 1
 
   Scenario: browse command should work properly when in a lolrepo
-    Given a git repository named "randomgitrepo"
+    Given a git repo named "randomgitrepo"
       And a loldir named "randomgitrepo" with 2 lolimages
       And I cd to "randomgitrepo"
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
   Scenario: browse command should work properly when in a lolrepo subdirectory
-    Given I am in a git repository named "randomgitrepo"
+    Given I am in a git repo named "randomgitrepo"
       And a loldir named "randomgitrepo" with 2 lolimages
       And a directory named "randomdir"
       And I cd to "randomdir"
@@ -234,13 +234,13 @@ Feature: Basic UI functionality
       And the exit status should be 1
 
   Scenario: handle commit messages with quotation marks
-    Given I am in a git repository named "shellz" with lolcommits enabled
+    Given I am in a git repo named "shellz" with lolcommits enabled
     When I successfully run `git commit --allow-empty -m 'i hate \"air quotes\" dont you'`
     Then the exit status should be 0
       And there should be exactly 1 jpg in "../.lolcommits/shellz"
 
   Scenario: generate gif should store in its own archive directory
-    Given I am in a git repository named "randomgitrepo" with lolcommits enabled
+    Given I am in a git repo named "randomgitrepo" with lolcommits enabled
       And a loldir named "randomgitrepo" with 2 lolimages
     When I successfully run `lolcommits -g`
     Then the output should contain "Generating animated gif."
@@ -248,14 +248,14 @@ Feature: Basic UI functionality
     And a file named "../.lolcommits/randomgitrepo/archive/archive.gif" should exist
 
   Scenario: generate gif with argument 'today'
-    Given I am in a git repository named "randomgitrepo" with lolcommits enabled
+    Given I am in a git repo named "randomgitrepo" with lolcommits enabled
       And a loldir named "randomgitrepo" with 2 lolimages
     When I successfully run `lolcommits -g today`
       And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"
 
   @mac-only
   Scenario: should generate an animated gif on the Mac platform
-    Given I am in a git repository named "testanimatedcapture"
+    Given I am in a git repo named "testanimatedcapture"
       And I do a git commit
       And I am using a "Mac" platform
     When I run `lolcommits --capture --animate=1`
