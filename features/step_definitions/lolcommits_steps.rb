@@ -6,6 +6,14 @@ def postcommit_hook
   ".git/hooks/post-commit"
 end
 
+def default_repo
+  "mygit"
+end
+
+def default_loldir
+  absolute_path("~/.lolcommits/#{default_repo}")
+end
+
 Given(/^I am in a directory named "(.*?)"$/) do |dir_name|
   steps %Q{
     Given a directory named "#{dir_name}"
@@ -28,7 +36,7 @@ end
 
 Given(/^I am in a git repo$/) do
   steps %Q{
-    Given I am in a git repo named "standard"
+    Given I am in a git repo named "#{default_repo}"
   }
 end
 
@@ -41,7 +49,7 @@ end
 
 Given(/^I am in a git repo with lolcommits enabled$/) do
   steps %Q{
-    Given I am in a git repo named "standard" with lolcommits enabled
+    Given I am in a git repo named "#{default_repo}" with lolcommits enabled
   }
 end
 
@@ -70,6 +78,12 @@ Given(/^I have environment variable (.*?) set to (.*?)$/) do |var, value|
   set_env var, value
 end
 
+Given(/^its loldir has (\d+) lolimages$/) do |num_images|
+  steps %Q{
+    Given a loldir named "#{default_repo}" with #{num_images} lolimages
+  }
+end
+
 Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   loldir = absolute_path("~/.lolcommits/#{repo}")
   FileUtils.mkdir_p loldir
@@ -79,7 +93,13 @@ Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   end
 end
 
-Then(/^there should be (?:exactly|only) (.*?) (jpg|gif|pid)(?:s?) in "(.*?)"$/) do |n, type, folder|
+Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in its loldir$/) do |n, type|
+  steps %Q{
+    Then there should be exactly #{n} #{type} in "#{default_loldir}"
+  }
+end
+
+Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in "(.*?)"$/) do |n, type, folder|
   expect(Dir[absolute_path(folder, "*.#{type}")].count).to eq(n.to_i)
 end
 

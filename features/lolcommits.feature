@@ -104,11 +104,11 @@ Feature: Basic UI functionality
     And there should be exactly 1 jpg in "~/.lolcommits/teststealth"
 
   Scenario: Commiting in stealth mode captures without alerting the committer
-    Given I am in a git repo named "teststealth" with lolcommits enabled
+    Given I am in a git repo with lolcommits enabled
     And I have environment variable LOLCOMMITS_STEALTH set to 1
     When I do a git commit
     Then the output should not contain "*** Preserving this moment in history."
-    And there should be exactly 1 jpg in "~/.lolcommits/teststealth"
+    And there should be exactly 1 jpg in its loldir
 
   Scenario: Show plugins
     When I successfully run `lolcommits --plugins`
@@ -127,7 +127,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --show-config`
     Then the output should match /loltext:\s+enabled: true/
 
-  Scenario: Configuring plugin in test mode
+  Scenario: Configuring plugin in test mode affects test loldir not repo loldir
     Given I am in a git repo named "testmode-config-test"
     When I run `lolcommits --config --test` interactively
       And I wait for output to contain "Name of plugin to configure:"
@@ -153,15 +153,14 @@ Feature: Basic UI functionality
     And a directory named "~/.lolcommits/randomgitrepo" should not exist
 
   Scenario: last command should work properly when in a lolrepo
-    Given a git repo named "randomgitrepo"
-      And a loldir named "randomgitrepo" with 2 lolimages
-      And I cd to "randomgitrepo"
+    Given I am in a git repo
+    And its loldir has 2 lolimages
     When I run `lolcommits --last`
     Then the exit status should be 0
 
   Scenario: last command should work properly when in a lolrepo subdirectory
-    Given I am in a git repo named "randomgitrepo"
-      And a loldir named "randomgitrepo" with 2 lolimages
+    Given I am in a git repo
+      And its loldir has 2 lolimages
       And a directory named "randomdir"
       And I cd to "randomdir"
     When I run `lolcommits --last`
@@ -182,9 +181,8 @@ Feature: Basic UI functionality
     And the exit status should be 1
 
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
-    Given a git repo named "randomgitrepo"
-    And a loldir named "randomgitrepo" with 0 lolimages
-    And I cd to "randomgitrepo"
+    Given I am in a git repo
+    And its loldir has 0 lolimages
     When I run `lolcommits --last`
     Then the output should contain:
       """
@@ -193,17 +191,16 @@ Feature: Basic UI functionality
     Then the exit status should be 1
 
   Scenario: browse command should work properly when in a lolrepo
-    Given a git repo named "randomgitrepo"
-      And a loldir named "randomgitrepo" with 2 lolimages
-      And I cd to "randomgitrepo"
+    Given I am in a git repo
+    And its loldir has 2 lolimages
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
   Scenario: browse command should work properly when in a lolrepo subdirectory
-    Given I am in a git repo named "randomgitrepo"
-      And a loldir named "randomgitrepo" with 2 lolimages
-      And a directory named "randomdir"
-      And I cd to "randomdir"
+    Given I am in a git repo
+      And its loldir has 2 lolimages
+      And a directory named "subdir"
+      And I cd to "subdir"
     When I run `lolcommits --browse`
     Then the output should not contain:
       """
@@ -221,14 +218,12 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  @wip
   Scenario: handle commit messages with quotation marks
-    Given I am in a git repo named "shellz" with lolcommits enabled
+    Given I am in a git repo with lolcommits enabled
     When I successfully run `git commit --allow-empty -m 'no "air quotes" bae'`
     Then the exit status should be 0
-    And there should be exactly 1 jpg in "~/.lolcommits/shellz"
+    And there should be exactly 1 jpg in its loldir
 
-  @wip
   Scenario: generate gif should store in its own archive directory
     Given I am in a git repo named "giffy" with lolcommits enabled
       And a loldir named "giffy" with 2 lolimages
