@@ -25,9 +25,15 @@ Feature: Basic UI functionality
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And the output should contain:
+        """
+        (to remove later, you can use: lolcommits --disable)
+        """
       And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
+      And the file ".git/hooks/post-commit" should contain:
+        """
+        lolcommits --capture
+        """
       And the exit status should be 0
 
   Scenario: Enable in a git repo that already has a post-commit hook
@@ -36,20 +42,26 @@ Feature: Basic UI functionality
     When I cd to "loltest"
     And I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And the output should contain:
+        """
+        (to remove later, you can use: lolcommits --disable)
+        """
       And a file named ".git/hooks/post-commit" should exist
       And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
       And the file ".git/hooks/post-commit" should contain "/my/own/script"
       And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
       And the exit status should be 0
 
-  Scenario: Enable in a git repo that already has post-commit hook with a bad shebang
+  Scenario: Enable in a git repo that has post-commit hook with a bad shebang
     Given a git repo named "loltest" with a "post-commit" hook
       And the "loltest" repo "post-commit" hook has content "#!/bin/ruby"
     When I cd to "loltest"
     And I run `lolcommits --enable`
     Then the output should contain "doesn't start with a good shebang"
-      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
+      And the file ".git/hooks/post-commit" should not contain:
+        """
+        lolcommits --capture
+        """
       And the exit status should be 1
 
   Scenario: Enable in a git repo passing capture arguments
@@ -57,9 +69,15 @@ Feature: Basic UI functionality
     When I cd to "loltest"
     And I successfully run `lolcommits --enable -w 5 --fork`
     Then the output should contain "installed lolcommit hook to:"
-      And the output should contain "(to remove later, you can use: lolcommits --disable)"
+      And the output should contain:
+        """
+        (to remove later, you can use: lolcommits --disable)
+        """
       And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should contain "lolcommits --capture -w 5 --fork"
+      And the file ".git/hooks/post-commit" should contain:
+        """
+        lolcommits --capture -w 5 --fork
+        """
       And the exit status should be 0
 
   Scenario: Disable in a enabled git repo
@@ -67,34 +85,40 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --disable`
     Then the output should contain "uninstalled"
       And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should not contain "lolcommits --capture"
+      And the file ".git/hooks/post-commit" should not contain:
+        """
+        lolcommits --capture
+        """
       And the exit status should be 0
 
   Scenario: Trying to enable while not in a git repo fails
     Given I am in a directory named "svnrulez"
     When I run `lolcommits --enable`
-    Then the output should contain "You don't appear to be in the base directory of a git project."
-      And the exit status should be 1
+    Then the output should contain:
+      """
+      You don't appear to be in the base directory of a git project.
+      """
+    And the exit status should be 1
 
   Scenario: Capture doesnt break in forked mode
-    Given I am in a git repo named "testforkcapture"
+    Given I am in a git repo named "forked"
     And I do a git commit
     When I successfully run `lolcommits --capture --fork`
-    Then there should be exactly 1 pid in "../.lolcommits/testforkcapture"
-    When I wait for the child process to exit in "testforkcapture"
-    Then a directory named "../.lolcommits/testforkcapture" should exist
-      And a file named "../.lolcommits/testforkcapture/tmp_snapshot.jpg" should not exist
-      And there should be exactly 1 jpg in "../.lolcommits/testforkcapture"
+    Then there should be exactly 1 pid in "../.lolcommits/forked"
+    When I wait for the child process to exit in "forked"
+    Then a directory named "../.lolcommits/forked" should exist
+      And a file named "../.lolcommits/forked/tmp_snapshot.jpg" should not exist
+      And there should be exactly 1 jpg in "../.lolcommits/forked"
 
   Scenario: Commiting in an enabled repo triggers successful capture
-    Given I am in a git repo named "testcapture" with lolcommits enabled
+    Given I am in a git repo named "myrepo" with lolcommits enabled
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
-      And a directory named "../.lolcommits/testcapture" should exist
-      And a file named "../.lolcommits/testcapture/tmp_snapshot.jpg" should not exist
-      And there should be exactly 1 jpg in "../.lolcommits/testcapture"
+      And a directory named "../.lolcommits/myrepo" should exist
+      And a file named "../.lolcommits/myrepo/tmp_snapshot.jpg" should not exist
+      And there should be exactly 1 jpg in "../.lolcommits/myrepo"
 
-  Scenario: Commiting in an enabled repo subdirectory triggers successful capture of parent repo
+  Scenario: Commiting in enabled repo subdirectory triggers successful capture
     Given I am in a git repo named "testcapture" with lolcommits enabled
       And a directory named "subdir"
       And an empty file named "subdir/FOOBAR"
@@ -110,14 +134,14 @@ Feature: Basic UI functionality
     And I do a git commit
     When I run `lolcommits --stealth --capture`
     Then the output should not contain "*** Preserving this moment in history."
-      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+    And there should be exactly 1 jpg in "../.lolcommits/teststealth"
 
-  Scenario: Commiting in stealth mode triggers successful capture without alerting the committer
+  Scenario: Commiting in stealth mode captures without alerting the committer
     Given I am in a git repo named "teststealth" with lolcommits enabled
-        And I have environment variable LOLCOMMITS_STEALTH set to 1
+    And I have environment variable LOLCOMMITS_STEALTH set to 1
     When I do a git commit
     Then the output should not contain "*** Preserving this moment in history."
-      And there should be exactly 1 jpg in "../.lolcommits/teststealth"
+    And there should be exactly 1 jpg in "../.lolcommits/teststealth"
 
   Scenario: Show plugins
     When I successfully run `lolcommits --plugins`
@@ -174,14 +198,20 @@ Feature: Basic UI functionality
       And a directory named "randomdir"
       And I cd to "randomdir"
     When I run `lolcommits --last`
-    Then the output should not contain "Can't do that since we're not in a valid git repository!"
-     And the exit status should be 0
+    Then the output should not contain:
+      """
+      Can't do that since we're not in a valid git repository!
+      """
+    And the exit status should be 0
 
   @in-tempdir
   Scenario: last command should fail gracefully if not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --last`
-    Then the output should contain "Can't do that since we're not in a valid git repository!"
+    Then the output should contain:
+      """
+      Can't do that since we're not in a valid git repository!
+      """
     And the exit status should be 1
 
   Scenario: last command should fail gracefully if zero lolimages in lolrepo
@@ -189,7 +219,10 @@ Feature: Basic UI functionality
     And a loldir named "randomgitrepo" with 0 lolimages
     And I cd to "randomgitrepo"
     When I run `lolcommits --last`
-    Then the output should contain "No lolcommits have been captured for this repository yet."
+    Then the output should contain:
+      """
+      No lolcommits have been captured for this repository yet.
+      """
     Then the exit status should be 1
 
   Scenario: browse command should work properly when in a lolrepo
@@ -205,51 +238,60 @@ Feature: Basic UI functionality
       And a directory named "randomdir"
       And I cd to "randomdir"
     When I run `lolcommits --browse`
-    Then the output should not contain "Can't do that since we're not in a valid git repository!"
-     And the exit status should be 0
+    Then the output should not contain:
+      """
+      Can't do that since we're not in a valid git repository!
+      """
+    And the exit status should be 0
 
   @in-tempdir
   Scenario: browse command should fail gracefully when not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
     When I run `lolcommits --browse`
-    Then the output should contain "Can't do that since we're not in a valid git repository!"
-      And the exit status should be 1
+    Then the output should contain:
+      """
+      Can't do that since we're not in a valid git repository!
+      """
+    And the exit status should be 1
 
   Scenario: handle commit messages with quotation marks
     Given I am in a git repo named "shellz" with lolcommits enabled
-    When I successfully run `git commit --allow-empty -m 'i hate \"air quotes\" dont you'`
+    When I successfully run `git commit --allow-empty -m 'no "air quotes" bae'`
     Then the exit status should be 0
-      And there should be exactly 1 jpg in "../.lolcommits/shellz"
+    And there should be exactly 1 jpg in "../.lolcommits/shellz"
 
   Scenario: generate gif should store in its own archive directory
-    Given I am in a git repo named "randomgitrepo" with lolcommits enabled
-      And a loldir named "randomgitrepo" with 2 lolimages
+    Given I am in a git repo named "giffy" with lolcommits enabled
+      And a loldir named "giffy" with 2 lolimages
     When I successfully run `lolcommits -g`
     Then the output should contain "Generating animated gif."
-    And a directory named "../.lolcommits/randomgitrepo/archive" should exist
-    And a file named "../.lolcommits/randomgitrepo/archive/archive.gif" should exist
+      And a directory named "../.lolcommits/giffy/archive" should exist
+      And a file named "../.lolcommits/giffy/archive/archive.gif" should exist
 
   Scenario: generate gif with argument 'today'
-    Given I am in a git repo named "randomgitrepo" with lolcommits enabled
-      And a loldir named "randomgitrepo" with 2 lolimages
+    Given I am in a git repo named "sunday" with lolcommits enabled
+      And a loldir named "sunday" with 2 lolimages
     When I successfully run `lolcommits -g today`
-      And there should be exactly 1 gif in "../.lolcommits/randomgitrepo/archive"
+    Then there should be exactly 1 gif in "../.lolcommits/sunday/archive"
 
   @mac-only
   Scenario: should generate an animated gif on the Mac platform
-    Given I am in a git repo named "testanimatedcapture"
+    Given I am in a git repo named "animate"
       And I do a git commit
       And I am using a "Mac" platform
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
-      And a directory named "../.lolcommits/testanimatedcapture" should exist
-      And a file named "../.lolcommits/testanimatedcapture/tmp_video.mov" should not exist
-      And a directory named "../.lolcommits/testanimatedcapture/tmp_frames" should not exist
-      And there should be exactly 1 gif in "../.lolcommits/testanimatedcapture"
+      And a directory named "../.lolcommits/animate" should exist
+      And a file named "../.lolcommits/animate/tmp_video.mov" should not exist
+      And a directory named "../.lolcommits/animate/tmp_frames" should not exist
+      And there should be exactly 1 gif in "../.lolcommits/animate"
 
   @fake-no-ffmpeg
-  Scenario: gracefully fail when ffmpeg is not installed and animate option is used
+  Scenario: gracefully fail when ffmpeg not installed and --animate is used
     Given I am using a "Mac" platform
     When I run `lolcommits --animate=3`
-    Then the output should contain "ffmpeg does not appear to be properly installed"
+    Then the output should contain:
+      """
+      ffmpeg does not appear to be properly installed
+      """
     And the exit status should be 1
