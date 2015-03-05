@@ -21,75 +21,42 @@ Feature: Basic UI functionality
     Then the output should not match /\-a\, \-\-animate\=SECONDS/
 
   Scenario: Enable in a naked git repo
-    Given a git repo named "loltest" with no "post-commit" hook
-    When I cd to "loltest"
-    And I successfully run `lolcommits --enable`
+    Given I am in a git repo
+    When I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the output should contain:
-        """
-        (to remove later, you can use: lolcommits --disable)
-        """
-      And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should contain:
-        """
-        lolcommits --capture
-        """
+      And the lolcommits post-commit hook should be properly installed
       And the exit status should be 0
 
   Scenario: Enable in a git repo that already has a post-commit hook
-    Given a git repo named "loltest" with a "post-commit" hook
-      And the "loltest" repo "post-commit" hook has content "#!/bin/sh\n\n/my/own/script"
-    When I cd to "loltest"
-    And I successfully run `lolcommits --enable`
+    Given I am in a git repo
+    And a post-commit hook with "#!/bin/sh\n\n/my/own/script"
+    When I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the output should contain:
-        """
-        (to remove later, you can use: lolcommits --disable)
-        """
-      And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should contain "#!/bin/sh"
-      And the file ".git/hooks/post-commit" should contain "/my/own/script"
-      And the file ".git/hooks/post-commit" should contain "lolcommits --capture"
+      And the lolcommits post-commit hook should be properly installed
+      And the post-commit hook should contain "#!/bin/sh"
+      And the post-commit hook should contain "/my/own/script"
       And the exit status should be 0
 
   Scenario: Enable in a git repo that has post-commit hook with a bad shebang
-    Given a git repo named "loltest" with a "post-commit" hook
-      And the "loltest" repo "post-commit" hook has content "#!/bin/ruby"
-    When I cd to "loltest"
+    Given I am in a git repo
+    And a post-commit hook with "#!/bin/ruby"
     And I run `lolcommits --enable`
-    Then the output should contain "doesn't start with a good shebang"
-      And the file ".git/hooks/post-commit" should not contain:
-        """
-        lolcommits --capture
-        """
+      Then the output should contain "doesn't start with a good shebang"
+      And the post-commit hook should not contain "lolcommits --capture"
       And the exit status should be 1
 
   Scenario: Enable in a git repo passing capture arguments
-    Given a git repo named "loltest" with no "post-commit" hook
-    When I cd to "loltest"
-    And I successfully run `lolcommits --enable -w 5 --fork`
-    Then the output should contain "installed lolcommit hook to:"
-      And the output should contain:
-        """
-        (to remove later, you can use: lolcommits --disable)
-        """
-      And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should contain:
-        """
-        lolcommits --capture -w 5 --fork
-        """
-      And the exit status should be 0
+    Given I am in a git repo
+    When I successfully run `lolcommits --enable -w 5 --fork`
+    Then the post-commit hook should contain "lolcommits --capture -w 5 --fork"
+    And the exit status should be 0
 
   Scenario: Disable in a enabled git repo
-    Given I am in a git repo named "lolenabled" with lolcommits enabled
+    Given I am in a git repo with lolcommits enabled
     When I successfully run `lolcommits --disable`
     Then the output should contain "uninstalled"
-      And a file named ".git/hooks/post-commit" should exist
-      And the file ".git/hooks/post-commit" should not contain:
-        """
-        lolcommits --capture
-        """
-      And the exit status should be 0
+    And a file named ".git/hooks/post-commit" should exist
+    And the exit status should be 0
 
   Scenario: Trying to enable while not in a git repo fails
     Given I am in a directory named "svnrulez"

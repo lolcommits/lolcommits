@@ -2,6 +2,10 @@
 require 'fileutils'
 require 'aruba/api'
 
+def postcommit_hook
+  ".git/hooks/post-commit"
+end
+
 Given(/^I am in a directory named "(.*?)"$/) do |dir_name|
   steps %Q{
     Given a directory named "#{dir_name}"
@@ -15,29 +19,6 @@ Given(/^a git repo named "(.*?)"$/) do |repo_name|
   }
 end
 
-Given(/^the git repo named "(.*?)" has no "(.*?)" hook$/) do |repo, hook_name|
-  hook_file = File.join current_dir, repo, '.git', 'hooks', hook_name
-  FileUtils.delete(hook_file) if File.exists? hook_file
-end
-
-Given(/^the git repo named "(.*?)" has a "(.*?)" hook$/) do |repo, hook_name|
-  hook_file = File.join current_dir, repo, '.git', 'hooks', hook_name
-  FileUtils.touch(hook_file) if not File.exists? hook_file
-end
-
-Given(/^the "(.*?)" repo "(.*?)" hook has content "(.*?)"$/) do |repo, hook_name, hook_content|
-  step %{the git repo named "#{repo}" has a "#{hook_name}" hook}
-  hook_file = File.join current_dir, repo, '.git', 'hooks', hook_name
-  File.open(hook_file, 'w') { |f| f.write(hook_content) }
-end
-
-Given(/^a git repo named "(.*?)" with (a|no) "(.*?)" hook$/) do |repo, yesno_modifier, hook_name|
-  steps %Q{
-    Given a git repo named "#{repo}"
-    And the git repo named "#{repo}" has #{yesno_modifier} "#{hook_name}" hook
-  }
-end
-
 Given(/^I am in a git repo named "(.*?)"$/) do |repo|
   steps %Q{
     Given a git repo named "#{repo}"
@@ -45,10 +26,43 @@ Given(/^I am in a git repo named "(.*?)"$/) do |repo|
   }
 end
 
+Given(/^I am in a git repo$/) do
+  steps %Q{
+    Given I am in a git repo named "standard"
+  }
+end
+
 Given(/^I am in a git repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %Q{
     Given I am in a git repo named "#{repo}"
     And I successfully run `lolcommits --enable`
+  }
+end
+
+Given(/^I am in a git repo with lolcommits enabled$/) do
+  steps %Q{
+    Given I am in a git repo named "standard" with lolcommits enabled
+  }
+end
+
+Given(/^a post\-commit hook with "(.*?)"$/) do |file_content|
+  steps %Q{
+    Given a file named "#{postcommit_hook}" with:
+      """
+      #{file_content}
+      """
+  }
+end
+
+Then(/^the lolcommits post\-commit hook should be properly installed$/) do
+  steps %Q{
+    Then the post-commit hook should contain "lolcommits --capture"
+  }
+end
+
+Then(/^the post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
+  steps %Q{
+    Then the file "#{postcommit_hook}" #{should} contain "#{content}"
   }
 end
 
