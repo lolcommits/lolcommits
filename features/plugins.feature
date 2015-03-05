@@ -1,5 +1,8 @@
 Feature: Plugins Work
 
+  Background:
+    Given a mocked home directory
+
   @slow_process @unstable
   Scenario: Lolcommits.com integration works
     Given I am in a git repository named "dot_com" with lolcommits enabled
@@ -34,4 +37,3 @@ Feature: Plugins Work
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
     And there should be exactly 1 jpg in "../.lolcommits/lolsrv"
-

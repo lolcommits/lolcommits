@@ -3,6 +3,9 @@ Feature: Bug regression testing
   I want to ensure fixed bugs stay fixed
   So that I don't have to fix them again!
 
+  Background:
+    Given a mocked home directory
+
   #
   # issue #58, https://github.com/mroth/lolcommits/issues/58
   #
@@ -36,7 +39,7 @@ Feature: Bug regression testing
   Scenario: don't want to see initialized constant warning from Faraday on CLI (on MRI 1.8.7)
     When I successfully run `lolcommits`
     Then the output should not contain "warning: already initialized constant DEFAULT_BOUNDARY"
-  
+
   #
   # issue #87, https://github.com/mroth/lolcommits/issues/87
   #

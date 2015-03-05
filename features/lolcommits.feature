@@ -1,5 +1,8 @@
 Feature: Basic UI functionality
 
+  Background:
+    Given a mocked home directory
+
   Scenario: App just runs
     When I get help for "lolcommits"
     Then the exit status should be 0
