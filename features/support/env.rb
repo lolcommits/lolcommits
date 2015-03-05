@@ -20,15 +20,11 @@ Before do
   @original_fakecapture = ENV['LOLCOMMITS_FAKECAPTURE']
   ENV['LOLCOMMITS_FAKECAPTURE'] = '1'
 
-  # @original_loldir = ENV['LOLCOMMITS_DIR']
-  # ENV['LOLCOMMITS_DIR'] = File.expand_path( File.join(current_dir, ".lolcommits") )
-
   ENV['LAUNCHY_DRY_RUN'] = 'true'
 end
 
 After do
   ENV['LOLCOMMITS_FAKECAPTURE'] = @original_fakecapture
-  # ENV['LOLCOMMITS_DIR'] = @original_loldir
   ENV['LAUNCHY_DRY_RUN'] = nil
   ENV['LOLCOMMITS_FAKEPLATFORM'] = nil
 end
@@ -37,7 +33,6 @@ Before('@fake-interactive-rebase') do
   # in order to fake an interactive rebase,
   # we replace the editor with a script that simply squashes a few random commits
   @original_git_editor = ENV['GIT_EDITOR']
-  # ENV['GIT_EDITOR'] = "sed -i -e 'n;s/pick/squash/g'" #every other commit
   ENV['GIT_EDITOR'] = "sed -i -e '3,5 s/pick/squash/g'" # lines 3-5
 end
 
