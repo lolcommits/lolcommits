@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
   # development gems
   s.add_development_dependency('fivemat', '~> 1.3.1')
   s.add_development_dependency('rdoc', '~> 4.2.0')
-  s.add_development_dependency('aruba', '~> 0.6.1')
+  s.add_development_dependency('aruba', '~> 0.6.2')
   s.add_development_dependency('rake', '~> 10.4.2')
   s.add_development_dependency('ffaker', '~> 1.25.0')
   s.add_development_dependency('coveralls', '~> 0.7.2')
