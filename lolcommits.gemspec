@@ -32,10 +32,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('mini_magick', '~> 3.8.1') # ~> 4+ fails with JRuby
   s.add_runtime_dependency('mime-types', '~> 1.25')   # ~> 2+ requires Ruby >= 1.9.2
   s.add_runtime_dependency('httparty', '~> 0.11.0')   # ~> 0.13+ requires Ruby >= 1.9.3
+  s.add_runtime_dependency('git', '=1.2.8')           # ~> 1.2.9 has issues with Ruby 1.8.7
   s.add_development_dependency('cucumber', '=1.3.19') # ~> 2+ requries Ruby >= 1.9.3
 
   # core
-  s.add_runtime_dependency('git', '~> 1.2.8')
   s.add_runtime_dependency('choice', '~> 0.1.6')
   s.add_runtime_dependency('launchy', '~> 2.4.3')
   s.add_runtime_dependency('methadone', '~> 1.8.0')
