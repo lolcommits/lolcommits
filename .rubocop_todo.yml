@@ -41,6 +41,9 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 184
 
+Performance/Sample:
+  Enabled: false
+
 # Offense count: 6
 Metrics/CyclomaticComplexity:
   Max: 10
@@ -155,7 +158,7 @@ Style/RedundantSelf:
 
 # Offense count: 1
 Style/RegexpLiteral:
-  MaxSlashes: 2
+   Enabled: false
 
 # Offense count: 1
 # Cop supports --auto-correct.
