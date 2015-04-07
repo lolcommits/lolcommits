@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_runtime_dependency('rest-client', '~> 1.6.7') # uploldz (coveralls requires uses this older version)
+  s.add_runtime_dependency('rest-client', '~> 1.6.7') # yam gem requires uses this older version
   s.add_runtime_dependency('mini_magick', '~> 3.8.1') # ~> 4+ fails with JRuby
   s.add_runtime_dependency('mime-types', '~> 1.25')   # ~> 2+ requires Ruby >= 1.9.2
   s.add_runtime_dependency('httparty', '~> 0.11.0')   # ~> 0.13+ requires Ruby >= 1.9.3
