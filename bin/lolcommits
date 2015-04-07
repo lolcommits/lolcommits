@@ -35,7 +35,9 @@ end
 #
 # @return [Lolcommits::Configuration]
 def configuration
-  if Choice.choices[:test]
+  if Choice.choices[:manual]
+    Configuration.new(:loldir => Configuration.loldir_for(Choice.choices[:repo]))
+  elsif Choice.choices[:test]
     Configuration.new(:loldir => Configuration.loldir_for('test'))
   else
     Configuration.new
@@ -90,7 +92,16 @@ def do_capture
   process_runner = ProcessRunner.new(configuration)
   should_we_fork = Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
   process_runner.fork_me?(should_we_fork) do
-    if Choice.choices[:test]
+    if Choice.choices[:manual]
+      override_text = {
+        :message => Choice.choices[:msg],
+        :sha     => Choice.choices[:sha]
+      }
+
+      # fire off runner with the overriden fake commit metadata
+      runner = Lolcommits::Runner.new(capture_options.merge override_text)
+      runner.run
+    elsif Choice.choices[:test]
       info '*** Capturing in test mode.'
 
       # get optional fake commit msg and sha from command line
@@ -218,23 +229,35 @@ Choice.options do
     long '--plugins'
   end
 
+  option :manual do
+    long '--manual'
+    desc 'Capture using provided repo sha and msg'
+  end
+
   option :test do
     long '--test'
     desc 'Run in test mode'
   end
 
   option :sha do
-    desc 'pass SHA manually [TEST-MODE]'
+    desc 'pass SHA manually [TEST-MODE|MANUAL-MODE]'
     long '--sha'
     short '-s'
     default "test-#{rand(10**10)}"
   end
 
   option :msg do
-    desc 'pass commit msg manually [TEST-MODE]'
+    desc 'pass commit msg manually [TEST-MODE|MANUAL-MODE]'
     long '--msg'
     short '-m'
     default 'this is a test message i didnt really commit something'
+  end
+
+  option :repo do
+    desc 'pass commit repo manually [TEST-MODE|MANUAL-MODE]'
+    long '--repo'
+    short '-r'
+    default 'test'
   end
 
   option :delay do
