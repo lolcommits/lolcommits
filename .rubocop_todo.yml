@@ -55,10 +55,6 @@ Style/IfUnlessModifier:
 Style/Not:
   Enabled: false
 
-# Offense count: 1
-Style/OneLineConditional:
-  Enabled: false
-
 # Offense count: 79
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
