@@ -46,7 +46,7 @@ module Lolcommits
     end
 
     def jpg_images_today
-      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) === Time.zone.today }
+      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Time.zone.today }
     end
 
     def raw_image(image_file_type = 'jpg')
