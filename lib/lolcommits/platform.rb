@@ -62,7 +62,7 @@ module Lolcommits
       # This is not ideal... but otherwise overriding platform via
       # LOLCOMMITS_FAKEPLATFORM when running cucumber tests won't work.
       # We should come up with a better solution.
-      ['Mac', 'Linux'].include? platform
+      %w['Mac', 'Linux'].include? platform
     end
 
     # Is a valid install of imagemagick present on the system?

@@ -7,7 +7,7 @@ module Lolcommits
 
     def initialize(runner)
       super
-      self.options.concat(['api_key', 'api_secret', 'repo_id'])
+      self.options.concat(%w['api_key', 'api_secret', 'repo_id'])
     end
 
     def run_postcapture

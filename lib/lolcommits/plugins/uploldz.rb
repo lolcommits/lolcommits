@@ -7,7 +7,7 @@ module Lolcommits
 
     def initialize(runner)
       super
-      self.options.concat(['endpoint', 'optional_key'])
+      self.options.concat(%w['endpoint', 'optional_key'])
     end
 
     def run_postcapture

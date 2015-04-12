@@ -155,9 +155,3 @@ Style/StringLiterals:
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 Style/StringLiteralsInInterpolation:
   Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: WordRegex.
-Style/WordArray:
-  MinSize: 3

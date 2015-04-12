@@ -5,7 +5,7 @@ module Lolcommits
   class LolProtonet < Plugin
     def initialize(runner)
       super
-      self.options.concat(['api_token', 'api_endpoint'])
+      self.options.concat(%w['api_token', 'api_endpoint'])
     end
 
     def run_postcapture
