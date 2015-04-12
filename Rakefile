@@ -68,7 +68,7 @@ task :dropboxify do
   end
 
   # create dropbox folder
-  if !File.directory? dropbox_loldir
+  unless File.directory? dropbox_loldir
     FileUtils.mkdir_p dropbox_loldir
   end
 

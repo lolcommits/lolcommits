@@ -23,7 +23,7 @@ module Lolcommits
             exit 1
           end
         elsif Platform.platform_linux?
-          if !Platform.command_which('mplayer')
+          unless Platform.command_which('mplayer')
             fatal "Couldn't find mplayer in your PATH!"
             exit 1
           end
@@ -56,7 +56,7 @@ module Lolcommits
       # This is only used for certain functions (such as animation), so only run
       # this when you know the user wants to perform one of them.
       def self.die_if_no_valid_ffmpeg_installed!
-        if !Platform.valid_ffmpeg_installed?
+        unless Platform.valid_ffmpeg_installed?
           fatal 'FATAL: ffmpeg does not appear to be properly installed!'
           exit 1
         end

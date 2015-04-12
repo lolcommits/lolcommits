@@ -11,13 +11,13 @@ module Lolcommits
     # IF --ENABLE, DO ENABLE
     #
     def self.do_enable
-      if !File.directory?('.git')
+      unless File.directory?('.git')
         fatal "You don't appear to be in the base directory of a git project."
         exit 1
       end
 
       # its possible a hooks dir doesnt exist, so create it if so
-      if !File.directory?(HOOK_DIR)
+      unless File.directory?(HOOK_DIR)
         Dir.mkdir(HOOK_DIR)
       end
 
