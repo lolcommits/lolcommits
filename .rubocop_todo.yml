@@ -52,11 +52,6 @@ Style/EmptyLines:
 Style/FormatString:
   Enabled: false
 
-# Offense count: 4
-# Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Enabled: false
-
 # Offense count: 9
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:

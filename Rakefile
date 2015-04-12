@@ -59,10 +59,9 @@ end
 
 desc "Migrate an existing local .lolcommits directory to Dropbox"
 task :dropboxify do
-  $home = ENV['HOME']
-  dropbox_loldir = "#{$home}/Dropbox/lolcommits"
-  loldir = "#{$home}/.lolcommits"
-  backup_loldir = "#{$home}/.lolcommits.old"
+  dropbox_loldir = "#{ENV['HOME']}/Dropbox/lolcommits"
+  loldir = "#{ENV['HOME']}/.lolcommits"
+  backup_loldir = "#{ENV['HOME']}/.lolcommits.old"
 
   # check whether we've done this already
   if File.symlink? loldir
