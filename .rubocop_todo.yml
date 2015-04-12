@@ -9,11 +9,6 @@
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
-# Offense count: 8
-# Cop supports --auto-correct.
-Lint/DeprecatedClassMethods:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Lint/StringConversionInInterpolation:

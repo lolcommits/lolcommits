@@ -8,7 +8,7 @@ module Lolcommits
 
       # capture the raw video with ffmpeg video4linux2
       system_call "ffmpeg -v quiet -y -f video4linux2 -video_size 320x240 -i #{capture_device_string} -t #{capture_duration} #{video_location} > /dev/null"
-      if File.exists?(video_location)
+      if File.exist?(video_location)
         # convert raw video to png frames with ffmpeg
         system_call "ffmpeg #{capture_delay_string} -v quiet -i #{video_location} -t #{animated_duration} #{frames_location}/%09d.png > /dev/null"
 
