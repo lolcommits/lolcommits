@@ -34,7 +34,7 @@ end
 Rake::FileUtilsExt.verbose(false)
 CUKE_RESULTS = 'results.html'
 CLEAN << CUKE_RESULTS
-Cucumber::Rake::Task.new(:features) do |t|
+Cucumber::Rake::Task.new(:features)do |t|
   optstr = "features --format html -o #{CUKE_RESULTS} --format Fivemat -x"
   optstr << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
   optstr << ' --tags ~@unstable' if ENV['tag'].nil? #ignore unstable tests unless specifying something at CLI
@@ -76,12 +76,12 @@ task :dropboxify do
 
   #backup existing loldir
   if File.directory? loldir
-    FileUtils.mv( loldir, backup_loldir )
+    FileUtils.mv(loldir, backup_loldir)
   end
 
   #symlink dropbox to local
-  FileUtils.ln_s( dropbox_loldir, loldir )
+  FileUtils.ln_s(dropbox_loldir, loldir)
 
   #copy over existing files
-  FileUtils.cp_r( "#{backup_loldir}/.", loldir)
+  FileUtils.cp_r("#{backup_loldir}/.", loldir)
 end
