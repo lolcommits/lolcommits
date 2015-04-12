@@ -18,9 +18,6 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 184
 
-Performance/Sample:
-  Enabled: false
-
 # Offense count: 6
 Metrics/CyclomaticComplexity:
   Max: 10
