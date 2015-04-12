@@ -165,12 +165,6 @@ Style/SingleSpaceBeforeFirstArg:
 Style/SpaceAfterComma:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/SpaceBeforeBlockBraces:
-  Enabled: false
-
 # Offense count: 78
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
