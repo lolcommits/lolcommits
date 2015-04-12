@@ -24,7 +24,7 @@ module Lolcommits
 
     def message
       @message ||= begin
-        message = last_commit.message || ""
+        message = last_commit.message || ''
         message.split("\n").first
       end
     end

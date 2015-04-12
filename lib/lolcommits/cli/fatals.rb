@@ -19,7 +19,7 @@ module Lolcommits
           %w(imagesnap videosnap).each do |executable|
             next if File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
             fatal "Couldn't properly execute #{executable} for some reason, "\
-                  "please file a bug?!"
+                  'please file a bug?!'
             exit 1
           end
         elsif Platform.platform_linux?
@@ -32,20 +32,20 @@ module Lolcommits
         # make sure we can find the Impact truetype font
         unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
           fatal "Couldn't properly read Impact font from gem package, "\
-                "please file a bug?!"
+                'please file a bug?!'
           exit 1
         end
 
         # make sure imagemagick is around and good to go
         unless Platform.valid_imagemagick_installed?
-          fatal "FATAL: ImageMagick does not appear to be properly installed!"\
-                "(or version is too old)"
+          fatal 'FATAL: ImageMagick does not appear to be properly installed!'\
+                '(or version is too old)'
           exit 1
         end
 
         # check for a error condition with git config affecting ruby-git
         if Platform.git_config_color_always?
-          fatal "Due to a bug in the ruby-git library, git config for color.ui"\
+          fatal 'Due to a bug in the ruby-git library, git config for color.ui'\
                 " cannot be set to 'always'."
           fatal "Try setting it to 'auto' instead!"
           exit 1

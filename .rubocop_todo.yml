@@ -63,9 +63,3 @@ Style/PercentLiteralDelimiters:
 # Cop supports --auto-correct.
 Style/RedundantSelf:
   Enabled: false
-
-# Offense count: 78
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/StringLiterals:
-  Enabled: false
