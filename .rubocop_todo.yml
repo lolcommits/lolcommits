@@ -38,11 +38,6 @@ Metrics/PerceivedComplexity:
 Style/BarePercentLiterals:
   Enabled: false
 
-# Offense count: 1
-# Configuration parameters: IndentWhenRelativeTo, SupportedStyles, IndentOneStep.
-Style/CaseIndentation:
-  Enabled: false
-
 # Offense count: 28
 Style/Documentation:
   Enabled: false

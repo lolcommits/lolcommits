@@ -18,12 +18,12 @@ module Lolcommits
         Fatals.die_if_not_git_repo!
 
         case args
-          when 'today'
-            lolimages = @configuration.jpg_images_today
-            filename  = "#{Date.today}.gif"
-          else
-            lolimages = @configuration.jpg_images
-            filename  = 'archive.gif'
+        when 'today'
+          lolimages = @configuration.jpg_images_today
+          filename  = "#{Date.today}.gif"
+        else
+          lolimages = @configuration.jpg_images
+          filename  = 'archive.gif'
         end
 
         if lolimages.empty?
