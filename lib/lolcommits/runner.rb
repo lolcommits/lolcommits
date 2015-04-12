@@ -42,7 +42,7 @@ module Lolcommits
       run_capture
 
       # check capture succeded, file must exist
-      if File.exists?(self.snapshot_loc)
+      if File.exist?(self.snapshot_loc)
 
         ## resize snapshot first
         resize_snapshot!

@@ -13,7 +13,7 @@ module Lolcommits
     end
 
     def read_configuration
-      if File.exists?(configuration_file)
+      if File.exist?(configuration_file)
         YAML.load(File.open(configuration_file))
       end
     end

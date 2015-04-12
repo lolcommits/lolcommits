@@ -62,7 +62,7 @@ module Lolcommits
       if lolcommits_hook_exists?
         remove_existing_hook!
         info "uninstalled lolcommits hook (from #{HOOK_PATH})"
-      elsif File.exists?(HOOK_PATH)
+      elsif File.exist?(HOOK_PATH)
         info "couldn't find an lolcommits hook (at #{HOOK_PATH})"
         if File.read(HOOK_PATH) =~ /lolcommit/
           info "warning: an older-style lolcommit hook may still exist, edit #{HOOK_PATH} to remove it manually"
@@ -91,7 +91,7 @@ EOS
 
     # does a git hook exist at all?
     def self.hook_file_exists?
-      File.exists?(HOOK_PATH)
+      File.exist?(HOOK_PATH)
     end
 
     # does a git hook exist with lolcommits commands?
