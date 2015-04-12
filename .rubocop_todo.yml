@@ -119,11 +119,6 @@ Style/LeadingCommentSpace:
 Style/NegatedIf:
   Enabled: false
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/Not:
-  Enabled: false
-
 # Offense count: 83
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.

@@ -31,7 +31,7 @@ module Lolcommits
 
     def archivedir
       dir = File.join(loldir, 'archive')
-      if not File.directory? dir
+      if !File.directory? dir
         FileUtils.mkdir_p dir
       end
       dir
