@@ -202,7 +202,7 @@ Choice.options do
 
   option :show_config do
     short '-sc'
-    long  '--show-config'
+    long '--show-config'
     desc 'display configuration file'
   end
 
