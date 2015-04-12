@@ -149,12 +149,6 @@ Style/RedundantBegin:
 Style/RedundantSelf:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, AllowInnerSlashes.
-Style/RegexpLiteral:
-  Enabled: false
-
 # Offense count: 78
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
