@@ -42,10 +42,6 @@ Style/BarePercentLiterals:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 1
-Style/DoubleNegation:
-  Enabled: false
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/EmptyLines:
