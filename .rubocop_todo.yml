@@ -32,12 +32,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/BarePercentLiterals:
-  Enabled: false
-
 # Offense count: 28
 Style/Documentation:
   Enabled: false
