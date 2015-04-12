@@ -21,12 +21,11 @@ module Lolcommits
 
     def sync
       existing = existing_lols
-      unless existing.nil?
-        Dir[self.runner.config.loldir + '/*.{jpg,gif}'].each do |item|
-          sha = File.basename(item, '.*')
-          unless existing.include?(sha) || sha == 'tmp_snapshot'
-            upload(item, sha)
-          end
+      return unless existing.nil?
+      Dir[self.runner.config.loldir + '/*.{jpg,gif}'].each do |item|
+        sha = File.basename(item, '.*')
+        unless existing.include?(sha) || sha == 'tmp_snapshot'
+          upload(item, sha)
         end
       end
     end

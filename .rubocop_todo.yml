@@ -45,11 +45,6 @@ Style/Documentation:
 Style/GlobalVars:
   Enabled: false
 
-# Offense count: 10
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Enabled: false
-
 # Offense count: 12
 # Configuration parameters: MaxLineLength.
 Style/IfUnlessModifier:
