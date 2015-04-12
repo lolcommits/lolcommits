@@ -20,7 +20,7 @@ module Lolcommits
         case args
           when 'today'
             lolimages = @configuration.jpg_images_today
-            filename  = "#{Date.today.to_s}.gif"
+            filename  = "#{Date.today}.gif"
           else
             lolimages = @configuration.jpg_images
             filename  = 'archive.gif'
