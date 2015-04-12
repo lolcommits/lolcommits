@@ -100,12 +100,12 @@ module Lolcommits
     extend Lolspeak
 
     def run_precapture
-      debug "Commit message before: #{self.runner.message}"
-      self.runner.message = self.class.tranzlate(self.runner.message)
-      debug "Commit message after: #{self.runner.message}"
+      debug "Commit message before: #{runner.message}"
+      runner.message = self.class.tranzlate(runner.message)
+      debug "Commit message after: #{runner.message}"
     end
 
-    def self.name
+    def name
       'tranzlate'
     end
 

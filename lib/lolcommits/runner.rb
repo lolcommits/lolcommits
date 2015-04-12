@@ -11,13 +11,13 @@ module Lolcommits
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
-        self.send("#{attr}=", val)
+        send("#{attr}=", val)
       end
 
-      return unless self.sha.nil? || self.message.nil?
+      return unless sha.nil? || message.nil?
       self.git_info = GitInfo.new
-      self.sha      = git_info.sha if self.sha.nil?
-      self.message  = git_info.message if self.message.nil?
+      self.sha      = git_info.sha if sha.nil?
+      self.message  = git_info.message if message.nil?
     end
 
     # wrap run to handle things that should happen before and after
@@ -41,7 +41,7 @@ module Lolcommits
       run_capture
 
       # check capture succeded, file must exist
-      if File.exist?(self.snapshot_loc)
+      if File.exist?(snapshot_loc)
 
         ## resize snapshot first
         resize_snapshot!
@@ -78,16 +78,16 @@ module Lolcommits
     # the main capture
     def run_capture
       puts '*** Preserving this moment in history.' unless capture_stealth
-      self.snapshot_loc = self.config.raw_image(image_file_type)
-      self.main_image   = self.config.main_image(self.sha, image_file_type)
+      self.snapshot_loc = config.raw_image(image_file_type)
+      self.main_image   = config.main_image(sha, image_file_type)
       capturer = capturer_class.new(
-        :capture_device    => self.capture_device,
-        :capture_delay     => self.capture_delay,
-        :snapshot_location => self.snapshot_loc,
-        :font              => self.font,
-        :video_location    => self.config.video_loc,
-        :frames_location   => self.config.frames_loc,
-        :animated_duration => self.capture_animate
+        :capture_device    => capture_device,
+        :capture_delay     => capture_delay,
+        :snapshot_location => snapshot_loc,
+        :font              => font,
+        :video_location    => config.video_loc,
+        :frames_location   => config.frames_loc,
+        :animated_duration => capture_animate
       )
       capturer.capture
     end
@@ -113,8 +113,8 @@ module Lolcommits
 
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
-    return unless self.git_info && !self.git_info.repo_internal_path.nil?
-    mergeclue = File.join self.git_info.repo_internal_path, 'rebase-merge'
+    return unless git_info && !git_info.repo_internal_path.nil?
+    mergeclue = File.join git_info.repo_internal_path, 'rebase-merge'
     return unless File.directory? mergeclue
     debug 'Runner: Rebase detected, silently exiting!'
     exit 0
@@ -122,7 +122,7 @@ module Lolcommits
 
   def resize_snapshot!
     debug 'Runner: resizing snapshot'
-    image = MiniMagick::Image.open(self.snapshot_loc)
+    image = MiniMagick::Image.open(snapshot_loc)
     if image[:width] > 640 || image[:height] > 480
       # this is ghetto resize-to-fill
       image.combine_options do |c|
@@ -130,18 +130,18 @@ module Lolcommits
         c.gravity 'center'
         c.extent '640x480'
       end
-      debug "Runner: writing resized image to #{self.snapshot_loc}"
-      image.write self.snapshot_loc
+      debug "Runner: writing resized image to #{snapshot_loc}"
+      image.write snapshot_loc
     end
-    debug "Runner: copying resized image to #{self.main_image}"
-    FileUtils.cp(self.snapshot_loc, self.main_image)
+    debug "Runner: copying resized image to #{main_image}"
+    FileUtils.cp(snapshot_loc, main_image)
   end
 
   def cleanup!
     debug 'Runner: running cleanup'
     # clean up the captured image and any other raw assets
-    FileUtils.rm(self.snapshot_loc)
-    FileUtils.rm_f(self.config.video_loc)
-    FileUtils.rm_rf(self.config.frames_loc)
+    FileUtils.rm(snapshot_loc)
+    FileUtils.rm_f(config.video_loc)
+    FileUtils.rm_rf(config.frames_loc)
   end
 end

@@ -71,11 +71,6 @@ Style/Proc:
 Style/RedundantBegin:
   Enabled: false
 
-# Offense count: 76
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

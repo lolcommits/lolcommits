@@ -10,18 +10,18 @@ module Lolcommits
     # to factor out it's dependency later or swap it out.
     class Launcher
       def self.open_image(path)
-        self.open_with_launchy(path)
+        open_with_launchy(path)
       end
 
       def self.open_folder(path)
-        self.open_with_launchy(path)
+        open_with_launchy(path)
       end
 
       # Opens with Launchy, which knows how to open pretty much anything
       # local files, urls, etc.
       #
       # Private so we replace it later easier if we want.
-      def self.open_with_launchy(thing)
+      def open_with_launchy(thing)
         Launchy.open(thing)
       end
     end

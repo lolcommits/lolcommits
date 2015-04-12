@@ -68,8 +68,8 @@ module Lolcommits
     # Is a valid install of imagemagick present on the system?
     # @return Boolean
     def self.valid_imagemagick_installed?
-      return false unless self.command_which('identify')
-      return false unless self.command_which('mogrify')
+      return false unless command_which('identify')
+      return false unless command_which('mogrify')
       # you'd expect the below to work on its own, but it only handles old versions
       # and will throw an exception if IM is not installed in PATH
       MiniMagick.valid_version_installed?
@@ -82,7 +82,7 @@ module Lolcommits
     # @note For now, this just checks for presence, any version should work.
     # @return Boolean
     def self.valid_ffmpeg_installed?
-      self.command_which('ffmpeg')
+      command_which('ffmpeg')
     end
 
     # Cross-platform way of finding an executable in the $PATH.

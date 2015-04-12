@@ -59,9 +59,9 @@ module Lolcommits
     def run_postcapture
       return unless valid_configuration?
 
-      commit_msg = self.runner.message
+      commit_msg = runner.message
       post = "#{commit_msg} #lolcommits"
-      puts "Yammer post: #{post}" unless self.runner.capture_stealth
+      puts "Yammer post: #{post}" unless runner.capture_stealth
 
       Yammer.configure do |c|
         c.client_id = YAMMER_CLIENT_ID
@@ -72,11 +72,11 @@ module Lolcommits
 
       retries = YAMMER_RETRY_COUNT
       begin
-        lolimage = File.new(self.runner.main_image)
+        lolimage = File.new(runner.main_image)
         response = client.create_message(post, :attachment1 => lolimage)
         debug response.body.inspect
         if response
-          puts "\t--> Status posted!" unless self.runner.capture_stealth
+          puts "\t--> Status posted!" unless runner.capture_stealth
         end
       rescue => e
         retries -= 1

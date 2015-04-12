@@ -7,7 +7,7 @@ module Lolcommits
 
     def initialize(runner)
       super
-      self.options.concat(%w['api_key', 'api_secret', 'repo_id'])
+      options.concat(%w['api_key', 'api_secret', 'repo_id'])
     end
 
     def run_postcapture
@@ -18,10 +18,10 @@ module Lolcommits
         "#{BASE_URL}/git_commits.json",
         :body => {
           :git_commit => {
-            :sha              => self.runner.sha,
+            :sha              => runner.sha,
             :repo_external_id => configuration['repo_id'],
-            :image            => File.open(self.runner.main_image),
-            :raw              => File.open(self.runner.snapshot_loc)
+            :image            => File.open(runner.main_image),
+            :raw              => File.open(runner.snapshot_loc)
           },
 
           :key   =>   configuration['api_key'],
