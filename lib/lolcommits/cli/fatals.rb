@@ -65,14 +65,12 @@ module Lolcommits
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
       def self.die_if_not_git_repo!
-        begin
-          debug 'Checking for valid git repo'
-          g = Git.open('.') #FIXME: should be extracted to GitInfo class
+        debug 'Checking for valid git repo'
+        g = Git.open('.') #FIXME: should be extracted to GitInfo class
         rescue ArgumentError
           # ruby-git throws an argument error if path isnt for a valid git repo.
           fatal "Erm? Can't do that since we're not in a valid git repository!"
           exit 1
-        end
       end
     end
   end
