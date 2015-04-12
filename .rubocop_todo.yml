@@ -9,10 +9,6 @@
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
-# Offense count: 2
-Lint/UselessAssignment:
-  Enabled: false
-
 # Offense count: 23
 Metrics/AbcSize:
   Max: 59
