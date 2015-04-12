@@ -50,11 +50,6 @@ Style/GlobalVars:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 7
-# Cop supports --auto-correct.
-Style/Not:
-  Enabled: false
-
 # Offense count: 79
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
