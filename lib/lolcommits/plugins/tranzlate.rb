@@ -85,7 +85,7 @@ module Lolspeak
     lolstr = str.dup
     LOL_DICTIONARY.each do |english, lolspeak|
       # ghetto ruby1.8/1.9 agnostic version of choice vs sample
-      lolstr.gsub!(english, lolspeak.shuffle.first)
+      lolstr.gsub!(english, lolspeak.sample)
     end
 
     lolstr << '!  kthxbye!' if rand(10) == 2
@@ -100,12 +100,12 @@ module Lolcommits
     extend Lolspeak
 
     def run_precapture
-      debug "Commit message before: #{self.runner.message}"
-      self.runner.message = self.class.tranzlate(self.runner.message)
-      debug "Commit message after: #{self.runner.message}"
+      debug "Commit message before: #{runner.message}"
+      runner.message = self.class.tranzlate(runner.message)
+      debug "Commit message after: #{runner.message}"
     end
 
-    def self.name
+    def name
       'tranzlate'
     end
 

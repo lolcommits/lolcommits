@@ -18,16 +18,16 @@ module Lolcommits
                                                   'Impact.ttf')
 
       debug 'Annotating image via MiniMagick'
-      image = MiniMagick::Image.open(self.runner.main_image)
+      image = MiniMagick::Image.open(runner.main_image)
       image.combine_options do |c|
         c.gravity 'SouthWest'
         c.fill 'white'
         c.stroke 'black'
         c.strokewidth '2'
-        c.pointsize(self.runner.animate? ? '24' : '48')
+        c.pointsize(runner.animate? ? '24' : '48')
         c.interline_spacing '-9'
         c.font font_location
-        c.annotate '0', clean_msg(self.runner.message)
+        c.annotate '0', clean_msg(runner.message)
       end
 
       image.combine_options do |c|
@@ -35,16 +35,16 @@ module Lolcommits
         c.fill 'white'
         c.stroke 'black'
         c.strokewidth '2'
-        c.pointsize(self.runner.animate? ? '21' : '32')
+        c.pointsize(runner.animate? ? '21' : '32')
         c.font font_location
-        c.annotate '0', self.runner.sha
+        c.annotate '0', runner.sha
       end
 
-      debug "Writing changed file to #{self.runner.main_image}"
-      image.write self.runner.main_image
+      debug "Writing changed file to #{runner.main_image}"
+      image.write runner.main_image
     end
 
-    def self.name
+    def name
       'loltext'
     end
 

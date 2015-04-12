@@ -8,18 +8,17 @@ module Lolcommits
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
-        self.send("#{attr}=", val)
+        send("#{attr}=", val)
       end
     end
 
     def read_configuration
-      if File.exists?(configuration_file)
-        YAML.load(File.open(configuration_file))
-      end
+      return unless File.exist?(configuration_file)
+      YAML.load(File.open(configuration_file))
     end
 
     def configuration_file
-      "#{self.loldir}/config.yml"
+      "#{loldir}/config.yml"
     end
 
     def loldir
@@ -31,38 +30,38 @@ module Lolcommits
 
     def archivedir
       dir = File.join(loldir, 'archive')
-      if not File.directory? dir
+      unless File.directory? dir
         FileUtils.mkdir_p dir
       end
       dir
     end
 
     def most_recent
-      Dir.glob(File.join self.loldir, '*.{jpg,gif}').max_by { |f| File.mtime(f) }
+      Dir.glob(File.join loldir, '*.{jpg,gif}').max_by { |f| File.mtime(f) }
     end
 
     def jpg_images
-      Dir.glob(File.join self.loldir, '*.jpg').sort_by { |f| File.mtime(f) }
+      Dir.glob(File.join loldir, '*.jpg').sort_by { |f| File.mtime(f) }
     end
 
     def jpg_images_today
-      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) === Date.today }
+      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Time.zone.today }
     end
 
     def raw_image(image_file_type = 'jpg')
-      File.join self.loldir, "tmp_snapshot.#{image_file_type}"
+      File.join loldir, "tmp_snapshot.#{image_file_type}"
     end
 
     def main_image(commit_sha, image_file_type = 'jpg')
-      File.join self.loldir, "#{commit_sha}.#{image_file_type}"
+      File.join loldir, "#{commit_sha}.#{image_file_type}"
     end
 
     def video_loc
-      File.join(self.loldir, 'tmp_video.mov')
+      File.join(loldir, 'tmp_video.mov')
     end
 
     def frames_loc
-      File.join(self.loldir, 'tmp_frames')
+      File.join(loldir, 'tmp_frames')
     end
 
     def puts_plugins
@@ -92,25 +91,24 @@ module Lolcommits
       end
 
       plugin = find_plugin(plugin_name)
-      if plugin
-        config = self.read_configuration || {}
-        plugin_config = plugin.configure_options!
-        # having a plugin_config, means configuring went OK
-        if plugin_config
-          # save plugin and print config
-          config[plugin_name] = plugin_config
-          save(config)
-          puts self
-          puts "\nSuccessfully configured plugin: #{plugin_name}"
-        else
-          puts "\nAborted plugin configuration for: #{plugin_name}"
-        end
+      return unless plugin
+      config = read_configuration || {}
+      plugin_config = plugin.configure_options!
+      # having a plugin_config, means configuring went OK
+      if plugin_config
+        # save plugin and print config
+        config[plugin_name] = plugin_config
+        save(config)
+        puts self
+        puts "\nSuccessfully configured plugin: #{plugin_name}"
+      else
+        puts "\nAborted plugin configuration for: #{plugin_name}"
       end
     end
 
     def save(config)
       config_file_contents = config.to_yaml
-      File.open(self.configuration_file, 'w') do |f|
+      File.open(configuration_file, 'w') do |f|
         f.write(config_file_contents)
       end
     end

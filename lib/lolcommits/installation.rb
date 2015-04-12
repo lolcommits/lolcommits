@@ -11,13 +11,13 @@ module Lolcommits
     # IF --ENABLE, DO ENABLE
     #
     def self.do_enable
-      if not File.directory?('.git')
+      unless File.directory?('.git')
         fatal "You don't appear to be in the base directory of a git project."
         exit 1
       end
 
       # its possible a hooks dir doesnt exist, so create it if so
-      if not File.directory?(HOOK_DIR)
+      unless File.directory?(HOOK_DIR)
         Dir.mkdir(HOOK_DIR)
       end
 
@@ -62,7 +62,7 @@ module Lolcommits
       if lolcommits_hook_exists?
         remove_existing_hook!
         info "uninstalled lolcommits hook (from #{HOOK_PATH})"
-      elsif File.exists?(HOOK_PATH)
+      elsif File.exist?(HOOK_PATH)
         info "couldn't find an lolcommits hook (at #{HOOK_PATH})"
         if File.read(HOOK_PATH) =~ /lolcommit/
           info "warning: an older-style lolcommit hook may still exist, edit #{HOOK_PATH} to remove it manually"
@@ -72,9 +72,7 @@ module Lolcommits
       end
     end
 
-    protected
-
-    def self.hook_script(add_shebang = true)
+    def self.hook_script
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
       locale_export = "export LANG=\"#{ENV['LANG']}\"\n"
@@ -91,7 +89,7 @@ EOS
 
     # does a git hook exist at all?
     def self.hook_file_exists?
-      File.exists?(HOOK_PATH)
+      File.exist?(HOOK_PATH)
     end
 
     # does a git hook exist with lolcommits commands?
@@ -102,7 +100,7 @@ EOS
 
     # does the git hook file have a good shebang?
     def self.good_shebang?
-      File.read(HOOK_PATH).lines.first =~ /^\#\!\/bin\/.*sh/
+      File.read(HOOK_PATH).lines.first =~ %r/^\#\!\/bin\/.*sh/
     end
 
     def self.remove_existing_hook!

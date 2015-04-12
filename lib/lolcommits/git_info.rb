@@ -5,7 +5,7 @@ module Lolcommits
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
-    GIT_URL_REGEX = /.*[:]([\/\w\-]*).git/
+    GIT_URL_REGEX = %r/.*[:]([\/\w\-]*).git/
 
     def initialize
       debug 'GitInfo: parsed the following values from commit:'
@@ -24,7 +24,7 @@ module Lolcommits
 
     def message
       @message ||= begin
-        message = last_commit.message || ""
+        message = last_commit.message || ''
         message.split("\n").first
       end
     end

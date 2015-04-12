@@ -23,7 +23,7 @@ module Lolcommits
             exit 1
           end
         elsif Platform.platform_linux?
-          if not Platform.command_which('mplayer')
+          unless Platform.command_which('mplayer')
             fatal "Couldn't find mplayer in your PATH!"
             exit 1
           end
@@ -56,7 +56,7 @@ module Lolcommits
       # This is only used for certain functions (such as animation), so only run
       # this when you know the user wants to perform one of them.
       def self.die_if_no_valid_ffmpeg_installed!
-        if !Platform.valid_ffmpeg_installed?
+        unless Platform.valid_ffmpeg_installed?
           fatal 'FATAL: ffmpeg does not appear to be properly installed!'
           exit 1
         end
@@ -65,14 +65,12 @@ module Lolcommits
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
       def self.die_if_not_git_repo!
-        begin
-          debug 'Checking for valid git repo'
-          g = Git.open('.') #FIXME: should be extracted to GitInfo class
-        rescue ArgumentError
-          # ruby-git throws an argument error if path isnt for a valid git repo.
-          fatal "Erm? Can't do that since we're not in a valid git repository!"
-          exit 1
-        end
+        debug 'Checking for valid git repo'
+        Git.open('.') # FIXME: should be extracted to GitInfo class
+      rescue ArgumentError
+        # ruby-git throws an argument error if path isnt for a valid git repo.
+        fatal "Erm? Can't do that since we're not in a valid git repository!"
+        exit 1
       end
     end
   end

@@ -54,9 +54,8 @@ end
 #
 # @return [Integer, String, nil]
 def capture_animate
-  if Platform.can_animate?
-    Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
-  end
+  return unless Platform.can_animate?
+  Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
 end
 
 def default_device
@@ -202,7 +201,7 @@ Choice.options do
 
   option :show_config do
     short '-sc'
-    long  '--show-config'
+    long '--show-config'
     desc 'display configuration file'
   end
 
@@ -314,11 +313,10 @@ change_dir_to_root_or_repo!
 #
 load_local_plugins!
 
-
 #
 # Handle actions manually since choice seems weird
 #
-if not (Choice.choices[:enable] || Choice.choices[:disable])
+unless Choice.choices[:enable] || Choice.choices[:disable]
   if Choice.choices[:capture]
     do_capture
   elsif Choice.choices[:configure]
