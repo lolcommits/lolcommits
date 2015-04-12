@@ -31,7 +31,7 @@ module Lolcommits
     end
 
     def random_object
-      objects = %w{screws bolts exceptions errors cookies}
+      objects = %w(screws bolts exceptions errors cookies)
 
       objects.sample
     end

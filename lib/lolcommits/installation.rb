@@ -100,7 +100,7 @@ EOS
 
     # does the git hook file have a good shebang?
     def self.good_shebang?
-      File.read(HOOK_PATH).lines.first =~ %r/^\#\!\/bin\/.*sh/
+      File.read(HOOK_PATH).lines.first =~ %r{^\#\!\/bin\/.*sh}
     end
 
     def self.remove_existing_hook!
