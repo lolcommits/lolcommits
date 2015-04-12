@@ -314,7 +314,6 @@ change_dir_to_root_or_repo!
 #
 load_local_plugins!
 
-
 #
 # Handle actions manually since choice seems weird
 #

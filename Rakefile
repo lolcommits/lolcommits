@@ -56,7 +56,6 @@ else
   task :default => [:test, :features]
 end
 
-
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do
   $home = ENV['HOME']
