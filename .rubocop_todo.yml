@@ -160,11 +160,6 @@ Style/RegexpLiteral:
 Style/SingleSpaceBeforeFirstArg:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/SpaceAfterComma:
-  Enabled: false
-
 # Offense count: 78
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
