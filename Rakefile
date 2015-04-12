@@ -37,7 +37,7 @@ CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features)do |t|
   optstr = "features --format html -o #{CUKE_RESULTS} --format Fivemat -x"
   optstr << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
-  optstr << ' --tags ~@unstable' if ENV['tag'].nil? #ignore unstable tests unless specifying something at CLI
+  optstr << ' --tags ~@unstable' if ENV['tag'].nil? # ignore unstable tests unless specifying something at CLI
   t.cucumber_opts = optstr
   t.fork = false
 end
@@ -63,24 +63,24 @@ task :dropboxify do
   loldir = "#{$home}/.lolcommits"
   backup_loldir = "#{$home}/.lolcommits.old"
 
-  #check whether we've done this already
+  # check whether we've done this already
   if File.symlink? loldir
     abort 'already dropboxified!'
   end
 
-  #create dropbox folder
+  # create dropbox folder
   if not File.directory? dropbox_loldir
     FileUtils.mkdir_p dropbox_loldir
   end
 
-  #backup existing loldir
+  # backup existing loldir
   if File.directory? loldir
     FileUtils.mv(loldir, backup_loldir)
   end
 
-  #symlink dropbox to local
+  # symlink dropbox to local
   FileUtils.ln_s(dropbox_loldir, loldir)
 
-  #copy over existing files
+  # copy over existing files
   FileUtils.cp_r("#{backup_loldir}/.", loldir)
 end
