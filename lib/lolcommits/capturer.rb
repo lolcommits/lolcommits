@@ -8,9 +8,9 @@ module Lolcommits
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
-        self.send("#{attr}=", val)
+        send("#{attr}=", val)
       end
-      debug 'Capturer: initializing new instance ' + self.to_s
+      debug 'Capturer: initializing new instance ' + to_s
     end
   end
 end

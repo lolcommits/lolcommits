@@ -58,8 +58,3 @@ Style/IfUnlessModifier:
 # Configuration parameters: PreferredDelimiters.
 Style/PercentLiteralDelimiters:
   Enabled: false
-
-# Offense count: 83
-# Cop supports --auto-correct.
-Style/RedundantSelf:
-  Enabled: false

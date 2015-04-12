@@ -7,7 +7,7 @@ module Lolcommits
   class Lolsrv < Plugin
     def initialize(runner)
       super
-      self.options << 'server'
+      options << 'server'
     end
 
     def run_postcapture
@@ -22,7 +22,7 @@ module Lolcommits
     def sync
       existing = existing_lols
       unless existing.nil?
-        Dir[self.runner.config.loldir + '/*.{jpg,gif}'].each do |item|
+        Dir[runner.config.loldir + '/*.{jpg,gif}'].each do |item|
           sha = File.basename(item, '.*')
           unless existing.include?(sha) || sha == 'tmp_snapshot'
             upload(item, sha)
@@ -43,8 +43,8 @@ module Lolcommits
     def upload(file, sha)
       RestClient.post(configuration['server'] + '/uplol',
                       :lol  => File.new(file),
-                      :url  => self.runner.git_info.url + sha,
-                      :repo => self.runner.git_info.repo,
+                      :url  => runner.git_info.url + sha,
+                      :repo => runner.git_info.repo,
                       :date => File.ctime(file),
                       :sha  => sha)
     rescue => e

@@ -5,7 +5,7 @@ module Lolcommits
   class LolProtonet < Plugin
     def initialize(runner)
       super
-      self.options.concat(%w(api_token api_endpoint))
+      options.concat(%w(api_token api_endpoint))
     end
 
     def run_postcapture
@@ -15,7 +15,7 @@ module Lolcommits
       RestClient.post(
         api_url,
         {
-          :files        => [File.new(self.runner.main_image)],
+          :files        => [File.new(runner.main_image)],
           :message      => message
         },
         'X-Protonet-Token' => configuration['api_token']
@@ -27,7 +27,7 @@ module Lolcommits
     end
 
     def message
-      "commited some #{random_adjective} #{random_object} to #{self.runner.git_info.repo}@#{self.runner.sha} (#{self.runner.git_info.branch}) "
+      "commited some #{random_adjective} #{random_object} to #{runner.git_info.repo}@#{runner.sha} (#{runner.git_info.branch}) "
     end
 
     def random_object

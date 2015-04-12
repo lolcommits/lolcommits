@@ -18,14 +18,14 @@ module Lolcommits
 
     def run_postcapture
       return unless valid_configuration?
-      tweet = build_tweet(self.runner.message)
+      tweet = build_tweet(runner.message)
 
       attempts = 0
       begin
         attempts += 1
         puts "Tweeting: #{tweet}"
         debug "--> Tweeting! (attempt: #{attempts}, tweet length: #{tweet.length} chars)"
-        if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
+        if client.update_with_media(tweet, File.open(runner.main_image, 'r'))
           puts "\t--> Tweet Sent!"
         end
       rescue Twitter::Error::ServerError,
