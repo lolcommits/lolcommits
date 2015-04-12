@@ -85,7 +85,7 @@ module Lolspeak
     lolstr = str.dup
     LOL_DICTIONARY.each do |english, lolspeak|
       # ghetto ruby1.8/1.9 agnostic version of choice vs sample
-      lolstr.gsub!(english, lolspeak.sample)
+      lolstr.gsub!(english, lolspeak.shuffle.first)
     end
 
     lolstr << '!  kthxbye!' if rand(10) == 2
