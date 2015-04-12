@@ -8,3 +8,6 @@ inherit_from: .rubocop_todo.yml
 # Enforce Ruby 1.8.7 compatible syntax
 HashSyntax:
   EnforcedStyle: hash_rockets
+# Disable check for puts
+Rails/Output:
+  Enabled: false
