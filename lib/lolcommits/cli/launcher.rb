@@ -17,8 +17,6 @@ module Lolcommits
         self.open_with_launchy(path)
       end
 
-      private
-
       # Opens with Launchy, which knows how to open pretty much anything
       # local files, urls, etc.
       #

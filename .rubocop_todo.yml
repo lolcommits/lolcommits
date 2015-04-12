@@ -9,10 +9,6 @@
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
-# Offense count: 1
-Lint/UselessAccessModifier:
-  Enabled: false
-
 # Offense count: 2
 Lint/UselessAssignment:
   Enabled: false

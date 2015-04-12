@@ -72,8 +72,6 @@ module Lolcommits
       end
     end
 
-    protected
-
     def self.hook_script
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
