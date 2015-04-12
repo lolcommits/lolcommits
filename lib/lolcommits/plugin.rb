@@ -103,7 +103,7 @@ module Lolcommits
 
     # uniform debug logging for plugins
     def debug(msg)
-      super("Plugin: #{self.class.to_s}: " + msg)
+      super("Plugin: #{self.class}: " + msg)
     end
 
     # identifying plugin name (for config, listing)

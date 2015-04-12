@@ -7,26 +7,27 @@ module Lolcommits
 
     def initialize(runner)
       super
-      self.options.concat(['api_key', 'api_secret', 'repo_id'])
+      options.concat(%w(api_key api_secret repo_id))
     end
 
     def run_postcapture
       return unless valid_configuration?
 
       t = Time.now.to_i.to_s
-      resp = HTTMultiParty.post("#{BASE_URL}/git_commits.json",
-                                :body => {
-                                  :git_commit => {
-                                    :sha              => self.runner.sha,
-                                    :repo_external_id => configuration['repo_id'],
-                                    :image            => File.open(self.runner.main_image),
-                                    :raw              => File.open(self.runner.snapshot_loc)
-                                  },
+      HTTMultiParty.post(
+        "#{BASE_URL}/git_commits.json",
+        :body => {
+          :git_commit => {
+            :sha              => runner.sha,
+            :repo_external_id => configuration['repo_id'],
+            :image            => File.open(runner.main_image),
+            :raw              => File.open(runner.snapshot_loc)
+          },
 
-                                  :key   => configuration['api_key'],
-                                  :t     => t,
-                                  :token =>  Digest::SHA1.hexdigest(configuration['api_secret'] + t)
-                                })
+          :key   => configuration['api_key'],
+          :t     => t,
+          :token =>  Digest::SHA1.hexdigest(configuration['api_secret'] + t)
+        })
     rescue => e
       log_error(e, "ERROR: HTTMultiParty POST FAILED #{e.class} - #{e.message}")
     end
