@@ -3,11 +3,11 @@ require 'fileutils'
 require 'aruba/api'
 
 def postcommit_hook
-  ".git/hooks/post-commit"
+  '.git/hooks/post-commit'
 end
 
 def default_repo
-  "mygit"
+  'mygit'
 end
 
 def default_loldir
