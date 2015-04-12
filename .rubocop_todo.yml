@@ -171,11 +171,6 @@ Style/SpaceAfterComma:
 Style/SpaceBeforeBlockBraces:
   Enabled: false
 
-# Offense count: 5
-# Cop supports --auto-correct.
-Style/SpaceInsideParens:
-  Enabled: false
-
 # Offense count: 78
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.

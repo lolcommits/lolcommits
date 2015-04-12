@@ -76,12 +76,12 @@ task :dropboxify do
 
   #backup existing loldir
   if File.directory? loldir
-    FileUtils.mv( loldir, backup_loldir )
+    FileUtils.mv(loldir, backup_loldir)
   end
 
   #symlink dropbox to local
-  FileUtils.ln_s( dropbox_loldir, loldir )
+  FileUtils.ln_s(dropbox_loldir, loldir)
 
   #copy over existing files
-  FileUtils.cp_r( "#{backup_loldir}/.", loldir)
+  FileUtils.cp_r("#{backup_loldir}/.", loldir)
 end
