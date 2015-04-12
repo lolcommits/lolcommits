@@ -74,7 +74,7 @@ module Lolcommits
 
     protected
 
-    def self.hook_script(add_shebang = true)
+    def self.hook_script(_add_shebang = true)
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
       locale_export = "export LANG=\"#{ENV['LANG']}\"\n"
