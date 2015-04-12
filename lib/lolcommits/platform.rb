@@ -99,9 +99,7 @@ module Lolcommits
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|
           exe = "#{path}/#{cmd}#{ext}"
-          if File.executable? exe
-            return only_path ? path : exe
-          end
+          return only_path ? path : exe if File.executable? exe
         end
       end
       nil

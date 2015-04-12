@@ -75,9 +75,7 @@ module Lolcommits
         lolimage = File.new(runner.main_image)
         response = client.create_message(post, :attachment1 => lolimage)
         debug response.body.inspect
-        if response
-          puts "\t--> Status posted!" unless runner.capture_stealth
-        end
+        puts "\t--> Status posted!" unless runner.capture_stealth if response
       rescue => e
         retries -= 1
         retry if retries > 0

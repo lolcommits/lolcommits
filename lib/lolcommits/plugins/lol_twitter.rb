@@ -39,9 +39,7 @@ module Lolcommits
     def build_tweet(commit_message)
       prefix = config_with_default('prefix', '')
       suffix = " #{config_with_default('suffix', DEFAULT_SUFFIX)}"
-      unless prefix.empty?
-        prefix = "#{prefix} "
-      end
+      prefix = "#{prefix} " unless prefix.empty?
 
       available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length)
       if commit_message.length > available_commit_msg_size

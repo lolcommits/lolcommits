@@ -63,19 +63,13 @@ task :dropboxify do
   backup_loldir = "#{ENV['HOME']}/.lolcommits.old"
 
   # check whether we've done this already
-  if File.symlink? loldir
-    abort 'already dropboxified!'
-  end
+  abort 'already dropboxified!' if File.symlink? loldir
 
   # create dropbox folder
-  unless File.directory? dropbox_loldir
-    FileUtils.mkdir_p dropbox_loldir
-  end
+  FileUtils.mkdir_p dropbox_loldir unless File.directory? dropbox_loldir
 
   # backup existing loldir
-  if File.directory? loldir
-    FileUtils.mv(loldir, backup_loldir)
-  end
+  FileUtils.mv(loldir, backup_loldir) if File.directory? loldir
 
   # symlink dropbox to local
   FileUtils.ln_s(dropbox_loldir, loldir)

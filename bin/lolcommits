@@ -62,9 +62,7 @@ end
 def default_device
   result = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE']
 
-  if Platform.platform_linux?
-    result ||= Dir.glob('/dev/video*').first
-  end
+  result ||= Dir.glob('/dev/video*').first if Platform.platform_linux?
 
   result
 end

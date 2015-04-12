@@ -31,9 +31,7 @@ module Lolcommits
 
     def archivedir
       dir = File.join(loldir, 'archive')
-      unless File.directory? dir
-        FileUtils.mkdir_p dir
-      end
+      FileUtils.mkdir_p dir unless File.directory? dir
       dir
     end
 
@@ -77,9 +75,7 @@ module Lolcommits
 
     def find_plugin(plugin_name)
       Lolcommits::Runner.plugins.each do |plugin|
-        if plugin.name == plugin_name
-          return plugin.new(nil)
-        end
+        return plugin.new(nil) if plugin.name == plugin_name
       end
 
       puts "Unable to find plugin: '#{plugin_name}'"
@@ -87,9 +83,7 @@ module Lolcommits
     end
 
     def do_configure!(plugin_name)
-      if plugin_name.to_s.strip.empty?
-        plugin_name = ask_for_plugin_name
-      end
+      plugin_name = ask_for_plugin_name if plugin_name.to_s.strip.empty?
 
       plugin = find_plugin(plugin_name)
       if plugin

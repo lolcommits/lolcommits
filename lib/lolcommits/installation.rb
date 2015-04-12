@@ -17,9 +17,7 @@ module Lolcommits
       end
 
       # its possible a hooks dir doesnt exist, so create it if so
-      unless File.directory?(HOOK_DIR)
-        Dir.mkdir(HOOK_DIR)
-      end
+      Dir.mkdir(HOOK_DIR) unless File.directory?(HOOK_DIR)
 
       # should add a shebang (or not) adding will rewrite hook file
       add_shebang = false
@@ -40,9 +38,7 @@ module Lolcommits
       end
 
       File.open(HOOK_PATH, add_shebang ? 'w' : 'a') do |f|
-        if add_shebang
-          f.write("#!/bin/sh\n")
-        end
+        f.write("#!/bin/sh\n") if add_shebang
         f.write(hook_script)
       end
 
@@ -109,15 +105,11 @@ EOS
       skip = false
 
       hook.lines.each do |line|
-        if !skip && (line =~ /lolcommits.*\(begin\)/)
-          skip = true
-        end
+        skip = true if !skip && (line =~ /lolcommits.*\(begin\)/)
 
         out << line unless skip
 
-        if skip && (line =~ /lolcommits.*\(end\)/)
-          skip = false
-        end
+        skip = false if skip && (line =~ /lolcommits.*\(end\)/)
       end
 
       out.close
