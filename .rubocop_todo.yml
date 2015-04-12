@@ -52,11 +52,6 @@ Style/IfUnlessModifier:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-Style/NegatedIf:
-  Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
 Style/Not:
   Enabled: false
 
