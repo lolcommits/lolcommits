@@ -124,10 +124,6 @@ Style/NegatedIf:
 Style/Not:
   Enabled: false
 
-# Offense count: 1
-Style/OneLineConditional:
-  Enabled: false
-
 # Offense count: 83
 # Cop supports --auto-correct.
 # Configuration parameters: PreferredDelimiters.
