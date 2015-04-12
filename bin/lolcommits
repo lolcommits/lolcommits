@@ -54,9 +54,8 @@ end
 #
 # @return [Integer, String, nil]
 def capture_animate
-  if Platform.can_animate?
-    Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
-  end
+  return unless Platform.can_animate?
+  Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
 end
 
 def default_device

@@ -14,11 +14,10 @@ module Lolcommits
         send("#{attr}=", val)
       end
 
-      if sha.nil? || message.nil?
-        self.git_info = GitInfo.new
-        self.sha      = git_info.sha if sha.nil?
-        self.message  = git_info.message if message.nil?
-      end
+      return unless sha.nil? || message.nil?
+      self.git_info = GitInfo.new
+      self.sha      = git_info.sha if sha.nil?
+      self.message  = git_info.message if message.nil?
     end
 
     # wrap run to handle things that should happen before and after
@@ -114,13 +113,11 @@ module Lolcommits
 
   def die_if_rebasing!
     debug "Runner: Making sure user isn't rebasing"
-    if git_info && !git_info.repo_internal_path.nil?
-      mergeclue = File.join git_info.repo_internal_path, 'rebase-merge'
-      if File.directory? mergeclue
-        debug 'Runner: Rebase detected, silently exiting!'
-        exit 0
-      end
-    end
+    return unless git_info && !git_info.repo_internal_path.nil?
+    mergeclue = File.join git_info.repo_internal_path, 'rebase-merge'
+    return unless File.directory? mergeclue
+    debug 'Runner: Rebase detected, silently exiting!'
+    exit 0
   end
 
   def resize_snapshot!

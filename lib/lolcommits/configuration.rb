@@ -13,9 +13,8 @@ module Lolcommits
     end
 
     def read_configuration
-      if File.exist?(configuration_file)
-        YAML.load(File.open(configuration_file))
-      end
+      return unless File.exist?(configuration_file)
+      YAML.load(File.open(configuration_file))
     end
 
     def configuration_file
@@ -86,19 +85,18 @@ module Lolcommits
       plugin_name = ask_for_plugin_name if plugin_name.to_s.strip.empty?
 
       plugin = find_plugin(plugin_name)
-      if plugin
-        config = read_configuration || {}
-        plugin_config = plugin.configure_options!
-        # having a plugin_config, means configuring went OK
-        if plugin_config
-          # save plugin and print config
-          config[plugin_name] = plugin_config
-          save(config)
-          puts self
-          puts "\nSuccessfully configured plugin: #{plugin_name}"
-        else
-          puts "\nAborted plugin configuration for: #{plugin_name}"
-        end
+      return unless plugin
+      config = read_configuration || {}
+      plugin_config = plugin.configure_options!
+      # having a plugin_config, means configuring went OK
+      if plugin_config
+        # save plugin and print config
+        config[plugin_name] = plugin_config
+        save(config)
+        puts self
+        puts "\nSuccessfully configured plugin: #{plugin_name}"
+      else
+        puts "\nAborted plugin configuration for: #{plugin_name}"
       end
     end
 

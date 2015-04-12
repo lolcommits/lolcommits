@@ -91,16 +91,15 @@ module Lolcommits
         return
       end
 
-      if access_token.token && access_token.secret
-        puts ''
-        puts '------------------------------'
-        puts 'Thanks! Twitter Auth Succeeded'
-        puts '------------------------------'
-        {
-          'access_token' => access_token.token,
-          'secret'       => access_token.secret
-        }
-      end
+      return unless access_token.token && access_token.secret
+      puts ''
+      puts '------------------------------'
+      puts 'Thanks! Twitter Auth Succeeded'
+      puts '------------------------------'
+      {
+        'access_token' => access_token.token,
+        'secret'       => access_token.secret
+      }
     end
 
     def configure_prefix_suffix
