@@ -6,10 +6,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 2
-Lint/UselessAccessModifier:
-  Enabled: false
-
-# Offense count: 2
 Lint/UselessAssignment:
   Enabled: false
 
