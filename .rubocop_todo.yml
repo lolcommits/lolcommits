@@ -50,12 +50,6 @@ Style/GlobalVars:
 Style/IfUnlessModifier:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-Style/IndentHash:
-  Enabled: true
-
 # Offense count: 13
 # Cop supports --auto-correct.
 Style/LeadingCommentSpace:
