@@ -76,10 +76,6 @@ Style/RedundantBegin:
 Style/RedundantSelf:
   Enabled: false
 
-# Offense count: 1
-Style/RegexpLiteral:
-   Enabled: false
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
