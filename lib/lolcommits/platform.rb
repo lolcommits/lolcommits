@@ -32,7 +32,7 @@ module Lolcommits
     # Are we on a Windows platform?
     # @return Boolean
     def self.platform_windows?
-      !!RUBY_PLATFORM.match(/(win|w)32/)
+      !RUBY_PLATFORM.match(/(win|w)32/).nil?
     end
 
     # Are we on a Cygwin platform?
