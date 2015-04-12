@@ -13,7 +13,7 @@ module Lolcommits
     def run_postcapture
       return unless valid_configuration?
 
-      t = Time.now.to_i.to_s
+      t = Time.zone.now.to_i.to_s
       resp = HTTMultiParty.post("#{BASE_URL}/git_commits.json",
                                 :body => {
                                   :git_commit => {
