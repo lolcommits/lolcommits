@@ -32,11 +32,6 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Max: 11
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Performance/Sample:
-  Enabled: false
-
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
