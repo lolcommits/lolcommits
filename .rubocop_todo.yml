@@ -61,11 +61,6 @@ Style/Not:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/Proc:
-  Enabled: false
-
 # Offense count: 15
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
