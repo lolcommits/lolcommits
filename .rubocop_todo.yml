@@ -83,11 +83,6 @@ Style/IfUnlessModifier:
 
 # Offense count: 7
 # Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
 Style/NegatedIf:
   Enabled: false
 
