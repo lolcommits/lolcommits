@@ -18,8 +18,8 @@ Before do
   set_env 'LOLCOMMITS_FAKECAPTURE', '1'
   set_env 'LAUNCHY_DRY_RUN', 'true'
 
-  author_name  = "Testy McTesterson"
-  author_email = "testy@tester.com"
+  author_name  = 'Testy McTesterson'
+  author_email = 'testy@tester.com'
   set_env 'GIT_AUTHOR_NAME',     author_name
   set_env 'GIT_COMMITTER_NAME',  author_name
   set_env 'GIT_AUTHOR_EMAIL',    author_email

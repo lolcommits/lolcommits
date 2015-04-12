@@ -18,14 +18,14 @@ module Lolcommits
 
     def run_postcapture
       return unless valid_configuration?
-      tweet = build_tweet(self.runner.message)
+      tweet = build_tweet(runner.message)
 
       attempts = 0
       begin
         attempts += 1
         puts "Tweeting: #{tweet}"
         debug "--> Tweeting! (attempt: #{attempts}, tweet length: #{tweet.length} chars)"
-        if client.update_with_media(tweet, File.open(self.runner.main_image, 'r'))
+        if client.update_with_media(tweet, File.open(runner.main_image, 'r'))
           puts "\t--> Tweet Sent!"
         end
       rescue Twitter::Error::ServerError,
@@ -39,9 +39,7 @@ module Lolcommits
     def build_tweet(commit_message)
       prefix = config_with_default('prefix', '')
       suffix = " #{config_with_default('suffix', DEFAULT_SUFFIX)}"
-      unless prefix.empty?
-        prefix = "#{prefix} "
-      end
+      prefix = "#{prefix} " unless prefix.empty?
 
       available_commit_msg_size = max_tweet_size - (prefix.length + suffix.length)
       if commit_message.length > available_commit_msg_size
@@ -93,16 +91,15 @@ module Lolcommits
         return
       end
 
-      if access_token.token && access_token.secret
-        puts ''
-        puts '------------------------------'
-        puts 'Thanks! Twitter Auth Succeeded'
-        puts '------------------------------'
-        {
-          'access_token' => access_token.token,
-          'secret'       => access_token.secret
-        }
-      end
+      return unless access_token.token && access_token.secret
+      puts ''
+      puts '------------------------------'
+      puts 'Thanks! Twitter Auth Succeeded'
+      puts '------------------------------'
+      {
+        'access_token' => access_token.token,
+        'secret'       => access_token.secret
+      }
     end
 
     def configure_prefix_suffix

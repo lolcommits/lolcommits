@@ -9,7 +9,7 @@ module PathHelpers
     tmpbindir = File.expand_path(File.join @dirs, 'bin')
     FileUtils.mkdir_p tmpbindir
 
-    preseve_cmds_in_path(['git', 'mplayer'], tmpbindir)
+    preseve_cmds_in_path(%w(git mplayer), tmpbindir)
 
     exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
     newpaths = ENV['PATH'].split(File::PATH_SEPARATOR).reject do |path|
