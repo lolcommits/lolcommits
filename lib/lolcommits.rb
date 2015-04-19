@@ -3,6 +3,7 @@ $LOAD_PATH.unshift File.expand_path('.')
 
 require 'core_ext/class'
 require 'mini_magick'
+require 'core_ext/mini_magick/utilities'
 require 'fileutils'
 require 'git'
 require 'open3'
