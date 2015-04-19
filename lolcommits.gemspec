@@ -59,6 +59,6 @@ Gem::Specification.new do |s|
 
   if RUBY_VERSION >= '1.9.3'
     s.add_development_dependency('travis', '~> 1.7.4')
-    s.add_development_dependency('rubocop', '~> 0.28')
+    s.add_development_dependency('rubocop', '~> 0.30')
   end
 end
