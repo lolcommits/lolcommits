@@ -11,7 +11,7 @@ environment:
     - ruby_version: "193"
     - ruby_version: "200"
     - ruby_version: "215"
-    - ruby_version: "221"
+    - ruby_version: "222"
 
 clone_folder: c:\projects\lolcommits
 clone_depth: 10
