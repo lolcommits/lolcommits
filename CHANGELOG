@@ -1,6 +1,17 @@
 0.6.0 (WIP)
   * extract plugins to seperate gems ...
 
+0.5.8 (22 April 2015)
+  * Fix Windows MiniMagick issue (@matthutchinson #276)
+  * Rubocop code clean ups (@nysthee #272)
+  * Fix gem issues on earlier Ruby versions (#270)
+  * CLI refactoring/cleanups (@mroth #254 #258 #266 #267 #266)
+  * Exit with -1 for bad CLI args (@williamboman #263)
+  * Move unit tests to MiniTest (@mroth #256)
+  * Add branch name to git info (@salzig #252)
+  * lol_protonet plugin added (@salzig #251)
+  * Allow local plugins in $LOLCOMMITS_DIR/.plugins (@salzig #250)
+
 0.5.7 (28 December 2014)
   * Uploldz plugin sends more post params (@clops #224 @matthutchinson #241)
   * More configurable twitter plugin (@woodrowbarlow #207 @matthutchinson)
