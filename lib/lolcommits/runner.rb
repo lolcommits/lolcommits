@@ -80,7 +80,8 @@ module Lolcommits
       puts '*** Preserving this moment in history.' unless capture_stealth
       self.snapshot_loc = config.raw_image(image_file_type)
       self.main_image   = config.main_image(sha, image_file_type)
-      capturer = capturer_class.new(
+
+      capturer = Platform.capturer_class(animate?).new(
         :capture_device    => capture_device,
         :capture_delay     => capture_delay,
         :snapshot_location => snapshot_loc,
@@ -98,11 +99,10 @@ module Lolcommits
 
     private
 
-    def capturer_class
-      capturer_module = 'Lolcommits'
-      capturer_class  = "Capture#{Platform.platform}#{animate? ? 'Animated' : nil}"
-      Object.const_get(capturer_module).const_get(capturer_class)
-    end
+    # def capturer_class
+    #   capturer_module = 'Lolcommits'
+    #   Object.const_get(capturer_module).const_get(Platform.capturer_class(animate?))
+    # end
 
     def image_file_type
       animate? ? 'gif' : 'jpg'

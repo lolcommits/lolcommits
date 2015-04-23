@@ -9,14 +9,14 @@ Feature: Basic UI functionality
     And the banner should be present
 
   Scenario: Help should show the animate option on a Mac platform
-    Given I am using a "Mac" platform
+    Given I am using a "darwin" platform
     When I get help for "lolcommits"
     Then the following options should be documented:
       | --animate | which is optional |
       | -a        | which is optional |
 
   Scenario: Help should not show the animate option on a Windows plaftorm
-    Given I am using a "Windows" platform
+    Given I am using a "win32" platform
     When I get help for "lolcommits"
     Then the output should not match /\-a\, \-\-animate\=SECONDS/
 
@@ -242,7 +242,6 @@ Feature: Basic UI functionality
   Scenario: should generate an animated gif on the Mac platform
     Given I am in a git repo named "animate"
       And I do a git commit
-      And I am using a "Mac" platform
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "~/.lolcommits/animate" should exist
@@ -252,10 +251,17 @@ Feature: Basic UI functionality
 
   @fake-no-ffmpeg
   Scenario: gracefully fail when ffmpeg not installed and --animate is used
-    Given I am using a "Mac" platform
+    Given I am using a "darwin" platform
     When I run `lolcommits --animate=3`
     Then the output should contain:
       """
       ffmpeg does not appear to be properly installed
       """
     And the exit status should be 1
+
+  Scenario: Enable on windows platform setting PATH in post-commit hook
+    Given I am using a "win32" platform
+      And I am in a git repo
+    When I successfully run `lolcommits --enable`
+    Then the post-commit hook should contain "set path"
+    And the exit status should be 0
