@@ -163,15 +163,21 @@ Choice.options do
   option :enable do
     long '--enable'
     short '-e'
-    action { Installation.do_enable }
     desc 'install lolcommits for this repo'
+    action do
+      Installation.do_enable
+      exit 0
+    end
   end
 
   option :disable do
     long '--disable'
     short '-d'
-    action { Installation.do_disable }
     desc 'uninstall lolcommits for this repo'
+    action do
+      Installation.do_disable
+      exit 0
+    end
   end
 
   option :capture do
@@ -314,27 +320,25 @@ load_local_plugins!
 #
 # Handle actions manually since choice seems weird
 #
-if !Choice.choices[:enable] || !Choice.choices[:disable]
-  if Choice.choices[:capture]
-    do_capture
-  elsif Choice.choices[:configure]
-    do_configure
-  elsif Choice.choices[:show_config]
-    puts configuration
-  elsif Choice.choices[:plugins]
-    configuration.puts_plugins
-  elsif Choice.choices[:devices]
-    puts Platform.device_list
-    puts "Specify a device with --device=\"{device name}\" "\
-         'or set the LOLCOMMITS_DEVICE env variable'
-  elsif Choice.choices[:last]
-    do_last
-  elsif Choice.choices[:browse]
-    Fatals.die_if_not_git_repo!
-    Launcher.open_folder(configuration.loldir)
-  elsif Choice.choices[:gif]
-    TimelapseGif.new(configuration).run(Choice.choices[:gif])
-  else
-    do_noargs
-  end
+if Choice.choices[:capture]
+  do_capture
+elsif Choice.choices[:configure]
+  do_configure
+elsif Choice.choices[:show_config]
+  puts configuration
+elsif Choice.choices[:plugins]
+  configuration.puts_plugins
+elsif Choice.choices[:devices]
+  puts Platform.device_list
+  puts "Specify a device with --device=\"{device name}\" "\
+    'or set the LOLCOMMITS_DEVICE env variable'
+elsif Choice.choices[:last]
+  do_last
+elsif Choice.choices[:browse]
+  Fatals.die_if_not_git_repo!
+  Launcher.open_folder(configuration.loldir)
+elsif Choice.choices[:gif]
+  TimelapseGif.new(configuration).run(Choice.choices[:gif])
+else
+  do_noargs
 end

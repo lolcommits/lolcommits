@@ -1,17 +1,22 @@
 # -*- encoding : utf-8 -*-
 require 'mini_magick'
+require 'rbconfig'
 
 module Lolcommits
   class Platform
-    # A convenience name for the platform.  Mainly used for metaprogramming.
-    # @return String
-    def self.platform
-      if platform_fakeplatform?   then ENV['LOLCOMMITS_FAKEPLATFORM']
-      elsif platform_fakecapture? then 'Fake'
-      elsif platform_mac?         then 'Mac'
-      elsif platform_linux?       then 'Linux'
-      elsif platform_windows?     then 'Windows'
-      elsif platform_cygwin?      then 'Cygwin'
+    # The capturer class constant to use
+    # @return Class
+    def self.capturer_class(animate = false)
+      if ENV['LOLCOMMITS_CAPTURER']
+        const_get(ENV['LOLCOMMITS_CAPTURER'])
+      elsif platform_mac?
+        animate ? CaptureMacAnimated : CaptureMac
+      elsif platform_linux?
+        animate ? CaptureLinuxAnimated : CaptureLinux
+      elsif platform_windows?
+        CaptureWindows
+      elsif platform_cygwin?
+        CaptureCygwin
       else
         fail 'Unknown / Unsupported Platform.'
       end
@@ -20,49 +25,37 @@ module Lolcommits
     # Are we on a Mac platform?
     # @return Boolean
     def self.platform_mac?
-      RUBY_PLATFORM.to_s.downcase.include?('darwin')
+      host_os.include?('darwin')
     end
 
     # Are we on a Linux platform?
     # @return Boolean
     def self.platform_linux?
-      RUBY_PLATFORM.to_s.downcase.include?('linux')
+      host_os.include?('linux')
     end
 
     # Are we on a Windows platform?
     # @return Boolean
     def self.platform_windows?
-      !RUBY_PLATFORM.match(/(win|w)32/).nil?
+      !host_os.match(/(win|w)32/).nil?
     end
 
     # Are we on a Cygwin platform?
     # @return Boolean
     def self.platform_cygwin?
-      RUBY_PLATFORM.to_s.downcase.include?('cygwin')
+      host_os.include?('cygwin')
     end
 
-    # Are we currently faking webcam capture for test purposes?
-    # @return Boolean
-    def self.platform_fakecapture?
-      (ENV['LOLCOMMITS_FAKECAPTURE'] == '1' || false)
-    end
-
-    # Are we currently overriding and faking the platform entirely?
-    # @todo possibly make this a private method?
-    # @return Boolean
-    def self.platform_fakeplatform?
-      ENV['LOLCOMMITS_FAKEPLATFORM']
+    # return host_os identifier from the RbConfig::CONFIG constant
+    # @return String
+    def self.host_os
+      ENV['LOLCOMMITS_FAKE_HOST_OS'] || RbConfig::CONFIG['host_os'].downcase
     end
 
     # Is the platform capable of capturing animated GIFs from webcam?
     # @return Boolean
     def self.can_animate?
-      # FIXME: this is currently matching against string instead of
-      # simply returning platform_mac? || platform_linux?
-      # This is not ideal... but otherwise overriding platform via
-      # LOLCOMMITS_FAKEPLATFORM when running cucumber tests won't work.
-      # We should come up with a better solution.
-      %w(Mac Linux).include? platform
+      platform_linux? || platform_mac?
     end
 
     # Is a valid install of imagemagick present on the system?

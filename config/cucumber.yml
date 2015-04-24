@@ -1,2 +1,2 @@
 ---
-default: <%= (RUBY_PLATFORM =~ /darwin/) ? 'features' : '--tags ~@mac-only' %>
+default: <%= (RbConfig::CONFIG['host_os'] =~ /darwin/) ? 'features' : '--tags ~@mac-only' %>

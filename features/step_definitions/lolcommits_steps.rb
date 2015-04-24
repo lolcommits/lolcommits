@@ -132,8 +132,8 @@ Then(/^there should be (\d+) commit entries in the git log$/) do |n|
   expect(n.to_i).to eq `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
 end
 
-Given(/^I am using a "(.*?)" platform$/) do |platform_name|
-  set_env 'LOLCOMMITS_FAKEPLATFORM', platform_name
+Given(/^I am using a "(.*?)" platform$/) do |host_os_name|
+  set_env 'LOLCOMMITS_FAKE_HOST_OS', host_os_name
 end
 
 When(/^I wait for the child process to exit in "(.*?)"$/) do |repo_name|

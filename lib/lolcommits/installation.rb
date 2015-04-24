@@ -68,11 +68,17 @@ module Lolcommits
       end
     end
 
-    def self.hook_script(_add_shebang = true)
+    def self.hook_script
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
-      locale_export = "export LANG=\"#{ENV['LANG']}\"\n"
-      hook_export   = "export PATH=\"#{ruby_path}:#{imagick_path}:$PATH\"\n"
+
+      if Lolcommits::Platform.platform_windows?
+        hook_export = "set path \"#{ruby_path};#{imagick_path};%PATH%\"\n"
+      else
+        locale_export = "export LANG=\"#{ENV['LANG']}\"\n"
+        hook_export   = "export PATH=\"#{ruby_path}:#{imagick_path}:$PATH\"\n"
+      end
+
       capture_cmd   = 'lolcommits --capture'
       capture_args  = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
 

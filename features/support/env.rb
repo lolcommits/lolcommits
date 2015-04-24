@@ -15,11 +15,13 @@ Before do
   @puts = true
   @aruba_timeout_seconds = 20
 
-  set_env 'LOLCOMMITS_FAKECAPTURE', '1'
+  # prevent launchy from opening gifs in tests
   set_env 'LAUNCHY_DRY_RUN', 'true'
+  set_env 'LOLCOMMITS_CAPTURER', 'CaptureFake'
 
   author_name  = 'Testy McTesterson'
   author_email = 'testy@tester.com'
+
   set_env 'GIT_AUTHOR_NAME',     author_name
   set_env 'GIT_COMMITTER_NAME',  author_name
   set_env 'GIT_AUTHOR_EMAIL',    author_email
@@ -53,6 +55,7 @@ end
 Before('@in-tempdir') do
   @dirs = [Dir.mktmpdir]
 end
+
 After('@in-tempdir') do
   FileUtils.rm_rf(@dirs.first)
 end
