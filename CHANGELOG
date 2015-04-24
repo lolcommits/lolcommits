@@ -1,6 +1,9 @@
 0.6.0 (WIP)
   * extract plugins to seperate gems ...
 
+0.5.9 (24 April 2015)
+  * Fix windows post commit hook path (@matthutchinson #278)
+
 0.5.8 (22 April 2015)
   * Fix Windows MiniMagick issue (@matthutchinson #276)
   * Rubocop code clean ups (@nysthee #272)
