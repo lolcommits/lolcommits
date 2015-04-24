@@ -26,7 +26,6 @@ branches:
     - gh-pages
 
 notifications:
-  irc: chat.freenode.net#lolcommits
   slack:
     secure: BkGsQOYMJqW55j94S1QwmR17BkwuTIULKVhwzRdnv37BvVcC17y9KLMo8NH+bcao36XZx9DukXcTyaDQc6tCSlFEbG/FcPUJM8bx9EWjHUoGVg1KdpVu/nVHu+GKosrB41lM3nfJWCnF0TOSnmTXU+bV8Pwkij+L5X+gNyAT2Ns=
 
