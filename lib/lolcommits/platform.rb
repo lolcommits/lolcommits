@@ -4,24 +4,22 @@ require 'rbconfig'
 
 module Lolcommits
   class Platform
-    # A convenience name for the platform.  Mainly used for metaprogramming.
-    # @return String
-    def self.platform
-      if platform_mac?        then 'Mac'
-      elsif platform_linux?   then 'Linux'
-      elsif platform_windows? then 'Windows'
-      elsif platform_cygwin?  then 'Cygwin'
-      else
-        fail 'Unknown / Unsupported Platform.'
-      end
-    end
-
     # The capturer class constant to use
     # @return Class
     def self.capturer_class(animate = false)
-      Object.const_get('Lolcommits').const_get(
-        ENV['LOLCOMMITS_CAPTURER'] || "Capture#{platform}#{animate ? 'Animated' : nil}"
-      )
+      if ENV['LOLCOMMITS_CAPTURER']
+        const_get(ENV['LOLCOMMITS_CAPTURER'])
+      elsif platform_mac?
+        animate ? CaptureMacAnimated : CaptureMac
+      elsif platform_linux?
+        animate ? CaptureLinuxAnimated : CaptureLinux
+      elsif platform_windows?
+        CaptureWindows
+      elsif platform_cygwin?
+        CaptureCygwin
+      else
+        fail 'Unknown / Unsupported Platform.'
+      end
     end
 
     # Are we on a Mac platform?
