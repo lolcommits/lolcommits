@@ -34,12 +34,8 @@ install:
   - gem --version
   - gem install bundler --quiet --no-ri --no-rdoc
   - bundler --version
-  - choco install imagemagick
+  - choco install imagemagick.app -y
 
-before_build:
-  #- icacls "%APPVEYOR_BUILD_FOLDER%\vendor\ext\CommandCam\CommandCam.exe" /grant:r "Administrators":RX
-  #- icacls "%APPVEYOR_BUILD_FOLDER%\vendor\ext\imagesnap\imagesnap" /grant:r "Administrators":RX
-  #- icacls "%APPVEYOR_BUILD_FOLDER%\vendor\ext\videosnap\videosnap" /grant:r "Administrators":RX
 build_script:
   - bundle install
 
