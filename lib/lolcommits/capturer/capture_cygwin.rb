@@ -9,10 +9,10 @@ module Lolcommits
         delaycmd = " /delay #{capture_delay * 1000}"
       end
 
-      _, r, _ = Open3.popen3("#{executable_path} /filename `cygpath -w #{snapshot_location}`#{delaycmd}")
+      _stdin, stdout, _stderr = Open3.popen3("#{executable_path} /filename `cygpath -w #{snapshot_location}`#{delaycmd}")
 
       # looks like we still need to read the output for something to happen
-      r.read
+      stdout.read
     end
 
     def executable_path

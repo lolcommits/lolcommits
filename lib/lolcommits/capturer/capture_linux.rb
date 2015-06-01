@@ -21,9 +21,9 @@ module Lolcommits
 
       debug 'LinuxCapturer: calling out to mplayer to capture image'
       # mplayer's output is ugly and useless, let's throw it away
-      _, r, _ = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} -fps #{MPLAYER_FPS} tv://")
+      _stdin, stdout, _stderr = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} -fps #{MPLAYER_FPS} tv://")
       # looks like we still need to read the output for something to happen
-      r.read
+      stdout.read
 
       debug 'LinuxCapturer: calling out to mplayer to capture image'
 
