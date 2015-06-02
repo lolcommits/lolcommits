@@ -47,6 +47,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('yam', '~> 2.4.0')            # yammer
   s.add_runtime_dependency('json', '~> 1.8.1')           # lolsrv
   s.add_runtime_dependency('httmultiparty', '~> 0.3.16') # dot_com
+  s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
 
   # development gems
   s.add_development_dependency('fivemat', '~> 1.3.1')
