@@ -6,12 +6,10 @@ platform:
 
 environment:
   matrix:
-    - ruby_version: "187"
-    - ruby_version: "192"
     - ruby_version: "193"
     - ruby_version: "200"
-    - ruby_version: "215"
-    - ruby_version: "222"
+    - ruby_version: "21"
+    - ruby_version: "22"
 
 clone_folder: c:\projects\lolcommits
 clone_depth: 10
