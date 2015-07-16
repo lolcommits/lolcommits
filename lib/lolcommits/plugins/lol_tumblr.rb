@@ -20,6 +20,8 @@ module Lolcommits
       else
         puts "Tumblr post FAILED! #{r}"
       end
+    rescue Faraday::Error => e
+      puts "Tumblr post FAILED! #{e.message}"
     end
 
     def configure_options!
