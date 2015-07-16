@@ -26,6 +26,7 @@ require 'lolcommits/plugins/uploldz'
 require 'lolcommits/plugins/lolsrv'
 require 'lolcommits/plugins/lol_yammer'
 require 'lolcommits/plugins/lol_protonet'
+require 'lolcommits/plugins/lol_tumblr'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'
