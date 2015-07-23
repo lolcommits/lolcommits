@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class Loltext < Plugin
+    DEFAULT_FONT_PATH = File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
+
     def self.name
       'loltext'
     end
@@ -28,7 +30,7 @@ module Lolcommits
         c.stroke config_option(type, :stroke_color)
         c.fill config_option(type, :color)
         c.gravity position_transform(config_option(type, :position))
-        c.pointsize config_option(type, :size)
+        c.pointsize runner.animate? ? 24 : config_option(type, :size)
         c.font config_option(type, :font)
         c.annotate '0', string
       end
@@ -70,15 +72,15 @@ module Lolcommits
     def config_defaults
       {
         :message => {
-          :font     => default_font_path,
-          :size     => runner.animate? ? 24 : 48,
+          :font     => DEFAULT_FONT_PATH,
+          :size     => 48,
           :position => 'SW',
           :color    => 'white',
           :stroke_color => 'black'
         },
         :sha => {
-          :font     => default_font_path,
-          :size     => runner.animate? ? 20 : 32,
+          :font     => DEFAULT_FONT_PATH,
+          :size     => 32,
           :position => 'NE',
           :color    => 'white',
           :stroke_color => 'black'
@@ -97,7 +99,7 @@ module Lolcommits
 
     private
 
-    # explode psuedo-names for text positions
+    # explode psuedo-names for text position
     def position_transform(position)
       case position
       when 'NE'
@@ -111,10 +113,6 @@ module Lolcommits
       when 'C'
         'Center'
       end
-    end
-
-    def default_font_path
-      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
     end
 
     # do whatever is required to commit message to get it clean and ready for imagemagick

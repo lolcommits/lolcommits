@@ -18,7 +18,7 @@ class LolTest < MiniTest::Test
   # this will test the permissions but only locally, important before building a gem package!
   #
   def test_permissions
-    impact_perms     = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')).mode & 0777
+    impact_perms     = File.lstat(Lolcommits::Loltext::DEFAULT_FONT_PATH).mode & 0777
     imagesnap_perms  = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'imagesnap', 'imagesnap')).mode & 0777
     videosnap_perms  = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'videosnap', 'videosnap')).mode & 0777
     commandcam_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'CommandCam', 'CommandCam.exe')).mode & 0777

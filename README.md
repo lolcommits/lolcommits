@@ -45,7 +45,7 @@ Install dependencies using your package manager of choice, for example in
 Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
-    
+
 For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no longer ships with the default Ubuntu sources. [Downloads for ffmpeg](http://ffmpeg.org/download.html)
 
 Then install the gem with:
@@ -104,7 +104,6 @@ via environment variables like so;
   **requires ffmpeg**
 * `LOLCOMMITS_DELAY` (in seconds) set delay persistently (for slow webcams to
   warmup)
-* `LOLCOMMITS_FONT` set font file location for lolcommit text
 * `LOLCOMMITS_FORK` fork lolcommit runner (capture command forks to a new
   process, speedily returning you to your terminal)
 * `LOLCOMMITS_STEALTH` disable notification messages at commit time
@@ -116,12 +115,16 @@ in your repository's `.git/hooks/post-commit` file).
 * `--device=DEVICE` or `-d DEVICE`
 * `--animate=SECONDS` or `-a SECONDS`
 * `--delay=SECONDS` or `-w SECONDS`
-* `--font=FONT_PATH` or `-f FONT_PATH`
 * `--fork`
 * `--stealth`
 
-Use `lolcommits --devices` to list all attached video devices available for
-capturing. Read how to [configure commit
+To change the font (including point size, position & color), simply configure
+the default loltext plugin with this command:
+
+    lolcommits --config -p loltext
+
+You can use `lolcommits --devices` to list all attached video devices available
+for capturing. Read how to [configure commit
 capturing](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing)
 for more details.
 
@@ -149,9 +152,16 @@ animated lolcommit gif")
 
 ### Plugins
 
-There are a growing amount of plugins for lolcommits to enable things like
-Twitter upload, translating your commit messages to lolspeak, etc.  Check them
-out on the [plugins
+A growing number of plugins are now available allowing you to transform or share
+your lolcommits with others. The default plugin simply appends your commit
+message and sha to the captured image. Others can auto post to Twitter, Tumblr
+(and other services), or even translate your commit messages to
+[lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak). They can be
+easily enabled, configured or disabled with our config command:
+
+    lolcommits --config
+
+Check them out on our [plugins
 page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 ## Troubles?

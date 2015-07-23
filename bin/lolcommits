@@ -72,14 +72,12 @@ end
 def do_capture
   capture_delay   = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
   capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
-  capture_font    = Choice.choices[:font] || ENV['LOLCOMMITS_FONT'] || nil
   capture_device  = default_device
 
   capture_options = {
     :capture_delay   => capture_delay,
     :capture_stealth => capture_stealth,
     :capture_device  => capture_device,
-    :font            => capture_font,
     :capture_animate => capture_animate,
     :config          => configuration
   }
@@ -265,12 +263,6 @@ Choice.options do
   option :debug do
     long '--debug'
     desc 'output debugging information'
-  end
-
-  option :font do
-    long '--font=FONT_PATH'
-    short '-f'
-    desc 'pass font file location'
   end
 
   option :gif do
