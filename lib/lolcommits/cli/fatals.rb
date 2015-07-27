@@ -29,8 +29,8 @@ module Lolcommits
           end
         end
 
-        # make sure we can find the Impact truetype font
-        unless File.readable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'fonts', 'Impact.ttf')
+        # make sure we can find the default font
+        unless File.readable? Lolcommits::Loltext::DEFAULT_FONT_PATH
           fatal "Couldn't properly read Impact font from gem package, "\
                 'please file a bug?!'
           exit 1

@@ -4,7 +4,7 @@ require 'lolcommits/platform'
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
-                  :sha, :snapshot_loc, :main_image, :config, :font, :git_info,
+                  :sha, :snapshot_loc, :main_image, :config, :git_info,
                   :capture_animate
 
     include Methadone::CLILogging
@@ -85,7 +85,6 @@ module Lolcommits
         :capture_device    => capture_device,
         :capture_delay     => capture_delay,
         :snapshot_location => snapshot_loc,
-        :font              => font,
         :video_location    => config.video_loc,
         :frames_location   => config.frames_loc,
         :animated_duration => capture_animate

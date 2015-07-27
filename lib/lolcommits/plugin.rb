@@ -50,8 +50,8 @@ module Lolcommits
         print "#{option}: "
         val = parse_user_input(STDIN.gets.strip)
         # check enabled option isn't a String
-        if (option == 'enabled') && val.is_a?(String)
-          puts "Aborting - please enable with 'true' or 'false'"
+        if (option == 'enabled') && ![true, false].include?(val)
+          puts "Aborting - please respond with 'true' or 'false'"
           exit 1
         else
           acc.merge(option => val)
@@ -60,10 +60,15 @@ module Lolcommits
     end
 
     def parse_user_input(str)
+      # cater for bools, strings, ints and blanks
       if 'true'.casecmp(str) == 0
         true
       elsif 'false'.casecmp(str) == 0
         false
+      elsif str =~ /^[0-9]+$/
+        str.to_i
+      elsif str.strip.empty?
+        nil
       else
         str
       end

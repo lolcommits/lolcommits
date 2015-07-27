@@ -114,30 +114,49 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
 
-  Scenario: Configuring plugin
+  Scenario: Configuring loltext plugin
     Given I am in a git repo named "config-test"
     When I run `lolcommits --config` interactively
       And I wait for output to contain "Name of plugin to configure:"
       Then I type "loltext"
       And I wait for output to contain "enabled:"
       Then I type "true"
+      And I wait for output to contain "color"
+      Then I type "red"
+      And I wait for output to contain "font"
+      Then I type "my-font.ttf"
+      And I wait for output to contain "position"
+      Then I type "SouthEast"
+      And I wait for output to contain "size"
+      Then I type "32"
+      And I wait for output to contain "stroke color"
+      Then I type "white"
+      And I wait for output to contain "sha text"
+      Then I type ""
+      Then I type ""
+      Then I type ""
+      Then I type ""
+      Then I type ""
     Then the output should contain "Successfully configured plugin: loltext"
-    And the output should contain a list of plugins
-    And a file named "~/.lolcommits/config-test/config.yml" should exist
+      And the output should contain a list of plugins
+      And a file named "~/.lolcommits/config-test/config.yml" should exist
     When I successfully run `lolcommits --show-config`
-    Then the output should match /loltext:\s+enabled: true/
+    Then the output should match /enabled: true/
+    And the output should match /:font: my-font\.ttf/
+    And the output should match /:size: 32/
+    And the output should match /:position: SouthEast/
+    And the output should match /:color: red/
+    And the output should match /:stroke_color: white/
 
-  Scenario: Configuring plugin in test mode affects test loldir not repo loldir
+  Scenario: Configuring loltext plugin in test mode affects test loldir not repo loldir
     Given I am in a git repo named "testmode-config-test"
-    When I run `lolcommits --config --test` interactively
-      And I wait for output to contain "Name of plugin to configure:"
-      Then I type "loltext"
+    When I run `lolcommits --config --test -p loltext` interactively
       And I wait for output to contain "enabled:"
-      Then I type "true"
+      Then I type "false"
     Then the output should contain "Successfully configured plugin: loltext"
     And a file named "~/.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
-    Then the output should match /loltext:\s+enabled: true/
+    Then the output should match /loltext:\s+enabled: false/
 
   Scenario: test capture should work regardless of whether in a git repo
     Given I am in a directory named "nothingtoseehere"
