@@ -1,7 +1,13 @@
 ### Version History
 
-0.6.0 (WIP)
+0.7.0 (WIP)
   * extract plugins to seperate gems ...
+
+0.6.0 (27 July 2015)
+  * Configurable text options for loltext plugin (@matthutchinson #282)
+  * Working AppVeyor configuration added (@nysthee #280)
+  * Tumblr plugin (@mveytsman #279)
+  * CHANGELOG (this file) now in markdown format (@matthutchinson)
 
 0.5.9 (24 April 2015)
   * Fix windows post commit hook path (@matthutchinson #278)
