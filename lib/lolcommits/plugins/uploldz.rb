@@ -18,14 +18,17 @@ module Lolcommits
       else
         debug "Posting capture to #{configuration['endpoint']}"
         RestClient.post(configuration['endpoint'],
-                        {:file         => File.new(runner.main_image),
-                        :message      => runner.message,
-                        :repo         => runner.git_info.repo,
-                        :author_name  => runner.git_info.author_name,
-                        :author_email => runner.git_info.author_email,
-                        :sha          => runner.sha,
-                        :key          => configuration['optional_key']
-                        },{:Authorization=>configuration['optional_authorization']})
+                        {
+                          :file         => File.new(runner.main_image),
+                          :message      => runner.message,
+                          :repo         => runner.git_info.repo,
+                          :author_name  => runner.git_info.author_name,
+                          :author_email => runner.git_info.author_email,
+                          :sha          => runner.sha,
+                          :key          => configuration['optional_key']
+                        },
+                        :Authorization => configuration['optional_authorization']
+                       )
       end
     rescue => e
       log_error(e, "ERROR: RestClient POST FAILED #{e.class} - #{e.message}")
