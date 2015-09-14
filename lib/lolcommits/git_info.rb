@@ -68,7 +68,7 @@ module Lolcommits
     private
 
     def remote_https_url(url)
-      url.gsub(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '') + '/commit/'
+      url.tr(':', '/').tr(/^git@/, 'https://').tr(/\.git$/, '') + '/commit/'
     end
 
     def repository(path = '.')

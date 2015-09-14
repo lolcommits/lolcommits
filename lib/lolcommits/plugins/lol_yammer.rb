@@ -68,7 +68,7 @@ module Lolcommits
         c.client_secret = YAMMER_CLIENT_SECRET
       end
 
-      client = Yammer::Client.new(:access_token  => configuration['access_token'])
+      client = Yammer::Client.new(:access_token => configuration['access_token'])
 
       retries = YAMMER_RETRY_COUNT
       begin

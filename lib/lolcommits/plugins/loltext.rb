@@ -63,7 +63,7 @@ module Lolcommits
 
       # sort option keys since different `Hash#keys` varys across Ruby versions
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
-        print "  #{opt.to_s.gsub('_', ' ')} (#{defaults[opt]}): "
+        print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
         val = parse_user_input(STDIN.gets.strip)
         acc.merge(opt => val)
       end
