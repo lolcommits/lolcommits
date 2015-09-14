@@ -6,11 +6,11 @@ archives a lolcat style image with it.  Git blame has never been so much fun.
 By default, the lol images are stored by a Github style short SHA in a
 `~/.lolcommits` directory created for you.
 
-[![Gem Version](http://img.shields.io/gem/v/lolcommits.svg?style=flat)](https://rubygems.org/gems/lolcommits)
-[![Build Status](http://img.shields.io/travis/mroth/lolcommits.svg?style=flat)](https://travis-ci.org/mroth/lolcommits)
-[![Dependency Status](http://img.shields.io/gemnasium/mroth/lolcommits.svg?style=flat)](https://gemnasium.com/mroth/lolcommits)
-[![CodeClimate Status](http://img.shields.io/codeclimate/github/mroth/lolcommits.svg?style=flat)](https://codeclimate.com/github/mroth/lolcommits)
-[![Coverage Status](http://img.shields.io/coveralls/mroth/lolcommits.svg?style=flat)](https://coveralls.io/r/mroth/lolcommits)
+[![Gem Version](https://badge.fury.io/rb/lolcommits.svg)](https://rubygems.org/gems/lolcommits)
+[![Build Status](https://travis-ci.org/mroth/lolcommits.svg?branch=master)](https://travis-ci.org/mroth/lolcommits)
+[![Dependency Status](https://gemnasium.com/mroth/lolcommits.svg)](https://gemnasium.com/mroth/lolcommits)
+[![CodeClimate Status](https://d3s6mut3hikguw.cloudfront.net/github/mroth/lolcommits/badges/gpa.svg)](https://codeclimate.com/github/mroth/lolcommits)
+[![Coverage Status](https://coveralls.io/repos/mroth/lolcommits/badge.svg?branch=master&service=github)](https://coveralls.io/r/mroth/lolcommits)
 
 ## Sample images
 
