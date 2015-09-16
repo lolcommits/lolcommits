@@ -1,11 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'rest_client'
 
-SLACK_FILE_UPLOAD_URL = 'https://slack.com/api/files.upload'
-SLACK_RETRY_COUNT = 2
-
 module Lolcommits
   class LolSlack < Plugin
+
+    ENDPOINT_URL = 'https://slack.com/api/files.upload'
+    RETRY_COUNT  = 2
+
     def self.name
       'slack'
     end
@@ -24,6 +25,7 @@ module Lolcommits
       print "Enter the generated token below, then press enter: (e.g. xxxx-xxxxxxxxx-xxxx) \n"
       code = STDIN.gets.to_s.strip
       print "Enter a comma-seperated list of channel IDs to post images in, then press enter: (e.g. C1234567890,C1234567890)\n"
+      print "NOTE: you must use channel IDs (not channel names). Grab them from here; https://api.slack.com/methods/channels.list/test\n"
       channels = STDIN.gets.to_s.strip
 
       { 'access_token' => code,
@@ -42,17 +44,17 @@ module Lolcommits
     def run_postcapture
       return unless valid_configuration?
 
-      retries = SLACK_RETRY_COUNT
+      retries = RETRY_COUNT
       begin
 
         response = RestClient.post(
-          SLACK_FILE_UPLOAD_URL,
-          :file         => File.new(runner.main_image),
-          :token        => configuration['access_token'],
-          :filetype     => 'jpg',
-          :filename     => runner.sha,
-          :title        => runner.message + "[#{runner.git_info.repo}]",
-          :channels     => configuration['channels'])
+          ENDPOINT_URL,
+          :file     => File.new(runner.main_image),
+          :token    => configuration['access_token'],
+          :filetype => 'jpg',
+          :filename => runner.sha,
+          :title    => runner.message + "[#{runner.git_info.repo}]",
+          :channels => configuration['channels'])
 
         debug response
       rescue => e
