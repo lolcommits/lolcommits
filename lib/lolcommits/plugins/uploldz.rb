@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'rest_client'
+require 'base64'
 
 module Lolcommits
   class Uploldz < Plugin
@@ -7,7 +8,12 @@ module Lolcommits
 
     def initialize(runner)
       super
-      options.concat(%w(endpoint optional_key optional_authorization))
+      options.concat(%w(
+        endpoint
+        optional_key
+        optional_http_auth_username
+        optional_http_auth_password
+      ))
     end
 
     def run_postcapture
@@ -27,7 +33,7 @@ module Lolcommits
                           :sha          => runner.sha,
                           :key          => configuration['optional_key']
                         },
-                        :Authorization => configuration['optional_authorization']
+                        :Authorization => authorization_header
                        )
       end
     rescue => e
@@ -36,6 +42,14 @@ module Lolcommits
 
     def configured?
       !configuration['enabled'].nil? && configuration['endpoint']
+    end
+
+    def authorization_header
+      user     = configuration['optional_http_auth_username']
+      password = configuration['optional_http_auth_password']
+      return unless user || password
+
+      'Basic ' + Base64.encode64("#{user}:#{password}").chomp
     end
 
     def self.name
