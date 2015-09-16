@@ -3,6 +3,12 @@
 0.7.0 (WIP)
   * extract plugins to seperate gems ...
 
+0.6.1 (16 September 2015)
+  * Optional http auth header user/password in uploldz plugin (@felixroos #283)
+  * Slack plugin added (@yasakbulut #284)
+  * Updated rubies in Travis settings (@matthutchinson)
+  * Fixed README badge URLS (@matthutchinson)
+
 0.6.0 (27 July 2015)
   * Configurable text options for loltext plugin (@matthutchinson #282)
   * Working AppVeyor configuration added (@nysthee #280)
