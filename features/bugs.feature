@@ -27,16 +27,6 @@ Feature: Bug regression testing
     Then there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
 
   #
-  # issue #80, https://github.com/mroth/lolcommits/issues/80
-  #
-  Scenario: don't warn about system_timer (on MRI 1.8.7)
-    When I successfully run `lolcommits`
-    Then the output should not contain:
-    """
-    Faraday: you may want to install system_timer for reliable timeouts
-    """
-
-  #
   # issue #81, https://github.com/mroth/lolcommits/issues/81
   #
   Scenario: don't want initialized constant warning from Faraday (MRI 1.8.7)
