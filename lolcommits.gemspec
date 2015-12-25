@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '=1.2.8')             # ~> 1.2.9 has issues with Ruby 1.8.7
   s.add_development_dependency('cucumber', '=1.3.19')   # ~> 2+ requries Ruby >= 1.9.3
   s.add_development_dependency('tins', '=1.6.0')        # ~> 1.6+ requries Ruby >= 2.0
-  s.add_development_dependency('addressable', '=2.3.8') # ~> 2.4 requries Ruby >= 2.0
+  s.add_development_dependency('addressable', '=2.2.7') # ~> 2.3+ requries Ruby >= 2.0
 
   # core
   s.add_runtime_dependency('choice', '~> 0.1.6')
