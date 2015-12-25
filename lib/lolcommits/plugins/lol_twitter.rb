@@ -1,11 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'yaml'
 require 'oauth'
-
-# twitter gem currently spams stdout when activated, surpress warnings just during the inital require
-original_verbose, $VERBOSE = $VERBOSE, nil # Supress warning messages.
 require 'twitter'
-$VERBOSE = original_verbose # activate warning messages again.
 
 module Lolcommits
   class LolTwitter < Plugin
