@@ -24,9 +24,6 @@ module Lolcommits
     # this used to be handled with ActiveSupport::Callbacks, but
     # now we're just using a simple procedural list
     def run
-      # abort if we are in a rebase
-      die_if_rebasing!
-
       # do things that need to happen before capture and plugins
 
       # do native plugins that need to happen before capture
@@ -109,15 +106,6 @@ module Lolcommits
   end
 
   protected
-
-  def die_if_rebasing!
-    debug "Runner: Making sure user isn't rebasing"
-    return unless git_info && !git_info.repo_internal_path.nil?
-    mergeclue = File.join git_info.repo_internal_path, 'rebase-merge'
-    return unless File.directory? mergeclue
-    debug 'Runner: Rebase detected, silently exiting!'
-    exit 0
-  end
 
   def resize_snapshot!
     debug 'Runner: resizing snapshot'
