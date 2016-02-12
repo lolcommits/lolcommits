@@ -40,6 +40,8 @@ module Lolcommits
       log_error(e, "ERROR: RestClient POST FAILED #{e.class} - #{e.message}")
     end
 
+
+
     def configured?
       !configuration['enabled'].nil? && configuration['endpoint']
     end
