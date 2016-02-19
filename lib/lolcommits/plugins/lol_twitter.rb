@@ -5,12 +5,12 @@ require 'twitter'
 
 module Lolcommits
   class LolTwitter < Plugin
-    TWITTER_API_ENDPOINT    = 'https://api.twitter.com'
-    TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'
-    TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'
+    TWITTER_API_ENDPOINT    = 'https://api.twitter.com'.freeze
+    TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'.freeze
+    TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'.freeze
     TWITTER_RETRIES         = 2
     TWITTER_PIN_REGEX       = /^\d{4,}$/ # 4 or more digits
-    DEFAULT_SUFFIX          = '#lolcommits'
+    DEFAULT_SUFFIX          = '#lolcommits'.freeze
 
     def run_postcapture
       return unless valid_configuration?
@@ -50,11 +50,8 @@ module Lolcommits
       # ask user to configure tokens if enabling
       if options['enabled']
         auth_config = configure_auth!
-        if auth_config
-          options = options.merge(auth_config).merge(configure_prefix_suffix)
-        else
-          return # return nil if configure_auth failed
-        end
+        return unless auth_config
+        options = options.merge(auth_config).merge(configure_prefix_suffix)
       end
       options
     end

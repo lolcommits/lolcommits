@@ -36,7 +36,7 @@ module Lolcommits
         gif = MiniMagick::Image.new File.join @configuration.archivedir, filename
 
         # This is for ruby 1.8.7, *lolimages just doesn't work with ruby 187
-        gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, "#{gif.path}"].flatten)
+        gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, gif.path.to_s].flatten)
 
         puts "*** #{gif.path} generated."
       end
