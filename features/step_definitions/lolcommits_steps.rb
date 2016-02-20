@@ -88,7 +88,7 @@ Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   loldir = absolute_path("~/.lolcommits/#{repo}")
   FileUtils.mkdir_p loldir
   num_images.to_i.times do
-    hex = "#{format '%011x', (rand * 0xfffffffffff)}"
+    hex = format('%011x', (rand * 0xfffffffffff)).to_s
     FileUtils.cp 'test/images/test_image.jpg', File.join(loldir, "#{hex}.jpg")
   end
 end

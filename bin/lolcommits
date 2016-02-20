@@ -95,7 +95,7 @@ def do_capture
       }
 
       # fire off runner with the overriden fake commit metadata
-      runner = Lolcommits::Runner.new(capture_options.merge override_text)
+      runner = Lolcommits::Runner.new(capture_options.merge(override_text))
       runner.run
 
       # automatically open so user can see the test image results immediately
@@ -322,8 +322,7 @@ elsif Choice.choices[:plugins]
   configuration.puts_plugins
 elsif Choice.choices[:devices]
   puts Platform.device_list
-  puts "Specify a device with --device=\"{device name}\" "\
-    'or set the LOLCOMMITS_DEVICE env variable'
+  puts 'Specify a device with --device="{device name}" or set the LOLCOMMITS_DEVICE env variable'
 elsif Choice.choices[:last]
   do_last
 elsif Choice.choices[:browse]

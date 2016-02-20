@@ -3,7 +3,7 @@ require 'httmultiparty'
 
 module Lolcommits
   class DotCom < Plugin
-    BASE_URL = 'http://lolcommits-dot-com.herokuapp.com'
+    BASE_URL = 'http://lolcommits-dot-com.herokuapp.com'.freeze
 
     def initialize(runner)
       super

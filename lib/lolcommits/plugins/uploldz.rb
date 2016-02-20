@@ -8,12 +8,14 @@ module Lolcommits
 
     def initialize(runner)
       super
-      options.concat(%w(
-        endpoint
-        optional_key
-        optional_http_auth_username
-        optional_http_auth_password
-      ))
+      options.concat(
+        %w(
+          endpoint
+          optional_key
+          optional_http_auth_username
+          optional_http_auth_password
+        )
+      )
     end
 
     def run_postcapture

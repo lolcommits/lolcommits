@@ -3,7 +3,7 @@ require 'rest_client'
 
 module Lolcommits
   class LolSlack < Plugin
-    ENDPOINT_URL = 'https://slack.com/api/files.upload'
+    ENDPOINT_URL = 'https://slack.com/api/files.upload'.freeze
     RETRY_COUNT  = 2
 
     def self.name

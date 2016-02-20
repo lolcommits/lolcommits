@@ -7,9 +7,9 @@ require 'tumblr_client'
 
 module Lolcommits
   class LolTumblr < Plugin
-    TUMBLR_API_ENDPOINT    = 'https://www.tumblr.com'
-    TUMBLR_CONSUMER_KEY    = '2FtMEDpEPkxjoUdkpHh42h9wqTu9IVS7Ra0QyNZGixdCvhllN2'
-    TUMBLR_CONSUMER_SECRET = 'qWuvxgFUR2YyWKtbWOkDTMAiBEbj7ZGaNLaNQPba0PI1N4JpBs'
+    TUMBLR_API_ENDPOINT    = 'https://www.tumblr.com'.freeze
+    TUMBLR_CONSUMER_KEY    = '2FtMEDpEPkxjoUdkpHh42h9wqTu9IVS7Ra0QyNZGixdCvhllN2'.freeze
+    TUMBLR_CONSUMER_SECRET = 'qWuvxgFUR2YyWKtbWOkDTMAiBEbj7ZGaNLaNQPba0PI1N4JpBs'.freeze
 
     def run_postcapture
       return unless valid_configuration?
@@ -29,11 +29,8 @@ module Lolcommits
       # ask user to configure tokens if enabling
       if options['enabled']
         auth_config = configure_auth!
-        if auth_config
-          options = options.merge(auth_config).merge(configure_tumblr_name)
-        else
-          return # return nil if configure_auth failed
-        end
+        return unless auth_config
+        options = options.merge(auth_config).merge(configure_tumblr_name)
       end
       options
     end

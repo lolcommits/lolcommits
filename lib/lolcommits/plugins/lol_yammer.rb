@@ -3,9 +3,9 @@ require 'yammer'
 require 'rest_client'
 
 # https://developer.yammer.com/oauth2-quickstart/
-YAMMER_CLIENT_ID        = 'bgORyeKtnjZJSMwp8oln9g'
-YAMMER_CLIENT_SECRET    = 'oer2WdGzh74a5QBbW3INUxblHK3yg9KvCZmiBa2r0'
-YAMMER_ACCESS_TOKEN_URL = 'https://www.yammer.com/oauth2/access_token.json'
+YAMMER_CLIENT_ID        = 'bgORyeKtnjZJSMwp8oln9g'.freeze
+YAMMER_CLIENT_SECRET    = 'oer2WdGzh74a5QBbW3INUxblHK3yg9KvCZmiBa2r0'.freeze
+YAMMER_ACCESS_TOKEN_URL = 'https://www.yammer.com/oauth2/access_token.json'.freeze
 YAMMER_RETRY_COUNT      = 2
 
 module Lolcommits
@@ -28,7 +28,7 @@ module Lolcommits
       print 'Enter code param from the redirected URL, then press enter: '
       code = STDIN.gets.to_s.strip
 
-      url = "#{YAMMER_ACCESS_TOKEN_URL}"
+      url = YAMMER_ACCESS_TOKEN_URL
       debug "access_token url: #{url}"
       params = {
         'client_id' => YAMMER_CLIENT_ID,
@@ -47,11 +47,8 @@ module Lolcommits
       # ask user to configure tokens if enabling
       if options['enabled']
         auth_config = configure_access_token
-        if auth_config
-          options.merge!(auth_config)
-        else
-          return # return nil if configure_auth failed
-        end
+        return unless auth_config
+        options.merge!(auth_config)
       end
       options
     end

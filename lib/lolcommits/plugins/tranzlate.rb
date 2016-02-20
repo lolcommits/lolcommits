@@ -27,7 +27,6 @@ module Lolspeak
     /want/             => %w(wants),
     /ead\b/            => %w(edd),
     /ck/               => %w(kk kkk),
-    /sion/             => %w(shun),
     /cat|kitten|kitty/ => %w(kitteh kittehz cat fuzzeh fuzzyrumpus foozles fuzzbut fluffernutter beast mew),
     /eak/              => %w(ekk),
     /age/              => %w(uj),
@@ -79,7 +78,7 @@ module Lolspeak
     /can\si\s(?:ple(?:a|e)(?:s|z)e?)?\s?have\sa/ => ['i can haz'],
     /(?:hello|\bhi\b|\bhey\b|howdy|\byo\b),?/    => ['oh hai,'],
     /(?:god\b|allah|buddah?|diety|lord)/         => ['ceiling cat']
-  }
+  }.freeze
 
   def tranzlate(str)
     lolstr = str.dup

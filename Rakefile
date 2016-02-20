@@ -32,7 +32,7 @@ Rake::TestTask.new do |t|
 end
 
 Rake::FileUtilsExt.verbose(false)
-CUKE_RESULTS = 'results.html'
+CUKE_RESULTS = 'results.html'.freeze
 CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features) do |t|
   optstr = "features --format html -o #{CUKE_RESULTS} --format Fivemat -x"
