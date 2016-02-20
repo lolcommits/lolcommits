@@ -3,6 +3,11 @@
 0.7.0 (WIP)
   * extract plugins to seperate gems ...
 
+0.6.2 (21 February 2016)
+  * Avoid invoking ruby if in a rebase (@jhawthorn #286)
+  * Slow gif problem on mac (@a06kin #289)
+  * Peg RuboCop gem to 0.37.2 and fix cop issues (@matthutchinson #292)
+
 0.6.1 (16 September 2015)
   * Optional http auth header user/password in uploldz plugin (@felixroos #283)
   * Slack plugin added (@yasakbulut #284)
