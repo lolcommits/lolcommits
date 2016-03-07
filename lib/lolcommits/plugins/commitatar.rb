@@ -35,7 +35,7 @@ module Lolcommits
       if options['enabled']
         auth_config = configure_auth!
         return unless auth_config
-        options = options.merge(auth_config).merge(configure_prefix_suffix)
+        options = options.merge(auth_config)
       end
       options
     end
