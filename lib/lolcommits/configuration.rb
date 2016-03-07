@@ -94,7 +94,7 @@ module Lolcommits
         config[plugin_name] = plugin_config
         save(config)
         puts self
-        puts "\nSuccessfully configured plugin: #{plugin_name}"
+        puts "\nSuccessfully configured plugin: #{plugin_name} at path '#{configuration_file}'"
       else
         puts "\nAborted plugin configuration for: #{plugin_name}"
       end
