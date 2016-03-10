@@ -2,9 +2,9 @@
 
 Pull Requests are welcome! To start helping out on lolcommits:
 
-Fork then clone the repository:
+[Fork](https://guides.github.com/activities/forking/) then clone the repository:
 
-    git clone git@github.com:your-username/acts_as_textcaptcha.git
+    git clone git@github.com:your-username/lolcommits.git
 
 Create your feature branch:
 
