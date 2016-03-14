@@ -17,6 +17,7 @@ before_install:
  - touch ~/bin/mplayer ~/bin/ffmpeg
  - chmod +x ~/bin/mplayer ~/bin/ffmpeg
  - export PATH=~/bin:$PATH
+ - git --version
 
 matrix:
   allow_failures:
