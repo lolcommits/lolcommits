@@ -3,6 +3,10 @@
 0.7.0 (WIP)
   * extract plugins to seperate gems ...
 
+0.6.3 (14 March 2016)
+  * Add quotes to correctly handle paths with spaces (@pedrocunha #296)
+  * Added plugin config path to output (@KrauseFx #294)
+
 0.6.2 (21 February 2016)
   * Avoid invoking ruby if in a rebase (@jhawthorn #286)
   * Slow gif problem on mac (@a06kin #289)
