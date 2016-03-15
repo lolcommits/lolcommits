@@ -19,10 +19,12 @@ module Lolcommits
       delay = frame_delay(fps, skip)
       debug "Capturer: animated gif choosing every #{skip} frames with a frame delay of #{delay}"
 
-      # create the looping animated gif from frames (picks nth frame with seq)
-      seq_command = "seq -f \"#{frames_location}/%09g.png\" 1 #{skip} #{Dir["#{frames_location}/*"].length}"
+      # create the looping animated gif from frames (picks nth frame with seq,
+      # quotes output and concats to a single line with tr)
+      seq_command = "seq -f \"\\\"#{frames_location}/%09g.png\\\"\" 1 #{skip} #{Dir["#{frames_location}/*"].length} | tr '\\n' ' '"
+      seq_frame_files = system_call(seq_command, true)
       # convert to animated gif with delay and gif optimisation
-      system_call "convert -layers OptimizeTransparency -delay #{delay} -loop 0 `#{seq_command}` -coalesce \"#{snapshot_location}\""
+      system_call "convert -layers OptimizeTransparency -delay #{delay} -loop 0 #{seq_frame_files} -coalesce \"#{snapshot_location}\" > /dev/null"
     end
 
     def executable_path
@@ -44,7 +46,7 @@ module Lolcommits
 
     def video_fps(file)
       # inspect fps of the captured video file (default to 29.97)
-      fps = system_call("ffmpeg -i #{file} 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", true)
+      fps = system_call("ffmpeg -i \"#{file}\" 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", true)
       fps.to_i < 1 ? 29.97 : fps.to_f
     end
 
