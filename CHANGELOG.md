@@ -1,7 +1,10 @@
 ### Version History
 
 0.7.0 (WIP)
-  * extract plugins to seperate gems ...
+  * extract plugins to separate gems ...
+
+0.6.4 (15 March 2016)
+  * Add quotes to correctly handle paths with spaces (@matthutchinson #298)
 
 0.6.3 (14 March 2016)
   * Add quotes to correctly handle paths with spaces (@pedrocunha #296)
