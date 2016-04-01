@@ -132,7 +132,11 @@ def change_dir_to_root_or_repo!
   loop do
     cur = File.expand_path('.')
     nxt = File.expand_path('..', cur)
-    if File.directory?(File.expand_path('.git')) || nxt == cur
+    if nxt == cur
+      warn 'Repository root not found'
+      return
+    end
+    if File.directory?(File.expand_path('.git')) || File.directory?(File.expand_path('.hg'))
       return # found root or git dir
     end
     Dir.chdir(nxt)

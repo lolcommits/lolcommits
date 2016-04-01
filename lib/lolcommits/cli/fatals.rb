@@ -65,12 +65,27 @@ module Lolcommits
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
       def self.die_if_not_git_repo!
-        debug 'Checking for valid git repo'
-        Git.open('.') # FIXME: should be extracted to GitInfo class
-      rescue ArgumentError
-        # ruby-git throws an argument error if path isnt for a valid git repo.
-        fatal "Erm? Can't do that since we're not in a valid git repository!"
-        exit 1
+        debug 'Checking for valid vcs repo'
+        fatal_message = nil
+        # FIXME: should be extracted to VCSInfo class
+        begin
+          if Dir.exists?('.git')
+            Git.open('.')
+          elsif Dir.exists?('.hg')
+            Mercurial::Repository.open('.')
+          else
+            fatal_message = 'Unknown VCS'
+          end
+        rescue ArgumentError
+          # ruby-git throws an argument error if path isnt for a valid git repo.
+          fatal_message = "Erm? Can't do that since we're not in a valid git repository!"
+        rescue RepositoryNotFound
+          fatal_message = 'Invalid mercurial repository'
+        end
+        if fatal_message
+          fatal fatal_message
+          exit 1
+        end
       end
     end
   end

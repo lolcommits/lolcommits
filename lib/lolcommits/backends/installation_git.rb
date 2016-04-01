@@ -43,12 +43,7 @@ module Lolcommits
       end
 
       FileUtils.chmod 0755, HOOK_PATH
-
-      info 'installed lolcommit hook to:'
-      info "  -> #{File.expand_path(HOOK_PATH)}"
-      info '(to remove later, you can use: lolcommits --disable)'
-      # we dont symlink, but rather install a small stub that calls the one from path
-      # that way, as gem version changes, script updates even if new file thus breaking symlink
+      HOOK_PATH
     end
 
     #

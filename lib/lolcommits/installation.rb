@@ -4,46 +4,32 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class Installation
-    @@backend = nil
+    def self.backend
+      if File.directory?('.git')
+        InstallationGit
+      elsif File.directory?('.hg')
+        InstallationMercurial
+      end
+    end
 
     #
     # IF --ENABLE, DO ENABLE
     #
     def self.do_enable
-      if File.directory?('.git')
-        InstallationGit.do_enable
-        @@backend = InstallationGit
-      end
+      path = backend.do_enable
+
+      info 'installed lolcommit hook to:'
+      info "  -> #{File.expand_path(path)}"
+      info '(to remove later, you can use: lolcommits --disable)'
+      # we dont symlink, but rather install a small stub that calls the one from path
+      # that way, as gem version changes, script updates even if new file thus breaking symlink
     end
 
     #
     # IF --DISABLE, DO DISABLE
     #
     def self.do_disable
-      @@backend.do_disable
-    end
-
-    def self.hook_script
-      @@backend.hook_script
-    end
-
-    # does a hook exist at all?
-    def self.hook_file_exists?
-      @@backend.hook_file_exists?
-    end
-
-    # does a hook exist with lolcommits commands?
-    def self.lolcommits_hook_exists?
-      @@backend.lolcommits_hook_exists?
-    end
-
-    # does the hook file have a good shebang?
-    def self.good_shebang?
-      @@backend.good_shebang?
-    end
-
-    def self.remove_existing_hook!
-      @@backend.remove_existing_hook!
+      backend.do_disable
     end
   end
 end
