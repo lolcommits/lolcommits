@@ -18,6 +18,9 @@ require 'lolcommits/installation'
 require 'lolcommits/plugin'
 require 'lolcommits/platform'
 
+# backends
+require 'lolcommits/backends/installation_git'
+
 require 'lolcommits/plugins/loltext'
 require 'lolcommits/plugins/dot_com'
 require 'lolcommits/plugins/tranzlate'
