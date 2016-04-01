@@ -46,18 +46,18 @@ module Lolcommits
     def self.hook_script
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
+      capture_cmd   = 'lolcommits --capture'
 
       if Lolcommits::Platform.platform_windows?
-        # TODO
-        # hook_export = "set path \"#{ruby_path};#{imagick_path};%PATH%\"\n"
+        capture_cmd = "set path \"#{ruby_path};#{imagick_path};%PATH%\"&&#{capture_cmd}"
       else
         locale_export = "LANG=\"#{ENV['LANG']}\""
         hook_export   = "PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
+        capture_cmd = "#{locale_export} #{hook_export} #{capture_cmd}"
       end
 
-      capture_cmd   = 'lolcommits --capture'
       capture_args  = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
-      return "#{locale_export} #{hook_export} #{capture_cmd} #{capture_args}"
+      return "#{capture_cmd} #{capture_args}"
     end
 
     def self.repository
