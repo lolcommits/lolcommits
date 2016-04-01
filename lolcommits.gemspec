@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('launchy', '~> 2.4.3')
   s.add_runtime_dependency('methadone', '~> 1.8.0')
   s.add_runtime_dependency('open4', '~> 1.3.4')
+  s.add_runtime_dependency('mercurial-ruby', '~> 0')
 
   # plugin gems
   s.add_runtime_dependency('twitter', '~> 5.13.0')       # twitter
