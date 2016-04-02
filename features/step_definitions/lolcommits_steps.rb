@@ -2,12 +2,16 @@
 require 'fileutils'
 require 'aruba/api'
 
-def postcommit_hook
+def postcommit_hook_git
   '.git/hooks/post-commit'
 end
 
+def postcommit_hook_mercurial
+  '.hg/hgrc'
+end
+
 def default_repo
-  'mygit'
+  'myrepo'
 end
 
 def default_loldir
@@ -53,24 +57,77 @@ Given(/^I am in a git repo with lolcommits enabled$/) do
     )
 end
 
-Given(/^a post\-commit hook with "(.*?)"$/) do |file_content|
+Given(/^a git post\-commit hook with "(.*?)"$/) do |file_content|
   steps %(
-    Given a file named "#{postcommit_hook}" with:
+    Given a file named "#{postcommit_hook_git}" with:
       """
       #{file_content}
       """
     )
 end
 
-Then(/^the lolcommits post\-commit hook should be properly installed$/) do
+Then(/^the lolcommits git post\-commit hook should be properly installed$/) do
   steps %(
-    Then the post-commit hook should contain "lolcommits --capture"
+    Then the git post-commit hook should contain "lolcommits --capture"
     )
 end
 
-Then(/^the post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
+Then(/^the git post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
   steps %(
-    Then the file "#{postcommit_hook}" #{should} contain "#{content}"
+    Then the file "#{postcommit_hook_git}" #{should} contain "#{content}"
+    )
+end
+
+Given(/^a mercurial repo named "(.*?)"$/) do |repo_name|
+  steps %(
+   Given I successfully run `hg init "#{repo_name}"`
+    )
+end
+
+Given(/^I am in a mercurial repo named "(.*?)"$/) do |repo|
+  steps %(
+    Given a mercurial repo named "#{repo}"
+    And I cd to "#{repo}"
+    )
+end
+
+Given(/^I am in a mercurial repo$/) do
+  steps %(
+    Given I am in a mercurial repo named "#{default_repo}"
+    )
+end
+
+Given(/^I am in a mercurial repo named "(.*?)" with lolcommits enabled$/) do |repo|
+  steps %(
+    Given I am in a mercurial repo named "#{repo}"
+    And I successfully run `lolcommits --enable`
+    )
+end
+
+Given(/^I am in a mercurial repo with lolcommits enabled$/) do
+  steps %(
+    Given I am in a mercurial repo named "#{default_repo}" with lolcommits enabled
+    )
+end
+
+Given(/^a mercurial post\-commit hook with "(.*?)"$/) do |file_content|
+  steps %(
+    Given a file named "#{postcommit_hook_mercurial}" with:
+      """
+      #{file_content}
+      """
+    )
+end
+
+Then(/^the lolcommits mercurial post\-commit hook should be properly installed$/) do
+  steps %(
+    Then the mercurial post-commit hook should contain "lolcommits --capture"
+    )
+end
+
+Then(/^the mercurial post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
+  steps %(
+    Then the file "#{postcommit_hook_mercurial}" #{should} contain "#{content}"
     )
 end
 
@@ -130,6 +187,31 @@ end
 Then(/^there should be (\d+) commit entries in the git log$/) do |n|
   sleep 1 # let the file writing catch up
   expect(n.to_i).to eq `git shortlog | grep -E '^[ ]+\w+' | wc -l`.chomp.to_i
+end
+
+When(/^I do a mercurial commit with commit message "(.*?)"$/) do |commit_msg|
+  filename = Faker::Lorem.words(1).first
+  steps %(
+    Given a 98 byte file named "#{filename}"
+    And I successfully run `hg add #{filename}`
+    And I successfully run `hg commit -m "#{commit_msg}"`
+    )
+end
+
+When(/^I do a mercurial commit$/) do
+  step %(I do a mercurial commit with commit message "#{Faker::Lorem.sentence}")
+end
+
+When(/^I do (\d+) mercurial commits$/) do |n|
+  n.to_i.times do
+    step %(I do a mercurial commit)
+    sleep 0.1
+  end
+end
+
+Then(/^there should be (\d+) commit entries in the mercurial log$/) do |n|
+  sleep 1 # let the file writing catch up
+  expect(n.to_i).to eq `hg log | grep '^changeset:' | wc -l`.chomp.to_i
 end
 
 Given(/^I am using a "(.*?)" platform$/) do |host_os_name|

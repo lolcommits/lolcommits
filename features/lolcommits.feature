@@ -24,31 +24,31 @@ Feature: Basic UI functionality
     Given I am in a git repo
     When I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the lolcommits post-commit hook should be properly installed
+      And the lolcommits git post-commit hook should be properly installed
       And the exit status should be 0
 
-  Scenario: Enable in a git repo that already has a post-commit hook
+  Scenario: Enable in a git repo that already has a git post-commit hook
     Given I am in a git repo
-    And a post-commit hook with "#!/bin/sh\n\n/my/own/script"
+    And a git post-commit hook with "#!/bin/sh\n\n/my/own/script"
     When I successfully run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
-      And the lolcommits post-commit hook should be properly installed
-      And the post-commit hook should contain "#!/bin/sh"
-      And the post-commit hook should contain "/my/own/script"
+      And the lolcommits git post-commit hook should be properly installed
+      And the git post-commit hook should contain "#!/bin/sh"
+      And the git post-commit hook should contain "/my/own/script"
       And the exit status should be 0
 
-  Scenario: Enable in a git repo that has post-commit hook with a bad shebang
+  Scenario: Enable in a git repo that has git post-commit hook with a bad shebang
     Given I am in a git repo
-    And a post-commit hook with "#!/bin/ruby"
+    And a git post-commit hook with "#!/bin/ruby"
     And I run `lolcommits --enable`
       Then the output should contain "doesn't start with a good shebang"
-      And the post-commit hook should not contain "lolcommits --capture"
+      And the git post-commit hook should not contain "lolcommits --capture"
       And the exit status should be 1
 
   Scenario: Enable in a git repo passing capture arguments
     Given I am in a git repo
     When I successfully run `lolcommits --enable -w 5 --fork`
-    Then the post-commit hook should contain "lolcommits --capture -w 5 --fork"
+    Then the git post-commit hook should contain "lolcommits --capture -w 5 --fork"
     And the exit status should be 0
 
   Scenario: Disable in a enabled git repo
@@ -63,7 +63,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --enable`
     Then the output should contain:
       """
-      You don't appear to be in the base directory of a git project.
+      You don't appear to be in the base directory of a supported vcs project.
       """
     And the exit status should be 1
 
@@ -77,7 +77,7 @@ Feature: Basic UI functionality
       And a file named "~/.lolcommits/forked/tmp_snapshot.jpg" should not exist
       And there should be exactly 1 jpg in "~/.lolcommits/forked"
 
-  Scenario: Commiting in an enabled repo triggers successful capture
+  Scenario: Commiting in an enabled git repo triggers successful capture
     Given I am in a git repo named "myrepo" with lolcommits enabled
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
@@ -85,7 +85,7 @@ Feature: Basic UI functionality
       And a file named "~/.lolcommits/myrepo/tmp_snapshot.jpg" should not exist
       And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
 
-  Scenario: Commiting in enabled repo subdirectory triggers successful capture
+  Scenario: Commiting in enabled git repo subdirectory triggers successful capture
     Given I am in a git repo named "testcapture" with lolcommits enabled
       And a directory named "subdir"
       And an empty file named "subdir/FOOBAR"
@@ -158,7 +158,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --test --show-config`
     Then the output should match /loltext:\s+enabled: false/
 
-  Scenario: test capture should work regardless of whether in a git repo
+  Scenario: test capture should work regardless of whether in a lolrepo
     Given I am in a directory named "nothingtoseehere"
     When I run `lolcommits --test --capture`
     Then the output should contain "*** Capturing in test mode."
@@ -171,13 +171,13 @@ Feature: Basic UI functionality
     Then a directory named "~/.lolcommits/test" should exist
     And a directory named "~/.lolcommits/randomgitrepo" should not exist
 
-  Scenario: last command should work properly when in a lolrepo
+  Scenario: last command should work properly when in a git lolrepo
     Given I am in a git repo
     And its loldir has 2 lolimages
     When I run `lolcommits --last`
     Then the exit status should be 0
 
-  Scenario: last command should work properly when in a lolrepo subdirectory
+  Scenario: last command should work properly when in a git lolrepo subdirectory
     Given I am in a git repo
       And its loldir has 2 lolimages
       And a directory named "randomdir"
@@ -185,7 +185,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should not contain:
       """
-      Can't do that since we're not in a valid git repository!
+      Unknown VCS
       """
     And the exit status should be 0
 
@@ -195,7 +195,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should contain:
       """
-      Can't do that since we're not in a valid git repository!
+      Unknown VCS
       """
     And the exit status should be 1
 
@@ -209,13 +209,13 @@ Feature: Basic UI functionality
       """
     Then the exit status should be 1
 
-  Scenario: browse command should work properly when in a lolrepo
+  Scenario: browse command should work properly when in a git lolrepo
     Given I am in a git repo
     And its loldir has 2 lolimages
     When I run `lolcommits --browse`
     Then the exit status should be 0
 
-  Scenario: browse command should work properly when in a lolrepo subdirectory
+  Scenario: browse command should work properly when in a git lolrepo subdirectory
     Given I am in a git repo
       And its loldir has 2 lolimages
       And a directory named "subdir"
@@ -223,7 +223,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the output should not contain:
       """
-      Can't do that since we're not in a valid git repository!
+      Unknown VCS
       """
     And the exit status should be 0
 
@@ -233,11 +233,11 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the output should contain:
       """
-      Can't do that since we're not in a valid git repository!
+      Unknown VCS
       """
     And the exit status should be 1
 
-  Scenario: handle commit messages with quotation marks
+  Scenario: handle git commit messages with quotation marks
     Given I am in a git repo with lolcommits enabled
     When I successfully run `git commit --allow-empty -m 'no "air quotes" bae'`
     Then the exit status should be 0
@@ -278,9 +278,101 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  Scenario: Enable on windows platform setting PATH in post-commit hook
+  Scenario: Enable on windows platform setting PATH in git post-commit hook
     Given I am using a "win32" platform
       And I am in a git repo
     When I successfully run `lolcommits --enable`
-    Then the post-commit hook should contain "set path"
+    Then the git post-commit hook should contain "set path"
     And the exit status should be 0
+
+  Scenario: Enable in a naked mercurial repo
+    Given I am in a mercurial repo
+    When I successfully run `lolcommits --enable`
+    Then the output should contain "installed lolcommit hook to:"
+    And the lolcommits mercurial post-commit hook should be properly installed
+    And the exit status should be 0
+
+  Scenario: Enable in a mercurial repo that already has a mercurial post-commit hook
+    Given I am in a mercurial repo
+    And a mercurial post-commit hook with "[hooks]\npost-commit.mine = /my/own/script"
+    When I successfully run `lolcommits --enable`
+    Then the output should contain "installed lolcommit hook to:"
+    And the lolcommits mercurial post-commit hook should be properly installed
+    And the mercurial post-commit hook should contain "post-commit.mine = /my/own/script"
+    And the exit status should be 0
+
+  Scenario: Enable in a mercurial repo passing capture arguments
+    Given I am in a mercurial repo
+    When I successfully run `lolcommits --enable -w 5 --fork`
+    Then the mercurial post-commit hook should contain "lolcommits --capture -w 5 --fork"
+    And the exit status should be 0
+
+  Scenario: Disable in a enabled mercurial repo
+    Given I am in a mercurial repo with lolcommits enabled
+    When I successfully run `lolcommits --disable`
+    Then the output should contain "uninstalled"
+    And a file named ".hg/hgrc" should exist
+    And the exit status should be 0
+
+  Scenario: Commiting in an enabled mercurial repo triggers successful capture
+    Given I am in a mercurial repo named "myrepo" with lolcommits enabled
+    When I do a mercurial commit
+    Then the output should contain "*** Preserving this moment in history."
+    And a directory named "~/.lolcommits/myrepo" should exist
+    And a file named "~/.lolcommits/myrepo/tmp_snapshot.jpg" should not exist
+    And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
+
+  Scenario: Commiting in enabled mercurial repo subdirectory triggers successful capture
+    Given I am in a mercurial repo named "testcapture" with lolcommits enabled
+    And a directory named "subdir"
+    And an empty file named "subdir/FOOBAR"
+    When I cd to "subdir/"
+    And I do a mercurial commit
+    Then the output should contain "*** Preserving this moment in history."
+    And a directory named "~/.lolcommits/testcapture" should exist
+    And a directory named "~/.lolcommits/subdir" should not exist
+    And there should be exactly 1 jpg in "~/.lolcommits/testcapture"
+
+  Scenario: last command should work properly when in a mercurial lolrepo
+    Given I am in a mercurial repo
+    And its loldir has 2 lolimages
+    When I run `lolcommits --last`
+    Then the exit status should be 0
+
+  Scenario: last command should work properly when in a mercurial lolrepo subdirectory
+    Given I am in a mercurial repo
+    And its loldir has 2 lolimages
+    And a directory named "randomdir"
+    And I cd to "randomdir"
+    When I run `lolcommits --last`
+    Then the output should not contain:
+      """
+      Unknown VCS
+      """
+    And the exit status should be 0
+
+  Scenario: browse command should work properly when in a mercurial lolrepo
+    Given I am in a mercurial repo
+    And its loldir has 2 lolimages
+    When I run `lolcommits --browse`
+    Then the exit status should be 0
+
+  Scenario: browse command should work properly when in a mercurial lolrepo subdirectory
+    Given I am in a mercurial repo
+    And its loldir has 2 lolimages
+    And a directory named "subdir"
+    And I cd to "subdir"
+    When I run `lolcommits --browse`
+    Then the output should not contain:
+      """
+      Unknown VCS
+      """
+    And the exit status should be 0
+
+  Scenario: handle mercurial commit messages with quotation marks
+    Given I am in a mercurial repo with lolcommits enabled
+    When I successfully run `touch meh`
+    And I successfully run `hg add meh`
+    And I successfully run `hg commit -m 'no "air quotes" bae'`
+    Then the exit status should be 0
+    And there should be exactly 1 jpg in its loldir
