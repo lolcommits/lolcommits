@@ -56,7 +56,7 @@ module Lolcommits
         capture_cmd = "#{locale_export} #{hook_export} #{capture_cmd}"
       end
 
-      capture_args  = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
+      capture_args  = "#{ARGV[1..-1].join(' ')}" if ARGV.length > 1
       return "#{capture_cmd} #{capture_args}"
     end
 

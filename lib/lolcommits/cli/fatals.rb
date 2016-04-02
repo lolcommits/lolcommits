@@ -66,26 +66,17 @@ module Lolcommits
       # Die with an informative error message in that case.
       def self.die_if_not_vcs_repo!
         debug 'Checking for valid vcs repo'
-        fatal_message = nil
-        # FIXME: should be extracted to VCSInfo class
-        begin
-          if GitInfo.is_repo_root?('.')
-            Git.open('.')
-          elsif MercurialInfo.is_repo_root?('.')
-            Mercurial::Repository.open('.')
-          else
-            fatal_message = 'Unknown VCS'
+        current = File.expand_path('.')
+        parent = File.dirname(current)
+        while current != parent
+          if VCSInfo.is_repo_root?(current)
+            return
           end
-        rescue ArgumentError
-          # ruby-git throws an argument error if path isnt for a valid git repo.
-          fatal_message = "Erm? Can't do that since we're not in a valid git repository!"
-        rescue RepositoryNotFound
-          fatal_message = 'Invalid mercurial repository'
+          current = parent
+          parent = File.dirname(current)
         end
-        if fatal_message
-          fatal fatal_message
-          exit 1
-        end
+        fatal 'Unknown VCS'
+        exit 1
       end
     end
   end

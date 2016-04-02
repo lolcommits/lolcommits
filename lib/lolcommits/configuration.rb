@@ -29,6 +29,8 @@ module Lolcommits
       elsif MercurialInfo.is_repo_root?('.')
         basename ||= File.basename(File.dirname(Mercurial::Repository.open('.').dothg_path)).sub(/^\./, 'dot')
         basename.sub!(/ /, '-')
+      else
+        basename ||= File.basename(Dir.getwd)
       end
       @loldir = Configuration.loldir_for(basename)
     end
