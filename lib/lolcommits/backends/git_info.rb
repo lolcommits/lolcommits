@@ -7,6 +7,10 @@ module Lolcommits
 
     GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}
 
+    def self.is_repo_root?(path='.')
+      Dir.exists?(File.join(path, '.git'))
+    end
+
     def initialize
       debug 'GitInfo: parsed the following values from commit:'
       debug "GitInfo: \t#{message}"

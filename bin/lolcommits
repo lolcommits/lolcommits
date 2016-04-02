@@ -113,7 +113,7 @@ def do_configure
 end
 
 def do_last
-  Fatals.die_if_not_git_repo!
+  Fatals.die_if_not_vcs_repo!
   lolimage = configuration.most_recent
   if lolimage.nil?
     warn 'No lolcommits have been captured for this repository yet.'
@@ -136,8 +136,8 @@ def change_dir_to_root_or_repo!
       warn 'Repository root not found'
       return
     end
-    if File.directory?(File.expand_path('.git')) || File.directory?(File.expand_path('.hg'))
-      return # found root or git dir
+    if VCSInfo.is_repo_root?
+      return
     end
     Dir.chdir(nxt)
   end
@@ -332,7 +332,7 @@ elsif Choice.choices[:devices]
 elsif Choice.choices[:last]
   do_last
 elsif Choice.choices[:browse]
-  Fatals.die_if_not_git_repo!
+  Fatals.die_if_not_vcs_repo!
   Launcher.open_folder(configuration.loldir)
 elsif Choice.choices[:gif]
   TimelapseGif.new(configuration).run(Choice.choices[:gif])

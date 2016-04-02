@@ -5,6 +5,10 @@ module Lolcommits
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
+    def self.is_repo_root?(path='.')
+      Dir.exists?(File.join(path, '.hg'))
+    end
+
     def initialize
       # mercurial sets HG_RESULT for post- hooks
       if ENV.has_key?('HG_RESULT') && ENV['HG_RESULT'] != '0'

@@ -64,14 +64,14 @@ module Lolcommits
 
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
-      def self.die_if_not_git_repo!
+      def self.die_if_not_vcs_repo!
         debug 'Checking for valid vcs repo'
         fatal_message = nil
         # FIXME: should be extracted to VCSInfo class
         begin
-          if Dir.exists?('.git')
+          if GitInfo.is_repo_root?('.')
             Git.open('.')
-          elsif Dir.exists?('.hg')
+          elsif MercurialInfo.is_repo_root?('.')
             Mercurial::Repository.open('.')
           else
             fatal_message = 'Unknown VCS'
