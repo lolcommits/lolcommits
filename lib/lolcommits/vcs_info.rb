@@ -6,8 +6,8 @@ module Lolcommits
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
-    def self.is_repo_root?(path='.')
-      GitInfo.is_repo_root?(path) || MercurialInfo.is_repo_root?(path)
+    def self.repo_root?(path = '.')
+      GitInfo.repo_root?(path) || MercurialInfo.repo_root?(path)
     end
 
     def initialize

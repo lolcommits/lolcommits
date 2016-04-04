@@ -23,10 +23,10 @@ module Lolcommits
 
     def loldir
       return @loldir if @loldir
-      if GitInfo.is_repo_root?('.')
+      if GitInfo.repo_root?('.')
         basename ||= File.basename(Git.open('.').dir.to_s).sub(/^\./, 'dot')
         basename.sub!(/ /, '-')
-      elsif MercurialInfo.is_repo_root?('.')
+      elsif MercurialInfo.repo_root?('.')
         basename ||= File.basename(File.dirname(Mercurial::Repository.open('.').dothg_path)).sub(/^\./, 'dot')
         basename.sub!(/ /, '-')
       else

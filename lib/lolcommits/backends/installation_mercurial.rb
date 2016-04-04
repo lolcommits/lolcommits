@@ -4,8 +4,8 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationMercurial
-    HOOK_SECTION = 'hooks'
-    HOOK_OPERATIONS=['commit', 'record', 'crecord']
+    HOOK_SECTION = 'hooks'.freeze
+    HOOK_OPERATIONS = %w(commit record crecord).freeze
 
     #
     # IF --ENABLE, DO ENABLE
@@ -56,8 +56,8 @@ module Lolcommits
         capture_cmd = "#{locale_export} #{hook_export} #{capture_cmd}"
       end
 
-      capture_args  = "#{ARGV[1..-1].join(' ')}" if ARGV.length > 1
-      return "#{capture_cmd} #{capture_args}"
+      capture_args = ARGV[1..-1].join(' ') if ARGV.length > 1
+      "#{capture_cmd} #{capture_args}"
     end
 
     def self.repository

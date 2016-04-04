@@ -69,9 +69,7 @@ module Lolcommits
         current = File.expand_path('.')
         parent = File.dirname(current)
         while current != parent
-          if VCSInfo.is_repo_root?(current)
-            return
-          end
+          return if VCSInfo.repo_root?(current)
           current = parent
           parent = File.dirname(current)
         end

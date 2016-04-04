@@ -5,9 +5,9 @@ module Lolcommits
   #
   class Installation
     def self.backend
-      if GitInfo.is_repo_root?('.')
+      if GitInfo.repo_root?('.')
         InstallationGit
-      elsif MercurialInfo.is_repo_root?('.')
+      elsif MercurialInfo.repo_root?('.')
         InstallationMercurial
       else
         fatal "You don't appear to be in the base directory of a supported vcs project."

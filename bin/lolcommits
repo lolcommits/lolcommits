@@ -136,9 +136,7 @@ def change_dir_to_root_or_repo!
       warn 'Repository root not found'
       return
     end
-    if VCSInfo.is_repo_root?
-      return
-    end
+    return if VCSInfo.repo_root?
     Dir.chdir(nxt)
   end
 end

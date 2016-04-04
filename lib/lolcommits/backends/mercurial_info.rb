@@ -5,13 +5,13 @@ module Lolcommits
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
-    def self.is_repo_root?(path='.')
+    def self.repo_root?(path = '.')
       File.directory?(File.join(path, '.hg'))
     end
 
     def initialize
       # mercurial sets HG_RESULT for post- hooks
-      if ENV.has_key?('HG_RESULT') && ENV['HG_RESULT'] != '0'
+      if ENV.key?('HG_RESULT') && ENV['HG_RESULT'] != '0'
         debug 'Aborting lolcommits hook from failed operation'
         exit 1
       end

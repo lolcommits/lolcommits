@@ -7,7 +7,7 @@ module Lolcommits
 
     GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}
 
-    def self.is_repo_root?(path='.')
+    def self.repo_root?(path = '.')
       File.directory?(File.join(path, '.git'))
     end
 
