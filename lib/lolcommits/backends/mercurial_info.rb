@@ -6,7 +6,7 @@ module Lolcommits
                   :author_name, :author_email, :branch
 
     def self.is_repo_root?(path='.')
-      Dir.exists?(File.join(path, '.hg'))
+      File.directory?(File.join(path, '.hg'))
     end
 
     def initialize
