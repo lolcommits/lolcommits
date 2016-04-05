@@ -15,9 +15,9 @@ module Lolcommits
       end
 
       return unless sha.nil? || message.nil?
-      if GitInfo.repo_root?('.')
+      if GitInfo.repo_root?
         self.vcs_info = GitInfo.new
-      elsif MercurialInfo.repo_root?('.')
+      elsif MercurialInfo.repo_root?
         self.vcs_info = MercurialInfo.new
       else
         raise('Unknown VCS')
