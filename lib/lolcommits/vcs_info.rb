@@ -10,40 +10,44 @@ module Lolcommits
       GitInfo.repo_root?(path) || MercurialInfo.repo_root?(path)
     end
 
+    def self.base_message(method)
+      raise NotImplementedError, "#{self.class.name} is a base class; implement '#{method}' in a subclass", caller
+    end
+
     def initialize
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def branch
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def message
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def sha
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def repo_internal_path
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def url
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def repo
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def author_name
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
 
     def author_email
-      puts 'Base VCS, no implementation'
+      base_message(__method__)
     end
   end
 end
