@@ -49,7 +49,7 @@ module Lolcommits
     end
 
     def repo_internal_path
-      @repo_internal_path ||= File.dirname(repository.dothg_path)
+      @repo_internal_path ||= repository.dothg_path
     end
 
     def url
