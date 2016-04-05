@@ -57,7 +57,7 @@ module Lolcommits
     end
 
     def repo
-      @repo ||= repository.path # FIXME: ?
+      @repo ||= File.basename(File.dirname(repo_internal_path))
     end
 
     def author_name
