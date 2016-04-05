@@ -11,6 +11,10 @@ module Lolcommits
       File.directory?(File.join(path, '.git'))
     end
 
+    def self.local_name(path = '.')
+      File.basename(Git.open(path).dir.to_s)
+    end
+
     def initialize
       debug 'GitInfo: parsed the following values from commit:'
       debug "GitInfo: \t#{message}"

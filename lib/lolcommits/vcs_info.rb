@@ -14,6 +14,16 @@ module Lolcommits
       raise NotImplementedError, "#{self.class.name} is a base class; implement '#{method}' in a subclass", caller
     end
 
+    def self.local_name(path = '.')
+      if GitInfo.repo_root?(path)
+        GitInfo.local_name(path)
+      elsif MercurialInfo.repo_root?(path)
+        MercurialInfo.local_name(path)
+      else
+        raise "'#{File.expand_path(path)}' is not the root of a supported VCS"
+      end
+    end
+
     def initialize
       base_message(__method__)
     end

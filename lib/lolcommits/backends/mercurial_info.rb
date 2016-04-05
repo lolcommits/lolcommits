@@ -9,6 +9,10 @@ module Lolcommits
       File.directory?(File.join(path, '.hg'))
     end
 
+    def self.local_name(path = '.')
+      File.basename(File.dirname(Mercurial::Repository.open(path).dothg_path))
+    end
+
     def initialize
       # mercurial sets HG_RESULT for post- hooks
       if ENV.key?('HG_RESULT') && ENV['HG_RESULT'] != '0'
