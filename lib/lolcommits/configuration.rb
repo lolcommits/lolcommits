@@ -23,7 +23,12 @@ module Lolcommits
 
     def loldir
       return @loldir if @loldir
-      basename ||= File.basename(Git.open('.').dir.to_s).sub(/^\./, 'dot')
+      basename ||= if VCSInfo.repo_root?
+                     VCSInfo.local_name
+                   else
+                     File.basename(Dir.getwd)
+                   end
+      basename.sub!(/^\./, 'dot')
       basename.sub!(/ /, '-')
       @loldir = Configuration.loldir_for(basename)
     end

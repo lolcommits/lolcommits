@@ -64,12 +64,16 @@ module Lolcommits
 
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
-      def self.die_if_not_git_repo!
-        debug 'Checking for valid git repo'
-        Git.open('.') # FIXME: should be extracted to GitInfo class
-      rescue ArgumentError
-        # ruby-git throws an argument error if path isnt for a valid git repo.
-        fatal "Erm? Can't do that since we're not in a valid git repository!"
+      def self.die_if_not_vcs_repo!
+        debug 'Checking for valid vcs repo'
+        current = File.expand_path('.')
+        parent = File.dirname(current)
+        while current != parent
+          return if VCSInfo.repo_root?(current)
+          current = parent
+          parent = File.dirname(current)
+        end
+        fatal 'Unknown VCS'
         exit 1
       end
     end

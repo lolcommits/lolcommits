@@ -4,7 +4,7 @@ require 'lolcommits/platform'
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
-                  :sha, :snapshot_loc, :main_image, :config, :git_info,
+                  :sha, :snapshot_loc, :main_image, :config, :vcs_info,
                   :capture_animate
 
     include Methadone::CLILogging
@@ -15,9 +15,16 @@ module Lolcommits
       end
 
       return unless sha.nil? || message.nil?
-      self.git_info = GitInfo.new
-      self.sha      = git_info.sha if sha.nil?
-      self.message  = git_info.message if message.nil?
+      if GitInfo.repo_root?
+        self.vcs_info = GitInfo.new
+      elsif MercurialInfo.repo_root?
+        self.vcs_info = MercurialInfo.new
+      else
+        raise('Unknown VCS')
+      end
+
+      self.sha      = vcs_info.sha if sha.nil?
+      self.message  = vcs_info.message if message.nil?
     end
 
     # wrap run to handle things that should happen before and after

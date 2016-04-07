@@ -1,11 +1,19 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
-  class GitInfo
+  class GitInfo < VCSInfo
     include Methadone::CLILogging
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
     GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}
+
+    def self.repo_root?(path = '.')
+      File.directory?(File.join(path, '.git'))
+    end
+
+    def self.local_name(path = '.')
+      File.basename(Git.open(path).dir.to_s)
+    end
 
     def initialize
       debug 'GitInfo: parsed the following values from commit:'

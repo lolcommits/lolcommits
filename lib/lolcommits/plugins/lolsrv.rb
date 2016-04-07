@@ -40,8 +40,8 @@ module Lolcommits
     def upload(file, sha)
       RestClient.post(configuration['server'] + '/uplol',
                       :lol  => File.new(file),
-                      :url  => runner.git_info.url + sha,
-                      :repo => runner.git_info.repo,
+                      :url  => runner.vcs_info.url + sha,
+                      :repo => runner.vcs_info.repo,
                       :date => File.ctime(file),
                       :sha  => sha)
     rescue => e

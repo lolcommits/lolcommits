@@ -27,7 +27,7 @@ module Lolcommits
     end
 
     def message
-      "commited some #{random_adjective} #{random_object} to #{runner.git_info.repo}@#{runner.sha} (#{runner.git_info.branch}) "
+      "commited some #{random_adjective} #{random_object} to #{runner.vcs_info.repo}@#{runner.sha} (#{runner.vcs_info.branch}) "
     end
 
     def random_object

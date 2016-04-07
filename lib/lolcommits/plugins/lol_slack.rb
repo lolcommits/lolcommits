@@ -52,7 +52,7 @@ module Lolcommits
           :token    => configuration['access_token'],
           :filetype => 'jpg',
           :filename => runner.sha,
-          :title    => runner.message + "[#{runner.git_info.repo}]",
+          :title    => runner.message + "[#{runner.vcs_info.repo}]",
           :channels => configuration['channels'])
 
         debug response
