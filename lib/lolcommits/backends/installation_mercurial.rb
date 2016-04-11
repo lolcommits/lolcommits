@@ -49,7 +49,7 @@ module Lolcommits
       capture_cmd   = 'lolcommits --capture'
 
       if Lolcommits::Platform.platform_windows?
-        capture_cmd = "set path \"#{ruby_path};#{imagick_path};%PATH%\"&&#{capture_cmd}"
+        capture_cmd = "set path=#{ruby_path};#{imagick_path};%PATH%&&#{capture_cmd}"
       else
         locale_export = "LANG=\"#{ENV['LANG']}\""
         hook_export   = "PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
