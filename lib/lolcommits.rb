@@ -11,7 +11,6 @@ require 'open3'
 require 'methadone'
 require 'date'
 require 'mercurial-ruby'
-require 'core_ext/mercurial-ruby/command'
 require 'core_ext/mercurial-ruby/shell'
 
 require 'lolcommits/version'
@@ -21,6 +20,9 @@ require 'lolcommits/vcs_info'
 require 'lolcommits/installation'
 require 'lolcommits/plugin'
 require 'lolcommits/platform'
+
+# after lolcommits/platform, so that we can do platform-conditional override
+require 'core_ext/mercurial-ruby/command'
 
 # backends
 require 'lolcommits/backends/installation_git'
