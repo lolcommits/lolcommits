@@ -3,6 +3,9 @@
 0.7.0 (WIP)
   * extract plugins to separate gems ...
 
+0.6.5 (12 April 2016)
+  * Add mercurial support (@tak #301 #302 #303)
+
 0.6.4 (15 March 2016)
   * Add quotes to correctly handle paths with spaces (@matthutchinson #298)
 
