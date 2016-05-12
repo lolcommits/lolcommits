@@ -84,6 +84,9 @@ module Lolcommits
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
         print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
         val = parse_user_input(STDIN.gets.strip)
+        if(opt == :overlay_colors)
+          val=val.split(",")
+        end
         acc.merge(opt => val)
       end
     end
