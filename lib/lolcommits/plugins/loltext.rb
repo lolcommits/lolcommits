@@ -37,9 +37,7 @@ module Lolcommits
         annotate_location = '+0+20' # Move South gravity off the edge of the image.
       end
 
-      if config_option(type, :uppercase)
-        string = string.upcase
-      end
+      string.upcase! if config_option(type, :uppercase)
 
       image.combine_options do |c|
         c.strokewidth '2'
@@ -83,9 +81,7 @@ module Lolcommits
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
         print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
         val = parse_user_input(STDIN.gets.strip)
-        if opt == :overlay_colors
-          val = val.split(',')
-        end
+        val = val.split(',') if opt == :overlay_colors
         acc.merge(opt => val)
       end
     end
