@@ -15,6 +15,13 @@ module Lolcommits
     def run_postcapture
       debug 'Annotating image via MiniMagick'
       image = MiniMagick::Image.open(runner.main_image)
+      if(config_option(:global, :overlay))
+        image.combine_options do |c|
+          c.fill config_option(:global,:overlay_colors).sample
+          c.colorize 50
+        end
+      end
+
       annotate(image, :message, clean_msg(runner.message))
       annotate(image, :sha, runner.sha)
       debug "Writing changed file to #{runner.main_image}"
@@ -22,17 +29,28 @@ module Lolcommits
     end
 
     def annotate(image, type, string)
-      debug("annotating #{type} text to image")
+      debug("annotating #{type} to image with #{string}")
+
+      transformed_position = position_transform(config_option(type, :position))
+      annotate_location = '0'
+      if(transformed_position == "South")
+        font_size = config_option(type, :position)
+        annotate_location = '+0+20' # Move South gravity off the edge of the image.
+      end
+
+      if(config_option(type, :uppercase))
+        string = string.upcase
+      end
 
       image.combine_options do |c|
         c.strokewidth '2'
         c.interline_spacing '-9'
         c.stroke config_option(type, :stroke_color)
         c.fill config_option(type, :color)
-        c.gravity position_transform(config_option(type, :position))
+        c.gravity transformed_position
         c.pointsize runner.animate? ? 24 : config_option(type, :size)
         c.font config_option(type, :font)
-        c.annotate '0', string
+        c.annotate annotate_location, string
       end
     end
 
@@ -45,10 +63,11 @@ module Lolcommits
         puts
         puts '  * blank options use the (default)'
         puts '  * use full absolute path to fonts'
-        puts '  * valid positions are NE, NW, SE, SW, C (centered)'
+        puts '  * valid positions are NE, NW, SE, SW, S, C (centered)'
         puts '  * colors can be hex #FC0 value or a string \'white\''
         puts '------------------------------------------------------'
 
+        options[:global]  = configure_sub_options(:global)
         options[:message] = configure_sub_options(:message)
         options[:sha]     = configure_sub_options(:sha)
       end
@@ -71,19 +90,29 @@ module Lolcommits
 
     def config_defaults
       {
+        :global => {
+          :overlay => false,
+          :overlay_colors => [
+            "#2e4970", "#674685", "#ca242f", "#1e7882", "#2884ae", "#4ba000",
+            "#187296", "#7e231f", "#017d9f", "#e52d7b", "#0f5eaa", "#e40087",
+            "#5566ac", "#ed8833", "#f8991c", "#408c93", "#ba9109"
+          ]
+        },
         :message => {
           :font     => DEFAULT_FONT_PATH,
           :size     => 48,
           :position => 'SW',
           :color    => 'white',
-          :stroke_color => 'black'
+          :stroke_color => 'black',
+          :uppercase => false
         },
         :sha => {
           :font     => DEFAULT_FONT_PATH,
           :size     => 32,
           :position => 'NE',
           :color    => 'white',
-          :stroke_color => 'black'
+          :stroke_color => 'black',
+          :uppercase => false
         }
       }
     end
@@ -112,6 +141,8 @@ module Lolcommits
         'SouthWest'
       when 'C'
         'Center'
+      when 'S'
+        'South'
       end
     end
 
