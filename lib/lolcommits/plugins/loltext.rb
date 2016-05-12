@@ -41,12 +41,12 @@ module Lolcommits
       string.upcase! if config_option(type, :uppercase)
 
       image.combine_options do |c|
-        c.strokewidth '2'
-        c.interline_spacing '-9'
+        c.strokewidth runner.animate? ? '1' : '2'
+        c.interline_spacing -(config_option(type, :size)/5)
         c.stroke config_option(type, :stroke_color)
         c.fill config_option(type, :color)
         c.gravity transformed_position
-        c.pointsize runner.animate? ? 24 : config_option(type, :size)
+        c.pointsize runner.animate? ? (config_option(type, :size)/2) : config_option(type, :size)
         c.font config_option(type, :font)
         c.annotate annotate_location, string
       end
@@ -82,7 +82,7 @@ module Lolcommits
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
         print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
         val = parse_user_input(STDIN.gets.strip)
-        val = val.split(',') if opt == :overlay_colors
+        val = val.split(',') if opt == :overlay_colors && !val.nil?
         acc.merge(opt => val)
       end
     end

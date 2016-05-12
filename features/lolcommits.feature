@@ -155,8 +155,8 @@ Feature: Basic UI functionality
     And the output should match:
     """
         :overlay_colors:
-        - ['|"]#2884ae['|"]
-        - ['|"]#7e231f['|"]
+        - .*#2884ae.*
+        - .*#7e231f.*
     """
     And the output should match /:font: my-font\.ttf/
     And the output should match /:size: 32/
