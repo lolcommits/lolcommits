@@ -15,9 +15,9 @@ module Lolcommits
     def run_postcapture
       debug 'Annotating image via MiniMagick'
       image = MiniMagick::Image.open(runner.main_image)
-      if(config_option(:global, :overlay))
+      if (config_option(:global, :overlay))
         image.combine_options do |c|
-          c.fill config_option(:global,:overlay_colors).sample
+          c.fill config_option(:global, :overlay_colors).sample
           c.colorize 50
         end
       end
@@ -33,12 +33,12 @@ module Lolcommits
 
       transformed_position = position_transform(config_option(type, :position))
       annotate_location = '0'
-      if(transformed_position == "South")
+      if (transformed_position == "South")
         font_size = config_option(type, :position)
         annotate_location = '+0+20' # Move South gravity off the edge of the image.
       end
 
-      if(config_option(type, :uppercase))
+      if (config_option(type, :uppercase))
         string = string.upcase
       end
 
@@ -84,8 +84,8 @@ module Lolcommits
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
         print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
         val = parse_user_input(STDIN.gets.strip)
-        if(opt == :overlay_colors)
-          val=val.split(",")
+        if (opt == :overlay_colors)
+          val = val.split(',')
         end
         acc.merge(opt => val)
       end
@@ -96,9 +96,9 @@ module Lolcommits
         :global => {
           :overlay => false,
           :overlay_colors => [
-            "#2e4970", "#674685", "#ca242f", "#1e7882", "#2884ae", "#4ba000",
-            "#187296", "#7e231f", "#017d9f", "#e52d7b", "#0f5eaa", "#e40087",
-            "#5566ac", "#ed8833", "#f8991c", "#408c93", "#ba9109"
+            '#2e4970', '#674685', '#ca242f', '#1e7882', '#2884ae', '#4ba000',
+            '#187296', '#7e231f', '#017d9f', '#e52d7b', '#0f5eaa', '#e40087',
+            '#5566ac', '#ed8833', '#f8991c', '#408c93', '#ba9109'
           ]
         },
         :message => {
