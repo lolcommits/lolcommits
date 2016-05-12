@@ -34,7 +34,6 @@ module Lolcommits
       transformed_position = position_transform(config_option(type, :position))
       annotate_location = '0'
       if transformed_position == 'South'
-        font_size = config_option(type, :position)
         annotate_location = '+0+20' # Move South gravity off the edge of the image.
       end
 
