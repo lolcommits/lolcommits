@@ -152,12 +152,7 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --show-config`
     Then the output should match /enabled: true/
     And the output should match /:overlay: true/
-    And the output should match:
-    """
-        :overlay_colors:
-        - .*#2884ae.*
-        - .*#7e231f.*
-    """
+    And the output should match /:overlay_colors:.*\n.*['"]#2884ae['"].*\n.*['"]#7e231f['"].*\n/
     And the output should match /:font: my-font\.ttf/
     And the output should match /:size: 32/
     And the output should match /:position: S/
