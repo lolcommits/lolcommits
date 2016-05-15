@@ -41,7 +41,7 @@ module Lolcommits
 
       image.combine_options do |c|
         c.strokewidth runner.animate? ? '1' : '2'
-        c.interline_spacing (-(config_option(type, :size) / 5))
+        c.interline_spacing(-(config_option(type, :size) / 5))
         c.stroke config_option(type, :stroke_color)
         c.fill config_option(type, :color)
         c.gravity transformed_position
