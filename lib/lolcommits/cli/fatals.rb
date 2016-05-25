@@ -73,7 +73,7 @@ module Lolcommits
           current = parent
           parent = File.dirname(current)
         end
-        fatal 'Unknown VCS'
+        fatal "You don't appear to be in a directory of a supported vcs project."
         exit 1
       end
     end
