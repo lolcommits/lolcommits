@@ -108,6 +108,7 @@ def do_capture
 end
 
 def do_configure
+  Fatals.die_if_not_vcs_repo!
   $stdout.sync = true
   configuration.do_configure! Choice.choices[:plugin]
 end

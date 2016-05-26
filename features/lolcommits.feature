@@ -197,7 +197,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should not contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 0
 
@@ -207,7 +207,17 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
+      """
+    And the exit status should be 1
+
+  @in-tempdir
+  Scenario: Configuring loltext plugin if not in a lolrepo
+    Given I am in a directory named "gitsuxcvs4eva"
+    When I run `lolcommits --config`
+    Then the output should contain:
+      """
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 1
 
@@ -235,7 +245,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the output should not contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 0
 
@@ -245,7 +255,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the output should contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 1
 
@@ -359,7 +369,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --last`
     Then the output should not contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 0
 
@@ -377,7 +387,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --browse`
     Then the output should not contain:
       """
-      Unknown VCS
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 0
 
