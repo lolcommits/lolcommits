@@ -1,11 +1,12 @@
 # -*- encoding: utf-8 -*-
-$LOAD_PATH.push File.expand_path('../lib', __FILE__)
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lolcommits/version'
 
 Gem::Specification.new do |s|
   s.name        = 'lolcommits'
   s.version     = Lolcommits::VERSION
-  s.authors     = ['Matthew Rothenberg',    'Matt Hutchinson']
+  s.authors     = ['Matthew Rothenberg', 'Matthew Hutchinson']
   s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
   s.homepage    = 'http://mroth.github.com/lolcommits/'
   s.license     = 'LGPL-3'
