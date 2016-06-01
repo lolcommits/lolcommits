@@ -15,10 +15,10 @@ module Lolcommits
     def run_postcapture
       debug 'Annotating image via MiniMagick'
       image = MiniMagick::Image.open(runner.main_image)
-      if config_option(:global, :overlay)
+      if config_option(:overlay, :enabled)
         image.combine_options do |c|
-          c.fill config_option(:global, :overlay_colors).sample
-          c.colorize 50
+          c.fill config_option(:overlay, :overlay_colors).sample
+          c.colorize config_option(:overlay, :overlay_percent)
         end
       end
 
@@ -55,18 +55,22 @@ module Lolcommits
       options = super
       # ask user to configure text options when enabling
       if options['enabled']
-        puts '------------------------------------------------------'
-        puts '  Text options '
-        puts
-        puts '  * blank options use the (default)'
-        puts '  * use full absolute path to fonts'
-        puts '  * valid positions are NE, NW, SE, SW, S, C (centered)'
+        puts '---------------------------------------------------------------'
+        puts '  LolText options '
+        puts ''
+        puts '  * any blank options will use the (default)'
+        puts '  * always use the full absolute path to fonts'
+        puts '  * valid text positions are NE, NW, SE, SW, S, C (centered)'
         puts '  * colors can be hex #FC0 value or a string \'white\''
-        puts '------------------------------------------------------'
+        puts '      - use `none` for no stroke color'
+        puts '  * overlay fills your image with a random color'
+        puts '      - set one or more overlay_colors with a comma seperator'
+        puts '      - overlay_percent (0-100) sets the fill colorize strength'
+        puts '---------------------------------------------------------------'
 
-        options[:global]  = configure_sub_options(:global)
         options[:message] = configure_sub_options(:message)
         options[:sha]     = configure_sub_options(:sha)
+        options[:overlay] = configure_sub_options(:overlay)
       end
       options
     end
@@ -74,43 +78,52 @@ module Lolcommits
     # TODO: consider this type of configuration prompting in the base Plugin
     # class, working with hash of defaults
     def configure_sub_options(type)
-      print "#{type} text:\n"
+      print "#{type}:\n"
       defaults = config_defaults[type]
 
       # sort option keys since different `Hash#keys` varys across Ruby versions
       defaults.keys.sort_by(&:to_s).reduce({}) do |acc, opt|
-        print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
-        val = parse_user_input(STDIN.gets.strip)
-        val = val.split(',') if opt == :overlay_colors && !val.nil?
-        acc.merge(opt => val)
+        # if we have an enabled key set to false, abort asking for any more options
+        if acc.key?(:enabled) && acc[:enabled] != true
+          acc
+        else
+          print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
+          val = parse_user_input(STDIN.gets.chomp.strip)
+          # handle array options (comma seperated string)
+          if defaults[opt].is_a?(Array) && !val.nil?
+            val = val.split(',').map(&:strip).delete_if(&:empty?)
+          end
+          acc.merge(opt => val)
+        end
       end
     end
 
     def config_defaults
       {
-        :global => {
-          :overlay => false,
-          :overlay_colors => [
-            '#2e4970', '#674685', '#ca242f', '#1e7882', '#2884ae', '#4ba000',
-            '#187296', '#7e231f', '#017d9f', '#e52d7b', '#0f5eaa', '#e40087',
-            '#5566ac', '#ed8833', '#f8991c', '#408c93', '#ba9109'
-          ]
-        },
         :message => {
-          :font     => DEFAULT_FONT_PATH,
-          :size     => 48,
-          :position => 'SW',
           :color    => 'white',
+          :font     => DEFAULT_FONT_PATH,
+          :position => 'SW',
+          :size     => 48,
           :stroke_color => 'black',
           :uppercase => false
         },
         :sha => {
-          :font     => DEFAULT_FONT_PATH,
-          :size     => 32,
-          :position => 'NE',
           :color    => 'white',
+          :font     => DEFAULT_FONT_PATH,
+          :position => 'NE',
+          :size     => 32,
           :stroke_color => 'black',
           :uppercase => false
+        },
+        :overlay => {
+          :enabled => false,
+          :overlay_colors => [
+            '#2e4970', '#674685', '#ca242f', '#1e7882', '#2884ae', '#4ba000',
+            '#187296', '#7e231f', '#017d9f', '#e52d7b', '#0f5eaa', '#e40087',
+            '#5566ac', '#ed8833', '#f8991c', '#408c93', '#ba9109'
+          ],
+          :overlay_percent => 50
         }
       }
     end
