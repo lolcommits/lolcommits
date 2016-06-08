@@ -8,10 +8,14 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract plugins to separate gems ...
   * Your contribution here!
 
+## [0.6.7][] (8 June 2016)
+  * Remove `console` binary from packaged gem
+
 ## [0.6.6][] (1 June 2016)
   * Show error/exit when --config outside a git repo (@matthutchinson #308)
   * Add more options to loltext plugin (@ruxton #304)
   * Added CODE_OF_CONDUCT.md to repo (@matthutchinson)
+  * Added a useful `console` binary for development and debugging
 
 ## [0.6.5][] (12 April 2016)
   * Add mercurial support (@tak #301 #302 #303)
@@ -237,7 +241,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.6.6...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.6.7...HEAD
+[0.6.7]: https://github.com/mroth/lolcommits/compare/v0.6.6...v0.6.7
 [0.6.6]: https://github.com/mroth/lolcommits/compare/v0.6.5...v0.6.6
 [0.6.5]: https://github.com/mroth/lolcommits/compare/v0.6.4...v0.6.5
 [0.6.4]: https://github.com/mroth/lolcommits/compare/v0.6.3...v0.6.4
