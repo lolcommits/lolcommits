@@ -14,7 +14,7 @@ By default, the lol images are stored by a Github style short SHA in a
 
 ## Sample images
 
-<img src="http://blog.mroth.info/images/postcontent/yearinsideprojects/lolcommits_users2.jpg" />
+<img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
 
 Please add your own lolcommit! Add to the [People Using
 Lolcommits](https://github.com/mroth/lolcommits/wiki/Lolcommits-from-around-the-world%21)
