@@ -118,10 +118,13 @@ in your repository's `.git/hooks/post-commit` file).
 * `--fork`
 * `--stealth`
 
-To change the font (including point size, position & color), simply configure
+You can configure lolcommits to adjust the text positions, font styles (type, 
+size, color etc.) or add a transparent overlay to your images. Simply configure 
 the default loltext plugin with this command:
 
     lolcommits --config -p loltext
+    
+To find out more, read about the [loltext options](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
 
 You can use `lolcommits --devices` to list all attached video devices available
 for capturing. Read how to [configure commit
