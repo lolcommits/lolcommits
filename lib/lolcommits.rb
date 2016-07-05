@@ -2,7 +2,6 @@
 $LOAD_PATH.unshift File.expand_path('.')
 
 require 'core_ext/class'
-require 'core_ext/string'
 require 'mini_magick'
 require 'core_ext/mini_magick/utilities'
 require 'fileutils'

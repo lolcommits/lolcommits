@@ -47,14 +47,9 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_files.include('README.rdoc', 'lib/**/*.rb', 'bin/**/*')
 end
 
-# only run rubocop on platforms where it is supported, sigh
-if RUBY_VERSION >= '1.9.3'
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-  task :default => [:rubocop, :test, :features]
-else
-  task :default => [:test, :features]
-end
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
+task :default => [:rubocop, :test, :features]
 
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do

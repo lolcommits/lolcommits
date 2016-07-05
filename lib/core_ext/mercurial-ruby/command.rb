@@ -21,11 +21,7 @@ if Lolcommits::Platform.platform_windows?
             while (tmp = stderr.read(1024))
               error += tmp
             end
-            status = if RUBY_VERSION =~ /^1\.8/
-                       error.empty? ? 0 : 1
-                     else
-                       wait_thread.value
-                     end
+            status = wait_thread.value
           end
           raise_error_if_needed(status, error)
           result
