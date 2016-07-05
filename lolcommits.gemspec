@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
 
   # hold back upgrading (and why)
   s.add_runtime_dependency('rest-client', '~> 1.8')       # yam gem requires uses this older version
-  s.add_runtime_dependency('mime-types', '~> 1.25')       # ~> 2+ requires Ruby >= 1.9.2
+  s.add_runtime_dependency('mime-types', '=2.99')         # ~> 3.0+ requires Ruby >= 2.0
   s.add_runtime_dependency('httparty', '~> 0.11.0')       # ~> 0.13+ requires Ruby >= 1.9.3
   s.add_development_dependency('cucumber', '=1.3.19')     # ~> 2+ requries Ruby >= 1.9.3
   s.add_development_dependency('tins', '=1.6.0')          # ~> 1.6+ requries Ruby >= 2.0
@@ -43,7 +43,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('mercurial-ruby', '~> 0')
   s.add_runtime_dependency('mini_magick', '~> 4.5.1')
   s.add_runtime_dependency('git', '~> 1.3.0')
-
 
   # plugin gems
   s.add_runtime_dependency('twitter', '~> 5.13.0')       # twitter
