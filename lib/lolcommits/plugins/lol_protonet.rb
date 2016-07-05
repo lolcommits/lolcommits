@@ -37,17 +37,18 @@ module Lolcommits
     end
 
     def random_adjective
-      adjectives = ['awesome', 'great', 'interesting', 'cool', 'EPIC', 'gut', 'good', 'pansy',
-                    'powerful', 'boring', 'quirky', 'untested', 'german', 'iranian', 'neutral', 'crazy', 'well tested',
-                    'jimmy style', 'nasty', 'bibliographical (we received complaints about the original wording)',
-                    'bombdiggidy', 'narly', 'spiffy', 'smashing', 'xing style',
-                    'leo apotheker style', 'black', 'white', 'yellow', 'shaggy', 'tasty', 'mind bending', 'JAY-Z',
-                    'Kanye (the best ever)', '* Toby Keith was here *', 'splendid', 'stupendulous',
-                    '(freedom fries!)', '[vote RON PAUL]', '- these are not my glasses -', 'typical pansy',
-                    '- ze goggles zey do nothing! -', 'almost working', 'legen- wait for it -', '-dairy!',
-                    ' - Tavonius would be proud of this - ', 'Meg FAILMAN!', '- very brofessional of you -',
-                    'heartbleeding', 'juciy', 'supercalifragilisticexpialidocious', 'failing', 'loving'
-                   ]
+      adjectives = [
+        'awesome', 'great', 'interesting', 'cool', 'EPIC', 'gut', 'good', 'pansy',
+        'powerful', 'boring', 'quirky', 'untested', 'german', 'iranian', 'neutral', 'crazy', 'well tested',
+        'jimmy style', 'nasty', 'bibliographical (we received complaints about the original wording)',
+        'bombdiggidy', 'narly', 'spiffy', 'smashing', 'xing style',
+        'leo apotheker style', 'black', 'white', 'yellow', 'shaggy', 'tasty', 'mind bending', 'JAY-Z',
+        'Kanye (the best ever)', '* Toby Keith was here *', 'splendid', 'stupendulous',
+        '(freedom fries!)', '[vote RON PAUL]', '- these are not my glasses -', 'typical pansy',
+        '- ze goggles zey do nothing! -', 'almost working', 'legen- wait for it -', '-dairy!',
+        ' - Tavonius would be proud of this - ', 'Meg FAILMAN!', '- very brofessional of you -',
+        'heartbleeding', 'juciy', 'supercalifragilisticexpialidocious', 'failing', 'loving'
+      ]
       adjectives.sample
     end
 

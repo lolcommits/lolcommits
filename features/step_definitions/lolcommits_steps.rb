@@ -165,7 +165,7 @@ Then(/^the output should contain a list of plugins$/) do
 end
 
 When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|
-  filename = Faker::Lorem.words(1).first
+  filename = FFaker::Lorem.words(1).first
   steps %(
     Given a 98 byte file named "#{filename}"
     And I successfully run `git add #{filename}`
@@ -174,7 +174,7 @@ When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|
 end
 
 When(/^I do a git commit$/) do
-  step %(I do a git commit with commit message "#{Faker::Lorem.sentence}")
+  step %(I do a git commit with commit message "#{FFaker::Lorem.sentence}")
 end
 
 When(/^I do (\d+) git commits$/) do |n|
@@ -190,7 +190,7 @@ Then(/^there should be (\d+) commit entries in the git log$/) do |n|
 end
 
 When(/^I do a mercurial commit with commit message "(.*?)"$/) do |commit_msg|
-  filename = Faker::Lorem.words(1).first
+  filename = FFaker::Lorem.words(1).first
   steps %(
     Given a 98 byte file named "#{filename}"
     And I successfully run `hg add #{filename}`
@@ -199,7 +199,7 @@ When(/^I do a mercurial commit with commit message "(.*?)"$/) do |commit_msg|
 end
 
 When(/^I do a mercurial commit$/) do
-  step %(I do a mercurial commit with commit message "#{Faker::Lorem.sentence}")
+  step %(I do a mercurial commit with commit message "#{FFaker::Lorem.sentence}")
 end
 
 When(/^I do (\d+) mercurial commits$/) do |n|

@@ -27,7 +27,8 @@ module Lolcommits
           :key   => configuration['api_key'],
           :t     => t,
           :token => Digest::SHA1.hexdigest(configuration['api_secret'] + t)
-        })
+        }
+      )
     rescue => e
       log_error(e, "ERROR: HTTMultiParty POST FAILED #{e.class} - #{e.message}")
     end

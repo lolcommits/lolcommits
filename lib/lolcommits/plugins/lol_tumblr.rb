@@ -81,20 +81,22 @@ module Lolcommits
     end
 
     def client
-      @client ||= Tumblr.new(:consumer_key       => TUMBLR_CONSUMER_KEY,
-                             :consumer_secret    => TUMBLR_CONSUMER_SECRET,
-                             :oauth_token        => configuration['access_token'],
-                             :oauth_token_secret => configuration['secret']
-                            )
+      @client ||= Tumblr.new(
+        :consumer_key       => TUMBLR_CONSUMER_KEY,
+        :consumer_secret    => TUMBLR_CONSUMER_SECRET,
+        :oauth_token        => configuration['access_token'],
+        :oauth_token_secret => configuration['secret']
+      )
     end
 
     def oauth_consumer
-      @oauth_consumer ||= OAuth::Consumer.new(TUMBLR_CONSUMER_KEY,
-                                              TUMBLR_CONSUMER_SECRET,
-                                              :site             => TUMBLR_API_ENDPOINT,
-                                              :request_endpoint => TUMBLR_API_ENDPOINT,
-                                              :http_methdo => :get
-                                             )
+      @oauth_consumer ||= OAuth::Consumer.new(
+        TUMBLR_CONSUMER_KEY,
+        TUMBLR_CONSUMER_SECRET,
+        :site             => TUMBLR_API_ENDPOINT,
+        :request_endpoint => TUMBLR_API_ENDPOINT,
+        :http_method      => :get
+      )
     end
 
     def config_with_default(key, default = nil)

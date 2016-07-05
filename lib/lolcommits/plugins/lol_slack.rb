@@ -53,7 +53,8 @@ module Lolcommits
           :filetype => 'jpg',
           :filename => runner.sha,
           :title    => runner.message + "[#{runner.vcs_info.repo}]",
-          :channels => configuration['channels'])
+          :channels => configuration['channels']
+        )
 
         debug response
       rescue => e

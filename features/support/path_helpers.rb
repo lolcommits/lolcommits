@@ -24,7 +24,7 @@ module PathHelpers
     # add the temporary directory with git in it back into the path
     newpaths << tmpbindir
 
-    # use aruba/api set_env to set PATH, which will be automaticaly restored
+    # use aruba/api set_environment_variable to set PATH, which will be automaticaly restored
     set_env 'PATH', newpaths.join(File::PATH_SEPARATOR)
   end
 
