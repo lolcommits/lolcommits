@@ -31,8 +31,8 @@ Gem::Specification.new do |s|
   # hold back upgrading (and why)
   s.add_runtime_dependency('rest-client', '=1.8')     # yam gem requires uses this older version
   s.add_runtime_dependency('mime-types', '=2.99')     # ~> 3.0+ requires Ruby >= 2.0
-  s.add_development_dependency('cucumber', '=1.3.19') # ~> 2+ requries Ruby >= 1.9.3
-  s.add_development_dependency('tins', '=1.6.0')      # ~> 1.7+ requries Ruby >= 2.0
+
+  # s.add_development_dependency('tins', '=1.6.0')      # ~> 1.7+ requries Ruby >= 2.0
 
   # core
   s.add_runtime_dependency('choice', '~> 0.1.6')
@@ -52,15 +52,15 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
 
   # development gems
-  s.add_development_dependency('fivemat', '~> 1.3.1')
   s.add_development_dependency('rdoc', '~> 4.2.0')
-  s.add_development_dependency('aruba', '~> 0.6.2')
   s.add_development_dependency('rake', '~> 10.4.2')
+
+  # testing gems
+  s.add_development_dependency('cucumber', '~> 2.4.0')
+  s.add_development_dependency('aruba', '~> 0.6.2')
   s.add_development_dependency('ffaker', '~> 1.25.0')
   s.add_development_dependency('coveralls', '~> 0.7.2')
   s.add_development_dependency('minitest', '~> 5.5.1')
-
-  # testing gems
   s.add_development_dependency('travis', '~> 1.7.4')
   s.add_development_dependency('rubocop', '~> 0.37.2')
 end
