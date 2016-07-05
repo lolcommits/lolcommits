@@ -24,16 +24,16 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   # non-gem dependencies
-  s.required_ruby_version = '>= 1.8.7'
+  s.required_ruby_version = '>= 1.9.1'
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
   s.add_runtime_dependency('rest-client', '~> 1.6.7')   # yam gem requires uses this older version
-  s.add_runtime_dependency('mini_magick', '~> 4.5.1')   # ~> 4+ fails with JRuby
+  s.add_runtime_dependency('mini_magick', '~> 4.5.1')   #
+  s.add_runtime_dependency('git', '~> 1.3.0')           #
   s.add_runtime_dependency('mime-types', '~> 1.25')     # ~> 2+ requires Ruby >= 1.9.2
   s.add_runtime_dependency('httparty', '~> 0.11.0')     # ~> 0.13+ requires Ruby >= 1.9.3
-  s.add_runtime_dependency('git', '=1.2.8')             # ~> 1.2.9 has issues with Ruby 1.8.7
   s.add_development_dependency('cucumber', '=1.3.19')   # ~> 2+ requries Ruby >= 1.9.3
   s.add_development_dependency('tins', '=1.6.0')        # ~> 1.6+ requries Ruby >= 2.0
   s.add_development_dependency('addressable', '=2.3.8') # ~> 2.3+ requries Ruby >= 2.0
