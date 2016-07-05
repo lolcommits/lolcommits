@@ -34,10 +34,10 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('json', '~> 1.8.3')      # ~> 2.0+ requires Ruby >= 2.0 (lolsrv)
   s.add_development_dependency('tins', '=1.6.0')    # ~> 1.7.0+ requires Ruby >= 2.0
   s.add_development_dependency('rake', '~> 10.5.0') # ~> 11+ introduces lots of warnings from other deps
+  s.add_development_dependency('aruba', '~> 0.6.2') # upgrading requires a lot of test code changes
 
   # core
-  s.add_runtime_dependency('methadone', '~> 1.8.0')
-
+  s.add_runtime_dependency('methadone', '~> 1.9.2')
   s.add_runtime_dependency('choice', '~> 0.2.0')
   s.add_runtime_dependency('mercurial-ruby', '~> 0.7.12')
   s.add_runtime_dependency('mini_magick', '~> 4.5.1')
@@ -55,8 +55,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rdoc', '~> 4.2.2')
 
   # testing gems
-  s.add_development_dependency('aruba', '~> 0.6.2')
-
   s.add_development_dependency('rubocop', '~> 0.41.0')
   s.add_development_dependency('travis', '~> 1.8.2')
   s.add_development_dependency('minitest', '~> 5.9.0')
