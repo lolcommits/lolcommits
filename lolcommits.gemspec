@@ -46,9 +46,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '~> 1.3.0')
 
   # plugin gems
-  s.add_runtime_dependency('twitter', '~> 5.13.0')       # twitter
-  s.add_runtime_dependency('oauth', '~> 0.4.7')          # twitter oauth
-
+  s.add_runtime_dependency('twitter', '~> 5.16.0')       # twitter
   s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer
   s.add_runtime_dependency('httmultiparty', '~> 0.3.16') # dot_com
   s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
