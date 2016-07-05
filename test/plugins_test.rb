@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
-require 'coveralls'
-Coveralls.wear!
+if RUBY_VERSION >= '2.0.0'
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'minitest/autorun'
 require 'ffaker'
