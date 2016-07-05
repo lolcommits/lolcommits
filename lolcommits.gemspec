@@ -29,11 +29,11 @@ Gem::Specification.new do |s|
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_runtime_dependency('rest-client', '~> 1.8')       # yam gem requires uses this older version
-  s.add_runtime_dependency('mime-types', '=2.99')         # ~> 3.0+ requires Ruby >= 2.0
-  s.add_runtime_dependency('httparty', '~> 0.11.0')       # ~> 0.13+ requires Ruby >= 1.9.3
-  s.add_development_dependency('cucumber', '=1.3.19')     # ~> 2+ requries Ruby >= 1.9.3
-  s.add_development_dependency('tins', '=1.6.0')          # ~> 1.6+ requries Ruby >= 2.0
+  s.add_runtime_dependency('rest-client', '=1.8')     # yam gem requires uses this older version
+  s.add_runtime_dependency('mime-types', '=2.99')     # ~> 3.0+ requires Ruby >= 2.0
+  s.add_runtime_dependency('httparty', '=0.13.0')     # ~> 0.13.1+ requires Ruby >= 1.9.3
+  s.add_development_dependency('cucumber', '=1.3.19') # ~> 2+ requries Ruby >= 1.9.3
+  s.add_development_dependency('tins', '=1.6.0')      # ~> 1.7+ requries Ruby >= 2.0
 
   # core
   s.add_runtime_dependency('choice', '~> 0.1.6')
