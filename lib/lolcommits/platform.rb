@@ -63,9 +63,9 @@ module Lolcommits
     def self.valid_imagemagick_installed?
       return false unless command_which('identify')
       return false unless command_which('mogrify')
-      # you'd expect the below to work on its own, but it only handles old versions
-      # and will throw an exception if IM is not installed in PATH
-      MiniMagick.valid_version_installed?
+      # cli_version check will throw a MiniMagick::Error exception if IM is not
+      # installed in PATH, since it attempts to parse output from `identify`
+      !MiniMagick.cli_version.nil?
     rescue
       return false
     end
