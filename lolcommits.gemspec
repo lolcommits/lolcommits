@@ -29,12 +29,12 @@ Gem::Specification.new do |s|
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_runtime_dependency('rest-client', '=1.8')   # yam gem requires uses this older version
-  s.add_runtime_dependency('mime-types', '=2.99')   # ~> 3.0+ requires Ruby >= 2.0
-  s.add_runtime_dependency('json', '~> 1.8.3')      # ~> 2.0+ requires Ruby >= 2.0 (lolsrv)
-  s.add_development_dependency('tins', '=1.6.0')    # ~> 1.7.0+ requires Ruby >= 2.0
-  s.add_development_dependency('rake', '~> 10.5.0') # ~> 11+ introduces lots of warnings from other deps
-  s.add_development_dependency('aruba', '~> 0.6.2') # upgrading requires a lot of test code changes
+  s.add_runtime_dependency('rest-client', '=1.8') # yam gem requires uses this older version
+  s.add_runtime_dependency('mime-types', '=2.99') # ~> 3.0+ requires Ruby >= 2.0
+  s.add_runtime_dependency('json', '=1.8.3')      # ~> 2.0+ requires Ruby >= 2.0 (lolsrv)
+  s.add_development_dependency('tins', '=1.6.0')  # ~> 1.7.0+ requires Ruby >= 2.0
+  s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
+  s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
 
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.2')
@@ -58,7 +58,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('rubocop', '~> 0.41.0')
   s.add_development_dependency('travis', '~> 1.8.2')
   s.add_development_dependency('minitest', '~> 5.9.0')
-  s.add_development_dependency('coveralls', '~> 0.8.13')
+  s.add_development_dependency('coveralls', '~> 0.8.14')
   s.add_development_dependency('ffaker', '~> 2.2.0')
   s.add_development_dependency('cucumber', '~> 2.4.0')
 end
