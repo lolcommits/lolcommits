@@ -20,6 +20,13 @@ Please add your own lolcommit! Add to the [People Using
 Lolcommits](https://github.com/mroth/lolcommits/wiki/Lolcommits-from-around-the-world%21)
 page on our wiki.
 
+## Requirements
+
+* Ruby >= 1.8.7
+* A webcam
+* [ImageMagick](http://www.imagemagick.org)
+* [ffmpeg](https://www.ffmpeg.org) (optional) for animated gif capturing
+
 ## Installation
 
 ### Mac OS X
@@ -39,6 +46,11 @@ default MacOSX Ruby install is dumb and requires it.
 If [Boxen](https://boxen.github.com) is your thing, [try
 this](https://github.com/AssuredLabor/puppet-lolcommits).
 
+Lolcommits v0.7.0 was the last release to support Ruby < 1.9.3. If you'd like to
+use this gem on older rubies, install it with:
+
+    [sudo] gem install lolcommits --version 0.7.0
+
 ### Linux
 
 Install dependencies using your package manager of choice, for example in
@@ -46,7 +58,9 @@ Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
 
-For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no longer ships with the default Ubuntu sources. [Downloads for ffmpeg](http://ffmpeg.org/download.html)
+For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no
+longer ships with the default Ubuntu sources. [Downloads for
+ffmpeg](http://ffmpeg.org/download.html)
 
 Then install the gem with:
 
@@ -118,12 +132,12 @@ in your repository's `.git/hooks/post-commit` file).
 * `--fork`
 * `--stealth`
 
-You can configure lolcommits to adjust the text positions, font styles (type, 
-size, color etc.) or add a transparent overlay to your images. Simply configure 
+You can configure lolcommits to adjust the text positions, font styles (type,
+size, color etc.) or add a transparent overlay to your images. Simply configure
 the default loltext plugin with this command:
 
     lolcommits --config -p loltext
-    
+
 To find out more, read about the [loltext options](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
 
 You can use `lolcommits --devices` to list all attached video devices available
