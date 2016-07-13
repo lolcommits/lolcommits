@@ -9,21 +9,21 @@ project adheres to [Semantic Versioning][Semver].
   * Your contribution here!
 
 ## [0.8.0][] (13 July 2016)
-  * New release requires Ruby 1.9.3+ minimum
+  * New release requires Ruby 1.9.3+ minimum (@matthutchinson #313)
   * All gems upgraded to latest versions (6 held back, see lolcommits.gemspec)
   * See [this issue](https://github.com/mroth/lolcommits/issues/310) for details
 
 ## [0.7.0][] (13 July 2016) - Last release supporting Ruby < 1.9.3
-  * Last release supporting Ruby < 1.9.3
+  * Last release supporting Ruby < 1.9.3 (@matthutchinson #313)
 
 ## [0.6.7][] (8 June 2016)
-  * Remove `console` binary from packaged gem
+  * Remove `console` binary from packaged gem (@samgranieri #309)
 
 ## [0.6.6][] (1 June 2016)
   * Show error/exit when --config outside a git repo (@matthutchinson #308)
   * Add more options to loltext plugin (@ruxton #304)
   * Added CODE_OF_CONDUCT.md to repo (@matthutchinson)
-  * Added a useful `console` binary for development and debugging
+  * Added a useful `console` binary for development and debugging (@matthutchinson)
 
 ## [0.6.5][] (12 April 2016)
   * Add mercurial support (@tak #301 #302 #303)
