@@ -124,7 +124,7 @@ module Lolcommits
       if File.directory? loldir
         begin
           # ensure 755 permissions for loldir
-          File.chmod(0755, loldir)
+          File.chmod(0o755, loldir)
         rescue Errno::EPERM
           # abort if permissions cannot be met
           puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV['USER']}'"

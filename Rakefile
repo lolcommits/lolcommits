@@ -35,7 +35,7 @@ Rake::FileUtilsExt.verbose(false)
 CUKE_RESULTS = 'results.html'.freeze
 CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features) do |t|
-  optstr = "features --format html -o #{CUKE_RESULTS} --format Fivemat -x"
+  optstr = "features --format html -o #{CUKE_RESULTS} --format progress -x"
   optstr << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
   optstr << ' --tags ~@unstable' if ENV['tag'].nil? # ignore unstable tests unless specifying something at CLI
   t.cucumber_opts = optstr
@@ -47,14 +47,9 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_files.include('README.rdoc', 'lib/**/*.rb', 'bin/**/*')
 end
 
-# only run rubocop on platforms where it is supported, sigh
-if RUBY_VERSION >= '1.9.3'
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new
-  task :default => [:rubocop, :test, :features]
-else
-  task :default => [:test, :features]
-end
+require 'rubocop/rake_task'
+RuboCop::RakeTask.new
+task :default => [:rubocop, :test, :features]
 
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do

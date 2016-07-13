@@ -55,3 +55,7 @@ Style/CaseIndentation:
 # Offense count: 28
 Style/Documentation:
   Enabled: false
+
+# Bug with this cop https://github.com/bbatsov/rubocop/issues/3283
+Lint/ShadowedException:
+  Enabled: false

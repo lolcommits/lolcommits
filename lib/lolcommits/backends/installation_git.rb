@@ -42,7 +42,7 @@ module Lolcommits
         f.write(hook_script)
       end
 
-      FileUtils.chmod 0755, HOOK_PATH
+      FileUtils.chmod 0o755, HOOK_PATH
       HOOK_PATH
     end
 

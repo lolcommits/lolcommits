@@ -27,7 +27,7 @@ class PluginsTest < MiniTest::Test
   #
   # issue #136, https://github.com/mroth/lolcommits/issues/136
   def test_lol_twitter_build_tweet
-    long_commit_message = Faker::Lorem.sentence(500)
+    long_commit_message = FFaker::Lorem.sentence(500)
     plugin              = Lolcommits::LolTwitter.new(nil)
     max_tweet_size      = 116
     suffix              = '... #lolcommits'
