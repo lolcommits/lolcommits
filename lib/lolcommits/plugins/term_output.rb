@@ -7,6 +7,7 @@ module Lolcommits
 
     def initialize(runner)
       super
+      options
     end
 
     def run_postcapture
@@ -17,7 +18,7 @@ module Lolcommits
       else
         base64 = Base64.encode64(open(runner.main_image) { |io| io.read })
 
-        puts "\e]1337;File=inline=1:#{base64};alt=#{runner.meessage}\a\n"
+        puts "\e]1337;File=inline=1:#{base64};alt=#{runner.message}\a\n"
       end
 
     end
