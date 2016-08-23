@@ -15,7 +15,7 @@ module Lolcommits
       if !runner.vcs_info || runner.vcs_info.repo.empty?
         puts 'Repo is empty, skipping output'
       else
-        base64 = Base64.encode64(open(runner.main_image,&:read))
+        base64 = Base64.encode64(open(runner.main_image, &:read))
 
         puts "\e]1337;File=inline=1:#{base64};alt=#{runner.message}\a\n"
       end
