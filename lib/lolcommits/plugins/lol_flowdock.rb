@@ -3,7 +3,7 @@ require 'rest_client'
 
 module Lolcommits
   class LolFlowdock < Plugin
-    ENDPOINT_URL = 'api.flowdock.com/flows/'
+    ENDPOINT_URL = 'api.flowdock.com/flows/'.freeze
     RETRY_COUNT  = 2
 
     def self.name
@@ -23,7 +23,8 @@ module Lolcommits
       print "https://flowdock.com/account/tokens\n"
       print "Enter the generated token below, then press enter: \n"
       code = STDIN.gets.to_s.strip
-      print "Enter the machine name of the flow you want to post to from this repo (go to https://www.flowdock.com/account and click Flows, then click the flow, and get the machine name from the URL):\n"
+      print "Enter the machine name of the flow you want to post to from this repo.\n"
+      print "Go to https://www.flowdock.com/account and click Flows, then click the flow, then get the machine name from the URL):\n"
       flow = STDIN.gets.to_s.strip
       print "Enter the name of the organization for this Flowdock account.\n"
       organization = STDIN.gets.to_s.strip
@@ -54,10 +55,8 @@ module Lolcommits
         puts endpoint
         response = RestClient.post(
           endpoint,
-          {
-            :event        => "file",
-            :content      => File.new(runner.main_image),
-          },
+          :event        => 'file',
+          :content      => File.new(runner.main_image)
         )
         debug response
       rescue => e
