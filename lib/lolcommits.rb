@@ -39,6 +39,7 @@ require 'lolcommits/plugins/lol_yammer'
 require 'lolcommits/plugins/lol_protonet'
 require 'lolcommits/plugins/lol_tumblr'
 require 'lolcommits/plugins/lol_slack'
+require 'lolcommits/plugins/lol_flowdock'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'
