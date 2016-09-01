@@ -52,7 +52,6 @@ module Lolcommits
       begin
 
         endpoint = 'https://' + configuration['access_token'] + '@' + ENDPOINT_URL + configuration['organization'] + '/' + configuration['flow'] + '/messages'
-        puts endpoint
         response = RestClient.post(
           endpoint,
           :event        => 'file',
