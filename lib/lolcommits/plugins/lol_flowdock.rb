@@ -25,9 +25,9 @@ module Lolcommits
       code = STDIN.gets.to_s.strip
       print "Enter the machine name of the flow you want to post to from this repo.\n"
       print "Go to https://www.flowdock.com/account and click Flows, then click the flow, then get the machine name from the URL:\n"
-      flow = STDIN.gets.to_s.strip
+      flow = STDIN.gets.to_s.strip.downcase
       print "Enter the name of the organization for this Flowdock account.\n"
-      organization = STDIN.gets.to_s.strip
+      organization = STDIN.gets.to_s.strip.downcase
 
       {
         'access_token' => code,
