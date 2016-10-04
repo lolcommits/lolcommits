@@ -40,6 +40,7 @@ require 'lolcommits/plugins/lol_protonet'
 require 'lolcommits/plugins/lol_tumblr'
 require 'lolcommits/plugins/lol_slack'
 require 'lolcommits/plugins/lol_flowdock'
+require 'lolcommits/plugins/lol_hipchat'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'
