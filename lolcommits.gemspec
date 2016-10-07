@@ -5,7 +5,7 @@ require 'lolcommits/version'
 
 Gem::Specification.new do |s|
   s.name        = 'lolcommits'
-  s.version     = Lolcommits::VERSION
+  s.version     = Lolcommits::VERSION.dup
   s.authors     = ['Matthew Rothenberg', 'Matthew Hutchinson']
   s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
   s.homepage    = 'http://mroth.github.com/lolcommits/'
@@ -35,6 +35,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency('tins', '=1.6.0')  # ~> 1.7.0+ requires Ruby >= 2.0
   s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
   s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
+  s.add_runtime_dependency('term-ansicolor', '=1.3.2') # ~> 1.4+ requires Ruby >= 2.0
+  s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3.0+ requires Ruby >= 2.1
 
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.2')
