@@ -8,6 +8,12 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract plugins to separate gems ...
   * Your contribution here!
 
+## [0.8.1][] (11 October 2016)
+  * shebang fix in installer (@matthutchinson #317)
+  * FlowDock plugin (@mikecrittenden #318)
+  * HipChat plugin (@Salzig #320)
+  * peg gems for legacy ruby 1.9.3 (@matthutchinson #321)
+
 ## [0.8.0][] (13 July 2016)
   * New release requires Ruby 1.9.3+ minimum (@matthutchinson #313)
   * All gems upgraded to latest versions (6 held back, see lolcommits.gemspec)
@@ -249,7 +255,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.8.1...HEAD
+[0.8.1]: https://github.com/mroth/lolcommits/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/mroth/lolcommits/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/mroth/lolcommits/compare/v0.6.7...v0.7.0
 [0.6.7]: https://github.com/mroth/lolcommits/compare/v0.6.6...v0.6.7
