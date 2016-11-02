@@ -8,333 +8,228 @@ rescue LoadError
   require 'lolcommits'
 end
 
-require 'lolcommits/cli/fatals'
-require 'lolcommits/cli/launcher'
-require 'lolcommits/cli/process_runner'
-require 'lolcommits/cli/timelapse_gif'
-
-include Lolcommits
-include Lolcommits::CLI
-
-require 'choice'
+require 'optparse'
 require 'methadone'
+require 'lolcommits/cli.rb'
+
+# allow logging from everywhere
 include Methadone::CLILogging
 
-#
-# NO ARGUMENTS SPECIFIED, HELP THE USER OUT
-#
-def do_noargs
-  # TODO: make this a contextual helper to know whether lolcommits is enabled
-  puts 'Do what exactly?'
-  puts 'Try: lolcommits --enable   (when in a git repository)'
-  puts 'Or:  lolcommits --help'
-end
 
-# Gets a configuration object.  If running in test mode will override the
-# LOLDIR for the configuration.
-#
-# @return [Lolcommits::Configuration]
-def configuration
-  if Choice.choices[:test]
-    Configuration.new(loldir: Configuration.loldir_for('test'))
-  else
-    Configuration.new
-  end
-end
+class App
+  include Methadone::Main
 
-# Duration for animated capture.
-#
-# If animation is enabled, returns an integer representing seconds OR a string
-# containing the char representation of an integer.
-# If animation is disabled, or if the platform doesn't support animated capture,
-# returns nil instead.
-#
-# FIXME: we really should standardize this to always return integer, and remove
-#   all the to_i calls elsewhere.
-#
-# @return [Integer, String, nil]
-def capture_animate
-  return unless Platform.can_animate?
-  Choice.choices[:animate] || ENV['LOLCOMMITS_ANIMATE'] || nil
-end
+  include Lolcommits
+  include Lolcommits::CLI
 
-def default_device
-  result = Choice.choices[:device] || ENV['LOLCOMMITS_DEVICE']
+  description "git-based selfies for software developers (lolcommits.github.io)"
+  version     Lolcommits::VERSION
 
-  result ||= Dir.glob('/dev/video*').first if Platform.platform_linux?
+  # TODO
+  #   HANDLE custom ENV options (cmdline args override)
 
-  result
-end
+  main do
+    puts options.inspect
 
-#
-# IF --CAPTURE, DO CAPTURE
-#
-def do_capture
-  capture_delay   = Choice.choices[:delay] || ENV['LOLCOMMITS_DELAY'] || 0
-  capture_stealth = Choice.choices[:stealth] || ENV['LOLCOMMITS_STEALTH'] || nil
-  capture_device  = default_device
-
-  capture_options = {
-    capture_delay: capture_delay,
-    capture_stealth: capture_stealth,
-    capture_device: capture_device,
-    capture_animate: capture_animate,
-    config: configuration
-  }
-
-  process_runner = ProcessRunner.new(configuration)
-  should_we_fork = Choice.choices[:fork] || ENV['LOLCOMMITS_FORK']
-  process_runner.fork_me?(should_we_fork) do
-    if Choice.choices[:test]
-      info '*** Capturing in test mode.'
-
-      # get optional fake commit msg and sha from command line
-      override_text = {
-        message: Choice.choices[:msg],
-        sha: Choice.choices[:sha]
-      }
-
-      # fire off runner with the overriden fake commit metadata
-      runner = Lolcommits::Runner.new(capture_options.merge(override_text))
-      runner.run
-
-      # automatically open so user can see the test image results immediately
-      Launcher.open_image(runner.main_image)
+    if options.empty?
+      puts no_options_help
     else
+      if debug_enabled?
+        logger.level = Logger::DEBUG
+        debug "Outputting at DEBUG verbosity"
+      end
+
+      if options[:'show-config']
+        puts configuration
+      elsif options[:plugins]
+        puts configuration.plugins_list
+      elsif options[:devices]
+        puts Platform.device_list
+        puts device_list_help
+      elsif options[:enable]
+        Installation.do_enable
+      elsif options[:disable]
+        Installation.do_disable
+      else
+        # all other commands require a vcs repo
+        Fatals.die_if_not_vcs_repo!
+
+        if options[:last]
+          show_last_lolimage
+        elsif options[:browse]
+          Launcher.open_folder(configuration.loldir)
+        elsif options[:timeline]
+          TimelapseGif.new(configuration).run(options[:timeline])
+        elsif options[:config]
+          configuration.do_configure!(options[:plugin])
+        elsif options[:capture]
+          capture_lolcommit
+        end
+      end
+    end
+  end
+
+  on("--test", "run in test mode")
+  on("--debug", "show debugging info")
+  on("--show-config", "show configuration file")
+  on("--devices", "list available capture devices (mac only)")
+  on("--plugins", "list all available plugins")
+  on("--config", "configure a plugin")
+
+  on("-c", "--capture", "capture lolcommit based on last git commit")
+  on("-e", "--enable", "install lolcommits for this repo")
+  on("-d", "--disable", "uninstall lolcommits for this repo")
+  on("-l", "--last", "view the most recent lolcommit")
+  on("-b", "--browse", "browse this repo's lolcommits")
+  on("-t", "--timeline {today}", "generate animated gif from all (or today's) captured images")
+  on("-p", "--plugin {name}", "plugin name to use with --config")
+
+  # optional capturing options
+  on("--device {name}", "device name to capture from (mac/linux only)")
+  on("-a", "--animate {seconds}", "enable animated gif captures with duration")
+  on("-w", "--delay {seconds}", "delay before taking a snapshot")
+  on("--stealth", "capture image in stealth mode (no output)")
+  on("--fork", "fork capturing process to the background")
+  on("-s", "--sha {string}", "pass commit sha manually (--test mode only)")
+  on("-m", "--msg {string}", "pass commit message manually (--test mode only)")
+
+  #
+  # No options specified, help the user out
+  #
+  def self.no_options_help
+    # TODO: make this a contextual helper to know whether lolcommits is enabled
+    "Do what exactly?\n" +
+    "Try: lolcommits --enable (when in a git repository)\n" +
+    "Or:  lolcommits --help"
+  end
+
+  # Gets a configuration object.  If running in test mode will override the
+  # LOLDIR for the configuration.
+  #
+  # @return [Lolcommits::Configuration]
+  def self.configuration
+    if options[:test]
+      Configuration.new(loldir: Configuration.loldir_for('test'))
+    else
+      Configuration.new
+    end
+  end
+
+  def self.debug_enabled?
+    options[:debug] || ENV['LOLCOMMITS_DEBUG'] || false
+  end
+
+  def self.device_list_help
+    'Specify a device with --device "{device name}" or set the LOLCOMMITS_DEVICE env variable'
+  end
+
+  def self.show_last_lolimage
+    lolimage = configuration.most_recent
+    if lolimage.nil?
+      warn 'No lolcommits have been captured for this repository yet.'
+      exit 1
+    end
+    Launcher.open_image(lolimage)
+  end
+
+  def self.capture_device
+    result = options[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
+    result ||= Dir.glob('/dev/video*').first if Platform.platform_linux?
+    result
+  end
+
+  def self.capture_lolcommit
+    should_we_fork  = options[:fork] || ENV['LOLCOMMITS_FORK'] || false
+    capture_stealth = options[:stealth] || ENV['LOLCOMMITS_STEALTH'] || false
+    capture_delay   = (options[:delay] || ENV['LOLCOMMITS_DELAY']).to_i
+
+    capture_options = {
+      :capture_delay   => capture_delay,
+      :capture_stealth => capture_stealth,
+      :capture_device  => capture_device,
+      :capture_animate => capture_animate,
+      :config          => configuration
+    }
+
+
+    process_runner = ProcessRunner.new(configuration)
+    process_runner.fork_me?(should_we_fork) do
+      if options[:test]
+        info '*** Capturing in Test mode ***'
+        capture_options.merge!(message: options[:msg], sha: options[:sha])
+      end
+
+      puts "CAPTURING WITH: "
+      puts capture_options.inspect
+      puts "forkin? #{should_we_fork}"
+
+      return
+
       runner = Lolcommits::Runner.new(capture_options)
       runner.run
-    end
-  end
-end
 
-def do_configure
-  Fatals.die_if_not_vcs_repo!
-  $stdout.sync = true
-  configuration.do_configure! Choice.choices[:plugin]
-end
-
-def do_last
-  Fatals.die_if_not_vcs_repo!
-  lolimage = configuration.most_recent
-  if lolimage.nil?
-    warn 'No lolcommits have been captured for this repository yet.'
-    exit 1
-  end
-  Launcher.open_image(lolimage)
-end
-
-def print_version_and_exit
-  puts Lolcommits::VERSION
-  exit 0
-end
-
-def change_dir_to_root_or_repo!
-  debug 'Walking up dir tree'
-  loop do
-    cur = File.expand_path('.')
-    nxt = File.expand_path('..', cur)
-    if nxt == cur
-      warn 'Repository root not found'
-      return
-    end
-    return if VCSInfo.repo_root?
-    Dir.chdir(nxt)
-  end
-end
-
-# FIXME: this should be moved out of the CLI, but to where?
-def load_local_plugins!
-  plugins_dir = Configuration.loldir_for('.plugins')
-  Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
-    load plugin
-  end
-end
-
-#
-# Command line parsing fun
-#
-Choice.options do
-  option :version do
-    long '--version'
-    short '-v'
-    desc 'print version and exit'
-    action { print_version_and_exit }
-  end
-
-  option :enable do
-    long '--enable'
-    short '-e'
-    desc 'install lolcommits for this repo'
-    action do
-      Installation.do_enable
-      exit 0
+      # automatically open the image in test mode
+      Launcher.open_image(runner.main_image) if options[:test]
     end
   end
 
-  option :disable do
-    long '--disable'
-    short '-d'
-    desc 'uninstall lolcommits for this repo'
-    action do
-      Installation.do_disable
-      exit 0
+  # Duration for animated capturing
+  #
+  # If animation is enabled, returns an integer > 0 representing seconds.
+  # Seconds will be 0 if no option set, or if the platform doesn't support
+  # animated captures (in which case animated capturing will be disabled).
+  #
+  # @return [Integer]
+  def self.capture_animate
+    if Platform.can_animate?
+      (options[:animate] || ENV['LOLCOMMITS_ANIMATE']).to_i
+    else
+      0
     end
   end
 
-  option :capture do
-    long '--capture'
-    short '-c'
-    desc 'capture lolcommit based on last git commit'
+  def self.capture_animated?
+    capture_animate > 0
   end
 
-  option :last do
-    long '--last'
-    short '-l'
-    desc 'view the most recent lolcommit'
-  end
-
-  option :browse do
-    long '--browse'
-    short '-b'
-    desc "browse this repo's lolcommits"
-  end
-
-  option :configure do
-    long '--config'
-    desc 'configure a plugin'
-  end
-
-  option :show_config do
-    short '-sc'
-    long '--show-config'
-    desc 'display configuration file'
-  end
-
-  option :plugin do
-    desc 'pass plugin name for --config'
-    long '--plugin'
-    short '-p'
-    default nil
-  end
-
-  option :plugins do
-    desc 'list all available plugins'
-    long '--plugins'
-  end
-
-  option :test do
-    long '--test'
-    desc 'Run in test mode'
-  end
-
-  option :sha do
-    desc 'pass SHA manually [TEST-MODE]'
-    long '--sha'
-    short '-s'
-    default "test-#{rand(10**10)}"
-  end
-
-  option :msg do
-    desc 'pass commit msg manually [TEST-MODE]'
-    long '--msg'
-    short '-m'
-    default 'this is a test message i didnt really commit something'
-  end
-
-  option :delay do
-    long '--delay=SECONDS'
-    desc 'delay taking of the snapshot by n seconds'
-    cast Integer
-    short '-w'
-  end
-
-  option :stealth do
-    long '--stealth'
-    desc 'capture image in stealth mode'
-  end
-
-  option :device do
-    long '--device=DEVICE'
-    desc 'the device name used to take the snapshot (mac/linux only)'
-  end
-
-  option :devices do
-    long '--devices'
-    desc 'list all video devices available (mac only)'
-  end
-
-  option :debug do
-    long '--debug'
-    desc 'output debugging information'
-  end
-
-  option :gif do
-    long '--gif'
-    short '-g'
-    desc 'generate animated timeline gif from captured images'
-  end
-
-  if Platform.can_animate?
-    option :animate do
-      long '--animate=SECONDS'
-      short '-a'
-      cast Integer
-      desc 'enable animated gif captures with duration (seconds)'
+  # TODO: remove this after implementing gem based plugins
+  # https://github.com/mroth/lolcommits/issues/99
+  # Until then for local plugin dev, use $LOLCOMMITS_DIR/.plugins directory
+  def self.load_local_plugins!
+    plugins_dir = Configuration.loldir_for('.plugins')
+    Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
+      load plugin
     end
   end
 
-  option :fork do
-    long '--fork'
-    desc 'fork the lolcommits runner to the background'
+  #
+  # change working dir to either a repo or the fs root
+  #
+  def self.change_dir_to_root_or_repo!
+    debug 'Walking up dir tree'
+    loop do
+      cur = File.expand_path('.')
+      nxt = File.expand_path('..', cur)
+      if nxt == cur
+        warn 'Repository root not found'
+        return
+      end
+      return if VCSInfo.repo_root?
+      Dir.chdir(nxt)
+    end
   end
-end
 
-# Set debug level if needed
-debug_mode = Choice.choices[:debug] || ENV['LOLCOMMITS_DEBUG'] || nil
-if debug_mode
-  logger.level = Logger::DEBUG
-  debug 'Outputting at DEBUG verbosity'
-end
+  #
+  # check for fatal conditions before execution
+  #
+  Fatals.die_if_no_valid_ffmpeg_installed! if capture_animated?
+  Fatals.die_on_fatal_platform_conditions!
 
-#
-# check for fatal conditions before execution
-#
-Fatals.die_if_no_valid_ffmpeg_installed! if capture_animate
-Fatals.die_on_fatal_platform_conditions!
+  #
+  # load plugins and walk up dir
+  #
+  load_local_plugins!
+  change_dir_to_root_or_repo!
 
-#
-# change working dir to either a repo or the fs root
-#
-change_dir_to_root_or_repo!
-
-# TODO: Allow local backend definitions?
-
-#
-# load system local plugins
-#
-load_local_plugins!
-
-#
-# Handle actions manually since choice seems weird
-#
-if Choice.choices[:capture]
-  do_capture
-elsif Choice.choices[:configure]
-  do_configure
-elsif Choice.choices[:show_config]
-  puts configuration
-elsif Choice.choices[:plugins]
-  configuration.puts_plugins
-elsif Choice.choices[:devices]
-  puts Platform.device_list
-  puts 'Specify a device with --device="{device name}" or set the LOLCOMMITS_DEVICE env variable'
-elsif Choice.choices[:last]
-  do_last
-elsif Choice.choices[:browse]
-  Fatals.die_if_not_vcs_repo!
-  Launcher.open_folder(configuration.loldir)
-elsif Choice.choices[:gif]
-  TimelapseGif.new(configuration).run(Choice.choices[:gif])
-else
-  do_noargs
+  go!
 end

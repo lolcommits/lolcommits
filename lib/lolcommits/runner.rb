@@ -7,7 +7,6 @@ module Lolcommits
                   :sha, :snapshot_loc, :main_image, :config, :vcs_info,
                   :capture_animate
 
-    include Methadone::CLILogging
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -96,46 +95,39 @@ module Lolcommits
       capturer.capture
     end
 
-    def animate?
-      capture_animate && (capture_animate.to_i > 0)
+    def capture_animated?
+      capture_animate > 0
     end
 
     private
 
-    # def capturer_class
-    #   capturer_module = 'Lolcommits'
-    #   Object.const_get(capturer_module).const_get(Platform.capturer_class(animate?))
-    # end
-
     def image_file_type
-      animate? ? 'gif' : 'jpg'
+      capture_animated? ? 'gif' : 'jpg'
     end
-  end
 
-  protected
-
-  def resize_snapshot!
-    debug 'Runner: resizing snapshot'
-    image = MiniMagick::Image.open(snapshot_loc)
-    if image[:width] > 640 || image[:height] > 480
-      # this is ghetto resize-to-fill
-      image.combine_options do |c|
-        c.resize '640x480^'
-        c.gravity 'center'
-        c.extent '640x480'
+    def resize_snapshot!
+      debug 'Runner: resizing snapshot'
+      image = MiniMagick::Image.open(snapshot_loc)
+      if image[:width] > 640 || image[:height] > 480
+        # this is ghetto resize-to-fill
+        image.combine_options do |c|
+          c.resize '640x480^'
+          c.gravity 'center'
+          c.extent '640x480'
+        end
+        debug "Runner: writing resized image to #{snapshot_loc}"
+        image.write snapshot_loc
       end
-      debug "Runner: writing resized image to #{snapshot_loc}"
-      image.write snapshot_loc
+      debug "Runner: copying resized image to #{main_image}"
+      FileUtils.cp(snapshot_loc, main_image)
     end
-    debug "Runner: copying resized image to #{main_image}"
-    FileUtils.cp(snapshot_loc, main_image)
-  end
 
-  def cleanup!
-    debug 'Runner: running cleanup'
-    # clean up the captured image and any other raw assets
-    FileUtils.rm(snapshot_loc)
-    FileUtils.rm_f(config.video_loc)
-    FileUtils.rm_rf(config.frames_loc)
+    def cleanup!
+      debug 'Runner: running cleanup'
+      # clean up the captured image and any other raw assets
+      FileUtils.rm(snapshot_loc)
+      FileUtils.rm_f(config.video_loc)
+      FileUtils.rm_rf(config.frames_loc)
+    end
   end
 end
