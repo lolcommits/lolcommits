@@ -7,7 +7,6 @@ module Lolcommits
                   :sha, :snapshot_loc, :main_image, :config, :vcs_info,
                   :capture_animate
 
-
     def initialize(attributes = {})
       attributes.each do |attr, val|
         send("#{attr}=", val)

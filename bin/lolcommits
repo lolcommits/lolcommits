@@ -15,14 +15,13 @@ require 'lolcommits/cli.rb'
 # allow logging from everywhere
 include Methadone::CLILogging
 
-
 class App
   include Methadone::Main
 
   include Lolcommits
   include Lolcommits::CLI
 
-  description "git-based selfies for software developers (lolcommits.github.io)"
+  description 'git-based selfies for software developers (lolcommits.github.io)'
   version     Lolcommits::VERSION
 
   # TODO
@@ -36,7 +35,7 @@ class App
     else
       if debug_enabled?
         logger.level = Logger::DEBUG
-        debug "Outputting at DEBUG verbosity"
+        debug 'Outputting at DEBUG verbosity'
       end
 
       if options[:'show-config']
@@ -69,38 +68,38 @@ class App
     end
   end
 
-  on("--test", "run in test mode")
-  on("--debug", "show debugging info")
-  on("--show-config", "show configuration file")
-  on("--devices", "list available capture devices (mac only)")
-  on("--plugins", "list all available plugins")
-  on("--config", "configure a plugin")
+  on('--test', 'run in test mode')
+  on('--debug', 'show debugging info')
+  on('--show-config', 'show configuration file')
+  on('--devices', 'list available capture devices (mac only)')
+  on('--plugins', 'list all available plugins')
+  on('--config', 'configure a plugin')
 
-  on("-c", "--capture", "capture lolcommit based on last git commit")
-  on("-e", "--enable", "install lolcommits for this repo")
-  on("-d", "--disable", "uninstall lolcommits for this repo")
-  on("-l", "--last", "view the most recent lolcommit")
-  on("-b", "--browse", "browse this repo's lolcommits")
-  on("-t", "--timeline {today}", "generate animated gif from all (or today's) captured images")
-  on("-p", "--plugin {name}", "plugin name to use with --config")
+  on('-c', '--capture', 'capture lolcommit based on last git commit')
+  on('-e', '--enable', 'install lolcommits for this repo')
+  on('-d', '--disable', 'uninstall lolcommits for this repo')
+  on('-l', '--last', 'view the most recent lolcommit')
+  on('-b', '--browse', 'browse this repo\'s lolcommits')
+  on('-t', '--timeline {today}', 'generate animated gif from all (or today\'s) captured images')
+  on('-p', '--plugin {name}', 'plugin name to use with --config')
 
   # optional capturing options
-  on("--device {name}", "device name to capture from (mac/linux only)")
-  on("-a", "--animate {seconds}", "enable animated gif captures with duration")
-  on("-w", "--delay {seconds}", "delay before taking a snapshot")
-  on("--stealth", "capture image in stealth mode (no output)")
-  on("--fork", "fork capturing process to the background")
-  on("-s", "--sha {string}", "pass commit sha manually (--test mode only)")
-  on("-m", "--msg {string}", "pass commit message manually (--test mode only)")
+  on('--device {name}', 'device name to capture from (mac/linux only)')
+  on('-a', '--animate {seconds}', 'enable animated gif captures with duration')
+  on('-w', '--delay {seconds}', 'delay before taking a snapshot')
+  on('--stealth', 'capture image in stealth mode (no output)')
+  on('--fork', 'fork capturing process to the background')
+  on('-s', '--sha {string}', 'pass commit sha manually (--test mode only)')
+  on('-m', '--msg {string}', 'pass commit message manually (--test mode only)')
 
   #
   # No options specified, help the user out
   #
   def self.no_options_help
     # TODO: make this a contextual helper to know whether lolcommits is enabled
-    "Do what exactly?\n" +
-    "Try: lolcommits --enable (when in a git repository)\n" +
-    "Or:  lolcommits --help"
+    "Do what exactly?\n" \
+      "Try: lolcommits --enable (when in a git repository)\n" \
+      'Or:  lolcommits --help'
   end
 
   # Gets a configuration object.  If running in test mode will override the
@@ -109,7 +108,7 @@ class App
   # @return [Lolcommits::Configuration]
   def self.configuration
     if options[:test]
-      Configuration.new(loldir: Configuration.loldir_for('test'))
+      Configuration.new(:loldir => Configuration.loldir_for('test'))
     else
       Configuration.new
     end
@@ -151,19 +150,13 @@ class App
       :config          => configuration
     }
 
-
     process_runner = ProcessRunner.new(configuration)
     process_runner.fork_me?(should_we_fork) do
       if options[:test]
         info '*** Capturing in Test mode ***'
-        capture_options.merge!(message: options[:msg], sha: options[:sha])
+        capture_options[:message] = options[:msg]
+        capture_options[:sha] = options[:sha]
       end
-
-      puts "CAPTURING WITH: "
-      puts capture_options.inspect
-      puts "forkin? #{should_we_fork}"
-
-      return
 
       runner = Lolcommits::Runner.new(capture_options)
       runner.run
