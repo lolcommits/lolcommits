@@ -11,6 +11,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 require 'lolcommits'
 
 include Lolcommits
+include Methadone::CLILogging
 
 class LolTest < MiniTest::Test
   #

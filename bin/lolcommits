@@ -24,12 +24,7 @@ class App
   description 'git-based selfies for software developers (lolcommits.github.io)'
   version     Lolcommits::VERSION
 
-  # TODO
-  #   HANDLE custom ENV options (cmdline args override)
-
   main do
-    puts options.inspect
-
     if options.empty?
       puts no_options_help
     else
