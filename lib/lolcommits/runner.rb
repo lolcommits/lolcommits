@@ -83,7 +83,7 @@ module Lolcommits
       self.snapshot_loc = config.raw_image(image_file_type)
       self.main_image   = config.main_image(sha, image_file_type)
 
-      capturer = Platform.capturer_class(animate?).new(
+      capturer = Platform.capturer_class(capture_animated?).new(
         capture_device: capture_device,
         capture_delay: capture_delay,
         snapshot_location: snapshot_loc,

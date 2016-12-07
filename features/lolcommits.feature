@@ -47,8 +47,8 @@ Feature: Basic UI functionality
 
   Scenario: Enable in a git repo passing capture arguments
     Given I am in a git repo
-    When I successfully run `lolcommits --enable -w 5 --fork`
-    Then the git post-commit hook should contain "lolcommits --capture -w 5 --fork"
+    When I successfully run `lolcommits --enable -w 5 --fork --stealth --device 'My Devce'`
+    Then the git post-commit hook should contain "lolcommits --capture --delay 5 --fork --stealth --device 'My Devce'"
     And the exit status should be 0
 
   Scenario: Disable in a enabled git repo
@@ -70,7 +70,7 @@ Feature: Basic UI functionality
   Scenario: Capture doesnt break in forked mode
     Given I am in a git repo named "forked"
     And I do a git commit
-    When I successfully run `lolcommits --capture --fork`
+    When I run `lolcommits --capture --fork`
     Then there should be exactly 1 pid in "~/.lolcommits/forked"
     When I wait for the child process to exit in "forked"
     Then a directory named "~/.lolcommits/forked" should exist
@@ -270,7 +270,7 @@ Feature: Basic UI functionality
   Scenario: generate gif should store in its own archive directory
     Given I am in a git repo named "giffy" with lolcommits enabled
       And a loldir named "giffy" with 2 lolimages
-    When I successfully run `lolcommits -g`
+    When I successfully run `lolcommits --timelapse`
     Then the output should contain "Generating animated gif."
       And a directory named "~/.lolcommits/giffy/archive" should exist
       And a file named "~/.lolcommits/giffy/archive/archive.gif" should exist
@@ -278,7 +278,7 @@ Feature: Basic UI functionality
   Scenario: generate gif with argument 'today'
     Given I am in a git repo named "sunday" with lolcommits enabled
       And a loldir named "sunday" with 2 lolimages
-    When I successfully run `lolcommits -g today`
+    When I successfully run `lolcommits --timelapse --period today`
     Then there should be exactly 1 gif in "~/.lolcommits/sunday/archive"
 
   @mac-only
@@ -295,7 +295,7 @@ Feature: Basic UI functionality
   @fake-no-ffmpeg
   Scenario: gracefully fail when ffmpeg not installed and --animate is used
     Given I am using a "darwin" platform
-    When I run `lolcommits --animate=3`
+    When I run `lolcommits -c --animate 3`
     Then the output should contain:
       """
       ffmpeg does not appear to be properly installed
@@ -328,7 +328,7 @@ Feature: Basic UI functionality
   Scenario: Enable in a mercurial repo passing capture arguments
     Given I am in a mercurial repo
     When I successfully run `lolcommits --enable -w 5 --fork`
-    Then the mercurial post-commit hook should contain "lolcommits --capture -w 5 --fork"
+    Then the mercurial post-commit hook should contain "lolcommits --capture --delay 5 --fork"
     And the exit status should be 0
 
   Scenario: Disable in a enabled mercurial repo

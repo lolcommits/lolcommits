@@ -40,12 +40,12 @@ module Lolcommits
       string.upcase! if config_option(type, :uppercase)
 
       image.combine_options do |c|
-        c.strokewidth runner.animate? ? '1' : '2'
+        c.strokewidth runner.capture_animated? ? '1' : '2'
         c.interline_spacing(-(config_option(type, :size) / 5))
         c.stroke config_option(type, :stroke_color)
         c.fill config_option(type, :color)
         c.gravity transformed_position
-        c.pointsize runner.animate? ? (config_option(type, :size) / 2) : config_option(type, :size)
+        c.pointsize runner.capture_animated? ? (config_option(type, :size) / 2) : config_option(type, :size)
         c.font config_option(type, :font)
         c.annotate annotate_location, string
       end

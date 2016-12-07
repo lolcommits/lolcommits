@@ -15,7 +15,7 @@ Before do
 
   # prevent launchy from opening gifs in tests
   set_env 'LAUNCHY_DRY_RUN', 'true'
-  set_env 'LOLCOMMITS_CAPTURER', 'CaptureFake'
+  set_env 'LOLCOMMITS_CAPTURER', 'Lolcommits::CaptureFake'
 
   author_name  = 'Testy McTesterson'
   author_email = 'testy@tester.com'

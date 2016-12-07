@@ -10,12 +10,7 @@ module Lolcommits
     #
     # IF --ENABLE, DO ENABLE
     #
-    def self.do_enable
-      unless File.directory?('.git')
-        fatal "You don't appear to be in the base directory of a git project."
-        exit 1
-      end
-
+    def self.do_enable(capture_args = '')
       # its possible a hooks dir doesnt exist, so create it if so
       Dir.mkdir(HOOK_DIR) unless File.directory?(HOOK_DIR)
 
@@ -39,7 +34,7 @@ module Lolcommits
 
       File.open(HOOK_PATH, add_shebang ? 'w' : 'a') do |f|
         f.write("#!/bin/sh\n") if add_shebang
-        f.write(hook_script)
+        f.write(hook_script(capture_args))
       end
 
       FileUtils.chmod 0o755, HOOK_PATH
@@ -63,7 +58,7 @@ module Lolcommits
       end
     end
 
-    def self.hook_script
+    def self.hook_script(capture_args = '')
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
 
@@ -74,13 +69,12 @@ module Lolcommits
         hook_export   = "export PATH=\"#{ruby_path}:#{imagick_path}:$PATH\"\n"
       end
 
-      capture_cmd   = 'lolcommits --capture'
-      capture_args  = " #{ARGV[1..-1].join(' ')}" if ARGV.length > 1
+      capture_cmd = 'lolcommits --capture'
 
       <<-EOS
 ### lolcommits hook (begin) ###
 if [ ! -d "$GIT_DIR/rebase-merge" ]; then
-#{locale_export}#{hook_export}#{capture_cmd}#{capture_args}
+#{locale_export}#{hook_export}#{capture_cmd} #{capture_args}
 fi
 ###  lolcommits hook (end)  ###
 EOS

@@ -10,12 +10,7 @@ module Lolcommits
     #
     # IF --ENABLE, DO ENABLE
     #
-    def self.do_enable
-      unless File.directory?('.hg')
-        fatal "You don't appear to be in the base directory of a mercurial project."
-        exit 1
-      end
-
+    def self.do_enable(capture_args = '')
       if lolcommits_hook_exists?
         # clear away any existing lolcommits hook
         remove_existing_hook!
@@ -23,7 +18,7 @@ module Lolcommits
 
       config = repository.config
       HOOK_OPERATIONS.each do |op|
-        config.add_setting(HOOK_SECTION, "post-#{op}.lolcommits", hook_script)
+        config.add_setting(HOOK_SECTION, "post-#{op}.lolcommits", hook_script(capture_args))
       end
       config.path
     end
@@ -43,7 +38,7 @@ module Lolcommits
       end
     end
 
-    def self.hook_script
+    def self.hook_script(capture_args = '')
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
       capture_cmd   = 'lolcommits --capture'
@@ -56,7 +51,6 @@ module Lolcommits
         capture_cmd = "#{locale_export} #{hook_export} #{capture_cmd}"
       end
 
-      capture_args = ARGV[1..-1].join(' ') if ARGV.length > 1
       "#{capture_cmd} #{capture_args}"
     end
 

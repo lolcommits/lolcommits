@@ -72,7 +72,7 @@ module Lolcommits
     end
 
     def ask_for_plugin_name
-      puts_plugins
+      puts plugins_list
       print 'Name of plugin to configure: '
       STDIN.gets.strip
     end
@@ -83,7 +83,7 @@ module Lolcommits
       end
 
       puts "Unable to find plugin: '#{plugin_name}'"
-      puts_plugins
+      puts plugins_list
     end
 
     def do_configure!(plugin_name)
