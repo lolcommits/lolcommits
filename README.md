@@ -46,10 +46,11 @@ default MacOSX Ruby install is dumb and requires it.
 If [Boxen](https://boxen.github.com) is your thing, [try
 this](https://github.com/AssuredLabor/puppet-lolcommits).
 
-Lolcommits v0.7.0 was the last release to support Ruby < 1.9.3. If you'd like to
+Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd like to
 use this gem on older rubies, install it with:
 
-    [sudo] gem install lolcommits --version 0.7.0
+    [sudo] gem install lolcommits --version 0.8.1   # for Ruby 1.9
+    [sudo] gem install lolcommits --version 0.7.0   # for Ruby 1.8
 
 ### Linux
 

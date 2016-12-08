@@ -24,19 +24,14 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   # non-gem dependencies
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.0'
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_runtime_dependency('rest-client', '=1.8') # yam gem requires uses this older version
-  s.add_runtime_dependency('mime-types', '=2.99') # ~> 3.0+ requires Ruby >= 2.0
-  s.add_runtime_dependency('json', '=1.8.3')      # ~> 2.0+ requires Ruby >= 2.0 (lolsrv)
-  s.add_development_dependency('tins', '=1.6.0')  # ~> 1.7.0+ requires Ruby >= 2.0
+  s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3+ requires Ruby 2.1
   s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
   s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
-  s.add_runtime_dependency('term-ansicolor', '=1.3.2') # ~> 1.4+ requires Ruby >= 2.0
-  s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3.0+ requires Ruby >= 2.1
 
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.2')

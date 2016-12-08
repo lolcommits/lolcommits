@@ -11,8 +11,6 @@ include Lolcommits
 World(PathHelpers)
 
 Before do
-  # Using "announce" causes massive warnings on 1.9.2
-  @puts = true
   @aruba_timeout_seconds = 20
 
   # prevent launchy from opening gifs in tests
