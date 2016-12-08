@@ -15,8 +15,8 @@ module Lolcommits
       RestClient.post(
         api_url,
         {
-          :files        => [File.new(runner.main_image)],
-          :message      => message
+          files: [File.new(runner.main_image)],
+          message: message
         },
         'X-Protonet-Token' => configuration['api_token']
       )

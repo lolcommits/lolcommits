@@ -57,7 +57,7 @@ module Lolcommits
     end
 
     def message_json
-      { :message => message }.to_json.force_encoding('utf-8')
+      { message: message }.to_json.force_encoding('utf-8')
     end
 
     def picture_part

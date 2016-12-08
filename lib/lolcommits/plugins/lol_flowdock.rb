@@ -54,8 +54,8 @@ module Lolcommits
         endpoint = 'https://' + configuration['access_token'] + '@' + ENDPOINT_URL + configuration['organization'] + '/' + configuration['flow'] + '/messages'
         response = RestClient.post(
           endpoint,
-          :event        => 'file',
-          :content      => File.new(runner.main_image)
+          event: 'file',
+          content: File.new(runner.main_image)
         )
         debug response
       rescue => e

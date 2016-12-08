@@ -78,7 +78,7 @@ module Lolcommits
       begin
         debug "Requesting Twitter OAuth Token with PIN: #{twitter_pin}"
         OAuth::RequestToken.new(oauth_consumer, rtoken, rsecret)
-        access_token = request_token.get_access_token(:oauth_verifier => twitter_pin)
+        access_token = request_token.get_access_token(oauth_verifier: twitter_pin)
       rescue OAuth::Unauthorized
         puts "\nERROR: Twitter PIN Auth FAILED!"
         return
@@ -126,9 +126,9 @@ module Lolcommits
       @oauth_consumer ||= OAuth::Consumer.new(
         TWITTER_CONSUMER_KEY,
         TWITTER_CONSUMER_SECRET,
-        :site             => TWITTER_API_ENDPOINT,
-        :request_endpoint => TWITTER_API_ENDPOINT,
-        :sign_in          => true
+        site: TWITTER_API_ENDPOINT,
+        request_endpoint: TWITTER_API_ENDPOINT,
+        sign_in: true
       )
     end
 

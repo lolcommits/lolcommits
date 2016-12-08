@@ -36,7 +36,7 @@ end
 # @return [Lolcommits::Configuration]
 def configuration
   if Choice.choices[:test]
-    Configuration.new(:loldir => Configuration.loldir_for('test'))
+    Configuration.new(loldir: Configuration.loldir_for('test'))
   else
     Configuration.new
   end
@@ -75,11 +75,11 @@ def do_capture
   capture_device  = default_device
 
   capture_options = {
-    :capture_delay   => capture_delay,
-    :capture_stealth => capture_stealth,
-    :capture_device  => capture_device,
-    :capture_animate => capture_animate,
-    :config          => configuration
+    capture_delay: capture_delay,
+    capture_stealth: capture_stealth,
+    capture_device: capture_device,
+    capture_animate: capture_animate,
+    config: configuration
   }
 
   process_runner = ProcessRunner.new(configuration)
@@ -90,8 +90,8 @@ def do_capture
 
       # get optional fake commit msg and sha from command line
       override_text = {
-        :message => Choice.choices[:msg],
-        :sha     => Choice.choices[:sha]
+        message: Choice.choices[:msg],
+        sha: Choice.choices[:sha]
       }
 
       # fire off runner with the overriden fake commit metadata
