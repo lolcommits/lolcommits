@@ -118,10 +118,9 @@ module Lolcommits
     # @return String
     def self.device_list
       # TODO: handle other platforms here (linux/windows)
-      if Platform.platform_mac?
-        capturer = Lolcommits::CaptureMacAnimated.new
-        `#{capturer.executable_path} -l`
-      end
+      return unless Platform.platform_mac?
+      capturer = Lolcommits::CaptureMacAnimated.new
+      `#{capturer.executable_path} -l`
     end
   end
 end
