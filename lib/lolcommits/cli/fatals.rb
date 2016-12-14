@@ -44,22 +44,20 @@ module Lolcommits
         end
 
         # check for a error condition with git config affecting ruby-git
-        if Platform.git_config_color_always?
-          fatal 'Due to a bug in the ruby-git library, git config for color.ui'\
-                " cannot be set to 'always'."
-          fatal "Try setting it to 'auto' instead!"
-          exit 1
-        end
+        return unless Platform.git_config_color_always?
+        fatal 'Due to a bug in the ruby-git library, git config for color.ui'\
+          " cannot be set to 'always'."
+        fatal "Try setting it to 'auto' instead!"
+        exit 1
       end
 
       # Die with an informative error message if ffmpeg is not installed.
       # This is only used for certain functions (such as animation), so only run
       # this when you know the user wants to perform one of them.
       def self.die_if_no_valid_ffmpeg_installed!
-        unless Platform.valid_ffmpeg_installed?
-          fatal 'FATAL: ffmpeg does not appear to be properly installed!'
-          exit 1
-        end
+        return if Platform.valid_ffmpeg_installed?
+        fatal 'FATAL: ffmpeg does not appear to be properly installed!'
+        exit 1
       end
 
       # If we are not in a git repo, we can't do git related things!

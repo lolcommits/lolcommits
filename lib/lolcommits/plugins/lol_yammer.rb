@@ -65,12 +65,12 @@ module Lolcommits
         c.client_secret = YAMMER_CLIENT_SECRET
       end
 
-      client = Yammer::Client.new(:access_token => configuration['access_token'])
+      client = Yammer::Client.new(access_token: configuration['access_token'])
 
       retries = YAMMER_RETRY_COUNT
       begin
         lolimage = File.new(runner.main_image)
-        response = client.create_message(post, :attachment1 => lolimage)
+        response = client.create_message(post, attachment1: lolimage)
         debug response.body.inspect
         puts "\t--> Status posted!" if response
       rescue => e

@@ -48,12 +48,12 @@ module Lolcommits
 
         response = RestClient.post(
           ENDPOINT_URL,
-          :file     => File.new(runner.main_image),
-          :token    => configuration['access_token'],
-          :filetype => 'jpg',
-          :filename => runner.sha,
-          :title    => runner.message + "[#{runner.vcs_info.repo}]",
-          :channels => configuration['channels']
+          file: File.new(runner.main_image),
+          token: configuration['access_token'],
+          filetype: 'jpg',
+          filename: runner.sha,
+          title: runner.message + "[#{runner.vcs_info.repo}]",
+          channels: configuration['channels']
         )
 
         debug response

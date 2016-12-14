@@ -16,17 +16,17 @@ module Lolcommits
       t = Time.now.to_i.to_s
       HTTMultiParty.post(
         "#{BASE_URL}/git_commits.json",
-        :body => {
-          :git_commit => {
-            :sha              => runner.sha,
-            :repo_external_id => configuration['repo_id'],
-            :image            => File.open(runner.main_image),
-            :raw              => File.open(runner.snapshot_loc)
+        body: {
+          git_commit: {
+            sha: runner.sha,
+            repo_external_id: configuration['repo_id'],
+            image: File.open(runner.main_image),
+            raw: File.open(runner.snapshot_loc)
           },
 
-          :key   => configuration['api_key'],
-          :t     => t,
-          :token => Digest::SHA1.hexdigest(configuration['api_secret'] + t)
+          key: configuration['api_key'],
+          t: t,
+          token: Digest::SHA1.hexdigest(configuration['api_secret'] + t)
         }
       )
     rescue => e

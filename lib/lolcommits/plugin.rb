@@ -61,9 +61,9 @@ module Lolcommits
 
     def parse_user_input(str)
       # cater for bools, strings, ints and blanks
-      if 'true'.casecmp(str) == 0
+      if 'true'.casecmp(str).zero?
         true
-      elsif 'false'.casecmp(str) == 0
+      elsif 'false'.casecmp(str).zero?
         false
       elsif str =~ /^[0-9]+$/
         str.to_i

@@ -14,7 +14,7 @@ module Lolcommits
     def run_postcapture
       return unless valid_configuration?
       puts 'Posting to Tumblr'
-      r = client.photo(configuration['tumblr_name'], :data => runner.main_image)
+      r = client.photo(configuration['tumblr_name'], data: runner.main_image)
       if r.key?('id')
         puts "\t--> Post successful!"
       else
@@ -40,16 +40,16 @@ module Lolcommits
       puts 'Need to grab tumblr tokens'
       puts '---------------------------'
 
-      request_token = oauth_consumer.get_request_token(:exclude_callback => true)
+      request_token = oauth_consumer.get_request_token(exclude_callback: true)
       print "\n1) Please open this url in your browser to authorize lolcommits:\n\n"
       puts request_token.authorize_url
       print "\n2) Launching a local server to complete the OAuth authentication process:\n\n"
       begin
-        server = WEBrick::HTTPServer.new :Port => 3000
+        server = WEBrick::HTTPServer.new Port: 3000
         server.mount_proc '/', server_callback(server)
         server.start
         debug "Requesting Tumblr OAuth Token with verifier: #{@verifier}"
-        access_token = request_token.get_access_token(:oauth_verifier => @verifier)
+        access_token = request_token.get_access_token(oauth_verifier: @verifier)
       rescue Errno::EADDRINUSE
         puts "\nERROR You have something running on port 3000. Please turn it off to complete the authorization process"
         return
@@ -82,10 +82,10 @@ module Lolcommits
 
     def client
       @client ||= Tumblr.new(
-        :consumer_key       => TUMBLR_CONSUMER_KEY,
-        :consumer_secret    => TUMBLR_CONSUMER_SECRET,
-        :oauth_token        => configuration['access_token'],
-        :oauth_token_secret => configuration['secret']
+        consumer_key: TUMBLR_CONSUMER_KEY,
+        consumer_secret: TUMBLR_CONSUMER_SECRET,
+        oauth_token: configuration['access_token'],
+        oauth_token_secret: configuration['secret']
       )
     end
 
@@ -93,9 +93,9 @@ module Lolcommits
       @oauth_consumer ||= OAuth::Consumer.new(
         TUMBLR_CONSUMER_KEY,
         TUMBLR_CONSUMER_SECRET,
-        :site             => TUMBLR_API_ENDPOINT,
-        :request_endpoint => TUMBLR_API_ENDPOINT,
-        :http_method      => :get
+        site: TUMBLR_API_ENDPOINT,
+        request_endpoint: TUMBLR_API_ENDPOINT,
+        http_method: :get
       )
     end
 

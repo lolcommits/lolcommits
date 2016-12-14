@@ -49,7 +49,7 @@ end
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
-task :default => [:rubocop, :test, :features]
+task default: [:rubocop, :test, :features]
 
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do

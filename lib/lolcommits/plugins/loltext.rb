@@ -100,30 +100,30 @@ module Lolcommits
 
     def config_defaults
       {
-        :message => {
-          :color    => 'white',
-          :font     => DEFAULT_FONT_PATH,
-          :position => 'SW',
-          :size     => 48,
-          :stroke_color => 'black',
-          :uppercase => false
+        message: {
+          color: 'white',
+          font: DEFAULT_FONT_PATH,
+          position: 'SW',
+          size: 48,
+          stroke_color: 'black',
+          uppercase: false
         },
-        :sha => {
-          :color    => 'white',
-          :font     => DEFAULT_FONT_PATH,
-          :position => 'NE',
-          :size     => 32,
-          :stroke_color => 'black',
-          :uppercase => false
+        sha: {
+          color: 'white',
+          font: DEFAULT_FONT_PATH,
+          position: 'NE',
+          size: 32,
+          stroke_color: 'black',
+          uppercase: false
         },
-        :overlay => {
-          :enabled => false,
-          :overlay_colors => [
+        overlay: {
+          enabled: false,
+          overlay_colors: [
             '#2e4970', '#674685', '#ca242f', '#1e7882', '#2884ae', '#4ba000',
             '#187296', '#7e231f', '#017d9f', '#e52d7b', '#0f5eaa', '#e40087',
             '#5566ac', '#ed8833', '#f8991c', '#408c93', '#ba9109'
           ],
-          :overlay_percent => 50
+          overlay_percent: 50
         }
       }
     end

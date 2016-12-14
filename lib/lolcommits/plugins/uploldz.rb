@@ -28,15 +28,15 @@ module Lolcommits
         RestClient.post(
           configuration['endpoint'],
           {
-            :file         => File.new(runner.main_image),
-            :message      => runner.message,
-            :repo         => runner.vcs_info.repo,
-            :author_name  => runner.vcs_info.author_name,
-            :author_email => runner.vcs_info.author_email,
-            :sha          => runner.sha,
-            :key          => configuration['optional_key']
+            file: File.new(runner.main_image),
+            message: runner.message,
+            repo: runner.vcs_info.repo,
+            author_name: runner.vcs_info.author_name,
+            author_email: runner.vcs_info.author_email,
+            sha: runner.sha,
+            key: configuration['optional_key']
           },
-          :Authorization => authorization_header
+          Authorization: authorization_header
         )
       end
     rescue => e

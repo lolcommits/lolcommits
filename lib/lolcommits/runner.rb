@@ -86,12 +86,12 @@ module Lolcommits
       self.main_image   = config.main_image(sha, image_file_type)
 
       capturer = Platform.capturer_class(animate?).new(
-        :capture_device    => capture_device,
-        :capture_delay     => capture_delay,
-        :snapshot_location => snapshot_loc,
-        :video_location    => config.video_loc,
-        :frames_location   => config.frames_loc,
-        :animated_duration => capture_animate
+        capture_device: capture_device,
+        capture_delay: capture_delay,
+        snapshot_location: snapshot_loc,
+        video_location: config.video_loc,
+        frames_location: config.frames_loc,
+        animated_duration: capture_animate
       )
       capturer.capture
     end
