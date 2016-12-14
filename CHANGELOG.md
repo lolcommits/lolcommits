@@ -8,6 +8,10 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract plugins to separate gems ...
   * Your contribution here!
 
+## [0.9.0][] (14 December 2016)
+  * ditch ruby 1.9 support and upgrade some gems (@matthutchinson #325)
+  * term_output plugin added (iTerm2 only) (@ruxton #323)
+
 ## [0.8.1][] (11 October 2016)
   * shebang fix in installer (@matthutchinson #317)
   * FlowDock plugin (@mikecrittenden #318)
@@ -255,7 +259,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.8.1...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/mroth/lolcommits/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/mroth/lolcommits/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/mroth/lolcommits/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/mroth/lolcommits/compare/v0.6.7...v0.7.0
