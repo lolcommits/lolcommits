@@ -15,8 +15,6 @@ module Lolcommits
       # Runs the history timeline animator task thingy
       # param args [String] the arg passed to the gif command on CLI (optional)
       def run(args = nil)
-        Fatals.die_if_not_vcs_repo!
-
         case args
         when 'today'
           lolimages = @configuration.jpg_images_today

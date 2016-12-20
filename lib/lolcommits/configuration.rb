@@ -67,12 +67,12 @@ module Lolcommits
       File.join(loldir, 'tmp_frames')
     end
 
-    def puts_plugins
-      puts "Available plugins: #{Lolcommits::Runner.plugins.map(&:name).join(', ')}"
+    def plugins_list
+      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).join("\n * ")}"
     end
 
     def ask_for_plugin_name
-      puts_plugins
+      puts plugins_list
       print 'Name of plugin to configure: '
       STDIN.gets.strip
     end
@@ -83,10 +83,11 @@ module Lolcommits
       end
 
       puts "Unable to find plugin: '#{plugin_name}'"
-      puts_plugins
+      puts plugins_list
     end
 
     def do_configure!(plugin_name)
+      $stdout.sync = true
       plugin_name = ask_for_plugin_name if plugin_name.to_s.strip.empty?
 
       plugin = find_plugin(plugin_name)

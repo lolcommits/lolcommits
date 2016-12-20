@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Lolcommits
   class MercurialInfo < VCSInfo
-    include Methadone::CLILogging
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
                   :author_name, :author_email, :branch
 
