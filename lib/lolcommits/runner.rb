@@ -50,7 +50,7 @@ module Lolcommits
         # do native plugins that need to happen immediately after capture and
         # resize this is effectively the "image processing" phase for now,
         # reserve just for us and handle manually...?
-        Lolcommits::Loltext.new(self).execute_postcapture
+        Lolcommits::Plugin::Loltext.new(self).execute_postcapture
 
         # do native plugins that need to happen after capture
         plugins_for(:postcapture).each do |plugin|
@@ -73,7 +73,7 @@ module Lolcommits
     end
 
     def self.plugins
-      Lolcommits::Plugin.subclasses
+      Lolcommits::Plugin.constants.map(&Lolcommits::Plugin.method(:const_get)) - [Lolcommits::Plugin::Base]
     end
 
     # the main capture

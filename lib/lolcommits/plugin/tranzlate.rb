@@ -1,6 +1,4 @@
 # Adapted and expanded from https://github.com/rwtnorton/moar-lolspeak
-# which was largely taken from an old Perl script and is sadly is not
-# available via rubygems
 
 module Lolspeak
   LOL_DICTIONARY = {
@@ -93,21 +91,23 @@ module Lolspeak
 end
 
 module Lolcommits
-  class Tranzlate < Plugin
-    extend Lolspeak
+  module Plugin
+    class Tranzlate < Base
+      extend Lolspeak
 
-    def run_precapture
-      debug "Commit message before: #{runner.message}"
-      runner.message = self.class.tranzlate(runner.message)
-      debug "Commit message after: #{runner.message}"
-    end
+      def run_precapture
+        debug "Commit message before: #{runner.message}"
+        runner.message = self.class.tranzlate(runner.message)
+        debug "Commit message after: #{runner.message}"
+      end
 
-    def self.name
-      'tranzlate'
-    end
+      def self.name
+        'tranzlate'
+      end
 
-    def self.runner_order
-      :precapture
+      def self.runner_order
+        :precapture
+      end
     end
   end
 end
