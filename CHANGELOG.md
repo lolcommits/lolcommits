@@ -8,6 +8,9 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract plugins to separate gems ...
   * Your contribution here!
 
+## [0.9.2][] (3 January 2017)
+  * Remove twitter gem, fixes Ruby 2.4 issues (@matthutchinson #328)
+
 ## [0.9.1][] (20 December 2016)
   * Remove Choice gem, use Methadone (@matthutchinson #326)
 
@@ -262,7 +265,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.1...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.2...HEAD
+[0.9.1]: https://github.com/mroth/lolcommits/compare/v0.9.1...v0.9.2
 [0.9.1]: https://github.com/mroth/lolcommits/compare/v0.9.0...v0.9.1
 [0.9.0]: https://github.com/mroth/lolcommits/compare/v0.8.1...v0.9.0
 [0.8.1]: https://github.com/mroth/lolcommits/compare/v0.8.0...v0.8.1
