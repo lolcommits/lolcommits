@@ -10,7 +10,7 @@ module Lolcommits
     TWITTER_API_ENDPOINT         = 'https://api.twitter.com'.freeze
     TWITTER_CONSUMER_KEY         = 'qc096dJJCxIiqDNUqEsqQ'.freeze
     TWITTER_CONSUMER_SECRET      = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'.freeze
-    TWITTER_RESERVED_MEDIA_CHARS = 23
+    TWITTER_RESERVED_MEDIA_CHARS = 24
     TWITTER_RETRIES              = 2
     TWITTER_PIN_REGEX            = /^\d{4,}$/ # 4 or more digits
     DEFAULT_SUFFIX               = '#lolcommits'.freeze
@@ -33,6 +33,8 @@ module Lolcommits
     end
 
     def post_url
+      # TODO: this endpoint is deprecated, use the new approach instead
+      # https://dev.twitter.com/rest/reference/post/statuses/update_with_mediath_media
       @post_url ||= TWITTER_API_ENDPOINT + '/1.1/statuses/update_with_media.json'
     end
 
