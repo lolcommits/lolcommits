@@ -1,16 +1,19 @@
 # -*- encoding : utf-8 -*-
 require 'yaml'
 require 'oauth'
-require 'twitter'
+require 'simple_oauth'
+require 'rest_client'
+require 'addressable/uri'
 
 module Lolcommits
   class LolTwitter < Plugin
-    TWITTER_API_ENDPOINT    = 'https://api.twitter.com'.freeze
-    TWITTER_CONSUMER_KEY    = 'qc096dJJCxIiqDNUqEsqQ'.freeze
-    TWITTER_CONSUMER_SECRET = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'.freeze
-    TWITTER_RETRIES         = 2
-    TWITTER_PIN_REGEX       = /^\d{4,}$/ # 4 or more digits
-    DEFAULT_SUFFIX          = '#lolcommits'.freeze
+    TWITTER_API_ENDPOINT         = 'https://api.twitter.com'.freeze
+    TWITTER_CONSUMER_KEY         = 'qc096dJJCxIiqDNUqEsqQ'.freeze
+    TWITTER_CONSUMER_SECRET      = 'rvjNdtwSr1H0TvBvjpk6c4bvrNydHmmbvv7gXZQI'.freeze
+    TWITTER_RESERVED_MEDIA_CHARS = 24
+    TWITTER_RETRIES              = 2
+    TWITTER_PIN_REGEX            = /^\d{4,}$/ # 4 or more digits
+    DEFAULT_SUFFIX               = '#lolcommits'.freeze
 
     def run_postcapture
       return unless valid_configuration?
@@ -21,15 +24,28 @@ module Lolcommits
         attempts += 1
         puts "Tweeting: #{tweet}"
         debug "--> Tweeting! (attempt: #{attempts}, tweet length: #{tweet.length} chars)"
-        if client.update_with_media(tweet, File.open(runner.main_image, 'r'))
-          puts "\t--> Tweet Sent!"
-        end
-      rescue Twitter::Error::ServerError,
-             Twitter::Error::ClientError => e
+        post_tweet(tweet, File.open(runner.main_image, 'r'))
+      rescue StandardError => e
         debug "Tweet FAILED! #{e.class} - #{e.message}"
         retry if attempts < TWITTER_RETRIES
         puts "ERROR: Tweet FAILED! (after #{attempts} attempts) - #{e.message}"
       end
+    end
+
+    def post_url
+      # TODO: this endpoint is deprecated, use the new approach instead
+      # https://dev.twitter.com/rest/reference/post/statuses/update_with_mediath_media
+      @post_url ||= TWITTER_API_ENDPOINT + '/1.1/statuses/update_with_media.json'
+    end
+
+    def post_tweet(status, media)
+      RestClient.post(
+        post_url,
+        {
+          'media[]' => media,
+          'status'  => status
+        }, Authorization: oauth_header
+      )
     end
 
     def build_tweet(commit_message)
@@ -113,13 +129,18 @@ module Lolcommits
         configuration['secret']
     end
 
-    def client
-      @client ||= Twitter::REST::Client.new do |config|
-        config.consumer_key        = TWITTER_CONSUMER_KEY
-        config.consumer_secret     = TWITTER_CONSUMER_SECRET
-        config.access_token        = configuration['access_token']
-        config.access_token_secret = configuration['secret']
-      end
+    def oauth_header
+      uri = Addressable::URI.parse(post_url)
+      SimpleOAuth::Header.new(:post, uri, {}, oauth_credentials)
+    end
+
+    def oauth_credentials
+      {
+        consumer_key: TWITTER_CONSUMER_KEY,
+        consumer_secret: TWITTER_CONSUMER_SECRET,
+        token: configuration['access_token'],
+        token_secret: configuration['secret']
+      }
     end
 
     def oauth_consumer
@@ -141,7 +162,7 @@ module Lolcommits
     end
 
     def max_tweet_size
-      139 - client.configuration.characters_reserved_per_media
+      139 - TWITTER_RESERVED_MEDIA_CHARS
     end
 
     def self.name

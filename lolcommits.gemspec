@@ -31,11 +31,10 @@ Gem::Specification.new do |s|
   # hold back upgrading (and why)
   s.add_development_dependency('aruba', '=0.6.2')  # upgrading requires a lot of test code changes
   s.add_development_dependency('rake', '=10.5.0')  # ~> 11+ introduces lots of warnings from other deps
-  s.add_runtime_dependency('twitter', '~> 5.17.0') # twitter 6+ requires higher faraday
   s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3+ requires Ruby 2.1
 
   # core
-  s.add_runtime_dependency('methadone', '~> 1.9.3')
+  s.add_runtime_dependency('methadone', '~> 1.9.5')
   s.add_runtime_dependency('mercurial-ruby', '~> 0.7.12')
   s.add_runtime_dependency('mini_magick', '~> 4.6.0')
   s.add_runtime_dependency('launchy', '~> 2.4.3')
@@ -48,13 +47,14 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
 
   # development gems
-  s.add_development_dependency('rdoc', '~> 5.0.0')
+  s.add_development_dependency('rdoc')
+  s.add_development_dependency('pry')
 
-  # testing gems
-  s.add_development_dependency('rubocop', '~> 0.46.0')
-  s.add_development_dependency('travis', '~> 1.8.5')
-  s.add_development_dependency('minitest', '~> 5.10.1')
-  s.add_development_dependency('coveralls', '~> 0.8.17')
-  s.add_development_dependency('ffaker', '~> 2.3.0')
-  s.add_development_dependency('cucumber', '~> 2.4.0')
+  # testing gems (latest versions)
+  s.add_development_dependency('rubocop')
+  s.add_development_dependency('travis')
+  s.add_development_dependency('minitest')
+  s.add_development_dependency('coveralls')
+  s.add_development_dependency('ffaker')
+  s.add_development_dependency('cucumber')
 end
