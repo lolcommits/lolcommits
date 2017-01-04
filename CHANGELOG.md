@@ -19,6 +19,7 @@ project adheres to [Semantic Versioning][Semver].
   * term_output plugin added (iTerm2 only) (@ruxton #323)
 
 ## [0.8.1][] (11 October 2016)
+  * **last release supporting Ruby < 2.0**
   * shebang fix in installer (@matthutchinson #317)
   * FlowDock plugin (@mikecrittenden #318)
   * HipChat plugin (@Salzig #320)
@@ -29,8 +30,8 @@ project adheres to [Semantic Versioning][Semver].
   * All gems upgraded to latest versions (6 held back, see lolcommits.gemspec)
   * See [this issue](https://github.com/mroth/lolcommits/issues/310) for details
 
-## [0.7.0][] (13 July 2016) - Last release supporting Ruby < 1.9.3
-  * Last release supporting Ruby < 1.9.3 (@matthutchinson #313)
+## [0.7.0][] (13 July 2016)
+  * **last release supporting Ruby < 1.9.3** (@matthutchinson #313)
 
 ## [0.6.7][] (8 June 2016)
   * Remove `console` binary from packaged gem (@samgranieri #309)
