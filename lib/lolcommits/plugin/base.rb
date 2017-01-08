@@ -5,36 +5,25 @@ module Lolcommits
       attr_accessor :runner, :options
 
       def initialize(runner)
-        debug 'Initializing'
         self.runner = runner
         self.options = ['enabled']
       end
 
       def execute_precapture
-        if enabled?
-          debug 'I am enabled, about to run precapture'
-          run_precapture
-        else
-          debug 'Disabled, doing nothing for precapture execution'
-        end
+        return unless enabled?
+        debug 'I am enabled, about to run precapture'
+        run_precapture
       end
 
       def execute_postcapture
-        if enabled?
-          debug 'I am enabled, about to run postcapture'
-          run_postcapture
-        else
-          debug 'Disabled, doing nothing for postcapture execution'
-        end
+        return unless enabled?
+        debug 'I am enabled, about to run postcapture'
+        run_postcapture
       end
 
-      def run_precapture
-        debug 'base plugin, does nothing to anything'
-      end
+      def run_precapture; end
 
-      def run_postcapture
-        debug 'base plugin, does nothing to anything'
-      end
+      def run_postcapture; end
 
       def configuration
         config = runner.config.read_configuration if runner
@@ -107,7 +96,7 @@ module Lolcommits
 
       # uniform debug logging for plugins
       def debug(msg)
-        super("Plugin: #{self.class}: " + msg)
+        super("#{self.class}: " + msg)
       end
 
       # identifying plugin name (for config, listing)
@@ -115,7 +104,7 @@ module Lolcommits
         'plugin'
       end
 
-      # a plugin requests to be run by the runner in one of the possible positions.
+      # a plugin requests to be run by the runner in one of these positions
       # valid options are [:precapture, :postcapture]
       def self.runner_order
         nil

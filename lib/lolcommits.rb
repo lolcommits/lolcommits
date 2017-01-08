@@ -16,6 +16,8 @@ require 'lolcommits/capturer'
 require 'lolcommits/vcs_info'
 require 'lolcommits/installation'
 require 'lolcommits/platform'
+require 'lolcommits/gem_plugin'
+require 'lolcommits/plugin_manager'
 
 # after lolcommits/platform, so that we can do platform-conditional override
 require 'core_ext/mercurial-ruby/command'

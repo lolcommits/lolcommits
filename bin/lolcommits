@@ -24,6 +24,13 @@ class App
   version     Lolcommits::VERSION
 
   main do
+    # TODO: move to a better place
+    # maybe split out locating (for showing config list) and loading?
+    # refactor configing from this and runner for post/pre capture calls
+    pm = Lolcommits::PluginManager.new
+    pm.locate_plugins
+    pm.load_plugins
+
     # check for fatal conditions before execution
     Fatals.die_if_no_valid_ffmpeg_installed! if capture_animated?
     Fatals.die_on_fatal_platform_conditions!
@@ -195,16 +202,6 @@ class App
     capture_animate > 0
   end
 
-  # TODO: remove this after implementing gem based plugins
-  # https://github.com/mroth/lolcommits/issues/99
-  # Until then for local plugin dev, use $LOLCOMMITS_DIR/.plugins directory
-  def self.load_local_plugins!
-    plugins_dir = Configuration.loldir_for('.plugins')
-    Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
-      load plugin
-    end
-  end
-
   #
   # change working dir to either a repo or the fs root
   #
@@ -221,11 +218,6 @@ class App
       Dir.chdir(nxt)
     end
   end
-
-  #
-  # load plugins
-  #
-  load_local_plugins!
 
   go!
 end

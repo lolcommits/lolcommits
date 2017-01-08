@@ -68,7 +68,7 @@ module Lolcommits
     end
 
     def plugins_list
-      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).join("\n * ")}"
+      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).sort.join("\n * ")}"
     end
 
     def ask_for_plugin_name
