@@ -24,13 +24,6 @@ class App
   version     Lolcommits::VERSION
 
   main do
-    # TODO: move to a better place
-    # maybe split out locating (for showing config list) and loading?
-    # refactor configing from this and runner for post/pre capture calls
-    pm = Lolcommits::PluginManager.new
-    pm.locate_plugins
-    pm.load_plugins
-
     # check for fatal conditions before execution
     Fatals.die_if_no_valid_ffmpeg_installed! if capture_animated?
     Fatals.die_on_fatal_platform_conditions!
@@ -42,6 +35,9 @@ class App
         logger.level = Logger::DEBUG
         debug 'Outputting at DEBUG verbosity'
       end
+
+      # TODO: move to a better place
+      load_plugins
 
       if options[:'show-config']
         puts configuration
@@ -127,6 +123,12 @@ class App
 
   def self.debug_enabled?
     options[:debug] || ENV['LOLCOMMITS_DEBUG'] || false
+  end
+
+  def self.load_plugins
+    pm = Lolcommits::PluginManager.new
+    pm.locate_plugins
+    pm.load_plugins
   end
 
   def self.device_list_help
