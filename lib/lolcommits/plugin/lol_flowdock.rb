@@ -23,12 +23,12 @@ module Lolcommits
         print "Open the URL below and issue a token for your user (Personal API token):\n"
         print "https://flowdock.com/account/tokens\n"
         print "Enter the generated token below, then press enter: \n"
-        code = STDIN.gets.to_s.strip
+        code = gets.to_s.strip
         print "Enter the machine name of the flow you want to post to from this repo.\n"
         print "Go to https://www.flowdock.com/account and click Flows, then click the flow, then get the machine name from the URL:\n"
-        flow = STDIN.gets.to_s.strip.downcase
+        flow = gets.to_s.strip.downcase
         print "Enter the name of the organization for this Flowdock account.\n"
-        organization = STDIN.gets.to_s.strip.downcase
+        organization = gets.to_s.strip.downcase
 
         {
           'access_token' => code,

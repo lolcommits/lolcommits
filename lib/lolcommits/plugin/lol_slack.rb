@@ -23,10 +23,10 @@ module Lolcommits
         print "Open the URL below and issue a token for your user:\n"
         print "https://api.slack.com/web\n"
         print "Enter the generated token below, then press enter: (e.g. xxxx-xxxxxxxxx-xxxx) \n"
-        code = STDIN.gets.to_s.strip
+        code = gets.to_s.strip
         print "Enter a comma-seperated list of channel IDs to post images in, then press enter: (e.g. C1234567890,C1234567890)\n"
         print "NOTE: you must use channel IDs (not channel names). Grab them from here; https://api.slack.com/methods/channels.list/test\n"
-        channels = STDIN.gets.to_s.strip
+        channels = gets.to_s.strip
 
         { 'access_token' => code,
           'channels' => channels }

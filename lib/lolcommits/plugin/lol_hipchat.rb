@@ -16,15 +16,15 @@ module Lolcommits
         puts '1.) I need your Team Name '
         puts 'teamname as in teamname.hipchat.com, without .hipchat.com'
         print 'Your Teamname: '
-        teamname = STDIN.gets.to_s.strip
+        teamname = gets.to_s.strip
         puts "2.) We need a Authentication Token, get yours at https://#{teamname}.hipchat.com/account/api"
         puts 'make sure to select scope "Send Message"'
         print 'Your auth_token: '
-        token = STDIN.gets.to_s.strip
+        token = gets.to_s.strip
         puts '3.) Which Room should be we post to?'
         puts 'can be a id or name'
         print 'Your Room: '
-        room = STDIN.gets.to_s.strip
+        room = gets.to_s.strip
 
         {
           'api_token' => token,

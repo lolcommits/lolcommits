@@ -85,7 +85,7 @@ module Lolcommits
         print "\n1) Please open this url in your browser to get a PIN for lolcommits:\n\n"
         puts request_token.authorize_url
         print "\n2) Enter PIN, then press enter: "
-        twitter_pin = STDIN.gets.strip.downcase.to_s
+        twitter_pin = gets.strip.downcase.to_s
 
         unless twitter_pin =~ TWITTER_PIN_REGEX
           puts "\nERROR: '#{twitter_pin}' is not a valid Twitter Auth PIN"
@@ -114,9 +114,9 @@ module Lolcommits
 
       def configure_prefix_suffix
         print "\n3) Prefix all tweets with something? e.g. @user (leave blank for no prefix): "
-        prefix = STDIN.gets.strip
+        prefix = gets.strip
         print "\n4) End all tweets with something? e.g. #hashtag (leave blank for default suffix #{DEFAULT_SUFFIX}): "
-        suffix = STDIN.gets.strip
+        suffix = gets.strip
 
         config = {}
         config['prefix'] = prefix unless prefix.empty?

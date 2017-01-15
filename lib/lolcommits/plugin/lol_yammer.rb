@@ -27,7 +27,7 @@ module Lolcommits
         print "Open the URL below and copy the `code` param from query after redirected, enter it as `access_token`:\n"
         print "https://www.yammer.com/dialog/oauth?client_id=#{YAMMER_CLIENT_ID}&response_type=code\n"
         print 'Enter code param from the redirected URL, then press enter: '
-        code = STDIN.gets.to_s.strip
+        code = gets.to_s.strip
 
         url = YAMMER_ACCESS_TOKEN_URL
         debug "access_token url: #{url}"

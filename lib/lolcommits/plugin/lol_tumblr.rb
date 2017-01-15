@@ -72,7 +72,7 @@ module Lolcommits
 
       def configure_tumblr_name
         print "\n3) What's your tumblr name? (i.e. 'http://[THIS PART HERE].tumblr.com'): "
-        { 'tumblr_name' => STDIN.gets.strip }
+        { 'tumblr_name' => gets.strip }
       end
 
       def configured?

@@ -89,7 +89,7 @@ module Lolcommits
             acc
           else
             print "  #{opt.to_s.tr('_', ' ')} (#{defaults[opt]}): "
-            val = parse_user_input(STDIN.gets.chomp.strip)
+            val = parse_user_input(gets.chomp.strip)
             # handle array options (comma seperated string)
             if defaults[opt].is_a?(Array) && !val.nil?
               val = val.split(',').map(&:strip).delete_if(&:empty?)

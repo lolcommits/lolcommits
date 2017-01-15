@@ -74,7 +74,7 @@ module Lolcommits
     def ask_for_plugin_name
       puts plugins_list
       print 'Name of plugin to configure: '
-      STDIN.gets.strip
+      gets.strip
     end
 
     def find_plugin(plugin_name_option)
