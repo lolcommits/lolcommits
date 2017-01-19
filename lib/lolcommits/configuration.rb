@@ -14,7 +14,7 @@ module Lolcommits
 
     def read_configuration
       return unless File.exist?(configuration_file)
-      YAML.load(File.open(configuration_file))
+      YAML.safe_load(File.open(configuration_file), [Symbol])
     end
 
     def configuration_file
