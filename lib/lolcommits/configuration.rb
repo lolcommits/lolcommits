@@ -14,7 +14,9 @@ module Lolcommits
 
     def read_configuration
       return unless File.exist?(configuration_file)
-      YAML.safe_load(File.open(configuration_file), [Symbol])
+      # TODO: change to safe_load when Ruby 2.0.0 support drops
+      # YAML.safe_load(File.open(configuration_file), [Symbol])
+      YAML.load(File.open(configuration_file))
     end
 
     def configuration_file

@@ -42,3 +42,9 @@ Metrics/PerceivedComplexity:
 # Offense count: 34
 Style/Documentation:
   Enabled: false
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Security/YAMLLoad:
+  Exclude:
+    - 'lib/lolcommits/configuration.rb'
