@@ -9,181 +9,181 @@ project adheres to [Semantic Versioning][Semver].
   * Your contribution here!
 
 ## [0.9.2][] (3 January 2017)
-  * Remove twitter gem, fixes Ruby 2.4 issues (@matthutchinson #328)
+  * Remove twitter gem, fixes Ruby 2.4 issues (@matthutchinson [#328][])
 
 ## [0.9.1][] (20 December 2016)
-  * Remove Choice gem, use Methadone (@matthutchinson #326)
+  * Remove Choice gem, use Methadone (@matthutchinson [#326][])
 
 ## [0.9.0][] (14 December 2016)
-  * ditch ruby 1.9 support and upgrade some gems (@matthutchinson #325)
-  * term_output plugin added (iTerm2 only) (@ruxton #323)
+  * ditch ruby 1.9 support and upgrade some gems (@matthutchinson [#325][])
+  * term_output plugin added (iTerm2 only) (@ruxton [#323][])
 
 ## [0.8.1][] (11 October 2016)
   * **last release supporting Ruby < 2.0**
-  * shebang fix in installer (@matthutchinson #317)
-  * FlowDock plugin (@mikecrittenden #318)
-  * HipChat plugin (@Salzig #320)
-  * peg gems for legacy ruby 1.9.3 (@matthutchinson #321)
+  * shebang fix in installer (@matthutchinson [#317][])
+  * FlowDock plugin (@mikecrittenden [#318][])
+  * HipChat plugin (@Salzig [#320][])
+  * peg gems for legacy ruby 1.9.3 (@matthutchinson [#321][])
 
 ## [0.8.0][] (13 July 2016)
-  * New release requires Ruby 1.9.3+ minimum (@matthutchinson #313)
+  * New release requires Ruby 1.9.3+ minimum (@matthutchinson [#313][])
   * All gems upgraded to latest versions (6 held back, see lolcommits.gemspec)
   * See [this issue](https://github.com/mroth/lolcommits/issues/310) for details
 
 ## [0.7.0][] (13 July 2016)
-  * **last release supporting Ruby < 1.9.3** (@matthutchinson #313)
+  * **last release supporting Ruby < 1.9.3** (@matthutchinson [#313][])
 
 ## [0.6.7][] (8 June 2016)
-  * Remove `console` binary from packaged gem (@samgranieri #309)
+  * Remove `console` binary from packaged gem (@samgranieri [#309][])
 
 ## [0.6.6][] (1 June 2016)
-  * Show error/exit when --config outside a git repo (@matthutchinson #308)
-  * Add more options to loltext plugin (@ruxton #304)
+  * Show error/exit when --config outside a git repo (@matthutchinson [#308][])
+  * Add more options to loltext plugin (@ruxton [#304][])
   * Added CODE_OF_CONDUCT.md to repo (@matthutchinson)
   * Added a useful `console` binary for development and debugging (@matthutchinson)
 
 ## [0.6.5][] (12 April 2016)
-  * Add mercurial support (@tak #301 #302 #303)
+  * Add mercurial support (@tak [#301][] [#302][] [#303][])
 
 ## [0.6.4][] (15 March 2016)
-  * Add quotes to correctly handle paths with spaces (@matthutchinson #298)
+  * Add quotes to correctly handle paths with spaces (@matthutchinson [#298][])
 
 ## [0.6.3][] (14 March 2016)
-  * Add quotes to correctly handle paths with spaces (@pedrocunha #296)
-  * Added plugin config path to output (@KrauseFx #294)
+  * Add quotes to correctly handle paths with spaces (@pedrocunha [#296][])
+  * Added plugin config path to output (@KrauseFx [#294][])
 
 ## [0.6.2][] (21 February 2016)
-  * Avoid invoking ruby if in a rebase (@jhawthorn #286)
-  * Slow gif problem on mac (@a06kin #289)
-  * Peg RuboCop gem to 0.37.2 and fix cop issues (@matthutchinson #292)
+  * Avoid invoking ruby if in a rebase (@jhawthorn [#286][])
+  * Slow gif problem on mac (@a06kin [#289][])
+  * Peg RuboCop gem to 0.37.2 and fix cop issues (@matthutchinson [#292][])
 
 ## [0.6.1][] (16 September 2015)
-  * Optional http auth header user/password in uploldz plugin (@felixroos #283)
-  * Slack plugin added (@yasakbulut #284)
+  * Optional http auth header user/password in uploldz plugin (@felixroos [#283][])
+  * Slack plugin added (@yasakbulut [#284][])
   * Updated rubies in Travis settings (@matthutchinson)
   * Fixed README badge URLS (@matthutchinson)
 
 ## [0.6.0][] (27 July 2015)
-  * Configurable text options for loltext plugin (@matthutchinson #282)
-  * Working AppVeyor configuration added (@nysthee #280)
-  * Tumblr plugin (@mveytsman #279)
+  * Configurable text options for loltext plugin (@matthutchinson [#282][])
+  * Working AppVeyor configuration added (@nysthee [#280][])
+  * Tumblr plugin (@mveytsman [#279][])
   * CHANGELOG (this file) now in markdown format (@matthutchinson)
 
 ## [0.5.9][] (24 April 2015)
-  * Fix windows post commit hook path (@matthutchinson #278)
+  * Fix windows post commit hook path (@matthutchinson [#278][])
 
 ## [0.5.8][] (22 April 2015)
-  * Fix Windows MiniMagick issue (@matthutchinson #276)
-  * Rubocop code clean ups (@nysthee #272)
-  * Fix gem issues on earlier Ruby versions (#270)
-  * CLI refactoring/cleanups (@mroth #254 #258 #266 #267 #266)
-  * Exit with -1 for bad CLI args (@williamboman #263)
-  * Move unit tests to MiniTest (@mroth #256)
-  * Add branch name to git info (@salzig #252)
-  * lol_protonet plugin added (@salzig #251)
-  * Allow local plugins in $LOLCOMMITS_DIR/.plugins (@salzig #250)
+  * Fix Windows MiniMagick issue (@matthutchinson [#276][])
+  * Rubocop code clean ups (@nysthee [#272][])
+  * Fix gem issues on earlier Ruby versions ([#270][])
+  * CLI refactoring/cleanups (@mroth [#254][] [#258][] [#266][] [#267][] [#266][])
+  * Exit with -1 for bad CLI args (@williamboman [#263][])
+  * Move unit tests to MiniTest (@mroth [#256][])
+  * Add branch name to git info (@salzig [#252][])
+  * lol_protonet plugin added (@salzig [#251][])
+  * Allow local plugins in $LOLCOMMITS_DIR/.plugins (@salzig [#250][])
 
 ## [0.5.7][] (28 December 2014)
-  * Uploldz plugin sends more post params (@clops #224 @matthutchinson #241)
-  * More configurable twitter plugin (@woodrowbarlow #207 @matthutchinson)
-  * Upgrade all gems that can be, 4 held back (#244 @matthutchinson)
-  * Ruby 2.2.0 compatible (#244 @matthutchinson)
-  * Glob /dev/video for default video device (linux only) (#246 @Ferada)
+  * Uploldz plugin sends more post params (@clops [#224][] @matthutchinson [#241][])
+  * More configurable twitter plugin (@woodrowbarlow [#207][] @matthutchinson)
+  * Upgrade all gems that can be, 4 held back ([#244][] @matthutchinson)
+  * Ruby 2.2.0 compatible ([#244][] @matthutchinson)
+  * Glob /dev/video for default video device (linux only) ([#246][] @Ferada)
 
 ## [0.5.6][] (24 November 2014)
-  * Updates and clean ups on the gemspec (@mroth #228)
-  * Travis CI now includes ruby-head (@mroth #229)
-  * Improved error message for ImageMagick issues #159 (@matthutchinson #233)
-  * Fix twitter plugin config issue #231 (@matthutchinson #232)
-  * Update mini_magick gem to 3.8.1 (@matthutchinson #234)
-  * Improve README for LOLCOMMITS_DIR (@dagar #235)
-  * Update README to include ffmpeg installation (@VictorBjelkholm #236)
-  * Better failover when no snapshot created  (@matthutchinson #237)
-  * Export LANG to post-commit hook, fixes GitHub client (@matthutchinson #240)
+  * Updates and clean ups on the gemspec (@mroth [#228][])
+  * Travis CI now includes ruby-head (@mroth [#229][])
+  * Improved error message for ImageMagick issues [#159][] (@matthutchinson [#233][])
+  * Fix twitter plugin config issue [#231][] (@matthutchinson [#232][])
+  * Update mini_magick gem to 3.8.1 (@matthutchinson [#234][])
+  * Improve README for LOLCOMMITS_DIR (@dagar [#235][])
+  * Update README to include ffmpeg installation (@VictorBjelkholm [#236][])
+  * Better failover when no snapshot created  (@matthutchinson [#237][])
+  * Export LANG to post-commit hook, fixes GitHub client (@matthutchinson [#240][])
 
 ## [0.5.5][] (29 September 2014)
-  * Animated gif capture support (@theY4Kman #226)
-  * Fix plugin config issues with user input (@matthutchinson #225 #223)
-  * Fix Linux FPS timing issues (@matthutchinson #215)
-  * Fix hook enable/disable issue (@matthutchinson #206)
-  * Fix Git GUI issues (@matthutchinson #196 #168 #193 #188 #159 #133 #123 #119 #104 #83)
-  * Mention Boxen script in README (@matthutchinson #208)
-  * Explain global Git hooks how-to in README (@matthutchinson #212 #112)
+  * Animated gif capture support (@theY4Kman [#226][])
+  * Fix plugin config issues with user input (@matthutchinson [#225][] [#223][])
+  * Fix Linux FPS timing issues (@matthutchinson [#215][])
+  * Fix hook enable/disable issue (@matthutchinson [#206][])
+  * Fix Git GUI issues (@matthutchinson [#196][] [#168][] [#193][] [#188][] [#159][] [#133][] [#123][] [#119][] [#104][] [#83][])
+  * Mention Boxen script in README (@matthutchinson [#208][])
+  * Explain global Git hooks how-to in README (@matthutchinson [#212][] [#112][])
   * Minor improvments to Linux Capturer (@matthutchinson)
 
 ## [0.5.4][] (13 April 2014)
   * Excluded vendor/bundle from rubocop cops (@matthutchinson)
   * Peg fivemat gem to ~> 1.2.1 (@mroth)
-  * Fix lolsrv log file issue (@matthutchinson #202)
-  * Yammer Plugin added (@mrclmvn #160)
+  * Fix lolsrv log file issue (@matthutchinson [#202][])
+  * Yammer Plugin added (@mrclmvn [#160][])
   * Refactor on capture options (@mroth)
 
 ## [0.5.3][] (30 March 2014)
   * Fixed permissions on CommandCam (755) for cygwin (@matthutchinson)
-  * Added `--devices` option, mac only for now (@matthutchinson #183, #174)
-  * Replace http with https in twitter plugin (@kleinschmidt #195)
-  * RuboCop gem added for development (@mroth #194)
-  * Added optional key to uploldz plugin (@Numan1617 #192)
-  * Fixed lolcommmits typo: too much mmm (@penyaskito #189)
-  * Work when in subdirectory of a git repo (@ilkka #186)
-  * Added --version (-v) flag (@bfontaine #184)
-  * Send more VCS details to lolsrv (@drewwells #181)
+  * Added `--devices` option, mac only for now (@matthutchinson [#183][], [#174][])
+  * Replace http with https in twitter plugin (@kleinschmidt [#195][])
+  * RuboCop gem added for development (@mroth [#194][])
+  * Added optional key to uploldz plugin (@Numan1617 [#192][])
+  * Fixed lolcommmits typo: too much mmm (@penyaskito [#189][])
+  * Work when in subdirectory of a git repo (@ilkka [#186][])
+  * Added --version (-v) flag (@bfontaine [#184][])
+  * Send more VCS details to lolsrv (@drewwells [#181][])
 
 ## [0.5.2][] (5 December 2013)
-  * Allow lolsrv plugin to sync/upload gifs (@matthutchinson #180)
-  * Plugins refactor, can now configure themselves (@matthutchinson #179)
-    - also closes issue #136 and issue #73
-  * Fix for Twitter gem dependency issue (@matthutchinson #178)
-  * Added coveralls support (@Aaron1011 #177)
+  * Allow lolsrv plugin to sync/upload gifs (@matthutchinson [#180][])
+  * Plugins refactor, can now configure themselves (@matthutchinson [#179][])
+    - also closes issue [#136][] and issue [#73][]
+  * Fix for Twitter gem dependency issue (@matthutchinson [#178][])
+  * Added coveralls support (@Aaron1011 [#177][])
     - gitignore updated, coveralls badge added to README
-  * Refactor tranzlate plugin, lolspeak now in plugin (@matthutchinson #176)
-  * Fix for 'Cannot satisfy json dependancy' (@matthutchinson #175)
-  * Better post commit hook enabling/disabling (@matthutchinson #173)
-  * Improved --enable option, accepts passing arguments (@matthutchinson #154)
+  * Refactor tranzlate plugin, lolspeak now in plugin (@matthutchinson [#176][])
+  * Fix for 'Cannot satisfy json dependancy' (@matthutchinson [#175][])
+  * Better post commit hook enabling/disabling (@matthutchinson [#173][])
+  * Improved --enable option, accepts passing arguments (@matthutchinson [#154][])
     - README updated to explain enabling with options
 
 ## [0.5.1][] (13 November 2013)
-  * Fix JSON gem issue #163 (@matthutchinson, #171)
-  * Enable image capture under Cygwin (@cwc, #105)
-  * Add Ruby PATH to post-commit hook (@matthutchinson, #155)
-  * "Stealth mode" where no notification is given (@sionide21, #156)
-  * BUGFIX: comparison error for animate (@Yabes, #151)
+  * Fix JSON gem issue [#163][] (@matthutchinson, [#171][])
+  * Enable image capture under Cygwin (@cwc, [#105][])
+  * Add Ruby PATH to post-commit hook (@matthutchinson, [#155][])
+  * "Stealth mode" where no notification is given (@sionide21, [#156][])
+  * BUGFIX: comparison error for animate (@Yabes, [#151][])
 
 ## [0.5.0][] (10 September 2013)
-  * better handling of LOLCOMMITS_DELAY (thx @leewillis77, #125)
-  * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, #139)
-  * better handling of repository names (thx @drocamor and @andromedado, #145 and #146)
-  * added new LOLCOMMITS_ANIMATE (or `--animate`) option (Mac/OSX only) (#114, #108)
+  * better handling of LOLCOMMITS_DELAY (thx @leewillis77, [#125][])
+  * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, [#139][])
+  * better handling of repository names (thx @drocamor and @andromedado, [#145][] and [#146][])
+  * added new LOLCOMMITS_ANIMATE (or `--animate`) option (Mac/OSX only) ([#114][], [#108][])
     - defaults to a 320x240 sized animated gif
     - new vendored binary videosnap - https://github.com/matthutchinson/videosnap
     - feature requires ffmpeg
     - README updated with details and an example
 
 ## 0.4.6 (12 August 2013)
-  * Fix for incorrect permissioning in gem issue (see #112)
+  * Fix for incorrect permissioning in gem issue (see [#112][])
 
 ## 0.4.5 (8 July 2013)
-  * disable&remove statsd plugin (as per #94)
-  * fix issues with animated gif generation (#107)
-  * added new LOLCOMMITS_FORK (or --fork) option to fork the runner capturing (#109)
+  * disable&remove statsd plugin (as per [#94][])
+  * fix issues with animated gif generation ([#107][])
+  * added new LOLCOMMITS_FORK (or --fork) option to fork the runner capturing ([#109][])
 
 ## 0.4.4 (28 June 2013)
-  * add -g option to produce animated gifs! (thx @hSATAC, #95)
+  * add -g option to produce animated gifs! (thx @hSATAC, [#95][])
 
 ## 0.4.3 (29 March 2013)
   * bump mini_magick dependency to deal with security alert
 
 ## 0.4.2 (11 March 2013)
-  * fix ruby 2.0 compatibility (#91)
-  * gracefully detect upstream issue with git color.ui being set to always (#50)
-  * handle external capture devices with special characters in name (#93)
-  * fixes to the uploldz plugin (#92)
+  * fix ruby 2.0 compatibility ([#91][])
+  * gracefully detect upstream issue with git color.ui being set to always ([#50][])
+  * handle external capture devices with special characters in name ([#93][])
+  * fixes to the uploldz plugin ([#92][])
 
 ## 0.4.1 (17 February 2013)
-  * add lolsrv plugin (thx @sebastianmarr!, #82)
-  * enable feature to change font (thx @fukayatsu!, #89)
-  * correct activesupport gem name in bundle (thx @djbender!, #90)
-  * graceful detection of imagemagick not being installed (#87)
+  * add lolsrv plugin (thx @sebastianmarr!, [#82][])
+  * enable feature to change font (thx @fukayatsu!, [#89][])
+  * correct activesupport gem name in bundle (thx @djbender!, [#90][])
+  * graceful detection of imagemagick not being installed ([#87][])
   * restructure logging slightly to use Methadone::CLILogging in most places
   * add a bunch of debugging output, viewable via --debug flag
 
@@ -193,7 +193,7 @@ project adheres to [Semantic Versioning][Semver].
       being a buggy unmaintained piece of crap
     - this should also result in less problems with IM version changes
     - some preliminary test work on using image_sorcery instead too
-    - perhaps finally kill issue #9 from continually resurfacing
+    - perhaps finally kill issue [#9][] from continually resurfacing
   * make sure quotes are properly handled in commit messages
   * silence warnings generated by twitter gem in MRI 1.8.7
 
@@ -228,14 +228,14 @@ project adheres to [Semantic Versioning][Semver].
 
 ## 0.1.4 (28 May 2012)
   * set device on mac via --device (or LOLCOMMITS_DEVICE env variable) --
-    thanks @pioz (pull #51)
+    thanks @pioz (pull [#51][])
 
 ## 0.1.3 (18 May 2012)
   * add LGPLv3 license
   * add option to translate your commit message to lolspeak! (thx
     to @DanielleSucher!).  To enable, set `LOLCOMMITS_TRANZLATE=1`.
-  * fix issue with older versions of IM crashing on interline spacing (pull #31 via @german)
-  * fix issue with git repos with no hooks directory (pull #43 via @mkmaster)
+  * fix issue with older versions of IM crashing on interline spacing (pull [#31][] via @german)
+  * fix issue with git repos with no hooks directory (pull [#43][] via @mkmaster)
   * fix missing dash in capture -c
 
 ## 0.1.2 (22 April 2012)
@@ -249,7 +249,7 @@ project adheres to [Semantic Versioning][Semver].
   * Linux compatibility! Thanks to @madjar, @cscorely, and @Prydonius.
 
 ## 0.0.3 (16 April 2012)
-  * use only first line for multi-line commit msgs (pull req #21)
+  * use only first line for multi-line commit msgs (pull req [#21][])
   * clean up some command line options
 
 ## 0.0.2 (2 April 2012)
@@ -292,3 +292,130 @@ project adheres to [Semantic Versioning][Semver].
 [0.5.1]: https://github.com/mroth/lolcommits/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/mroth/lolcommits/compare/v0.4.9...v0.5.0
 [Semver]: http://semver.org
+[#9]: https://github.com/mroth/lolcommits/pull/9
+[#21]: https://github.com/mroth/lolcommits/pull/21
+[#31]: https://github.com/mroth/lolcommits/pull/31
+[#43]: https://github.com/mroth/lolcommits/pull/43
+[#50]: https://github.com/mroth/lolcommits/pull/50
+[#51]: https://github.com/mroth/lolcommits/pull/51
+[#73]: https://github.com/mroth/lolcommits/pull/73
+[#82]: https://github.com/mroth/lolcommits/pull/82
+[#83]: https://github.com/mroth/lolcommits/pull/83
+[#87]: https://github.com/mroth/lolcommits/pull/87
+[#89]: https://github.com/mroth/lolcommits/pull/89
+[#90]: https://github.com/mroth/lolcommits/pull/90
+[#91]: https://github.com/mroth/lolcommits/pull/91
+[#92]: https://github.com/mroth/lolcommits/pull/92
+[#93]: https://github.com/mroth/lolcommits/pull/93
+[#94]: https://github.com/mroth/lolcommits/pull/94
+[#95]: https://github.com/mroth/lolcommits/pull/95
+[#104]: https://github.com/mroth/lolcommits/pull/104
+[#105]: https://github.com/mroth/lolcommits/pull/105
+[#107]: https://github.com/mroth/lolcommits/pull/107
+[#108]: https://github.com/mroth/lolcommits/pull/108
+[#109]: https://github.com/mroth/lolcommits/pull/109
+[#112]: https://github.com/mroth/lolcommits/pull/112
+[#112]: https://github.com/mroth/lolcommits/pull/112
+[#114]: https://github.com/mroth/lolcommits/pull/114
+[#119]: https://github.com/mroth/lolcommits/pull/119
+[#123]: https://github.com/mroth/lolcommits/pull/123
+[#125]: https://github.com/mroth/lolcommits/pull/125
+[#133]: https://github.com/mroth/lolcommits/pull/133
+[#136]: https://github.com/mroth/lolcommits/pull/136
+[#139]: https://github.com/mroth/lolcommits/pull/139
+[#145]: https://github.com/mroth/lolcommits/pull/145
+[#146]: https://github.com/mroth/lolcommits/pull/146
+[#151]: https://github.com/mroth/lolcommits/pull/151
+[#154]: https://github.com/mroth/lolcommits/pull/154
+[#155]: https://github.com/mroth/lolcommits/pull/155
+[#156]: https://github.com/mroth/lolcommits/pull/156
+[#159]: https://github.com/mroth/lolcommits/pull/159
+[#159]: https://github.com/mroth/lolcommits/pull/159
+[#160]: https://github.com/mroth/lolcommits/pull/160
+[#163]: https://github.com/mroth/lolcommits/pull/163
+[#168]: https://github.com/mroth/lolcommits/pull/168
+[#171]: https://github.com/mroth/lolcommits/pull/171
+[#173]: https://github.com/mroth/lolcommits/pull/173
+[#174]: https://github.com/mroth/lolcommits/pull/174
+[#175]: https://github.com/mroth/lolcommits/pull/175
+[#176]: https://github.com/mroth/lolcommits/pull/176
+[#177]: https://github.com/mroth/lolcommits/pull/177
+[#178]: https://github.com/mroth/lolcommits/pull/178
+[#179]: https://github.com/mroth/lolcommits/pull/179
+[#180]: https://github.com/mroth/lolcommits/pull/180
+[#181]: https://github.com/mroth/lolcommits/pull/181
+[#183]: https://github.com/mroth/lolcommits/pull/183
+[#184]: https://github.com/mroth/lolcommits/pull/184
+[#186]: https://github.com/mroth/lolcommits/pull/186
+[#188]: https://github.com/mroth/lolcommits/pull/188
+[#189]: https://github.com/mroth/lolcommits/pull/189
+[#192]: https://github.com/mroth/lolcommits/pull/192
+[#193]: https://github.com/mroth/lolcommits/pull/193
+[#194]: https://github.com/mroth/lolcommits/pull/194
+[#195]: https://github.com/mroth/lolcommits/pull/195
+[#196]: https://github.com/mroth/lolcommits/pull/196
+[#202]: https://github.com/mroth/lolcommits/pull/202
+[#206]: https://github.com/mroth/lolcommits/pull/206
+[#207]: https://github.com/mroth/lolcommits/pull/207
+[#208]: https://github.com/mroth/lolcommits/pull/208
+[#212]: https://github.com/mroth/lolcommits/pull/212
+[#215]: https://github.com/mroth/lolcommits/pull/215
+[#223]: https://github.com/mroth/lolcommits/pull/223
+[#224]: https://github.com/mroth/lolcommits/pull/224
+[#225]: https://github.com/mroth/lolcommits/pull/225
+[#226]: https://github.com/mroth/lolcommits/pull/226
+[#228]: https://github.com/mroth/lolcommits/pull/228
+[#229]: https://github.com/mroth/lolcommits/pull/229
+[#231]: https://github.com/mroth/lolcommits/pull/231
+[#232]: https://github.com/mroth/lolcommits/pull/232
+[#233]: https://github.com/mroth/lolcommits/pull/233
+[#234]: https://github.com/mroth/lolcommits/pull/234
+[#235]: https://github.com/mroth/lolcommits/pull/235
+[#236]: https://github.com/mroth/lolcommits/pull/236
+[#237]: https://github.com/mroth/lolcommits/pull/237
+[#240]: https://github.com/mroth/lolcommits/pull/240
+[#241]: https://github.com/mroth/lolcommits/pull/241
+[#244]: https://github.com/mroth/lolcommits/pull/244
+[#244]: https://github.com/mroth/lolcommits/pull/244
+[#246]: https://github.com/mroth/lolcommits/pull/246
+[#250]: https://github.com/mroth/lolcommits/pull/250
+[#251]: https://github.com/mroth/lolcommits/pull/251
+[#252]: https://github.com/mroth/lolcommits/pull/252
+[#254]: https://github.com/mroth/lolcommits/pull/254
+[#256]: https://github.com/mroth/lolcommits/pull/256
+[#258]: https://github.com/mroth/lolcommits/pull/258
+[#263]: https://github.com/mroth/lolcommits/pull/263
+[#266]: https://github.com/mroth/lolcommits/pull/266
+[#266]: https://github.com/mroth/lolcommits/pull/266
+[#267]: https://github.com/mroth/lolcommits/pull/267
+[#270]: https://github.com/mroth/lolcommits/pull/270
+[#272]: https://github.com/mroth/lolcommits/pull/272
+[#276]: https://github.com/mroth/lolcommits/pull/276
+[#278]: https://github.com/mroth/lolcommits/pull/278
+[#279]: https://github.com/mroth/lolcommits/pull/279
+[#280]: https://github.com/mroth/lolcommits/pull/280
+[#282]: https://github.com/mroth/lolcommits/pull/282
+[#283]: https://github.com/mroth/lolcommits/pull/283
+[#284]: https://github.com/mroth/lolcommits/pull/284
+[#286]: https://github.com/mroth/lolcommits/pull/286
+[#289]: https://github.com/mroth/lolcommits/pull/289
+[#292]: https://github.com/mroth/lolcommits/pull/292
+[#294]: https://github.com/mroth/lolcommits/pull/294
+[#296]: https://github.com/mroth/lolcommits/pull/296
+[#298]: https://github.com/mroth/lolcommits/pull/298
+[#301]: https://github.com/mroth/lolcommits/pull/301
+[#302]: https://github.com/mroth/lolcommits/pull/302
+[#303]: https://github.com/mroth/lolcommits/pull/303
+[#304]: https://github.com/mroth/lolcommits/pull/304
+[#308]: https://github.com/mroth/lolcommits/pull/308
+[#309]: https://github.com/mroth/lolcommits/pull/309
+[#313]: https://github.com/mroth/lolcommits/pull/313
+[#313]: https://github.com/mroth/lolcommits/pull/313
+[#317]: https://github.com/mroth/lolcommits/pull/317
+[#318]: https://github.com/mroth/lolcommits/pull/318
+[#320]: https://github.com/mroth/lolcommits/pull/320
+[#321]: https://github.com/mroth/lolcommits/pull/321
+[#323]: https://github.com/mroth/lolcommits/pull/323
+[#325]: https://github.com/mroth/lolcommits/pull/325
+[#326]: https://github.com/mroth/lolcommits/pull/326
+[#328]: https://github.com/mroth/lolcommits/pull/328
