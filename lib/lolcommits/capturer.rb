@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class Capturer
     attr_accessor :capture_device, :capture_delay, :snapshot_location,

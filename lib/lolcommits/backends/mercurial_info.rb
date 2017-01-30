@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class MercurialInfo < VCSInfo
     attr_accessor :sha, :message, :repo_internal_path, :repo, :url,

@@ -1,5 +1,3 @@
-# -*- encoding : utf-8 -*-
-
 module Lolcommits
   class Configuration
     LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
