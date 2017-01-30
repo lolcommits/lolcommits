@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 # To maintain MiniMagick compatibility on Windows for v3.8.1 we need this patch
 # If/when we upgrade MiniMagick to 4.2+ this patch can be removed
 # We are locked at v3.8.1 since MiniMagick 4+ dropped support for Ruby 1.8.7

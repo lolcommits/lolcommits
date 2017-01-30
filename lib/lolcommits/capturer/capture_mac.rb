@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureMac < Capturer
     def capture_device_string

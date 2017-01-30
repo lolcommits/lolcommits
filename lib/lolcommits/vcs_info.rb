@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   # base class ala plugin.rb
   class VCSInfo

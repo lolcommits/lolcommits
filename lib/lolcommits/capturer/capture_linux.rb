@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class CaptureLinux < Capturer
     MPLAYER_FPS = 25
