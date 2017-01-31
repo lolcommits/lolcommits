@@ -151,6 +151,8 @@ module Lolcommits
         'SouthWest'
       when 'C'
         'Center'
+      when 'N'
+        'North'
       when 'S'
         'South'
       end
