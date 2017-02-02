@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class GemPlugin
     attr_accessor :name, :gem_name, :spec, :active

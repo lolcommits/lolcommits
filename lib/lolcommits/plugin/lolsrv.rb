@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 require 'rest_client'
 require 'pp'
 require 'json'

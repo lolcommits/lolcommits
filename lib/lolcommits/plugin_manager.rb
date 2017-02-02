@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module Lolcommits
   class PluginManager
     GEM_NAME_PREFIX = /^lolcommits-plugin-/
