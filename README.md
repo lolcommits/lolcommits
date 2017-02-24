@@ -209,3 +209,10 @@ issue](https://github.com/mroth/lolcommits/issues) (and please take a little
 time to check if we haven't [already
 addressed](https://github.com/mroth/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
 it).
+
+
+## License
+
+The gem is available as open source under the terms of
+[LGPL-3](https://opensource.org/licenses/LGPL-3.0).
+
