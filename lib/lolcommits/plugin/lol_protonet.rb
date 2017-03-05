@@ -9,8 +9,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         debug "Posting capture to #{configuration['endpoint']}"
         RestClient.post(
           api_url,

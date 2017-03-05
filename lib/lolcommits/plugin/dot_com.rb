@@ -11,8 +11,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         t = Time.now.to_i.to_s
         HTTMultiParty.post(
           "#{BASE_URL}/git_commits.json",

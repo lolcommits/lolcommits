@@ -12,6 +12,11 @@ module Lolcommits
         !configured? || super
       end
 
+      # valid by default (if no config exists)
+      def valid_configuration?
+        !configured? || super
+      end
+
       def run_postcapture
         debug 'Annotating image via MiniMagick'
         image = MiniMagick::Image.open(runner.main_image)

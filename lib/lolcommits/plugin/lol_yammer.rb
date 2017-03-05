@@ -54,8 +54,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         commit_msg = runner.message
         post = "#{commit_msg} #lolcommits"
         puts "Yammer post: #{post}" unless runner.capture_stealth

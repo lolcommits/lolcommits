@@ -46,8 +46,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         retries = RETRY_COUNT
         begin
 

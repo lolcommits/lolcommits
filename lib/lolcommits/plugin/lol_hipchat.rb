@@ -33,8 +33,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         http = Net::HTTP.new(api_url.host, api_url.port)
         # http.set_debug_output $stderr # nice for debugging, never ever release with it
         http.start do |connection|

@@ -9,12 +9,14 @@ module Lolcommits
       end
 
       def execute_precapture
+        return unless valid_configuration?
         return unless enabled?
         debug 'I am enabled, about to run precapture'
         run_precapture
       end
 
       def execute_postcapture
+        return unless valid_configuration?
         return unless enabled?
         debug 'I am enabled, about to run postcapture'
         run_postcapture
@@ -67,12 +69,7 @@ module Lolcommits
 
       # check config is valid
       def valid_configuration?
-        if configured?
-          true
-        else
-          puts "Missing #{self.class.name} config - configure with: lolcommits --config -p #{self.class.name}"
-          false
-        end
+        configured?
       end
 
       # empty plugin configuration

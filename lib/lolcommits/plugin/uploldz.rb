@@ -19,8 +19,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
-
         if !runner.vcs_info || runner.vcs_info.repo.empty?
           puts 'Repo is empty, skipping upload'
         else

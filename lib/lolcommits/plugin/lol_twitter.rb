@@ -16,7 +16,6 @@ module Lolcommits
       DEFAULT_SUFFIX               = '#lolcommits'.freeze
 
       def run_postcapture
-        return unless valid_configuration?
         tweet = build_tweet(runner.message)
 
         attempts = 0

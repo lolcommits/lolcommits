@@ -11,7 +11,6 @@ module Lolcommits
       end
 
       def run_postcapture
-        return unless valid_configuration?
         fork { sync }
       end
 
