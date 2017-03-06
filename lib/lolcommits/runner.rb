@@ -32,7 +32,6 @@ module Lolcommits
 
       # do native plugins that need to happen before capture
       plugins_for(:precapture).each do |plugin|
-        debug "Runner: precapture about to execute #{plugin}"
         plugin.new(self).execute_precapture
       end
 
@@ -50,11 +49,10 @@ module Lolcommits
         # do native plugins that need to happen immediately after capture and
         # resize this is effectively the "image processing" phase for now,
         # reserve just for us and handle manually...?
-        Lolcommits::Loltext.new(self).execute_postcapture
+        Lolcommits::Plugin::Loltext.new(self).execute_postcapture
 
         # do native plugins that need to happen after capture
         plugins_for(:postcapture).each do |plugin|
-          debug "Runner: postcapture about to execute #{plugin}"
           plugin.new(self).execute_postcapture
         end
 
@@ -68,12 +66,14 @@ module Lolcommits
       end
     end
 
+    # TODO: - move these plugin methods to Lolcommits::PluginManager after all
+    # plugins get "gemified"
     def plugins_for(position)
       self.class.plugins.select { |p| p.runner_order == position }
     end
 
     def self.plugins
-      Lolcommits::Plugin.subclasses
+      Lolcommits::Plugin.constants.map(&Lolcommits::Plugin.method(:const_get)) - [Lolcommits::Plugin::Base]
     end
 
     # the main capture

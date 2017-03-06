@@ -3,8 +3,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lolcommits/version'
 
 Gem::Specification.new do |s|
-  s.name        = 'lolcommits'
+  s.name        = Lolcommits::GEM_NAME.dup
   s.version     = Lolcommits::VERSION.dup
+
   s.authors     = ['Matthew Rothenberg', 'Matthew Hutchinson']
   s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
   s.homepage    = 'http://mroth.github.com/lolcommits/'

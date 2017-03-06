@@ -68,31 +68,34 @@ module Lolcommits
     end
 
     def plugins_list
-      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).join("\n * ")}"
+      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).sort.join("\n * ")}"
     end
 
     def ask_for_plugin_name
       puts plugins_list
       print 'Name of plugin to configure: '
-      STDIN.gets.strip
+      gets.strip
     end
 
-    def find_plugin(plugin_name)
+    def find_plugin(plugin_name_option)
+      plugin_name = plugin_name_option.empty? ? ask_for_plugin_name : plugin_name_option
+
       Lolcommits::Runner.plugins.each do |plugin|
         return plugin.new(nil) if plugin.name == plugin_name
       end
 
       puts "Unable to find plugin: '#{plugin_name}'"
+      return if plugin_name_option.empty?
       puts plugins_list
     end
 
     def do_configure!(plugin_name)
       $stdout.sync = true
-      plugin_name = ask_for_plugin_name if plugin_name.to_s.strip.empty?
 
-      plugin = find_plugin(plugin_name)
+      plugin = find_plugin(plugin_name.to_s.strip)
       return unless plugin
       config = read_configuration || {}
+      plugin_name   = plugin.class.name
       plugin_config = plugin.configure_options!
       # having a plugin_config, means configuring went OK
       if plugin_config

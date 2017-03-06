@@ -40,7 +40,7 @@ makes this easy.
 
 	brew install imagemagick
 
-Then install the gem with:
+Then install with:
 
 	[sudo] gem install lolcommits
 
@@ -51,7 +51,7 @@ If [Boxen](https://boxen.github.com) is your thing, [try
 this](https://github.com/AssuredLabor/puppet-lolcommits).
 
 Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd like to
-use this gem on older rubies try:
+use this program on older rubies try:
 
     [sudo] gem install lolcommits --version 0.8.1   # for Ruby 1.9
     [sudo] gem install lolcommits --version 0.7.0   # for Ruby 1.8
@@ -68,7 +68,7 @@ For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no
 longer ships with the default Ubuntu sources. [Downloads for
 ffmpeg](http://ffmpeg.org/download.html)
 
-Then install the gem with:
+Then install with:
 
     gem install lolcommits
 
@@ -209,3 +209,10 @@ issue](https://github.com/mroth/lolcommits/issues) (and please take a little
 time to check if we haven't [already
 addressed](https://github.com/mroth/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
 it).
+
+
+## License
+
+The program is available as open source under the terms of
+[LGPL-3](https://opensource.org/licenses/LGPL-3.0).
+

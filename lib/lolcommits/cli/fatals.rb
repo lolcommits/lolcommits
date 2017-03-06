@@ -27,13 +27,6 @@ module Lolcommits
           end
         end
 
-        # make sure we can find the default font
-        unless File.readable? Lolcommits::Loltext::DEFAULT_FONT_PATH
-          fatal "Couldn't properly read Impact font from gem package, "\
-                'please file a bug?!'
-          exit 1
-        end
-
         # make sure imagemagick is around and good to go
         unless Platform.valid_imagemagick_installed?
           fatal 'FATAL: ImageMagick does not appear to be properly installed!'\

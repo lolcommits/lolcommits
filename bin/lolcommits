@@ -36,6 +36,9 @@ class App
         debug 'Outputting at DEBUG verbosity'
       end
 
+      # TODO: move to a better place
+      load_plugins
+
       if options[:'show-config']
         puts configuration
       elsif options[:plugins]
@@ -122,6 +125,12 @@ class App
     options[:debug] || ENV['LOLCOMMITS_DEBUG'] || false
   end
 
+  def self.load_plugins
+    pm = Lolcommits::PluginManager.new
+    pm.locate_plugins
+    pm.load_plugins
+  end
+
   def self.device_list_help
     'Specify a device with --device "{device name}" or set the LOLCOMMITS_DEVICE env variable'
   end
@@ -195,16 +204,6 @@ class App
     capture_animate > 0
   end
 
-  # TODO: remove this after implementing gem based plugins
-  # https://github.com/mroth/lolcommits/issues/99
-  # Until then for local plugin dev, use $LOLCOMMITS_DIR/.plugins directory
-  def self.load_local_plugins!
-    plugins_dir = Configuration.loldir_for('.plugins')
-    Dir.glob("#{plugins_dir}/*.rb").each do |plugin|
-      load plugin
-    end
-  end
-
   #
   # change working dir to either a repo or the fs root
   #
@@ -221,11 +220,6 @@ class App
       Dir.chdir(nxt)
     end
   end
-
-  #
-  # load plugins
-  #
-  load_local_plugins!
 
   go!
 end
