@@ -5,8 +5,14 @@ project adheres to [Semantic Versioning][Semver].
 
 ## [Unreleased]
 
-  * WIP - extract plugins to separate gems ...
+  * WIP - extract more plugins to gems ...
   * Your contribution here!
+
+## [0.9.3][] (6 March 2017)
+  * Gem plugin support (@matthutchinson [#332][])
+  * Add North gravity for ImageMagick (@domudall [#331][])
+  * remove Ruby 1.9 magic comments (@matthutchinson [#330][])
+  * add links to PRs in CHANGELOG (@bfontaine [#329][])
 
 ## [0.9.2][] (3 January 2017)
   * Remove twitter gem, fixes Ruby 2.4 issues (@matthutchinson [#328][])
@@ -419,3 +425,7 @@ project adheres to [Semantic Versioning][Semver].
 [#325]: https://github.com/mroth/lolcommits/pull/325
 [#326]: https://github.com/mroth/lolcommits/pull/326
 [#328]: https://github.com/mroth/lolcommits/pull/328
+[#329]: https://github.com/mroth/lolcommits/pull/329
+[#330]: https://github.com/mroth/lolcommits/pull/330
+[#331]: https://github.com/mroth/lolcommits/pull/331
+[#332]: https://github.com/mroth/lolcommits/pull/332
