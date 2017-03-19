@@ -28,14 +28,10 @@ module Lolcommits
     # this used to be handled with ActiveSupport::Callbacks, but
     # now we're just using a simple procedural list
     def run
-      # do things that need to happen before capture and plugins
-
-      # do native plugins that need to happen before capture
-      plugins_for(:precapture).each do |plugin|
+      # do plugins that need to happen before capture
+      plugin_manager.plugins_for(:precapture).each do |plugin|
         plugin.new(self).execute_precapture
       end
-
-      # do gem plugins that need to happen before capture?
 
       # do main capture to snapshot_loc
       run_capture
@@ -51,12 +47,10 @@ module Lolcommits
         # reserve just for us and handle manually...?
         Lolcommits::Plugin::Loltext.new(self).execute_postcapture
 
-        # do native plugins that need to happen after capture
-        plugins_for(:postcapture).each do |plugin|
+        # do plugins that need to happen after capture
+        plugin_manager.plugins_for(:postcapture).each do |plugin|
           plugin.new(self).execute_postcapture
         end
-
-        # do gem plugins that need to happen after capture?
 
         # do things that should happen last
         cleanup!
@@ -64,16 +58,6 @@ module Lolcommits
         debug 'Runner: failed to capture a snapshot'
         exit 1
       end
-    end
-
-    # TODO: - move these plugin methods to Lolcommits::PluginManager after all
-    # plugins get "gemified"
-    def plugins_for(position)
-      self.class.plugins.select { |p| p.runner_order == position }
-    end
-
-    def self.plugins
-      Lolcommits::Plugin.constants.map(&Lolcommits::Plugin.method(:const_get)) - [Lolcommits::Plugin::Base]
     end
 
     # the main capture
@@ -98,6 +82,10 @@ module Lolcommits
     end
 
     private
+
+    def plugin_manager
+      @plugin_manager ||= config.plugin_manager
+    end
 
     def image_file_type
       capture_animated? ? 'gif' : 'jpg'

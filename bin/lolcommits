@@ -36,13 +36,13 @@ class App
         debug 'Outputting at DEBUG verbosity'
       end
 
-      # TODO: move to a better place
-      load_plugins
+      plugin_manager = PluginManager.init
+      config         = Configuration.new(plugin_manager, test_mode: options[:test])
 
       if options[:'show-config']
-        puts configuration
+        puts config
       elsif options[:plugins]
-        puts configuration.plugins_list
+        config.list_plugins
       elsif options[:devices]
         puts Platform.device_list
         puts device_list_help
@@ -59,15 +59,15 @@ class App
         end
 
         if options[:last]
-          show_last_lolimage
+          show_last_lolimage(config.loldir)
         elsif options[:browse]
-          Launcher.open_folder(configuration.loldir)
+          Launcher.open_folder(config.loldir)
         elsif options[:timelapse]
-          TimelapseGif.new(configuration).run(options[:period])
+          TimelapseGif.new(config).run(options[:period])
         elsif options[:config]
-          configuration.do_configure!(options[:plugin])
+          config.do_configure!(options[:plugin])
         elsif options[:capture]
-          capture_lolcommit
+          capture_lolcommit(config)
         end
       end
     end
@@ -75,7 +75,7 @@ class App
 
   on('--test', 'run in test mode')
   on('--debug', 'show debugging info')
-  on('--show-config', 'show configuration file')
+  on('--show-config', 'show config file')
   on('--devices', 'list available capture devices (mac only)')
   on('--plugins', 'list all available plugins')
   on('--config', 'configure a plugin')
@@ -109,34 +109,17 @@ class App
       'Or:  lolcommits --help'
   end
 
-  # Gets a configuration object.  If running in test mode will override the
-  # LOLDIR for the configuration.
-  #
-  # @return [Lolcommits::Configuration]
-  def self.configuration
-    if options[:test]
-      Configuration.new(loldir: Configuration.loldir_for('test'))
-    else
-      Configuration.new
-    end
-  end
-
   def self.debug_enabled?
     options[:debug] || ENV['LOLCOMMITS_DEBUG'] || false
-  end
-
-  def self.load_plugins
-    pm = Lolcommits::PluginManager.new
-    pm.locate_plugins
-    pm.load_plugins
   end
 
   def self.device_list_help
     'Specify a device with --device "{device name}" or set the LOLCOMMITS_DEVICE env variable'
   end
 
-  def self.show_last_lolimage
-    lolimage = configuration.most_recent
+  def self.show_last_lolimage(loldir)
+    lolimage = Dir.glob(File.join(loldir, '*.{jpg,gif}')).max_by { |f| File.mtime(f) }
+
     if lolimage.nil?
       warn 'No lolcommits have been captured for this repository yet.'
       exit 1
@@ -150,7 +133,7 @@ class App
     result
   end
 
-  def self.capture_lolcommit
+  def self.capture_lolcommit(config)
     should_we_fork  = options[:fork] || ENV['LOLCOMMITS_FORK'] || false
     capture_stealth = options[:stealth] || ENV['LOLCOMMITS_STEALTH'] || false
     capture_delay   = (options[:delay] || ENV['LOLCOMMITS_DELAY']).to_i
@@ -160,10 +143,10 @@ class App
       capture_stealth: capture_stealth,
       capture_device: capture_device,
       capture_animate: capture_animate,
-      config: configuration
+      config: config
     }
 
-    process_runner = ProcessRunner.new(configuration)
+    process_runner = ProcessRunner.new(config)
     process_runner.fork_me?(should_we_fork) do
       if options[:test]
         info '*** Capturing in test mode.'
