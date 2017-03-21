@@ -19,7 +19,7 @@ module Lolcommits
     end
 
     def plugins_for(position)
-      plugin_klasses.select { |p| p.runner_order == position }
+      plugin_klasses.select { |p| Array(p.runner_order).include?(position) }
     end
 
     # @return [Lolcommits::Plugin] find first plugin matching name
