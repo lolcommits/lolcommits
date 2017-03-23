@@ -2,12 +2,11 @@ module Lolcommits
   class Configuration
     LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
-    attr_writer :loldir
+    attr_accessor :plugin_manager, :loldir
 
-    def initialize(attributes = {})
-      attributes.each do |attr, val|
-        send("#{attr}=", val)
-      end
+    def initialize(plugin_manager, test_mode: false)
+      @plugin_manager = plugin_manager
+      @loldir         = Configuration.loldir_for('test') if test_mode
     end
 
     def read_configuration
@@ -39,10 +38,6 @@ module Lolcommits
       dir
     end
 
-    def most_recent
-      Dir.glob(File.join(loldir, '*.{jpg,gif}')).max_by { |f| File.mtime(f) }
-    end
-
     def jpg_images
       Dir.glob(File.join(loldir, '*.jpg')).sort_by { |f| File.mtime(f) }
     end
@@ -67,26 +62,26 @@ module Lolcommits
       File.join(loldir, 'tmp_frames')
     end
 
-    def plugins_list
-      "Available plugins: \n * #{Lolcommits::Runner.plugins.map(&:name).sort.join("\n * ")}"
-    end
-
-    def ask_for_plugin_name
-      puts plugins_list
-      print 'Name of plugin to configure: '
-      gets.strip
+    def list_plugins
+      puts "Available plugins: \n * #{plugin_manager.plugin_names.join("\n * ")}"
     end
 
     def find_plugin(plugin_name_option)
       plugin_name = plugin_name_option.empty? ? ask_for_plugin_name : plugin_name_option
+      return if plugin_name.empty?
 
-      Lolcommits::Runner.plugins.each do |plugin|
-        return plugin.new(nil) if plugin.name == plugin_name
-      end
+      plugin_klass = plugin_manager.find_by_name(plugin_name)
+      return plugin_klass.new(nil) if plugin_klass
 
       puts "Unable to find plugin: '#{plugin_name}'"
       return if plugin_name_option.empty?
-      puts plugins_list
+      list_plugins
+    end
+
+    def ask_for_plugin_name
+      list_plugins
+      print 'Name of plugin to configure: '
+      gets.strip
     end
 
     def do_configure!(plugin_name)

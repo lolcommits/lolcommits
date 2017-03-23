@@ -100,10 +100,16 @@ module Lolcommits
         'plugin'
       end
 
-      # a plugin requests to be run by the runner in one of these positions
-      # valid options are [:precapture, :postcapture]
+      # Returns position(s) of when a plugin should run during the capture
+      # process.
+      #
+      # Defines when the plugin will execute in the capture process. This must
+      # be defined, if the method returns nil, or [] the plugin will never run.
+      #
+      # @return [Array] the position(s) (:precapture and/or :postcapture)
+      #
       def self.runner_order
-        nil
+        []
       end
     end
   end

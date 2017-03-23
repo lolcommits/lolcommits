@@ -1,12 +1,9 @@
 module Lolcommits
   class GemPlugin
-    attr_accessor :name, :gem_name, :spec, :required
+    attr_accessor :gem_spec, :required
 
-    def initialize(name, gem_name, spec)
-      @name     = name
-      @gem_name = gem_name
-      @spec     = spec
-      @required = false
+    def initialize(gem_spec)
+      @gem_spec = gem_spec
     end
 
     # activate the plugin (require the gem - enables/loads the plugin
@@ -15,13 +12,13 @@ module Lolcommits
       begin
         require gem_path unless required?
       rescue LoadError => e
-        warn "Found plugin #{gem_name}, but could not require '#{gem_name}'"
+        warn "Found plugin #{name}, but could not require gem '#{gem_name}'"
         warn e
       rescue => e
-        warn "require '#{gem_name}' # Failed, saying: #{e}"
+        warn "require gem '#{gem_name}' failed with: #{e}"
       end
 
-      self.required = true
+      @required = true
     end
 
     alias required? required
@@ -29,7 +26,7 @@ module Lolcommits
     def supported?
       # false if the plugin gem does not support this version of Lolcommits
       lolcommits_version = Gem::Version.new(::Lolcommits::VERSION)
-      spec.dependencies.each do |dependency|
+      gem_spec.dependencies.each do |dependency|
         if dependency.name == Lolcommits::GEM_NAME
           return dependency.requirement.satisfied_by?(lolcommits_version)
         end
@@ -37,10 +34,28 @@ module Lolcommits
       true
     end
 
+    def name
+      gem_name.split('-', 2).last
+    end
+
+    def plugin_klass
+      self.class.const_get(plugin_klass_name)
+    rescue => e
+      warn "failed to load constant from plugin gem '#{plugin_klass_name}: #{e}'"
+    end
+
     private
+
+    def gem_name
+      gem_spec.name
+    end
 
     def gem_path
       gem_name.gsub(/-|_/, '/')
+    end
+
+    def plugin_klass_name
+      gem_path.split('/').map(&:capitalize).join('::')
     end
   end
 end
