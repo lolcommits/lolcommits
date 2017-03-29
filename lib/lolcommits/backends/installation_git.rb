@@ -72,7 +72,7 @@ module Lolcommits
 
       <<-EOS
 ### lolcommits hook (begin) ###
-if [ ! -d "$GIT_DIR/rebase-merge" ]; then
+if [ ! -d "$GIT_DIR/rebase-merge" ] && [ "$LOLCOMMITS_CAPTURE_DISABLED" != "1" ]; then
 #{locale_export}#{hook_export}#{capture_cmd} #{capture_args}
 fi
 ###  lolcommits hook (end)  ###

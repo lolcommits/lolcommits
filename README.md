@@ -135,6 +135,7 @@ via environment variables like so;
   process, speedily returning you to your terminal)
 * `LOLCOMMITS_STEALTH` disable notification messages at commit time
 * `LOLCOMMITS_DIR` set the output directory used for all repositories (defaults to ~/.lolcommits)
+* `LOLCOMMITS_CAPTURE_DISABLED` short-cirtcuits the capture command if set to `1`
 
 Or they can be set with these arguments to the capture command (located in your
 repository's `.git/hooks/post-commit` file).
