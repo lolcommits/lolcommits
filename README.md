@@ -17,9 +17,9 @@ By default, the lol images are stored by a Github style short SHA in a
 
 <img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
 
-Please add your own lolcommit! Add to the [People Using
+Please add your own lolcommit to the [People Using
 Lolcommits](https://github.com/mroth/lolcommits/wiki/Lolcommits-from-around-the-world%21)
-page on our wiki.
+page on our wiki!
 
 
 ## Requirements
@@ -45,13 +45,13 @@ Then install with:
 	[sudo] gem install lolcommits
 
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
-default MacOSX Ruby install is dumb and requires it.
+default MacOS Ruby install is dumb and requires it.
 
 If [Boxen](https://boxen.github.com) is your thing, [try
 this](https://github.com/AssuredLabor/puppet-lolcommits).
 
 Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd like to
-use this program on older rubies try:
+use older Rubies try:
 
     [sudo] gem install lolcommits --version 0.8.1   # for Ruby 1.9
     [sudo] gem install lolcommits --version 0.7.0   # for Ruby 1.8
@@ -59,14 +59,14 @@ use this program on older rubies try:
 
 ### Linux
 
-Install dependencies using your package manager of choice, for example in
+Install these dependencies using your package manager of choice, for example in
 Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
 
 For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it no
-longer ships with the default Ubuntu sources. [Downloads for
-ffmpeg](http://ffmpeg.org/download.html)
+longer ships with the default Ubuntu sources ([downloads
+here](http://ffmpeg.org/download.html)).
 
 Then install with:
 
@@ -103,7 +103,7 @@ installed!
 
 ### Other commands
 
-Ok, if you insist... Since you know about `--enable`, common sense suggests
+OK, if you insist... Since you know about `--enable`, common sense suggests
 there is also a repository specific `--disable`, hopefully you can guess what
 that does.
 
@@ -118,10 +118,10 @@ git post-hook capture command. For example;
     lolcommits --enable --delay 5 --animate 4 --fork
 
 Will configure capturing of an animated gif (4 secs) after a 5 sec delay in a
-forked process. See the section below for more capture configuration variables.
+forked process. See the section below for more capture configuration options.
 
 
-### Capture configuration variables
+### Capture configuration options
 
 lolcommits has some capture options for additional lulz. You can enable these
 via environment variables like so;
@@ -129,14 +129,15 @@ via environment variables like so;
 * `LOLCOMMITS_DEVICE` set a webcam device - **mac and linux only**
 * `LOLCOMMITS_ANIMATE` (in seconds) set time for capturing an animated gif -
   **requires ffmpeg**
-* `LOLCOMMITS_DELAY` (in seconds) set delay persistently (for slow webcams to
-  warmup)
+* `LOLCOMMITS_DELAY` (in seconds) set delay time before capturing (for slow
+  webcams to warmup)
 * `LOLCOMMITS_FORK` fork lolcommit runner (capture command forks to a new
   process, speedily returning you to your terminal)
-* `LOLCOMMITS_STEALTH` disable notification messages at commit time
-* `LOLCOMMITS_DIR` set the output directory used for all repositories (defaults to ~/.lolcommits)
+* `LOLCOMMITS_STEALTH` disable all notification messages when capturing
+* `LOLCOMMITS_DIR` set the output directory used for all repositories (defaults
+  to ~/.lolcommits)
 
-Or they can be set with these arguments to the capture command (located in your
+Or they can be set with arguments to the capture command (located in your
 repository's `.git/hooks/post-commit` file).
 
 * `--device {name}` or `-d {name}`
@@ -154,7 +155,8 @@ loltext plugin with this command:
 
     lolcommits --config -p loltext
 
-To find out more, read about [loltext options](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
+To find out more about styling, read about the [loltext
+options](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
 
 
 ### Animated Gif Capturing
@@ -180,12 +182,23 @@ animated lolcommit gif")
 
 A growing number of plugins are available, allowing you to transform or share
 your lolcommits with others. The default plugin simply appends your commit
-message and sha to the captured image. Others can auto post to Twitter, Tumblr
-(and other services), or even translate your commit messages to
-[lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak). They can be
-easily enabled, configured or disabled with the `--config` option:
+message and sha to the captured image. Others can post to Twitter, Tumblr (and
+other services), or even translate your commit messages to
+[lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak).
+
+Until recently, all plugins lived inside the main lolcommits gem. We are in the
+process of extracting them to individual gems. For [gem
+plugins](https://rubygems.org/search?utf8=✓&query=lolcommits), you'll need
+to install the gem first:
+
+    [sudo] gem install lolcommits-plugin-sample
+
+Plugins can be easily enabled, configured or disabled with the `--config`
+option:
 
     lolcommits --config
+    # or
+    lolcommits --config -p loltxt
 
 Check them out on our [plugins
 page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
@@ -193,8 +206,7 @@ page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 ## Timelapse
 
-To watch your face as it decays while you program, you can create an animated
-timelapse gif.
+Watch your face decay while you program, with an animated timelapse gif!
 
     lolcommits --timelapse
     # or for just today's lolcommits
@@ -203,10 +215,10 @@ timelapse gif.
 ## Troubles?
 
 Try our trouble-shooting [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ), or
-take a read through our [wiki](https://github.com/mroth/lolcommits/wiki) for
-more information. If you think something is broken or missing, raise a [Github
-issue](https://github.com/mroth/lolcommits/issues) (and please take a little
-time to check if we haven't [already
+take a read through our [wiki](https://github.com/mroth/lolcommits/wiki). If you
+think something is broken or missing, please raise a [Github
+issue](https://github.com/mroth/lolcommits/issues) (and please check if we
+haven't [already
 addressed](https://github.com/mroth/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
 it).
 
