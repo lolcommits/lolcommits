@@ -47,9 +47,6 @@ Then install with:
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
 default macOS Ruby install is dumb and requires it.
 
-If [Boxen](https://boxen.github.com) is your thing, [try
-this](https://github.com/AssuredLabor/puppet-lolcommits).
-
 Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd like to
 use older Rubies try:
 
