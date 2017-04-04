@@ -33,7 +33,7 @@ page on our wiki!
 ## Installation
 
 
-### Mac OS X
+### macOS
 
 You'll need ImageMagick installed. [Homebrew](http://mxcl.github.com/homebrew/)
 makes this easy.
@@ -45,7 +45,7 @@ Then install with:
 	[sudo] gem install lolcommits
 
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
-default MacOS Ruby install is dumb and requires it.
+default macOS Ruby install is dumb and requires it.
 
 If [Boxen](https://boxen.github.com) is your thing, [try
 this](https://github.com/AssuredLabor/puppet-lolcommits).
@@ -166,7 +166,7 @@ you capture and the capabilities of your machine).
 [ffmpeg](https://www.ffmpeg.org) is required and can be installed like so;
 
 * Linux - [follow this guide](https://www.ffmpeg.org/download.html#build-linux)
-* OSX - `brew install ffmpeg`
+* macOS - `brew install ffmpeg`
 
 To enable, just set the `LOLCOMMITS_ANIMATE` environment variable with the
 number of seconds to capture. If you find animated capturing takes too long, try
