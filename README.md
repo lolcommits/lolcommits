@@ -188,7 +188,7 @@ other services), or even translate your commit messages to
 
 Until recently, all plugins lived inside the main lolcommits gem. We are in the
 process of extracting them to individual gems. For [gem
-plugins](https://rubygems.org/search?utf8=✓&query=lolcommits), you'll need
+plugins](https://github.com/lolcommits), you'll need
 to install the gem first:
 
     [sudo] gem install lolcommits-plugin-sample
@@ -202,6 +202,10 @@ option:
 
 Check them out on our [plugins
 page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
+
+Interested in developing your own plugin? Read through [this
+guide](https://github.com/lolcommits/lolcommits-plugin-sample) for the
+Lolcommits Plugin Sample gem.
 
 
 ## Timelapse
