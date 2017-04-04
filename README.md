@@ -85,14 +85,15 @@ Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
 
 ### Enabling and basic usage
 
-From within any git repository, simply do a `lolcommits --enable`. From that
-point on, any git commit will automatically trigger a lolcommit capture! All
-lolcommits are stored in `~/.lolcommits` by default, placed in a subdirectory by
-project name, and with a filename matching the commit hash.
+Within any git repository, simply run `lolcommits --enable`. From that point on,
+any git commit will automatically trigger a lolcommit capture! By default, all
+lolcommits are stored in `~/.lolcommits` and placed in a subdirectory by project
+name, with a filename matching the commit hash.
 
-You can also enable lolcommits across all your local git repos. Follow [these
+Follow [these
 steps](https://github.com/mroth/lolcommits/wiki/Enabling-Lolcommits-for-all-your-Git-Repositories)
-to achieve this using `git init` and the `init.templatedir` setting.
+to enable lolcommits across all your repos; using `git init` and the
+`init.templatedir` setting.
 
 Don't worry about it too much, half the fun of lolcommits is forgetting it's
 installed!
@@ -181,7 +182,9 @@ A growing number of plugins are available, allowing you to transform or share
 your lolcommits with others. The default plugin simply appends your commit
 message and sha to the captured image. Others can post to Twitter, Tumblr (and
 other services), or even translate your commit messages to
-[lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak).
+[lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak). Check them
+out on our [plugins
+page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 Until recently, all plugins lived inside the main lolcommits gem. We are in the
 process of extracting them to individual gems. For [gem
@@ -190,6 +193,10 @@ to install the gem first:
 
     [sudo] gem install lolcommits-plugin-sample
 
+To list available/installed plugins use:
+
+    lolcommits --plugins
+
 Plugins can be easily enabled, configured or disabled with the `--config`
 option:
 
@@ -197,10 +204,7 @@ option:
     # or
     lolcommits --config -p loltxt
 
-Check them out on our [plugins
-page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
-
-Interested in developing your own plugin? Read through [this
+Interested in developing your own plugin? Follow this [this simple
 guide](https://github.com/lolcommits/lolcommits-plugin-sample) for the
 Lolcommits Plugin Sample gem.
 
