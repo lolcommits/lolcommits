@@ -43,13 +43,12 @@ module Lolcommits
       capture_cmd   = 'lolcommits --capture'
 
       if Lolcommits::Platform.platform_windows?
-        capture_cmd = 'if "%LOLCOMMITS_CAPTURE_DISABLED%"=="true" (exit)'
-        capture_cmd = "set path=#{ruby_path};#{imagick_path};%PATH%&&#{capture_cmd} #{capture_args}"
+        exports     = "set path=#{ruby_path};#{imagick_path};%PATH%"
+        capture_cmd = "#{exports} && IF \\I NOT \"%LOLCOMMITS_CAPTURE_DISABLED%\"==\"true\" #{capture_cmd} #{capture_args}"
       else
         locale_export = "LANG=\"#{ENV['LANG']}\""
         hook_export   = "PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
-        capture_cmd   = "#{locale_export} #{hook_export} #{capture_cmd}"
-        capture_cmd   = "if [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then #{capture_cmd} #{capture_args}; fi"
+        capture_cmd   = "#{locale_export} && #{hook_export} && if [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then #{capture_cmd} #{capture_args}; fi"
       end
 
       capture_cmd
