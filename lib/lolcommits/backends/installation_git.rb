@@ -58,27 +58,18 @@ module Lolcommits
     end
 
     def self.hook_script(capture_args = '')
-      # TODO: have this return a single line bash like mercurial install, and DRY
-      # this method (only different in git is the rebase-merge check which could
-      # be extracted
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
       imagick_path  = Lolcommits::Platform.command_which('identify', true)
-      capture_cmd   = 'lolcommits --capture'
+      capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
+      exports       = "LANG=\"#{ENV['LANG']}\" && PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
 
       if Lolcommits::Platform.platform_windows?
-        capture_cmd = 'if "%LOLCOMMITS_CAPTURE_DISABLED%"=="true" (exit)'
-        capture_cmd = "set path=#{ruby_path};#{imagick_path};%PATH%&&#{capture_cmd}"
-      else
-        locale_export = "LANG=\"#{ENV['LANG']}\""
-        hook_export   = "PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
-        capture_cmd   = "#{locale_export} #{hook_export} #{capture_cmd}"
+        exports = "set path=#{ruby_path};#{imagick_path};%PATH%"
       end
 
       <<-EOS
 ### lolcommits hook (begin) ###
-if [ ! -d "$GIT_DIR/rebase-merge" ] && [ "$LOLCOMMITS_CAPTURE_DISABLED" != "true" ]; then
-#{capture_cmd} #{capture_args}
-fi
+#{exports} && #{capture_cmd}
 ###  lolcommits hook (end)  ###
 EOS
     end
