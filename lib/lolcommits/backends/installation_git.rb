@@ -58,7 +58,7 @@ module Lolcommits
     end
 
     def self.hook_script(capture_args = '')
-      # TODO have this return a single line bash like mercurial install, and DRY
+      # TODO: have this return a single line bash like mercurial install, and DRY
       # this method (only different in git is the rebase-merge check which could
       # be extracted
       ruby_path     = Lolcommits::Platform.command_which('ruby', true)
