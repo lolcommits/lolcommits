@@ -205,7 +205,7 @@ option:
 
     lolcommits --config
     # or
-    lolcommits --config -p loltxt
+    lolcommits --config -p loltext
 
 Interested in developing your own plugin? Follow this [this simple
 guide](https://github.com/lolcommits/lolcommits-plugin-sample) for the
