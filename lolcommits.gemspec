@@ -41,6 +41,9 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('open4', '~> 1.3.4')
   s.add_runtime_dependency('git', '~> 1.3.0')
 
+  # built-in lolcommits plugin
+  s.add_runtime_dependency('lolcommits-loltext')
+
   # plugin gems
   s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer
   s.add_runtime_dependency('httmultiparty', '~> 0.3.16') # dot_com

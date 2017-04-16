@@ -38,16 +38,10 @@ module Lolcommits
 
       # check capture succeded, file must exist
       if File.exist?(snapshot_loc)
-
         ## resize snapshot first
         resize_snapshot!
 
-        # do native plugins that need to happen immediately after capture and
-        # resize this is effectively the "image processing" phase for now,
-        # reserve just for us and handle manually...?
-        Lolcommits::Plugin::Loltext.new(self).execute_postcapture
-
-        # do plugins that need to happen after capture
+        # execute postcapture plugins
         plugin_manager.plugins_for(:postcapture).each do |plugin|
           plugin.new(self).execute_postcapture
         end

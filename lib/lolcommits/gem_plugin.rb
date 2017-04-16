@@ -44,11 +44,11 @@ module Lolcommits
       warn "failed to load constant from plugin gem '#{plugin_klass_name}: #{e}'"
     end
 
-    private
-
     def gem_name
       gem_spec.name
     end
+
+    private
 
     def gem_path
       gem_name.gsub(/-|_/, '/')

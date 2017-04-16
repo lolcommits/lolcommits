@@ -114,54 +114,6 @@ Feature: Basic UI functionality
     When I successfully run `lolcommits --plugins`
     Then the output should contain a list of plugins
 
-  Scenario: Configuring loltext plugin
-    Given I am in a git repo named "config-test"
-    When I run `lolcommits --config` interactively
-      And I wait for output to contain "Name of plugin to configure:"
-      Then I type "loltext"
-      And I wait for output to contain "enabled:"
-      Then I type "true"
-      And I wait for output to contain "message:"
-      And I wait for output to contain "color"
-      Then I type "red"
-      And I wait for output to contain "font"
-      Then I type "my-font.ttf"
-      And I wait for output to contain "position"
-      Then I type "SE"
-      And I wait for output to contain "size"
-      Then I type "32"
-      And I wait for output to contain "stroke color"
-      Then I type "white"
-      And I wait for output to contain "uppercase"
-      Then I type "true"
-      And I wait for output to contain "sha"
-      Then I type ""
-      Then I type ""
-      Then I type ""
-      Then I type ""
-      Then I type ""
-      Then I type ""
-      And I wait for output to contain "overlay:"
-      Then I type "true"
-      And I wait for output to contain "overlay colors"
-      Then I type "#2884ae,#7e231f"
-      And I wait for output to contain "overlay percent"
-      Then I type "40"
-    Then the output should contain "Successfully configured plugin: loltext"
-      And the output should contain a list of plugins
-      And a file named "~/.lolcommits/config-test/config.yml" should exist
-    When I successfully run `lolcommits --show-config`
-    Then the output should match /enabled: true/
-    And the output should match /:font: my-font\.ttf/
-    And the output should match /:size: 32/
-    And the output should match /:position: S/
-    And the output should match /:color: red/
-    And the output should match /:stroke_color: white/
-    And the output should match /:uppercase: true/
-    And the output should match /:overlay:.*\n.*:enabled: true/
-    And the output should match /:overlay_colors:.*\n.*['"]#2884ae['"].*\n.*['"]#7e231f['"].*\n/
-    And the output should match /:overlay_percent: 40/
-
   Scenario: Configuring loltext plugin in test mode affects test loldir not repo loldir
     Given I am in a git repo named "testmode-config-test"
     When I run `lolcommits --config --test -p loltext` interactively
