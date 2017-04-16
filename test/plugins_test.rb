@@ -13,19 +13,8 @@ require 'lolcommits'
 include Lolcommits
 
 class PluginsTest < MiniTest::Test
-  #
-  # issue #57, https://github.com/mroth/lolcommits/issues/57
-  #
-  def test_tranzlate
-    [['what the hell', '(WH|W)UT TEH HELL'], ['seriously wtf', 'SRSLEH WTF']].each do |normal, lol|
-      tranzlated = Lolcommits::Plugin::Tranzlate.tranzlate(normal)
-      assert_match(/^#{lol}/, tranzlated)
-    end
-  end
-
-  #
-  # issue #136, https://github.com/mroth/lolcommits/issues/136
   def test_lol_twitter_build_tweet
+    # issue #136, https://github.com/mroth/lolcommits/issues/136
     long_commit_message = FFaker::Lorem.sentence(500)
     plugin              = Lolcommits::Plugin::LolTwitter.new(nil)
     max_tweet_size      = 116
