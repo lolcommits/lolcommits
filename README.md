@@ -191,25 +191,25 @@ page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
 Until recently, all plugins lived inside the main lolcommits gem. We are in the
 process of extracting them to individual gems. For [gem
-plugins](https://github.com/lolcommits), you'll need
-to install the gem first:
+plugins](https://github.com/search?q=topic%3Alolcommits-plugin+org%3Alolcommits&type=Repositories),
+you'll need to install the gem first:
 
     [sudo] gem install lolcommits-plugin-sample
 
-To list available/installed plugins use:
+To list all installed plugins use:
 
     lolcommits --plugins
 
-Plugins can be easily enabled, configured or disabled with the `--config`
-option:
+Installed plugins can be easily enabled, configured or disabled with the
+`--config` option:
 
     lolcommits --config
     # or
     lolcommits --config -p loltext
 
 Interested in developing your own plugin? Follow this [this simple
-guide](https://github.com/lolcommits/lolcommits-plugin-sample) for the
-Lolcommits Plugin Sample gem.
+guide](https://github.com/lolcommits/lolcommits-plugin-sample) at the
+Lolcommits Plugin Sample README.
 
 
 ## Timelapse

@@ -18,7 +18,7 @@ module Lolcommits
         )
       end
 
-      def run_postcapture
+      def run_captureready
         if !runner.vcs_info || runner.vcs_info.repo.empty?
           puts 'Repo is empty, skipping upload'
         else
@@ -58,7 +58,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :postcapture
+        :captureready
       end
     end
   end

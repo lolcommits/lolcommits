@@ -15,7 +15,7 @@ module Lolcommits
       TWITTER_PIN_REGEX            = /^\d{4,}$/ # 4 or more digits
       DEFAULT_SUFFIX               = '#lolcommits'.freeze
 
-      def run_postcapture
+      def run_captureready
         tweet = build_tweet(runner.message)
 
         attempts = 0
@@ -169,7 +169,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :postcapture
+        :captureready
       end
     end
   end
