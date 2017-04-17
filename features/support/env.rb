@@ -25,7 +25,7 @@ Before do
   set_env 'GIT_COMMITTER_EMAIL', author_email
 end
 
-# for tasks that may take an insanely long time (e.g. network related)
+# for tasks that may take an incredibly long time (e.g. network related)
 # we should strive to not have any of these in our scenarios, naturally.
 Before('@slow_process') do
   @aruba_io_wait_seconds = 5
