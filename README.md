@@ -1,4 +1,5 @@
-# lolcommits (git + webcam = lol)
+# lolcommits
+> git-based selfies for software developers
 
 lolcommits takes a snapshot with your webcam every time you git commit code, and
 archives a lolcat style image with it. Git blame has never been so much fun.
@@ -45,7 +46,7 @@ Then install with:
 	[sudo] gem install lolcommits
 
 If you're using RVM (or rbenv), you can/should probably omit the sudo, but the
-default macOS Ruby install is dumb and requires it.
+default macOS Ruby install usually requires it.
 
 Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd like to
 use older Rubies try:
