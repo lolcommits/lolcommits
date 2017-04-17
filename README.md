@@ -208,7 +208,7 @@ Installed plugins can be easily enabled, configured or disabled with the
     # or
     lolcommits --config -p loltext
 
-Interested in developing your own plugin? Follow this [this simple
+Interested in developing your own plugin? Follow [this simple
 guide](https://github.com/lolcommits/lolcommits-plugin-sample) at the
 Lolcommits Plugin Sample README.
 
