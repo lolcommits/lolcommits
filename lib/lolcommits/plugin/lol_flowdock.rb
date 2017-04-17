@@ -11,7 +11,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :postcapture
+        :captureready
       end
 
       def configured?
@@ -45,7 +45,7 @@ module Lolcommits
         options
       end
 
-      def run_postcapture
+      def run_captureready
         retries = RETRY_COUNT
         begin
 

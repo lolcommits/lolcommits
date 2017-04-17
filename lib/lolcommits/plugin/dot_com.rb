@@ -10,7 +10,7 @@ module Lolcommits
         options.concat(%w(api_key api_secret repo_id))
       end
 
-      def run_postcapture
+      def run_captureready
         t = Time.now.to_i.to_s
         HTTMultiParty.post(
           "#{BASE_URL}/git_commits.json",
@@ -43,7 +43,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :postcapture
+        :captureready
       end
     end
   end

@@ -41,12 +41,17 @@ module Lolcommits
         ## resize snapshot first
         resize_snapshot!
 
-        # execute postcapture plugins
+        # execute postcapture plugins, use to alter the capture
         plugin_manager.plugins_for(:postcapture).each do |plugin|
           plugin.new(self).execute_postcapture
         end
 
-        # do things that should happen last
+        # execute captureready plugins, capture is ready for export/sharing
+        plugin_manager.plugins_for(:captureready).each do |plugin|
+          plugin.new(self).execute_captureready
+        end
+
+        # clean away any tmp files
         cleanup!
       else
         debug 'Runner: failed to capture a snapshot'

@@ -9,22 +9,28 @@ module Lolcommits
       end
 
       def execute_precapture
-        return unless valid_configuration?
-        return unless enabled?
+        return unless configured_and_enabled?
         debug 'I am enabled, about to run precapture'
         run_precapture
       end
 
       def execute_postcapture
-        return unless valid_configuration?
-        return unless enabled?
+        return unless configured_and_enabled?
         debug 'I am enabled, about to run postcapture'
         run_postcapture
+      end
+
+      def execute_captureready
+        return unless configured_and_enabled?
+        debug 'I am enabled, about to run captureready'
+        run_captureready
       end
 
       def run_precapture; end
 
       def run_postcapture; end
+
+      def run_captureready; end
 
       def configuration
         config = runner.config.read_configuration if runner
@@ -61,6 +67,10 @@ module Lolcommits
         else
           str
         end
+      end
+
+      def configured_and_enabled?
+        valid_configuration? && enabled?
       end
 
       def enabled?
@@ -105,8 +115,11 @@ module Lolcommits
       #
       # Defines when the plugin will execute in the capture process. This must
       # be defined, if the method returns nil, or [] the plugin will never run.
+      # Three hook positions exist, your plugin code can execute in one or more
+      # of these.
       #
-      # @return [Array] the position(s) (:precapture and/or :postcapture)
+      # @return [Array] the position(s) (:precapture, :postcapture,
+      # :captureready)
       #
       def self.runner_order
         []

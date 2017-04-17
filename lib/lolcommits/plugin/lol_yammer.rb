@@ -15,7 +15,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :postcapture
+        :captureready
       end
 
       def configured?
@@ -53,7 +53,7 @@ module Lolcommits
         options
       end
 
-      def run_postcapture
+      def run_captureready
         commit_msg = runner.message
         post = "#{commit_msg} #lolcommits"
         puts "Yammer post: #{post}" unless runner.capture_stealth
