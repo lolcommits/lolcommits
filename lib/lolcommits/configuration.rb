@@ -71,7 +71,8 @@ module Lolcommits
       return if plugin_name.empty?
 
       plugin_klass = plugin_manager.find_by_name(plugin_name)
-      return plugin_klass.new(nil) if plugin_klass
+      runner_with_config = Lolcommits::Runner.new(config: self)
+      return plugin_klass.new(runner_with_config) if plugin_klass
 
       puts "Unable to find plugin: '#{plugin_name}'"
       return if plugin_name_option.empty?

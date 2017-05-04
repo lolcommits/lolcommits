@@ -33,7 +33,7 @@ module Lolcommits
       def run_captureready; end
 
       def configuration
-        config = runner.config.read_configuration if runner
+        config = runner.config.read_configuration
         return {} unless config
         config[self.class.name] || {}
       end
@@ -87,10 +87,15 @@ module Lolcommits
         !configuration.empty?
       end
 
-      # uniform puts for plugins
-      # dont puts if the runner wants to be silent (stealth mode)
+      # uniform puts and print for plugins
+      # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)
-        return if runner && runner.capture_stealth
+        return if runner.capture_stealth
+        super(args)
+      end
+
+      def print(args)
+        return if runner.capture_stealth
         super(args)
       end
 
