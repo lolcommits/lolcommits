@@ -12,14 +12,14 @@ Feature: Disable command
 
   Scenario: Disable in a enabled git repo
     Given I am in a git repo with lolcommits enabled
-    When I successfully run `lolcommits --disable`
+    When I successfully run `lolcommits disable`
     Then the output should contain "uninstalled"
     And a file named ".git/hooks/post-commit" should exist
     And the exit status should be 0
 
   Scenario: Disable in a enabled mercurial repo
     Given I am in a mercurial repo with lolcommits enabled
-    When I successfully run `lolcommits --disable`
+    When I successfully run `lolcommits disable`
     Then the output should contain "uninstalled"
     And a file named ".hg/hgrc" should exist
     And the exit status should be 0

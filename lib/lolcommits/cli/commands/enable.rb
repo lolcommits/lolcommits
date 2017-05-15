@@ -5,10 +5,9 @@ module Lolcommits
   module CLI
     class EnableCommand < Command
       def execute
-        # TODO: rationalize how to pass options to Installation.enable
+        # TODO: rationalize how to pass options to Installation.do_enable
         # previous version relied on all flags being global (yikes)
-        puts 'TODO: execute enable'
-        exit 1
+        Installation.do_enable
       end
     end
   end
