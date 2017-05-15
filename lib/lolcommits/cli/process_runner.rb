@@ -1,5 +1,6 @@
 module Lolcommits
   module CLI
+
     # Helper class for forking lolcommits process to the background (or not).
     class ProcessRunner
       # Initializes a new process runner.
@@ -42,5 +43,6 @@ module Lolcommits
         File.join(@configuration.loldir, 'lolcommits.pid')
       end
     end
+
   end
 end
