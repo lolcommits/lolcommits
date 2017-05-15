@@ -2,7 +2,6 @@ require 'lolcommits/cli/command'
 
 module Lolcommits
   module CLI
-
     class PluginsCommand < Command
       subcommand 'list', 'List all available plugins' do
         def execute
@@ -23,6 +22,5 @@ module Lolcommits
         end
       end
     end
-
   end
 end

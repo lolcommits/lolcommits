@@ -3,7 +3,6 @@ require 'lolcommits/cli/fatals'
 
 module Lolcommits
   module CLI
-
     class EnableCommand < Command
       def execute
         # TODO: rationalize how to pass options to Installation.enable
@@ -12,6 +11,5 @@ module Lolcommits
         exit 1
       end
     end
-
   end
 end

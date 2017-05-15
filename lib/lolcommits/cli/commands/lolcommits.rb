@@ -9,7 +9,6 @@ require_relative 'plugins'
 
 module Lolcommits
   module CLI
-
     class LolcommitsCommand < Command
       option '--version', :flag, 'display version and exit'
 
@@ -23,6 +22,5 @@ module Lolcommits
       subcommand 'devices', 'Detect and list attached camera devices', DevicesCommand
       subcommand 'plugins', 'List or configure lolcommits plugins', PluginsCommand
     end
-
   end
 end

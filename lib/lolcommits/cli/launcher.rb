@@ -2,7 +2,6 @@ require 'launchy'
 
 module Lolcommits
   module CLI
-
     # Helper class for wrapping the opening of files on the desktop in a
     # cross-platform way.
     #
@@ -25,6 +24,5 @@ module Lolcommits
         Launchy.open(thing)
       end
     end
-
   end
 end

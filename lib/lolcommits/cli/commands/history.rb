@@ -4,9 +4,8 @@ require 'lolcommits/cli/launcher'
 
 module Lolcommits
   module CLI
-
     class HistoryCommand < Command
-      subcommand ['dir', 'path'], 'stored lolcommits for current repo' do
+      subcommand %w[dir path], 'stored lolcommits for current repo' do
         option '--open', :flag, 'open directory for display in OS'
         def execute
           Fatals.die_if_not_vcs_repo!
@@ -42,6 +41,5 @@ module Lolcommits
         end
       end
     end
-
   end
 end
