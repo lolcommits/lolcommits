@@ -221,3 +221,11 @@ When(/^I wait for the child process to exit in "(.*?)"$/) do |repo_name|
   pid_loc = absolute_path("~/.lolcommits/#{repo_name}/lolcommits.pid")
   sleep 0.1 while File.exist?(pid_loc)
 end
+
+Then(/^the output should not contain any lines longer than (\d+)$/) do |n|
+  all_output.each_line do |l|
+    line = l.chomp
+    length = line.size
+    expect(length).to be <= n.to_i, "output line of length #{length} was longer than #{n}: [#{line}]"
+  end
+end
