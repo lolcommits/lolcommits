@@ -38,8 +38,10 @@ module Lolcommits
       option ['-m', '--msg'], 'MSG', '[dev mode] override commit message'
 
       def execute
+        Fatals.die_on_fatal_platform_conditions!
         Fatals.die_if_not_vcs_repo!
         # change_dir_to_root_or_repo!
+
         config = Configuration.new(PluginManager.init, test_mode: test?)
 
         capture_options = {
