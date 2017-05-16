@@ -25,6 +25,13 @@ Feature: Capture command
   Scenario: Legacy capture syntax should work with deprecation warning
     Given a pending test
 
+  Scenario: Basic capture should function
+    Given I am in a git repo named "myrepo"
+    And I do a git commit
+    When I run `lolcommits capture`
+    Then the output should contain "*** Preserving this moment in history."
+    And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
+
   Scenario: Capture doesnt break in forked mode
     Given I am in a git repo named "forked"
     And I do a git commit
