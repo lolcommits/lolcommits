@@ -4,7 +4,7 @@ Feature: Plugins for lolcommits
     Given a mocked home directory
 
   Scenario: Help should format nicely on a 80x24 terminal
-    When I get help for "lolcommits plugins"
+    When I successfully run `lolcommits plugins --help`
     Then the output should not contain any lines longer than 80
 
   Scenario: Show plugins

@@ -7,7 +7,7 @@ Feature: Disable command
     Given a mocked home directory
 
   Scenario: Help should format nicely on a 80x24 terminal
-    When I get help for "lolcommits disable"
+    When I successfully run `lolcommits disable --help`
     Then the output should not contain any lines longer than 80
 
   Scenario: Disable in a enabled git repo

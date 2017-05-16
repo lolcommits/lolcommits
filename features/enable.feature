@@ -7,7 +7,7 @@ Feature: Enable command
     Given a mocked home directory
 
   Scenario: Help should format nicely on a 80x24 terminal
-    When I get help for "lolcommits enable"
+    When I successfully run `lolcommits enable --help`
     Then the output should not contain any lines longer than 80
 
   Scenario: Enable in a naked git repo

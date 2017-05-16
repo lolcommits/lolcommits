@@ -6,7 +6,7 @@ Feature: History command
     Given a mocked home directory
 
   Scenario: Help should format nicely on a 80x24 terminal
-    When I get help for "lolcommits history"
+    When I successfully run `lolcommits history --help`
     Then the output should not contain any lines longer than 80
 
   Scenario: last command should work properly when in a git lolrepo

@@ -6,20 +6,18 @@ Feature: Capture command
     Given a mocked home directory
 
   Scenario: Help should format nicely on a 80x24 terminal
-    When I get help for "lolcommits capture"
+    When I successfully run `lolcommits capture --help`
     Then the output should not contain any lines longer than 80
 
   Scenario: Help should show the animate option on a Mac platform
     Given I am using a "darwin" platform
-    When I get help for "lolcommits capture"
-    Then the following options should be documented:
-      | --animate | which is optional |
-      | -a        | which is optional |
+    When I successfully run `lolcommits capture --help`
+    Then the output should contain "-a, --animate SECONDS"
 
   Scenario: Help should not show the animate option on a Windows plaftorm
     Given I am using a "win32" platform
-    When I get help for "lolcommits capture"
-    Then the output should not match /\-a\, \-\-animate\=SECONDS/
+    When I successfully run `lolcommits capture --help`
+    Then the output should not contain "--animate"
 
   @wip
   Scenario: Legacy capture syntax should work with deprecation warning
