@@ -54,7 +54,7 @@ module Lolcommits
         process_runner.fork_me?(fork?) do
           if test?
             info '*** Capturing in test mode.'
-            capture_options[:msg] = msg || 'this is a test message i didnt really commit something'
+            capture_options[:message] = msg || 'this is a test message i didnt really commit something'
             capture_options[:sha] = sha || "test-#{rand(10**10)}"
           end
 
