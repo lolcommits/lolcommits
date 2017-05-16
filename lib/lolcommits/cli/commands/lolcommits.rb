@@ -10,14 +10,18 @@ require_relative 'plugins'
 module Lolcommits
   module CLI
     class LolcommitsCommand < Command
-      option '--version', :flag, 'display version and exit'
-
       subcommand 'enable', 'Install lolcommits for current repository', EnableCommand
       subcommand 'disable', 'Uninstall lolcommits for current repository', DisableCommand
       subcommand 'capture', 'Capture image for most recent git commit', CaptureCommand
       subcommand 'history', 'Historic archives of captured moments', HistoryCommand
       subcommand 'devices', 'Detect and list attached camera devices', DevicesCommand
       subcommand 'plugins', 'List or configure lolcommits plugins', PluginsCommand
+
+      subcommand 'version', 'Print lolcommits version and exit' do
+        def execute
+          puts "lolcommits #{Lolcommits::VERSION}"
+        end
+      end
     end
   end
 end

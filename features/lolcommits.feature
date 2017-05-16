@@ -12,4 +12,6 @@ Feature: Basic UI functionality
     When I get help for "lolcommits"
     Then the output should not contain any lines longer than 80
 
-
+  Scenario: Output version number
+    When I successfully run `lolcommits version`
+    Then the output should match /lolcommits \d\.\d+\.\d+\n/
