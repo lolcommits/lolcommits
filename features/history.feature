@@ -47,28 +47,29 @@ Feature: History command
       """
     Then the exit status should be 1
 
-  Scenario: browse command should work properly when in a git lolrepo
-    Given I am in a git repo
+  Scenario: path command should work properly when in a git lolrepo
+    Given I am in a git repo named "pathfinder"
     And its loldir has 2 lolimages
-    When I run `lolcommits history browse`
-    Then the exit status should be 0
+    When I successfully run `lolcommits history path`
+    Then the output should contain ".lolcommits/pathfinder"
 
-  Scenario: browse command should work properly when in a git lolrepo subdirectory
-    Given I am in a git repo
+  Scenario: path command should work properly when in a git lolrepo subdirectory
+    Given I am in a git repo named "pathsub"
       And its loldir has 2 lolimages
       And a directory named "subdir"
       And I cd to "subdir"
-    When I run `lolcommits history browse`
+    When I run `lolcommits history path`
     Then the output should not contain:
       """
       You don't appear to be in a directory of a supported vcs project.
       """
+    And the output should contain ".lolcommits/pathsub"
     And the exit status should be 0
 
   @in-tempdir
-  Scenario: browse command should fail gracefully when not in a lolrepo
+  Scenario: path command should fail gracefully when not in a lolrepo
     Given I am in a directory named "gitsuxcvs4eva"
-    When I run `lolcommits history browse`
+    When I run `lolcommits history path`
     Then the output should contain:
       """
       You don't appear to be in a directory of a supported vcs project.
@@ -93,18 +94,18 @@ Feature: History command
       """
     And the exit status should be 0
 
-  Scenario: browse command should work properly when in a mercurial lolrepo
+  Scenario: path command should work properly when in a mercurial lolrepo
     Given I am in a mercurial repo
     And its loldir has 2 lolimages
-    When I run `lolcommits history browse`
+    When I run `lolcommits history path`
     Then the exit status should be 0
 
-  Scenario: browse command should work properly when in a mercurial lolrepo subdirectory
+  Scenario: path command should work properly when in a mercurial lolrepo subdirectory
     Given I am in a mercurial repo
     And its loldir has 2 lolimages
     And a directory named "subdir"
     And I cd to "subdir"
-    When I run `lolcommits history browse`
+    When I run `lolcommits history path`
     Then the output should not contain:
       """
       You don't appear to be in a directory of a supported vcs project.
