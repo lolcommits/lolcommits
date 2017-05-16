@@ -7,29 +7,29 @@ module Lolcommits
   module CLI
     class CaptureCommand < Command
       # FIXME: make this option only show on supported platforms
-      option '--device', 'NAME', "Optional device name, see `lolcommits devices`.\n",
+      option '--device', 'NAME', "Optional device name, see `lolcommits devices`\n",
              environment_variable: 'LOLCOMMITS_DEVICE'
 
       # TODO: add a better test that this option only shows on appropriate platforms
       if Platform.can_animate?
-        option ['-a', '--animate'], 'SECONDS', "Enable animated .GIF capture for duration.\n",
+        option ['-a', '--animate'], 'SECONDS', "Enable animated .GIF capture for duration\n",
                environment_variable: 'LOLCOMMITS_ANIMATE',
                default: 0 do |s|
                  Integer(s)
                end
       end
 
-      option ['-w', '--delay'], 'SECONDS', "Delay capture to enable camera warmup.\n",
+      option ['-w', '--delay'], 'SECONDS', "Delay capture to enable camera warmup\n",
              environment_variable: 'LOLCOMMITS_DELAY',
              default: 0 do |s|
                Integer(s)
              end
 
-      option '--fork', :flag, "Fork capture process to background.\n",
+      option '--fork', :flag, "Fork capture process to background\n",
              environment_variable: 'LOLCOMMITS_FORK',
              default: false
 
-      option '--stealth', :flag, "Capture image in stealth mode, e.g. no output.\n",
+      option '--stealth', :flag, "Capture image in stealth mode, e.g. no output\n",
              environment_variable: 'LOLCOMMITS_STEALTH',
              default: false
 
