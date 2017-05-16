@@ -10,7 +10,7 @@ module Lolcommits
         def execute
           Fatals.die_if_not_vcs_repo!
           # change_dir_to_root_or_repo!
-          config = Configuration.new(PluginManager.init)
+          config = Configuration.new(PluginManager.init, test_mode: test?)
           puts config.loldir
           Launcher.open_folder(config.loldir) if open?
         end
@@ -21,7 +21,7 @@ module Lolcommits
         def execute
           Fatals.die_if_not_vcs_repo!
           # change_dir_to_root_or_repo!
-          config = Configuration.new(PluginManager.init)
+          config = Configuration.new(PluginManager.init, test_mode: test?)
           lolimage = Dir.glob(File.join(config.loldir, '*.{jpg,gif}')).max_by { |f| File.mtime(f) }
           if lolimage.nil?
             warn 'No lolcommits have been captured for this repository yet.'
@@ -36,7 +36,7 @@ module Lolcommits
         def execute
           Fatals.die_if_not_vcs_repo!
           # change_dir_to_root_or_repo!
-          config = Configuration.new(PluginManager.init)
+          config = Configuration.new(PluginManager.init, test_mode: test?)
           TimelapseGif.new(config).run(options[:period])
         end
       end

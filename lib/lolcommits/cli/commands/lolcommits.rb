@@ -12,9 +12,6 @@ module Lolcommits
     class LolcommitsCommand < Command
       option '--version', :flag, 'display version and exit'
 
-      option '--debug', :flag, 'debug output',
-             environment_variable: 'LOLCOMMITS_DEBUG', hidden: false # TODO: hide before v1.0 release?
-
       subcommand 'enable', 'Install lolcommits for current repository', EnableCommand
       subcommand 'disable', 'Uninstall lolcommits for current repository', DisableCommand
       subcommand 'capture', 'Capture image for most recent git commit', CaptureCommand

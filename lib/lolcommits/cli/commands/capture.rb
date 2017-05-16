@@ -34,14 +34,13 @@ module Lolcommits
              default: false
 
       # TODO: hide [dev mode] options from default help output unless LOLCOMMITS_DEVELOPER is set
-      option '--test', :flag, '[dev mode] enable test mode'
       option ['-s', '--sha'], 'SHA', '[dev mode] override commit hash'
       option ['-m', '--msg'], 'MSG', '[dev mode] override commit message'
 
       def execute
         Fatals.die_if_not_vcs_repo!
         # change_dir_to_root_or_repo!
-        config = Configuration.new(PluginManager.init)
+        config = Configuration.new(PluginManager.init, test_mode: test?)
 
         capture_options = {
           capture_delay:    delay,
