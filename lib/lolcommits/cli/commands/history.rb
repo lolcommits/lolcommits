@@ -1,6 +1,7 @@
 require 'lolcommits/cli/command'
 require 'lolcommits/cli/fatals'
 require 'lolcommits/cli/launcher'
+require 'lolcommits/cli/timelapse_gif'
 
 module Lolcommits
   module CLI
@@ -9,7 +10,7 @@ module Lolcommits
         option '--open', :flag, 'open directory for display in OS'
         def execute
           Fatals.die_if_not_vcs_repo!
-          # change_dir_to_root_or_repo!
+          # TODO: change_dir_to_root_or_repo!
           config = Configuration.new(PluginManager.init, test_mode: test?)
           puts config.loldir
           Launcher.open_folder(config.loldir) if open?
@@ -20,7 +21,7 @@ module Lolcommits
         option '--open', :flag, 'open file for display in OS'
         def execute
           Fatals.die_if_not_vcs_repo!
-          # change_dir_to_root_or_repo!
+          # TODO: change_dir_to_root_or_repo!
           config = Configuration.new(PluginManager.init, test_mode: test?)
           lolimage = Dir.glob(File.join(config.loldir, '*.{jpg,gif}')).max_by { |f| File.mtime(f) }
           if lolimage.nil?
@@ -33,11 +34,12 @@ module Lolcommits
       end
 
       subcommand 'timelapse', 'generate animated timelapse .gif' do
+        option '--period', 'PERIOD', '"today" or "all"', default: 'all'
         def execute
           Fatals.die_if_not_vcs_repo!
-          # change_dir_to_root_or_repo!
+          # TODO: change_dir_to_root_or_repo!
           config = Configuration.new(PluginManager.init, test_mode: test?)
-          TimelapseGif.new(config).run(options[:period])
+          TimelapseGif.new(config).run(period)
         end
       end
     end

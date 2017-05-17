@@ -112,7 +112,7 @@ Feature: History command
       """
     And the exit status should be 0
 
-  Scenario: generate gif should store in its own archive directory
+  Scenario: timelapse gif should store in its own archive directory
     Given I am in a git repo named "giffy" with lolcommits enabled
       And a loldir named "giffy" with 2 lolimages
     When I successfully run `lolcommits history timelapse`
@@ -120,12 +120,8 @@ Feature: History command
       And a directory named "~/.lolcommits/giffy/archive" should exist
       And a file named "~/.lolcommits/giffy/archive/archive.gif" should exist
 
-  Scenario: generate gif with argument 'today'
+  Scenario: timelapse gif with argument 'today'
     Given I am in a git repo named "sunday" with lolcommits enabled
       And a loldir named "sunday" with 2 lolimages
     When I successfully run `lolcommits history timelapse --period today`
     Then there should be exactly 1 gif in "~/.lolcommits/sunday/archive"
-
-
-
-
