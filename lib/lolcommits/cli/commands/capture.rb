@@ -40,13 +40,14 @@ module Lolcommits
 
       def execute
         Fatals.die_on_fatal_platform_conditions!
+        Fatals.die_if_no_valid_ffmpeg_installed! if animate != 0
+
         unless test?
           Fatals.die_if_not_vcs_repo!
           Util.change_dir_to_root_or_repo!
         end
 
         config = Configuration.new(PluginManager.init, test_mode: test?)
-
         capture_options = {
           capture_delay:    delay,
           capture_stealth:  stealth?,
@@ -64,7 +65,6 @@ module Lolcommits
 
           runner = Lolcommits::Runner.new(capture_options)
           runner.run
-
           # automatically open the image in test mode
           Launcher.open_image(runner.main_image) if test?
         end
