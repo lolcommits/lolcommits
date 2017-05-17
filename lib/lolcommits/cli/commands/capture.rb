@@ -2,6 +2,7 @@ require 'lolcommits/cli/command'
 require 'lolcommits/cli/fatals'
 require 'lolcommits/cli/launcher'
 require 'lolcommits/cli/process_runner'
+require 'lolcommits/cli/util'
 
 module Lolcommits
   module CLI
@@ -41,7 +42,7 @@ module Lolcommits
         Fatals.die_on_fatal_platform_conditions!
         unless test?
           Fatals.die_if_not_vcs_repo!
-          # change_dir_to_root_or_repo!
+          Util.change_dir_to_root_or_repo!
         end
 
         config = Configuration.new(PluginManager.init, test_mode: test?)
