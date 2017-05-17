@@ -32,7 +32,7 @@ module Lolcommits
         }
       end
 
-      def run_captureready
+      def run_capture_ready
         http = Net::HTTP.new(api_url.host, api_url.port)
         # http.set_debug_output $stderr # nice for debugging, never ever release with it
         http.start do |connection|
@@ -117,7 +117,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
     end
   end

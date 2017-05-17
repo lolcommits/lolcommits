@@ -11,7 +11,7 @@ module Lolcommits
       TUMBLR_CONSUMER_KEY    = '2FtMEDpEPkxjoUdkpHh42h9wqTu9IVS7Ra0QyNZGixdCvhllN2'.freeze
       TUMBLR_CONSUMER_SECRET = 'qWuvxgFUR2YyWKtbWOkDTMAiBEbj7ZGaNLaNQPba0PI1N4JpBs'.freeze
 
-      def run_captureready
+      def run_capture_ready
         puts 'Posting to Tumblr'
         r = client.photo(configuration['tumblr_name'], data: runner.main_image)
         if r.key?('id')
@@ -111,7 +111,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
 
       protected

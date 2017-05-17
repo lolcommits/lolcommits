@@ -3,7 +3,7 @@ require 'base64'
 module Lolcommits
   module Plugin
     class TermOutput < Base
-      def run_captureready
+      def run_capture_ready
         if terminal_supported?
           if !runner.vcs_info || runner.vcs_info.repo.empty?
             debug 'repo is empty, skipping term output'
@@ -21,7 +21,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
 
       def configure_options!

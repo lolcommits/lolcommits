@@ -10,7 +10,7 @@ module Lolcommits
         options << 'server'
       end
 
-      def run_captureready
+      def run_capture_ready
         fork { sync }
       end
 
@@ -51,7 +51,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
     end
   end

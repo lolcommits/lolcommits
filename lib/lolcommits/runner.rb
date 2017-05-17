@@ -46,9 +46,9 @@ module Lolcommits
           plugin.new(self).execute_postcapture
         end
 
-        # execute captureready plugins, capture is ready for export/sharing
-        plugin_manager.plugins_for(:captureready).each do |plugin|
-          plugin.new(self).execute_captureready
+        # execute capture_ready plugins, capture is ready for export/sharing
+        plugin_manager.plugins_for(:capture_ready).each do |plugin|
+          plugin.new(self).execute_capture_ready
         end
 
         # clean away any tmp files

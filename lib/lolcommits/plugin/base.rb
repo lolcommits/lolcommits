@@ -20,17 +20,17 @@ module Lolcommits
         run_postcapture
       end
 
-      def execute_captureready
+      def execute_capture_ready
         return unless configured_and_enabled?
-        debug 'I am enabled, about to run captureready'
-        run_captureready
+        debug 'I am enabled, about to run capture ready'
+        run_capture_ready
       end
 
       def run_precapture; end
 
       def run_postcapture; end
 
-      def run_captureready; end
+      def run_capture_ready; end
 
       def configuration
         config = runner.config.read_configuration
@@ -124,7 +124,7 @@ module Lolcommits
       # of these.
       #
       # @return [Array] the position(s) (:precapture, :postcapture,
-      # :captureready)
+      # :capture_ready)
       #
       def self.runner_order
         []
