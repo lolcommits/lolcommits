@@ -7,7 +7,7 @@ module Lolcommits
   module CLI
     class CaptureCommand < Command
       # FIXME: make this option only show on supported platforms
-      option '--device', 'NAME', "Optional device name, see `lolcommits devices`\n",
+      option ['-d', '--device'], 'NAME', "Optional device name, see `lolcommits devices`\n",
              environment_variable: 'LOLCOMMITS_DEVICE'
 
       # TODO: add a better test that this option only shows on appropriate platforms
