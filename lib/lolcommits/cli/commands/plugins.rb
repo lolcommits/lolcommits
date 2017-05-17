@@ -1,4 +1,5 @@
 require 'lolcommits/cli/command'
+require 'lolcommits/cli/fatals'
 
 module Lolcommits
   module CLI
@@ -10,14 +11,16 @@ module Lolcommits
       end
 
       subcommand 'config', 'Configure a plugin' do
-        parameter 'PLUGIN', 'name of plugin to configure'
+        parameter '[PLUGIN]', 'name of plugin to configure'
         def execute
+          Fatals.die_if_not_vcs_repo!
           Configuration.new(PluginManager.init, test_mode: test?).do_configure!(plugin)
         end
       end
 
       subcommand 'show-config', 'show config file' do
         def execute
+          Fatals.die_if_not_vcs_repo!
           puts Configuration.new(PluginManager.init, test_mode: test?)
         end
       end
