@@ -19,9 +19,13 @@ Feature: Capture command
     When I successfully run `lolcommits capture --help`
     Then the output should not contain "--animate"
 
-  @wip
   Scenario: Legacy capture syntax should work with deprecation warning
-    Given a pending test
+    Given I am in a git repo named "myrepo"
+    And I do a git commit
+    When I run `lolcommits --capture`
+    Then the stderr should contain "DEPRECATION WARNING"
+    Then the output should contain "*** Preserving this moment in history."
+    And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
 
   Scenario: Basic capture should function
     Given I am in a git repo named "myrepo"

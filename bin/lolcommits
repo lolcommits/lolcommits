@@ -9,6 +9,13 @@ end
 
 require 'lolcommits/cli/commands/lolcommits'
 
+# DEPRECATION HACK -- MANUALLY CHECK FOR AND MODIFY
+if ARGV[0] == '--capture'
+  STDERR.puts "DEPRECATION WARNING: `lolcommits --capture` syntax is deprecated.\n" \
+              "See `lolcommits capture --help` or disable & re-enable your hooks.\n\n"
+  ARGV[0] = 'capture'
+end
+
 Lolcommits::CLI::LolcommitsCommand.run
 
 #   #
