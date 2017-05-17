@@ -41,9 +41,9 @@ module Lolcommits
         ## resize snapshot first
         resize_snapshot!
 
-        # execute postcapture plugins, use to alter the capture
-        plugin_manager.plugins_for(:postcapture).each do |plugin|
-          plugin.new(self).execute_postcapture
+        # execute post_capture plugins, use to alter the capture
+        plugin_manager.plugins_for(:post_capture).each do |plugin|
+          plugin.new(self).execute_post_capture
         end
 
         # execute capture_ready plugins, capture is ready for export/sharing

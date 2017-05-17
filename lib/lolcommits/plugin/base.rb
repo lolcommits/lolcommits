@@ -14,10 +14,10 @@ module Lolcommits
         run_pre_capture
       end
 
-      def execute_postcapture
+      def execute_post_capture
         return unless configured_and_enabled?
-        debug 'I am enabled, about to run postcapture'
-        run_postcapture
+        debug 'I am enabled, about to run post capture'
+        run_post_capture
       end
 
       def execute_capture_ready
@@ -28,7 +28,7 @@ module Lolcommits
 
       def run_pre_capture; end
 
-      def run_postcapture; end
+      def run_post_capture; end
 
       def run_capture_ready; end
 
@@ -123,7 +123,7 @@ module Lolcommits
       # Three hook positions exist, your plugin code can execute in one or more
       # of these.
       #
-      # @return [Array] the position(s) (:pre_capture, :postcapture,
+      # @return [Array] the position(s) (:pre_capture, :post_capture,
       # :capture_ready)
       #
       def self.runner_order
