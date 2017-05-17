@@ -41,12 +41,13 @@ Feature: Enable command
     Then the git post-commit hook should contain "lolcommits --capture --delay 5 --fork --stealth --device 'My Devce'"
     And the exit status should be 0
 
+  @in-tempdir
   Scenario: Trying to enable while not in a git repo fails
     Given I am in a directory named "svnrulez"
     When I run `lolcommits enable`
     Then the output should contain:
       """
-      You don't appear to be in the base directory of a supported vcs project.
+      You don't appear to be in a directory of a supported vcs project.
       """
     And the exit status should be 1
 
