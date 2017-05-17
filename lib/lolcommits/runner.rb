@@ -29,8 +29,8 @@ module Lolcommits
     # now we're just using a simple procedural list
     def run
       # do plugins that need to happen before capture
-      plugin_manager.plugins_for(:precapture).each do |plugin|
-        plugin.new(self).execute_precapture
+      plugin_manager.plugins_for(:pre_capture).each do |plugin|
+        plugin.new(self).execute_pre_capture
       end
 
       # do main capture to snapshot_loc
