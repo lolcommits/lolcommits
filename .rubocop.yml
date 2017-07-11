@@ -1,6 +1,11 @@
 AllCops:
   Exclude:
-    - vendor/bundle/**/*
-    - .bundle/**/*
+    - 'vendor/bundle/**/*'
+    - 'vendor/bundle/**/.*'
+    - '.bundle/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lolcommits.gemspec'
 
 inherit_from: .rubocop_todo.yml
