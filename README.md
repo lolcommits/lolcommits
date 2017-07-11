@@ -169,11 +169,11 @@ you capture and the capabilities of your machine).
 
 * Linux - [follow this guide](https://www.ffmpeg.org/download.html#build-linux)
 * macOS - `brew install ffmpeg`
+* Windows - [download here](https://ffmpeg.org/download.html#build-windows)
 
 To enable, just set the `LOLCOMMITS_ANIMATE` environment variable with the
 number of seconds to capture. If you find animated capturing takes too long, try
-setting `LOLCOMMITS_FORK=true`. Animated gif captures are currently NOT
-supported on Windows.
+setting `LOLCOMMITS_FORK=true`.
 
 ![Example animated lolcommit
 gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif "Example
@@ -236,4 +236,3 @@ it).
 
 The program is available as open source under the terms of
 [LGPL-3](https://opensource.org/licenses/LGPL-3.0).
-
