@@ -42,7 +42,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '~> 1.3.0')
 
   # built-in lolcommits plugin
-  s.add_runtime_dependency('lolcommits-loltext')
+  s.add_runtime_dependency('lolcommits-loltext') # TODO: add min 0.0.4
 
   # plugin gems
   s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer
