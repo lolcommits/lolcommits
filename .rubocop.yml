@@ -1,7 +1,7 @@
 AllCops:
   Exclude:
     - vendor/bundle/**/*
-    - vendor/bundle/gems/backports-3.8.0/.*
     - .bundle/**/*
+    - '**/.irbrc'
 
 inherit_from: .rubocop_todo.yml

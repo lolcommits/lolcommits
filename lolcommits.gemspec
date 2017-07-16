@@ -18,6 +18,26 @@ Gem::Specification.new do |s|
   developers. `git blame` has never been so much fun.
   EOF
 
+  s.post_install_message = <<-EOF
+  -------------------------------------------------------------------------------
+
+  Lolcommits: quick message from the dev team! v0.9.5 extracts the Twitter plugin
+  into a gem. If you want to continue tweeting your lol's install and configure
+  the lolcommits-twitter gem - like this;
+
+    gem install lolcommits-twitter
+    lolcommits --config -p twitter
+    # confirm PIN, options and there's one new setting to auto-open the tweet URL
+
+  That's it! You can revoke the old Lolcommits app token from here:
+
+    https://twitter.com/settings/applications
+
+  Happy Lol'ing!
+
+  -------------------------------------------------------------------------------
+EOF
+
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = 'lolcommits'
