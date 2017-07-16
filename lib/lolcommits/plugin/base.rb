@@ -1,10 +1,11 @@
 module Lolcommits
   module Plugin
     class Base
-      attr_accessor :runner, :options
+      attr_accessor :runner, :config, :options
 
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         self.runner = runner
+        self.config = config || runner.config
         self.options = ['enabled']
       end
 
@@ -36,9 +37,9 @@ module Lolcommits
       def run_capture_ready; end
 
       def configuration
-        config = runner.config.read_configuration
-        return {} unless config
-        config[self.class.name] || {}
+        saved_config = config.read_configuration
+        return {} unless saved_config
+        saved_config[self.class.name] || {}
       end
 
       # ask for plugin options
@@ -93,12 +94,12 @@ module Lolcommits
       # uniform puts and print for plugins
       # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)
-        return if runner.capture_stealth
+        return if runner && runner.capture_stealth
         super(args)
       end
 
       def print(args)
-        return if runner.capture_stealth
+        return if runner && runner.capture_stealth
         super(args)
       end
 

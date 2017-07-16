@@ -5,7 +5,7 @@ require 'json'
 module Lolcommits
   module Plugin
     class Lolsrv < Base
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options << 'server'
       end

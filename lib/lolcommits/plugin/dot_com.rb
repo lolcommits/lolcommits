@@ -5,7 +5,7 @@ module Lolcommits
     class DotCom < Base
       BASE_URL = 'http://lolcommits-dot-com.herokuapp.com'.freeze
 
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options.concat(%w(api_key api_secret repo_id))
       end

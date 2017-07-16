@@ -3,7 +3,7 @@ require 'rest_client'
 module Lolcommits
   module Plugin
     class LolProtonet < Base
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options.concat(%w(api_token api_endpoint))
       end

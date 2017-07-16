@@ -6,7 +6,7 @@ module Lolcommits
     class Uploldz < Base
       attr_accessor :endpoint
 
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options.concat(
           %w(
