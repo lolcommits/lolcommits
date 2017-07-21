@@ -74,7 +74,7 @@ module Lolcommits
       end
 
       def api_url
-        URI(format('http://%<api_team>.hipchat.com/v2/room/%<api_room>/share/file?auth_token=%<api_token>', symbolized_configuration))
+        URI(format('http://%<api_team>s.hipchat.com/v2/room/%<api_room>s/share/file?auth_token=%<api_token>s', symbolized_configuration))
       end
 
       def symbolized_configuration
