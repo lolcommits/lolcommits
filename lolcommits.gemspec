@@ -49,8 +49,8 @@ EOF
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_development_dependency('aruba', '=0.6.2')  # upgrading requires a lot of test code changes
-  s.add_development_dependency('rake', '=10.5.0')  # ~> 11+ introduces lots of warnings from other deps
+  s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
+  s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
   s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3+ requires Ruby 2.1
 
   # core
@@ -62,7 +62,7 @@ EOF
   s.add_runtime_dependency('git', '~> 1.3.0')
 
   # built-in lolcommits plugin
-  s.add_runtime_dependency('lolcommits-loltext') # TODO: add min 0.0.4
+  s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.4')
 
   # plugin gems
   s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer

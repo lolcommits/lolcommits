@@ -19,11 +19,7 @@ module Lolcommits
     end
 
     def plugins_for(position)
-      plugin_klasses.select do |p|
-        # TODO: remove (legacy support) position munging after 0.9.5 release
-        Array(p.runner_order).include?(position) ||
-          Array(p.runner_order).include?(position.to_s.delete('_').to_sym)
-      end
+      plugin_klasses.select { |p| Array(p.runner_order).include?(position) }
     end
 
     # @return [Lolcommits::Plugin] find first plugin matching name

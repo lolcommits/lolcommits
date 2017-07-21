@@ -12,21 +12,18 @@ module Lolcommits
       def execute_pre_capture
         return unless configured_and_enabled?
         debug 'I am enabled, about to run pre capture'
-        run_precapture # TODO: remove me (legacy method)
         run_pre_capture
       end
 
       def execute_post_capture
         return unless configured_and_enabled?
         debug 'I am enabled, about to run post capture'
-        run_postcapture # TODO: remove me (legacy method)
         run_post_capture
       end
 
       def execute_capture_ready
         return unless configured_and_enabled?
         debug 'I am enabled, about to run capture ready'
-        run_captureready # TODO: remove me (legacy method)
         run_capture_ready
       end
 
@@ -133,13 +130,6 @@ module Lolcommits
       def self.runner_order
         []
       end
-
-      # TODO: remove these legacy methods
-      def run_precapture; end
-
-      def run_postcapture; end
-
-      def run_captureready; end
     end
   end
 end
