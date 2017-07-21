@@ -1,8 +1,5 @@
 module Lolcommits
-  class MercurialInfo < VCSInfo
-    attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
-                  :author_name, :author_email, :branch
-
+  class MercurialInfo
     def self.repo_root?(path = '.')
       File.directory?(File.join(path, '.hg'))
     end

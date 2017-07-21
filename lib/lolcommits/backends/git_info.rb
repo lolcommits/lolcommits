@@ -1,8 +1,5 @@
 module Lolcommits
-  class GitInfo < VCSInfo
-    attr_accessor :sha, :message, :repo_internal_path, :repo, :url,
-                  :author_name, :author_email, :branch
-
+  class GitInfo
     GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}
 
     def self.repo_root?(path = '.')
