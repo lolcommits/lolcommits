@@ -3,12 +3,12 @@ require 'rest_client'
 module Lolcommits
   module Plugin
     class LolProtonet < Base
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options.concat(%w(api_token api_endpoint))
       end
 
-      def run_captureready
+      def run_capture_ready
         debug "Posting capture to #{configuration['endpoint']}"
         RestClient.post(
           api_url,
@@ -61,7 +61,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
     end
   end

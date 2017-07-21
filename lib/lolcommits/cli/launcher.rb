@@ -16,6 +16,10 @@ module Lolcommits
         open_with_launchy(path)
       end
 
+      def self.open_url(url)
+        open_with_launchy(url)
+      end
+
       # Opens with Launchy, which knows how to open pretty much anything
       # local files, urls, etc.
       #

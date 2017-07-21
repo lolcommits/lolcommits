@@ -1,41 +1,45 @@
 module Lolcommits
   module Plugin
     class Base
-      attr_accessor :runner, :options
+      attr_accessor :runner, :config, :options
 
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         self.runner = runner
+        self.config = config || runner.config
         self.options = ['enabled']
       end
 
-      def execute_precapture
+      def execute_pre_capture
         return unless configured_and_enabled?
-        debug 'I am enabled, about to run precapture'
-        run_precapture
+        debug 'I am enabled, about to run pre capture'
+        run_precapture # TODO: remove me (legacy method)
+        run_pre_capture
       end
 
-      def execute_postcapture
+      def execute_post_capture
         return unless configured_and_enabled?
-        debug 'I am enabled, about to run postcapture'
-        run_postcapture
+        debug 'I am enabled, about to run post capture'
+        run_postcapture # TODO: remove me (legacy method)
+        run_post_capture
       end
 
-      def execute_captureready
+      def execute_capture_ready
         return unless configured_and_enabled?
-        debug 'I am enabled, about to run captureready'
-        run_captureready
+        debug 'I am enabled, about to run capture ready'
+        run_captureready # TODO: remove me (legacy method)
+        run_capture_ready
       end
 
-      def run_precapture; end
+      def run_pre_capture; end
 
-      def run_postcapture; end
+      def run_post_capture; end
 
-      def run_captureready; end
+      def run_capture_ready; end
 
       def configuration
-        config = runner.config.read_configuration if runner
-        return {} unless config
-        config[self.class.name] || {}
+        saved_config = config.read_configuration
+        return {} unless saved_config
+        saved_config[self.class.name] || {}
       end
 
       # ask for plugin options
@@ -87,9 +91,14 @@ module Lolcommits
         !configuration.empty?
       end
 
-      # uniform puts for plugins
-      # dont puts if the runner wants to be silent (stealth mode)
+      # uniform puts and print for plugins
+      # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)
+        return if runner && runner.capture_stealth
+        super(args)
+      end
+
+      def print(args)
         return if runner && runner.capture_stealth
         super(args)
       end
@@ -118,12 +127,19 @@ module Lolcommits
       # Three hook positions exist, your plugin code can execute in one or more
       # of these.
       #
-      # @return [Array] the position(s) (:precapture, :postcapture,
-      # :captureready)
+      # @return [Array] the position(s) (:pre_capture, :post_capture,
+      # :capture_ready)
       #
       def self.runner_order
         []
       end
+
+      # TODO: remove these legacy methods
+      def run_precapture; end
+
+      def run_postcapture; end
+
+      def run_captureready; end
     end
   end
 end

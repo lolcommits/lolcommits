@@ -8,6 +8,9 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract more plugins to gems ...
   * Your contribution here!
 
+## [0.9.5][] (21 July 2017)
+  * Extract Twitter Plugin / refactor Plugin::Base (@matthutchinson [#347][])
+
 ## [0.9.4][] (17 April 2017)
   * Add captureready plugin hook (@matthutchinson [#342][])
   * README changes (@mroth [#341][])
@@ -279,7 +282,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.4...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.5...HEAD
+[0.9.5]: https://github.com/mroth/lolcommits/compare/v0.9.4...v0.9.5
 [0.9.4]: https://github.com/mroth/lolcommits/compare/v0.9.3...v0.9.4
 [0.9.3]: https://github.com/mroth/lolcommits/compare/v0.9.2...v0.9.3
 [0.9.2]: https://github.com/mroth/lolcommits/compare/v0.9.1...v0.9.2
@@ -443,3 +447,4 @@ project adheres to [Semantic Versioning][Semver].
 [#340]: https://github.com/mroth/lolcommits/pull/340
 [#341]: https://github.com/mroth/lolcommits/pull/341
 [#342]: https://github.com/mroth/lolcommits/pull/342
+[#347]: https://github.com/mroth/lolcommits/pull/347

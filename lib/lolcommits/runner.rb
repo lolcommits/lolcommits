@@ -29,8 +29,8 @@ module Lolcommits
     # now we're just using a simple procedural list
     def run
       # do plugins that need to happen before capture
-      plugin_manager.plugins_for(:precapture).each do |plugin|
-        plugin.new(self).execute_precapture
+      plugin_manager.plugins_for(:pre_capture).each do |plugin|
+        plugin.new(runner: self).execute_pre_capture
       end
 
       # do main capture to snapshot_loc
@@ -41,14 +41,14 @@ module Lolcommits
         ## resize snapshot first
         resize_snapshot!
 
-        # execute postcapture plugins, use to alter the capture
-        plugin_manager.plugins_for(:postcapture).each do |plugin|
-          plugin.new(self).execute_postcapture
+        # execute post_capture plugins, use to alter the capture
+        plugin_manager.plugins_for(:post_capture).each do |plugin|
+          plugin.new(runner: self).execute_post_capture
         end
 
-        # execute captureready plugins, capture is ready for export/sharing
-        plugin_manager.plugins_for(:captureready).each do |plugin|
-          plugin.new(self).execute_captureready
+        # execute capture_ready plugins, capture is ready for export/sharing
+        plugin_manager.plugins_for(:capture_ready).each do |plugin|
+          plugin.new(runner: self).execute_capture_ready
         end
 
         # clean away any tmp files

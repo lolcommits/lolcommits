@@ -18,7 +18,7 @@ Metrics/AbcSize:
 # Offense count: 2
 # Configuration parameters: CountComments, ExcludedMethods.
 Metrics/BlockLength:
-  Max: 40
+  Max: 60
 
 # Offense count: 5
 # Configuration parameters: CountComments.
@@ -56,7 +56,7 @@ Style/Documentation:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-Style/EmptyLinesAroundBeginBody:
+Layout/EmptyLinesAroundBeginBody:
   Exclude:
     - 'lib/lolcommits/plugin/lol_flowdock.rb'
     - 'lib/lolcommits/plugin/lol_slack.rb'
@@ -65,7 +65,7 @@ Style/EmptyLinesAroundBeginBody:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles.
 # SupportedStyles: auto_detection, squiggly, active_support, powerpack, unindent
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   Exclude:
     - 'lib/lolcommits/backends/installation_git.rb'
 

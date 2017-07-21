@@ -5,12 +5,12 @@ require 'json'
 module Lolcommits
   module Plugin
     class Lolsrv < Base
-      def initialize(runner)
+      def initialize(runner: nil, config: nil)
         super
         options << 'server'
       end
 
-      def run_captureready
+      def run_capture_ready
         fork { sync }
       end
 
@@ -51,7 +51,7 @@ module Lolcommits
       end
 
       def self.runner_order
-        :captureready
+        :capture_ready
       end
     end
   end

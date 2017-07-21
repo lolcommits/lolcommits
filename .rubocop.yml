@@ -2,5 +2,6 @@ AllCops:
   Exclude:
     - vendor/bundle/**/*
     - .bundle/**/*
+    - '**/.irbrc'
 
 inherit_from: .rubocop_todo.yml
