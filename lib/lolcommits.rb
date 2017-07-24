@@ -36,7 +36,6 @@ require 'lolcommits/plugin/lolsrv'
 require 'lolcommits/plugin/lol_yammer'
 require 'lolcommits/plugin/lol_protonet'
 require 'lolcommits/plugin/lol_tumblr'
-require 'lolcommits/plugin/lol_slack'
 require 'lolcommits/plugin/lol_flowdock'
 require 'lolcommits/plugin/lol_hipchat'
 
