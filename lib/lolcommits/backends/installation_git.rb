@@ -64,7 +64,7 @@ module Lolcommits
       exports       = "LANG=\"#{ENV['LANG']}\" && PATH=\"#{ruby_path}:#{imagick_path}:$PATH\""
 
       if Lolcommits::Platform.platform_windows?
-        exports = "set path=#{ruby_path};#{imagick_path};%PATH%"
+        exports = "set path=\"#{ruby_path};#{imagick_path};%PATH%\""
       end
 
       <<-EOS
