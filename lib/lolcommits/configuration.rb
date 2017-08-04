@@ -84,6 +84,11 @@ module Lolcommits
       gets.strip
     end
 
+    def do_global_configure!(plugin_name)
+      @loldir = LOLCOMMITS_BASE
+      do_configure!(plugin_name)
+    end
+
     def do_configure!(plugin_name)
       $stdout.sync = true
 
@@ -117,6 +122,10 @@ module Lolcommits
 
     # class methods
 
+    def self.global_config
+      File.join(LOLCOMMITS_BASE,"config.yml")
+    end
+
     def self.loldir_for(basename)
       loldir = File.join(LOLCOMMITS_BASE, basename)
 
@@ -131,7 +140,12 @@ module Lolcommits
           exit 1
         end
       else
+        puts "Creating lolcommits directory..."
         FileUtils.mkdir_p loldir
+        if(loldir != LOLCOMMITS_BASE)
+          puts "Copying in lolcommits defeault config..."
+          FileUtils.cp(self.global_config, loldir)
+        end
       end
       loldir
     end
