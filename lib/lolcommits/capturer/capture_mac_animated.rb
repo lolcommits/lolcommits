@@ -16,7 +16,7 @@ module Lolcommits
       # use fps to set delay and number of frames to skip (for lower filesized gifs)
       skip  = frame_skip(fps)
       delay = frame_delay(fps, skip)
-      debug "Capturer: animated gif choosing every #{skip} frames with a frame delay of #{delay}"
+      debug "Capturer: animated gif choosing every #{skip} frames with a frame delay of #{delay} (video fps: #{fps})"
 
       # create the looping animated gif from frames (picks nth frame with seq,
       # quotes output and concats to a single line with tr)

@@ -171,16 +171,12 @@ class App
   # Duration for animated capturing
   #
   # If animation is enabled, returns an integer > 0 representing seconds.
-  # Seconds will be 0 if no option set, or if the platform doesn't support
-  # animated captures (in which case animated capturing will be disabled).
+  # Seconds will be 0 if no option set, meaning no animated capture will take
+  # place.
   #
   # @return [Integer]
   def self.capture_animate
-    if Platform.can_animate?
-      (options[:animate] || ENV['LOLCOMMITS_ANIMATE']).to_i
-    else
-      0
-    end
+    (options[:animate] || ENV['LOLCOMMITS_ANIMATE']).to_i
   end
 
   def self.capture_animated?

@@ -125,7 +125,7 @@ forked process. See the section below for more capture configuration options.
 lolcommits has some capture options for additional lulz. You can enable these
 via environment variables like so;
 
-* `LOLCOMMITS_DEVICE` set a webcam device - **mac and linux only**
+* `LOLCOMMITS_DEVICE` set a webcam device - **except windows (non-animated) captures**
 * `LOLCOMMITS_ANIMATE` (in seconds) set time for capturing an animated gif -
   **requires ffmpeg**
 * `LOLCOMMITS_DELAY` (in seconds) set delay time before capturing (for slow
@@ -169,11 +169,11 @@ you capture and the capabilities of your machine).
 
 * Linux - [follow this guide](https://www.ffmpeg.org/download.html#build-linux)
 * macOS - `brew install ffmpeg`
+* Windows - [follow this guide](https://ffmpeg.org/download.html#build-windows)
 
 To enable, just set the `LOLCOMMITS_ANIMATE` environment variable with the
 number of seconds to capture. If you find animated capturing takes too long, try
-setting `LOLCOMMITS_FORK=true`. Animated gif captures are currently NOT
-supported on Windows.
+setting `LOLCOMMITS_FORK=true`.
 
 ![Example animated lolcommit
 gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif "Example

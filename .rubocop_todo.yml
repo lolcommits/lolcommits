@@ -27,7 +27,7 @@ Metrics/ClassLength:
 
 # Offense count: 6
 Metrics/CyclomaticComplexity:
-  Max: 8
+  Max: 9
 
 # Offense count: 152
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
