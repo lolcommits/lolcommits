@@ -13,7 +13,7 @@ module Lolcommits
       elsif platform_linux?
         animate ? CaptureLinuxAnimated : CaptureLinux
       elsif platform_windows?
-        CaptureWindows
+        animate ? CaptureWindowsAnimated : CaptureWindows
       elsif platform_cygwin?
         CaptureCygwin
       else
@@ -54,7 +54,7 @@ module Lolcommits
     # Is the platform capable of capturing animated GIFs from webcam?
     # @return Boolean
     def self.can_animate?
-      platform_linux? || platform_mac?
+      platform_linux? || platform_mac? || platform_windows?
     end
 
     # Is a valid install of imagemagick present on the system?
@@ -116,7 +116,7 @@ module Lolcommits
     # @note Currently only functions on Mac.
     # @return String
     def self.device_list
-      # TODO: handle other platforms here (linux/windows)
+      # TODO: handle other platforms here (linux/windows) e.g with ffmpeg -list_devices
       return unless Platform.platform_mac?
       capturer = Lolcommits::CaptureMacAnimated.new
       `#{capturer.executable_path} -l`

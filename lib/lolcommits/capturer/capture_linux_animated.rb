@@ -15,7 +15,7 @@ module Lolcommits
       fps   = video_fps(video_location)
       skip  = frame_skip(fps)
       delay = frame_delay(fps, skip)
-      debug "Capturer: anaimated gif choosing every #{skip} frames with a frame delay of #{delay}"
+      debug "Capturer: anaimated gif choosing every #{skip} frames with a frame delay of #{delay} (video fps: #{fps})"
 
       # create the looping animated gif from frames (picks nth frame with seq,
       # quotes output and concats to a single line with tr)
