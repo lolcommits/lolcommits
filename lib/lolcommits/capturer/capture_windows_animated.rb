@@ -38,22 +38,26 @@ module Lolcommits
       'ffmpeg -list_devices true -f dshow -i dummy 2>&1'
     end
 
+    # inspired by this code from @rdp http://tinyurl.com/y7t276bh
     def device_names
       @_device_names ||= begin
-        cmd_output = system_call(ffpmeg_list_devices_cmd, true).split('DirectShow video devices')[1]
         names      = []
+        cmd_output = ''
+        count      = 0
+        while cmd_output.empty? || !cmd_output.split('DirectShow')[2]
+          cmd_output = system_call(ffpmeg_list_devices_cmd, true)
+          count += 1
+          raise 'failed to find a video capture device with ffmpeg -list_devices' if count == 5
+          sleep 0.1
+        end
+        cmd_output.gsub!("\r\n", "\n")
+        video = cmd_output.split('DirectShow')[1]
 
-        cmd_output.lines.each do |line|
-          break if line =~ /audio devices/
+        video.lines.map do |line|
           names << Regexp.last_match(1) if line =~ /"(.+)"\n/
         end
 
-        if names.empty?
-          debug 'Capturer: unable to find any capture devices'
-        else
-          debug "Capturer: found #{names.length} devices: #{names.join(', ')}"
-        end
-
+        debug "Capturer: found #{names.length} video devices: #{names.join(', ')}"
         names
       end
     end
