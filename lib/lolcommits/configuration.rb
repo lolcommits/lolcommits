@@ -10,10 +10,14 @@ module Lolcommits
     end
 
     def read_configuration
-      return unless File.exist?(configuration_file)
       # TODO: change to safe_load when Ruby 2.0.0 support drops
       # YAML.safe_load(File.open(configuration_file), [Symbol])
-      YAML.load(File.open(configuration_file))
+      config = YAML.load(File.open(Lolcommits::Configuration.global_config))
+      if File.exist?(configuration_file)
+        config = config.merge(YAML.load(File.open(configuration_file)))
+      end
+
+      return config
     end
 
     def configuration_file
@@ -140,12 +144,7 @@ module Lolcommits
           exit 1
         end
       else
-        puts "Creating lolcommits directory..."
         FileUtils.mkdir_p loldir
-        if(loldir != LOLCOMMITS_BASE)
-          puts "Copying in lolcommits defeault config..."
-          FileUtils.cp(self.global_config, loldir)
-        end
       end
       loldir
     end
