@@ -17,7 +17,7 @@ module Lolcommits
         config = config.merge(YAML.load(File.open(configuration_file)))
       end
 
-      return config
+      config
     end
 
     def configuration_file
@@ -127,7 +127,7 @@ module Lolcommits
     # class methods
 
     def self.global_config
-      File.join(LOLCOMMITS_BASE,"config.yml")
+      File.join(LOLCOMMITS_BASE, 'config.yml')
     end
 
     def self.loldir_for(basename)
