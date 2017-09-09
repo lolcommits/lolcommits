@@ -12,7 +12,7 @@ rvm:
 
 before_install:
  # stub mplayer/ffmpeg so it looks like they are installed
- - mkdir ~/bin
+ - mkdir -p ~/bin
  - touch ~/bin/mplayer ~/bin/ffmpeg
  - chmod +x ~/bin/mplayer ~/bin/ffmpeg
  - export PATH=~/bin:$PATH

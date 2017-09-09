@@ -17,6 +17,7 @@ module Lolcommits
       debug "GitInfo: \t#{repo_internal_path}"
       debug "GitInfo: \t#{repo}"
       debug "GitInfo: \t#{branch}"
+      debug "GitInfo: \t#{commit_date}"
       debug "GitInfo: \t#{author_name}" if author_name
       debug "GitInfo: \t#{author_email}" if author_email
     end
@@ -42,7 +43,9 @@ module Lolcommits
 
     def url
       @url ||= begin
-        remote_https_url(repository.remote.url) if repository.remote
+        if repository.remote && repository.remote.url
+          remote_https_url(repository.remote.url)
+        end
       end
     end
 
@@ -68,10 +71,14 @@ module Lolcommits
       @author_email ||= last_commit.author.email if last_commit.author
     end
 
+    def commit_date
+      @commit_date ||= last_commit.date.utc
+    end
+
     private
 
     def remote_https_url(url)
-      url.tr(':', '/').tr(/^git@/, 'https://').tr(/\.git$/, '') + '/commit/'
+      url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '') + '/commit/'
     end
 
     def repository(path = '.')

@@ -24,6 +24,7 @@ module Lolcommits
       debug "MercurialInfo: \t#{repo_internal_path}"
       debug "MercurialInfo: \t#{repo}"
       debug "MercurialInfo: \t#{branch}"
+      debug "MercurialInfo: \t#{commit_date}"
       debug "MercurialInfo: \t#{author_name}" if author_name
       debug "MercurialInfo: \t#{author_email}" if author_email
     end
@@ -61,6 +62,10 @@ module Lolcommits
 
     def author_email
       @author_email ||= last_commit.author_email
+    end
+
+    def commit_date
+      @commit_date ||= last_commit.date.utc
     end
 
     private
