@@ -30,7 +30,6 @@ require 'lolcommits/backends/mercurial_info'
 
 require 'lolcommits/plugin/base'
 require 'lolcommits/plugin/dot_com'
-require 'lolcommits/plugin/uploldz'
 require 'lolcommits/plugin/term_output'
 require 'lolcommits/plugin/lol_yammer'
 require 'lolcommits/plugin/lol_protonet'
