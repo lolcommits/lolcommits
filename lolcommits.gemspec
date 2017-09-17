@@ -67,7 +67,6 @@ EOF
 
   # plugin gems
   s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer
-  s.add_runtime_dependency('httmultiparty', '~> 0.3.16') # dot_com
   s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
 
   # development gems
