@@ -67,11 +67,11 @@ module Lolcommits
         exports = "set path=\"#{ruby_path};#{imagick_path};%PATH%\""
       end
 
-      <<-EOS
+      <<-HOOK
 ### lolcommits hook (begin) ###
 #{exports} && #{capture_cmd}
 ###  lolcommits hook (end)  ###
-EOS
+HOOK
     end
 
     # does a git hook exist at all?

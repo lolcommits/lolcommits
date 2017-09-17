@@ -65,7 +65,7 @@ module Lolcommits
       # cli_version check will throw a MiniMagick::Error exception if IM is not
       # installed in PATH, since it attempts to parse output from `identify`
       !MiniMagick.cli_version.nil?
-    rescue
+    rescue StandardError
       return false
     end
 

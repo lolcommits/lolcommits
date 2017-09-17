@@ -2,7 +2,9 @@ module Lolcommits
   class Configuration
     LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
-    attr_accessor :plugin_manager, :loldir
+
+    attr_accessor :plugin_manager
+    attr_writer :loldir
 
     def initialize(plugin_manager, test_mode: false)
       @plugin_manager = plugin_manager

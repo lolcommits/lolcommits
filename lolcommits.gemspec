@@ -12,13 +12,13 @@ Gem::Specification.new do |s|
   s.license     = 'LGPL-3'
   s.summary     = 'Capture webcam image on git commit for lulz.'
 
-  s.description = <<-EOF
+  s.description = <<-DESC
   lolcommits takes a snapshot with your webcam every time you git commit code,
   and archives a lolcat style image with it. It's selfies for software
   developers. `git blame` has never been so much fun.
-  EOF
+DESC
 
-  s.post_install_message = <<-EOF
+  s.post_install_message = <<-POSTINSTALL
   -------------------------------------------------------------------------------
 
   Lolcommits: quick message from the dev team! v0.9.5 extracts the Twitter plugin
@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   Happy Lol'ing!
 
   -------------------------------------------------------------------------------
-EOF
+POSTINSTALL
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

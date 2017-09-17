@@ -56,7 +56,7 @@ module Lolcommits
             content: File.new(runner.main_image)
           )
           debug response
-        rescue => e
+        rescue StandardError => e
           retries -= 1
           retry if retries > 0
           puts "Posting to flowdock failed - #{e.message}"

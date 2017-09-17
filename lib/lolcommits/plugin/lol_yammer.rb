@@ -71,7 +71,7 @@ module Lolcommits
           response = client.create_message(post, attachment1: lolimage)
           debug response.body.inspect
           puts "\t--> Status posted!" if response
-        rescue => e
+        rescue StandardError => e
           retries -= 1
           retry if retries > 0
           puts "Status not posted - #{e.message}"

@@ -14,7 +14,7 @@ module Lolcommits
       rescue LoadError => e
         warn "Found plugin #{name}, but could not require gem '#{gem_name}'"
         warn e
-      rescue => e
+      rescue StandardError => e
         warn "require gem '#{gem_name}' failed with: #{e}"
       end
 
@@ -40,7 +40,7 @@ module Lolcommits
 
     def plugin_klass
       self.class.const_get(plugin_klass_name)
-    rescue => e
+    rescue StandardError => e
       warn "failed to load constant from plugin gem '#{plugin_klass_name}: #{e}'"
     end
 

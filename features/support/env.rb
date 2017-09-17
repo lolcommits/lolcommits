@@ -4,7 +4,7 @@ require 'open3'
 require 'ffaker'
 require 'fileutils'
 
-require File.join(File.expand_path(File.dirname(__FILE__)), 'path_helpers')
+require File.join(__dir__, 'path_helpers')
 include Lolcommits
 
 World(PathHelpers)
