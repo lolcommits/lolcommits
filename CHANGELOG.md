@@ -8,6 +8,11 @@ project adheres to [Semantic Versioning][Semver].
   * WIP - extract more plugins to gems ...
   * Your contribution here!
 
+## [0.9.7][] (17 September 2017)
+  * Extract dotcom to gem (@matthutchinson [#355][])
+  * Extract uploldz to gem (@matthutchinson [#354][])
+  * Extract lolsrv to gem (@matthutchinson [#353][])
+
 ## [0.9.6][] (28 August 2017)
   * Clean legacy plugin methods (@matthutchinson [#348][])
   * Extract Slack Plugin to gem (@matthutchinson [#349][])
@@ -289,8 +294,9 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.6...HEAD
-[0.9.5]: https://github.com/mroth/lolcommits/compare/v0.9.5...v0.9.6
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.7...HEAD
+[0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.6...v0.9.7
+[0.9.6]: https://github.com/mroth/lolcommits/compare/v0.9.5...v0.9.6
 [0.9.5]: https://github.com/mroth/lolcommits/compare/v0.9.4...v0.9.5
 [0.9.4]: https://github.com/mroth/lolcommits/compare/v0.9.3...v0.9.4
 [0.9.3]: https://github.com/mroth/lolcommits/compare/v0.9.2...v0.9.3
@@ -460,3 +466,6 @@ project adheres to [Semantic Versioning][Semver].
 [#349]: https://github.com/mroth/lolcommits/pull/349
 [#351]: https://github.com/mroth/lolcommits/pull/351
 [#352]: https://github.com/mroth/lolcommits/pull/352
+[#353]: https://github.com/mroth/lolcommits/pull/353
+[#354]: https://github.com/mroth/lolcommits/pull/354
+[#355]: https://github.com/mroth/lolcommits/pull/355
