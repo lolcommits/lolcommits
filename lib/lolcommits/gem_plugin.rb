@@ -51,7 +51,7 @@ module Lolcommits
     private
 
     def gem_path
-      gem_name.gsub(/-|_/, '/')
+      gem_name.tr('-', '/')
     end
 
     def plugin_klass_name
