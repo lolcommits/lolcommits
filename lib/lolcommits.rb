@@ -31,7 +31,6 @@ require 'lolcommits/backends/mercurial_info'
 require 'lolcommits/plugin/base'
 require 'lolcommits/plugin/lol_yammer'
 require 'lolcommits/plugin/lol_protonet'
-require 'lolcommits/plugin/lol_tumblr'
 require 'lolcommits/plugin/lol_flowdock'
 require 'lolcommits/plugin/lol_hipchat'
 

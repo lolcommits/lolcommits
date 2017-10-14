@@ -66,8 +66,7 @@ POSTINSTALL
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.4')
 
   # plugin gems
-  s.add_runtime_dependency('yam', '~> 2.5.0')            # yammer
-  s.add_runtime_dependency('tumblr_client', '~> 0.8.5')  # tumblr
+  s.add_runtime_dependency('yam', '~> 2.5.0') # yammer
 
   # development gems
   s.add_development_dependency('rdoc')
