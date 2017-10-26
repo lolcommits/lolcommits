@@ -75,6 +75,9 @@ Layout/IndentHeredoc:
 Style/PercentLiteralDelimiters:
   Enabled: false
 
+Gemspec/OrderedDependencies:
+  Enabled: false
+
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: SupportedStyles.
