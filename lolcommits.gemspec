@@ -51,6 +51,7 @@ POSTINSTALL
   # hold back upgrading (and why)
   s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
   s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
+  s.add_development_dependency('cucumber', '~> 2.4.0') # > 2.4 breaks aruba, since aruba_timeout_seconds not set
   s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3+ requires Ruby 2.1
   s.add_runtime_dependency('public_suffix', '~>2.0.0') # ~> 3+ requires Ruby 2.1
 
@@ -78,5 +79,4 @@ POSTINSTALL
   s.add_development_dependency('minitest')
   s.add_development_dependency('coveralls')
   s.add_development_dependency('ffaker')
-  s.add_development_dependency('cucumber')
 end
