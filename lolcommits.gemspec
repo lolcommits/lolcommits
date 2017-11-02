@@ -63,11 +63,11 @@ POSTINSTALL
   s.add_runtime_dependency('open4', '~> 1.3.4')
   s.add_runtime_dependency('git', '~> 1.3.0')
 
+  # plugins protonet / flowdock
+  s.add_runtime_dependency('rest-client', '2.0.2')
+
   # built-in lolcommits plugin
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.4')
-
-  # plugin gems
-  s.add_runtime_dependency('yam', '~> 2.5.0') # yammer
 
   # development gems
   s.add_development_dependency('rdoc')
