@@ -30,7 +30,6 @@ require 'lolcommits/backends/mercurial_info'
 
 require 'lolcommits/plugin/base'
 require 'lolcommits/plugin/lol_protonet'
-require 'lolcommits/plugin/lol_flowdock'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'

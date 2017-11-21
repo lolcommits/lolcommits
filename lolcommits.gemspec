@@ -63,7 +63,7 @@ POSTINSTALL
   s.add_runtime_dependency('open4', '~> 1.3.4')
   s.add_runtime_dependency('git', '~> 1.3.0')
 
-  # plugins protonet / flowdock
+  # plugins protonet
   s.add_runtime_dependency('rest-client', '2.0.2')
 
   # built-in lolcommits plugin
