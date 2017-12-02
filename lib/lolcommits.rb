@@ -18,6 +18,7 @@ require 'lolcommits/installation'
 require 'lolcommits/platform'
 require 'lolcommits/gem_plugin'
 require 'lolcommits/plugin_manager'
+require 'lolcommits/plugin/base'
 
 # after lolcommits/platform, so that we can do platform-conditional override
 require 'core_ext/mercurial-ruby/command'
@@ -27,9 +28,6 @@ require 'lolcommits/backends/installation_git'
 require 'lolcommits/backends/installation_mercurial'
 require 'lolcommits/backends/git_info'
 require 'lolcommits/backends/mercurial_info'
-
-require 'lolcommits/plugin/base'
-require 'lolcommits/plugin/lol_protonet'
 
 # require runner after all the plugins have been required
 require 'lolcommits/runner'
