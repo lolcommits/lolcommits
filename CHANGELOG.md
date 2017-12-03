@@ -5,8 +5,16 @@ project adheres to [Semantic Versioning][Semver].
 
 ## [Unreleased]
 
-  * WIP - extract more plugins to gems ...
   * Your contribution here!
+
+## [0.9.8][] (3 December 2017)
+  * Extract protonet to gem (@matthutchinson [#361][])
+  * Extract flowdock to gem (@matthutchinson [#360][])
+  * Extract yammer to gem (@matthutchinson [#359][])
+  * Extract hipchat to gem (@matthutchinson [#358][])
+  * Extract tumblr to gem (@matthutchinson [#357][])
+  * Extract term_output to gem (@matthutchinson [#356][])
+  * Add Ruby 2.4.2 to Travis config (@matthutchinson)
 
 ## [0.9.7][] (17 September 2017)
   * Extract dotcom to gem (@matthutchinson [#355][])
@@ -294,7 +302,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.7...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.8...HEAD
+[0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.7...v0.9.8
 [0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.6...v0.9.7
 [0.9.6]: https://github.com/mroth/lolcommits/compare/v0.9.5...v0.9.6
 [0.9.5]: https://github.com/mroth/lolcommits/compare/v0.9.4...v0.9.5
@@ -469,3 +478,9 @@ project adheres to [Semantic Versioning][Semver].
 [#353]: https://github.com/mroth/lolcommits/pull/353
 [#354]: https://github.com/mroth/lolcommits/pull/354
 [#355]: https://github.com/mroth/lolcommits/pull/355
+[#356]: https://github.com/mroth/lolcommits/pull/356
+[#357]: https://github.com/mroth/lolcommits/pull/357
+[#358]: https://github.com/mroth/lolcommits/pull/358
+[#359]: https://github.com/mroth/lolcommits/pull/359
+[#360]: https://github.com/mroth/lolcommits/pull/360
+[#361]: https://github.com/mroth/lolcommits/pull/361
