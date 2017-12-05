@@ -21,17 +21,17 @@ DESC
   s.post_install_message = <<-POSTINSTALL
   -------------------------------------------------------------------------------
 
-  Lolcommits: quick message from the dev team! v0.9.5 extracts the Twitter plugin
-  into a gem. If you want to continue tweeting your lol's install and configure
-  the lolcommits-twitter gem - like this;
+  Lolcommits: A quick message from the dev team! All plugins have now been
+  extracted to external gems. To continue using a (previously built-in) plugin,
+  first install the gem then configure to enable it e.g.
 
     gem install lolcommits-twitter
-    lolcommits --config -p twitter
-    # confirm PIN, options and there's one new setting to auto-open the tweet URL
+    lolcommits --config
 
-  That's it! You can revoke the old Lolcommits app token from here:
+  See https://github.com/mroth/lolcommits/wiki/Configuring-Plugins for details.
 
-    https://twitter.com/settings/applications
+  Future plugin developers should check out this repo to get started:
+  https://github.com/lolcommits/lolcommits-plugin-sample
 
   Happy Lol'ing!
 
@@ -63,14 +63,12 @@ POSTINSTALL
   s.add_runtime_dependency('open4', '~> 1.3.4')
   s.add_runtime_dependency('git', '~> 1.3.0')
 
-  # built-in lolcommits plugin
+  # included plugins
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.4')
 
-  # development gems
+  # development & test gems
   s.add_development_dependency('rdoc')
   s.add_development_dependency('pry')
-
-  # testing gems (latest versions)
   s.add_development_dependency('rubocop')
   s.add_development_dependency('travis')
   s.add_development_dependency('minitest')
