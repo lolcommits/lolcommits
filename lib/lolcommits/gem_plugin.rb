@@ -13,7 +13,7 @@ module Lolcommits
         require gem_path unless required?
       rescue LoadError => e
         warn "Found plugin #{name}, but could not require gem '#{gem_name}'"
-        warn e
+        warn e.to_s
       rescue StandardError => e
         warn "require gem '#{gem_name}' failed with: #{e}"
       end
