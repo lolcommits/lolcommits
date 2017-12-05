@@ -190,13 +190,6 @@ other services), or even translate your commit messages to
 out on our [plugins
 page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
 
-Until recently, all plugins lived inside the main lolcommits gem. We are in the
-process of extracting them to individual gems. For [gem
-plugins](https://github.com/search?q=topic%3Alolcommits-plugin+org%3Alolcommits&type=Repositories),
-you'll need to install the gem first:
-
-    [sudo] gem install lolcommits-plugin-sample
-
 To list all installed plugins use:
 
     lolcommits --plugins
