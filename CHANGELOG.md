@@ -303,7 +303,7 @@ project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.8...HEAD
-[0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.7...v0.9.8
+[0.9.8]: https://github.com/mroth/lolcommits/compare/v0.9.7...v0.9.8
 [0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.6...v0.9.7
 [0.9.6]: https://github.com/mroth/lolcommits/compare/v0.9.5...v0.9.6
 [0.9.5]: https://github.com/mroth/lolcommits/compare/v0.9.4...v0.9.5
