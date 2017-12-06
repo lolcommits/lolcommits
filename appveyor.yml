@@ -15,10 +15,6 @@ clone_folder: c:\projects\lolcommits
 clone_depth: 10
 skip_tags: true
 
-branches:
-  except:
-    - gh-pages
-
 init:
   # stub mplayer/ffmpeg so it looks like they are installed
   - mkdir c:\bin
