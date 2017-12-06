@@ -27,16 +27,6 @@ Feature: Bug regression testing
     Then there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
 
   #
-  # issue #81, https://github.com/mroth/lolcommits/issues/81
-  #
-  Scenario: don't want initialized constant warning from Faraday (MRI 1.8.7)
-    When I successfully run `lolcommits`
-    Then the output should not contain:
-    """
-    warning: already initialized constant DEFAULT_BOUNDARY
-    """
-
-  #
   # issue #87, https://github.com/mroth/lolcommits/issues/87
   #
   @fake-no-imagemagick
