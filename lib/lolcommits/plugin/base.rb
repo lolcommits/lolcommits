@@ -45,13 +45,15 @@ module Lolcommits
         options.reduce({}) do |acc, option|
           print "#{option}: "
           val = parse_user_input(gets.strip)
-          # check enabled option isn't a String
-          if (option == 'enabled') && ![true, false].include?(val)
-            puts "Aborting - please respond with 'true' or 'false'"
-            exit 1
-          else
-            acc.merge(option => val)
+          # check enabled option value, disable and abort config if not true
+          if option == 'enabled'
+            unless val == true
+              puts "Disabling plugin: #{self.class.name} - answer with 'true' to enable & configure"
+              break { option => false }
+            end
           end
+
+          acc.merge(option => val)
         end
       end
 
