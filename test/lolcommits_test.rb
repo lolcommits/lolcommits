@@ -23,10 +23,10 @@ class LolTest < MiniTest::Test
     commandcam_perms = File.lstat(File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'CommandCam', 'CommandCam.exe')).mode & 0o777
 
     assert imagesnap_perms == 0o755 || imagesnap_perms == 0o775,
-           "expected perms of 755/775 but instead got #{format '%o', imagesnap_perms}"
+           "expected perms of 755/775 but instead got #{format '%<perms>o', perms: imagesnap_perms}"
     assert videosnap_perms == 0o755 || videosnap_perms == 0o775,
-           "expected perms of 755/775 but instead got #{format '%o', videosnap_perms}"
+           "expected perms of 755/775 but instead got #{format '%<perms>o', perms: videosnap_perms}"
     assert commandcam_perms == 0o755 || commandcam_perms == 0o775,
-           "expected perms of 755/775 but instead got #{format '%o', commandcam_perms}"
+           "expected perms of 755/775 but instead got #{format '%<perms>o', perms: commandcam_perms}"
   end
 end

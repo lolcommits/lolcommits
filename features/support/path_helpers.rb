@@ -30,9 +30,7 @@ module PathHelpers
   def preseve_cmds_in_path(cmds, tmpbindir)
     cmds.each do |cmd|
       whichcmd = Lolcommits::Platform.command_which(cmd)
-      unless whichcmd.nil?
-        FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd))
-      end
+      FileUtils.ln_s whichcmd, File.join(tmpbindir, File.basename(whichcmd)) unless whichcmd.nil?
     end
   end
 end
