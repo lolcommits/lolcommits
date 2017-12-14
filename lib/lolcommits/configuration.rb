@@ -88,21 +88,29 @@ module Lolcommits
 
     def do_configure!(plugin_name)
       $stdout.sync = true
-
       plugin = find_plugin(plugin_name.to_s.strip)
       return unless plugin
-      config = read_configuration || {}
+
+      config        = read_configuration || {}
       plugin_name   = plugin.class.name
       plugin_config = plugin.configure_options!
+    rescue Interrupt
+      # e.g. user hit Ctrl+c or plugin config cancelled by error
+      puts "\nConfiguring aborted: #{plugin_name} disabled"
+      plugin_config ||= {}
+      plugin_config['enabled'] = false
+    ensure
+      if plugin
+        # set and save plugin config
+        config[plugin_name] = plugin_config
+        save(config)
 
-      # save plugin and print config if enabled
-      config[plugin_name] = plugin_config
-      save(config)
-
-      return unless plugin_config['enabled']
-
-      puts self
-      puts "\nSuccessfully configured plugin: #{plugin_name} at path '#{configuration_file}'"
+        # print config if plugin was enabled
+        if plugin_config && plugin_config['enabled']
+          puts self
+          puts "\nSuccessfully configured plugin: #{plugin_name} at path '#{configuration_file}'"
+        end
+      end
     end
 
     def save(config)
