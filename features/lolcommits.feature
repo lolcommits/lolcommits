@@ -120,7 +120,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --config --test -p loltext` interactively
       And I wait for output to contain "enabled:"
       Then I type "false"
-    Then the output should contain "Successfully configured plugin: loltext"
+      Then the output should contain "Disabling plugin: loltext - answer with 'true' to enable & configure"
     And a file named "~/.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
     Then the output should match /loltext:\s+enabled: false/

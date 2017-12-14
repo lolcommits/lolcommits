@@ -42,18 +42,12 @@ module Lolcommits
     end
 
     def url
-      @url ||= begin
-        if repository.remote && repository.remote.url
-          remote_https_url(repository.remote.url)
-        end
-      end
+      @url ||= remote_repo? ? remote_https_url(repository.remote.url) : nil
     end
 
     def repo
       @repo ||= begin
-        if repository.remote && repository.remote.url
-          match = repository.remote.url.match(GIT_URL_REGEX)
-        end
+        match = repository.remote.url.match(GIT_URL_REGEX) if remote_repo?
 
         if match
           match[1]
@@ -87,6 +81,10 @@ module Lolcommits
 
     def last_commit
       @commit ||= repository.log.first
+    end
+
+    def remote_repo?
+      repository.remote && repository.remote.url
     end
   end
 end

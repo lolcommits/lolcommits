@@ -94,16 +94,15 @@ module Lolcommits
       config = read_configuration || {}
       plugin_name   = plugin.class.name
       plugin_config = plugin.configure_options!
-      # having a plugin_config, means configuring went OK
-      if plugin_config
-        # save plugin and print config
-        config[plugin_name] = plugin_config
-        save(config)
-        puts self
-        puts "\nSuccessfully configured plugin: #{plugin_name} at path '#{configuration_file}'"
-      else
-        puts "\nAborted plugin configuration for: #{plugin_name}"
-      end
+
+      # save plugin and print config if enabled
+      config[plugin_name] = plugin_config
+      save(config)
+
+      return unless plugin_config['enabled']
+
+      puts self
+      puts "\nSuccessfully configured plugin: #{plugin_name} at path '#{configuration_file}'"
     end
 
     def save(config)
