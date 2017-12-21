@@ -15,7 +15,7 @@ module Lolcommits
       return {} unless File.exist?(configuration_file)
       # TODO: change to safe_load when Ruby 2.0.0 support drops
       # YAML.safe_load(File.open(configuration_file), [Symbol])
-      YAML.load(File.open(configuration_file)) || {}
+      YAML.load(File.open(configuration_file)) || Hash.new({})
     end
 
     def configuration_file
@@ -65,7 +65,12 @@ module Lolcommits
     end
 
     def list_plugins
-      puts "Available plugins: \n * #{plugin_manager.plugin_names.join("\n * ")}"
+      config = read_configuration
+      puts "Installed plugins: (+ enabled)\n"
+
+      plugin_manager.plugin_names.each do |name|
+        puts " [#{config[name] && config[name]['enabled'] ? '+' : '-'}] #{name}"
+      end
     end
 
     def find_plugin(plugin_name_option)
@@ -96,9 +101,13 @@ module Lolcommits
       plugin_config = plugin.configure_options!
     rescue Interrupt
       # e.g. user Ctrl+c or aborted by plugin configure_options!
-      puts "\nDisabling plugin: #{plugin_name} - configuration aborted"
-      plugin_config ||= {}
-      plugin_config['enabled'] = false
+      if plugin
+        puts "\nConfiguration aborted: #{plugin_name} has been disabled"
+        plugin_config ||= {}
+        plugin_config['enabled'] = false
+      else
+        puts "\n"
+      end
     ensure
       if plugin
         # set and save plugin config
