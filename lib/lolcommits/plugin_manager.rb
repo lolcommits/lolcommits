@@ -19,28 +19,21 @@ module Lolcommits
     end
 
     def plugins_for(position)
-      plugin_klasses.select { |p| Array(p.runner_order).include?(position) }
+      @plugins.select do |plugin|
+        Array(plugin.plugin_klass.runner_order).include?(position)
+      end
     end
 
-    # @return [Lolcommits::Plugin] find first plugin matching name
+    # @return [Lolcommits::Plugin] finds the first plugin matching name
     def find_by_name(name)
-      plugin_klasses.find { |plugin| plugin.name =~ /^#{name}/ }
+      @plugins.find { |plugin| plugin.name =~ /^#{name}/ } unless name.empty?
     end
 
     def plugin_names
-      # TODO: when all plugins are gems, get names from GemPlugin with
-      #   @plugins.map(&:name)
-      plugin_klasses.map(&:name).sort
+      @plugins.map(&:name).sort
     end
 
     private
-
-    # @return [Array] find all classes inheriting from Lolcommits::Plugin::Base
-    def plugin_klasses
-      # TODO: when all plugins are gems, change this to
-      #   @plugins.map(&:plugin_klass)
-      ObjectSpace.each_object(Class).select { |klass| klass < Lolcommits::Plugin::Base }
-    end
 
     # @return [Array] find all installed and supported plugins, populate
     #   @plugins array and return it

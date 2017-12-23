@@ -1,11 +1,11 @@
 module Lolcommits
   module Plugin
     class Base
-      attr_accessor :runner, :config, :options
+      attr_accessor :runner, :configuration, :options
 
-      def initialize(runner: nil, config: nil)
+      def initialize(runner: nil, config: {})
         self.runner = runner
-        self.config = config || runner.config
+        self.configuration = config || {}
         self.options = ['enabled']
       end
 
@@ -33,32 +33,19 @@ module Lolcommits
 
       def run_capture_ready; end
 
-      def configuration
-        saved_config = config.read_configuration
-        return {} unless saved_config
-        saved_config[self.class.name] || {}
-      end
-
       # ask for plugin options
       def configure_options!
-        puts "Configuring plugin: #{self.class.name}\n"
         options.reduce({}) do |acc, option|
           print "#{option}: "
           val = parse_user_input(gets.strip)
-          # check enabled option value, disable and abort config if not true
-          if option == 'enabled'
-            unless val == true
-              puts "Disabling plugin: #{self.class.name} - answer with 'true' to enable & configure"
-              break { option => false }
-            end
-          end
-
+          # if not enabled, abort and disable
+          break { option => false } if option == 'enabled' && val != true
           acc.merge(option => val)
         end
       end
 
       def parse_user_input(str)
-        # cater for bools, strings, ints and blanks
+        # handle for bools, strings, ints and blanks
         if 'true'.casecmp(str).zero?
           true
         elsif 'false'.casecmp(str).zero?
@@ -111,11 +98,6 @@ module Lolcommits
       # uniform debug logging for plugins
       def debug(msg)
         super("#{self.class}: " + msg)
-      end
-
-      # identifying plugin name (for config, listing)
-      def self.name
-        'plugin'
       end
 
       # Returns position(s) of when a plugin should run during the capture

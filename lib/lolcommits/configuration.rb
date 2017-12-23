@@ -11,11 +11,13 @@ module Lolcommits
       @loldir         = Configuration.loldir_for('test') if test_mode
     end
 
-    def read_configuration
-      return {} unless File.exist?(configuration_file)
-      # TODO: change to safe_load when Ruby 2.0.0 support drops
-      # YAML.safe_load(File.open(configuration_file), [Symbol])
-      YAML.load(File.open(configuration_file)) || Hash.new({})
+    def yaml
+      @_yaml ||= begin
+        return Hash.new({}) unless File.exist?(configuration_file)
+        # TODO: change to safe_load when Ruby 2.0.0 support drops
+        # YAML.safe_load(File.open(configuration_file), [Symbol])
+        YAML.load(File.open(configuration_file)) || Hash.new({})
+      end
     end
 
     def configuration_file
@@ -65,24 +67,22 @@ module Lolcommits
     end
 
     def list_plugins
-      config = read_configuration
-      puts "Installed plugins: (+ enabled)\n"
+      puts "Installed plugins: (* enabled)\n"
 
       plugin_manager.plugin_names.each do |name|
-        puts " [#{config[name] && config[name]['enabled'] ? '+' : '-'}] #{name}"
+        puts " [#{yaml[name] && yaml[name]['enabled'] ? '*' : '-'}] #{name}"
       end
     end
 
-    def find_plugin(plugin_name_option)
-      plugin_name = plugin_name_option.empty? ? ask_for_plugin_name : plugin_name_option
-      return if plugin_name.empty?
+    def find_plugin(name)
+      plugin_name = name.empty? ? ask_for_plugin_name : name
+      plugin = plugin_manager.find_by_name(plugin_name)
 
-      plugin_klass = plugin_manager.find_by_name(plugin_name)
-      return plugin_klass.new(config: self) if plugin_klass
+      return plugin if plugin
 
       puts "Unable to find plugin: '#{plugin_name}'"
-      return if plugin_name_option.empty?
-      list_plugins
+      list_plugins unless name.empty?
+      nil
     end
 
     def ask_for_plugin_name
@@ -96,13 +96,16 @@ module Lolcommits
       plugin = find_plugin(plugin_name.to_s.strip)
       return unless plugin
 
-      config        = read_configuration
-      plugin_name   = plugin.class.name
-      plugin_config = plugin.configure_options!
+      puts "Configuring plugin: #{plugin.name}\n"
+      plugin_config = plugin.plugin_klass.new(config: yaml[plugin_name]).configure_options! || {}
+
+      unless plugin_config['enabled']
+        puts "Disabling plugin: #{plugin.name} - answer with 'true' to enable & configure"
+      end
     rescue Interrupt
       # e.g. user Ctrl+c or aborted by plugin configure_options!
       if plugin
-        puts "\nConfiguration aborted: #{plugin_name} has been disabled"
+        puts "\nConfiguration aborted: #{plugin.name} has been disabled"
         plugin_config ||= {}
         plugin_config['enabled'] = false
       else
@@ -110,27 +113,26 @@ module Lolcommits
       end
     ensure
       if plugin
-        # set and save plugin config
-        config[plugin_name] = plugin_config
-        save(config)
+        # save plugin config
+        save(plugin.name, plugin_config)
 
         # print config if plugin was enabled
-        if plugin_config && plugin_config['enabled']
-          puts "\nSuccessfully configured plugin: #{plugin_name} - at path '#{configuration_file}'"
-          puts read_configuration[plugin_name].to_yaml.to_s
+        if plugin_config['enabled']
+          puts "\nSuccessfully configured plugin: #{plugin.name} - at path '#{configuration_file}'"
+          puts plugin_config.to_yaml.to_s
         end
       end
     end
 
-    def save(config)
-      config_file_contents = config.to_yaml
+    def save(plugin_name, plugin_config)
+      config_file_contents = yaml.merge(plugin_name => plugin_config).to_yaml
       File.open(configuration_file, 'w') do |f|
         f.write(config_file_contents)
       end
     end
 
     def to_s
-      read_configuration.to_yaml.to_s
+      yaml.to_yaml.to_s
     end
 
     # class methods

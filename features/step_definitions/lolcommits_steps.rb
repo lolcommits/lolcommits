@@ -160,7 +160,7 @@ Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in "(.*?)"$/) do |n, type, 
 end
 
 Then(/^the output should contain a list of plugins$/) do
-  step %(the output should contain "Installed plugins: (+ enabled)")
+  step %(the output should contain "Installed plugins: (* enabled)")
   step %(the output should contain "[-] loltext")
 end
 

@@ -30,7 +30,7 @@ module Lolcommits
     def run
       # do plugins that need to happen before capture
       plugin_manager.plugins_for(:pre_capture).each do |plugin|
-        plugin.new(runner: self).execute_pre_capture
+        plugin.plugin_instance(self).execute_pre_capture
       end
 
       # do main capture to snapshot_loc
@@ -43,12 +43,12 @@ module Lolcommits
 
         # execute post_capture plugins, use to alter the capture
         plugin_manager.plugins_for(:post_capture).each do |plugin|
-          plugin.new(runner: self).execute_post_capture
+          plugin.plugin_instance(self).execute_post_capture
         end
 
         # execute capture_ready plugins, capture is ready for export/sharing
         plugin_manager.plugins_for(:capture_ready).each do |plugin|
-          plugin.new(runner: self).execute_capture_ready
+          plugin.plugin_instance(self).execute_capture_ready
         end
 
         # clean away any tmp files
