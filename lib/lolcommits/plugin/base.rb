@@ -1,6 +1,10 @@
+require 'lolcommits/plugin/configuration_helper'
+
 module Lolcommits
   module Plugin
     class Base
+      include Lolcommits::Plugin::ConfigurationHelper
+
       attr_accessor :runner, :configuration, :options
 
       def initialize(runner: nil, config: {})
@@ -41,21 +45,6 @@ module Lolcommits
           # if not enabled, abort and disable
           break { option => false } if option == 'enabled' && val != true
           acc.merge(option => val)
-        end
-      end
-
-      def parse_user_input(str)
-        # handle for bools, strings, ints and blanks
-        if 'true'.casecmp(str).zero?
-          true
-        elsif 'false'.casecmp(str).zero?
-          false
-        elsif str =~ /^[0-9]+$/
-          str.to_i
-        elsif str.strip.empty?
-          nil
-        else
-          str
         end
       end
 
