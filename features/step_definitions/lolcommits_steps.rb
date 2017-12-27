@@ -161,7 +161,7 @@ end
 
 Then(/^the output should contain a list of plugins$/) do
   step %(the output should contain "Installed plugins: (* enabled)")
-  step %(the output should contain "[-] loltext")
+  step %(the output should contain "[*] loltext")
 end
 
 When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|

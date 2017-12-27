@@ -69,8 +69,9 @@ module Lolcommits
     def list_plugins
       puts "Installed plugins: (* enabled)\n"
 
-      plugin_manager.plugin_names.each do |name|
-        puts " [#{yaml[name] && yaml[name]['enabled'] ? '*' : '-'}] #{name}"
+      plugin_manager.plugins.each do |gem_plugin|
+        plugin = gem_plugin.plugin_klass.new(config: yaml[gem_plugin.name])
+        puts " [#{plugin.enabled? ? '*' : '-'}] #{gem_plugin.name}"
       end
     end
 

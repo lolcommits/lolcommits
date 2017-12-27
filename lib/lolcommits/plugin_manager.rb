@@ -8,6 +8,8 @@ module Lolcommits
       pm
     end
 
+    attr_reader :plugins
+
     def initialize
       @plugins = []
     end
