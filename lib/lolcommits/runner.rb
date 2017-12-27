@@ -24,14 +24,27 @@ module Lolcommits
       self.message  = vcs_info.message if message.nil?
     end
 
+    def execute_plugins_for(hook)
+      plugin_manager.plugins_for(hook).each do |gem_plugin|
+        plugin_name = gem_plugin.name
+        plugin      = gem_plugin.plugin_instance(self)
+        next unless plugin.enabled?
+
+        if plugin.valid_configuration?
+          debug "Runner: #{plugin_name} is enabled with valid config, running #{hook}"
+          plugin.send("run_#{hook}")
+        else
+          puts "Warning: skipping plugin #{plugin_name} (invalid configuration, try: lolcommits --config -p #{plugin_name})"
+        end
+      end
+    end
+
     # wrap run to handle things that should happen before and after
     # this used to be handled with ActiveSupport::Callbacks, but
     # now we're just using a simple procedural list
     def run
       # do plugins that need to happen before capture
-      plugin_manager.plugins_for(:pre_capture).each do |plugin|
-        plugin.plugin_instance(self).execute_pre_capture
-      end
+      execute_plugins_for(:pre_capture)
 
       # do main capture to snapshot_loc
       run_capture
@@ -42,14 +55,10 @@ module Lolcommits
         resize_snapshot!
 
         # execute post_capture plugins, use to alter the capture
-        plugin_manager.plugins_for(:post_capture).each do |plugin|
-          plugin.plugin_instance(self).execute_post_capture
-        end
+        execute_plugins_for(:post_capture)
 
         # execute capture_ready plugins, capture is ready for export/sharing
-        plugin_manager.plugins_for(:capture_ready).each do |plugin|
-          plugin.plugin_instance(self).execute_capture_ready
-        end
+        execute_plugins_for(:capture_ready)
 
         # clean away any tmp files
         cleanup!

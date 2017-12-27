@@ -13,24 +13,6 @@ module Lolcommits
         self.options = ['enabled']
       end
 
-      def execute_pre_capture
-        return unless configured_and_enabled?
-        debug 'I am enabled, about to run pre capture'
-        run_pre_capture
-      end
-
-      def execute_post_capture
-        return unless configured_and_enabled?
-        debug 'I am enabled, about to run post capture'
-        run_post_capture
-      end
-
-      def execute_capture_ready
-        return unless configured_and_enabled?
-        debug 'I am enabled, about to run capture ready'
-        run_capture_ready
-      end
-
       def run_pre_capture; end
 
       def run_post_capture; end
@@ -69,10 +51,6 @@ module Lolcommits
       def default_options
         # maps an array of option names to hash keys (with nil values)
         Hash[options.map { |key, _value| [key, nil] }]
-      end
-
-      def configured_and_enabled?
-        valid_configuration? && enabled?
       end
 
       def enabled?
