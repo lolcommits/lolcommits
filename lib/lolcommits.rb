@@ -1,5 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('.')
 
+require 'core_ext/hash/hash_dig' # backport Hash#dig for Ruby < 2.3
+
 require 'mini_magick'
 require 'core_ext/mini_magick/utilities'
 require 'fileutils'

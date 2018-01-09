@@ -10,7 +10,7 @@ module Lolcommits
       def initialize(runner: nil, config: {})
         self.runner = runner
         self.configuration = config || {}
-        self.options = ['enabled']
+        self.options = [:enabled]
       end
 
       def run_pre_capture; end
@@ -20,41 +20,50 @@ module Lolcommits
       def run_capture_ready; end
 
       ##
-      # Prompts the user to configure the plugin's options.
+      # Prompts the user to configure all plugin options.
       #
-      # Available options can be set in either an Array (@options instance var)
-      # or a Hash (override the `default_options` method)
+      # Available options can be defined in an Array (@options instance var)
+      # and/or a Hash (by overriding the `default_options` method).
       #
-      # Using a Hash gives you the added benefits of being able to define nested
-      # options and/or include default values.
+      # By default (on initialize), `@options` is set with `[:enabled]`. This is
+      # mandatory since `enabled?` checks this option is true before running any
+      # capture hooks.
+      #
+      # Using a Hash to define default options allows you to:
+      #
+      #  - including default values
+      #  - define nested options, user is prompted for each nested option key
+      #
+      # `configure_option_hash` will iterate over all options prompting the user
+      # for input and building the configuration Hash.
+      #
+      # Lolcommits will save this Hash to a YAML file. During the capture
+      # process the configuration is loaded, parsed and available in the plugin
+      # class as `@configuration`. Or if you want to fall back to default
+      # values, you should use `config_option` to fetch option values.
       #
       # Alternatively you can override this method entirely to customise the
-      # configuration process. If you do this be sure to call super first,
-      # asking the user to set the default `enabled` option.
-      #
-      # `configure_option_hash` will iterate over all option keys and build a
-      # configuration hash, prompting the user for input.
-      #
-      # Lolcommits will save this configuration hash to its default config file
-      # (YAML). This config Hash is loaded and parsed during the capturing
-      # process and available in the plugin class via the `configuration` hash.
-      #
-      # A helpful `parse_user_input` method is available to help parse strings
-      # from STDIN (into boolean, integer or nil values).
+      # process. A helpful `parse_user_input` method is available to help parse
+      # strings from STDIN (into boolean, integer or nil values).
       #
       # @return [Hash] the configured plugin options
-      #
       def configure_options!
-        configure_option_hash(default_options)
+        configure_option_hash(
+          Hash[options.map { |key, _value| [key, nil] }].merge(default_options)
+        )
       end
 
       def default_options
-        # maps an array of option names to hash keys (with nil values)
-        Hash[options.map { |key, _value| [key, nil] }]
+        {}
+      end
+
+      def config_option(*keys)
+        configuration.dig(*keys) || default_options.dig(*keys)
       end
 
       def enabled?
-        configuration['enabled'] == true
+        # legacy configs (< 0.9.9) used a string key
+        configuration[:enabled] || configuration['enabled']
       end
 
       # check config is valid
@@ -71,12 +80,12 @@ module Lolcommits
       # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)
         return if runner && runner.capture_stealth
-        super(args)
+        super(*args)
       end
 
-      def print(args)
+      def print(*args)
         return if runner && runner.capture_stealth
-        super(args)
+        super(*args)
       end
 
       # helper to log errors with a message via debug
@@ -107,22 +116,23 @@ module Lolcommits
 
       private
 
-      def configure_option_hash(option_hash, spacers = 0)
+      def configure_option_hash(option_hash, spacing_count = 0)
         option_hash.keys.reduce({}) do |acc, option|
           option_value = option_hash[option]
-          prefix       = '  ' * spacers
+          prefix       = '  ' * spacing_count
           if option_value.is_a?(Hash)
             puts "#{prefix}#{option}:\n"
-            acc.merge(option => configure_option_hash(option_value, (spacers + 1)))
+            acc.merge(option => configure_option_hash(option_value, (spacing_count + 1)))
           else
             print "#{prefix}#{option.to_s.tr('_', ' ')}#{" (#{option_value})" unless option_value.nil?}: "
-            input_val = parse_user_input(gets.chomp.strip)
-            input_val = option_value if input_val.nil?
+            user_value = parse_user_input(gets.chomp.strip)
 
-            # if not enabled, disable and abort
-            return { option => false } if option == 'enabled' && input_val != true
+            # if not enabled, disable and return without setting more options
+            # useful with nested hash configs, place enabled as first sub-option
+            # if answer is !true, no further sub-options will be prompted for
+            return { option => false } if option == :enabled && user_value != true
 
-            acc.merge(option => input_val)
+            acc.merge(option => user_value)
           end
         end
       end

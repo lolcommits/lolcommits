@@ -100,7 +100,7 @@ module Lolcommits
       puts "Configuring plugin: #{plugin.name}\n"
       plugin_config = plugin.plugin_klass.new(config: yaml[plugin_name]).configure_options! || {}
 
-      unless plugin_config['enabled']
+      unless plugin_config[:enabled]
         puts "Disabling plugin: #{plugin.name} - answer with 'true' to enable & configure"
       end
     rescue Interrupt
@@ -108,7 +108,7 @@ module Lolcommits
       if plugin
         puts "\nConfiguration aborted: #{plugin.name} has been disabled"
         plugin_config ||= {}
-        plugin_config['enabled'] = false
+        plugin_config[:enabled] = false
       else
         puts "\n"
       end
@@ -118,7 +118,7 @@ module Lolcommits
         save(plugin.name, plugin_config)
 
         # print config if plugin was enabled
-        if plugin_config['enabled']
+        if plugin_config[:enabled]
           puts "\nSuccessfully configured plugin: #{plugin.name} - at path '#{configuration_file}'"
           puts plugin_config.to_yaml.to_s
         end

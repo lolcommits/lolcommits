@@ -25,7 +25,7 @@ module Lolcommits
       # [
       #   { 'name' => 'some human readable name', 'value' => 1234 },
       # ]
-      # User will be asked for Organization, can tab to autocomplete, and chose
+      # User will be asked for Organization, can tab to autocomplete, and chosen
       # value is returned.
       def prompt_autocomplete_hash(prompt, items, name: 'name', value: 'value', suggest_words: 5)
         words = items.map { |item| item[name] }.sort
