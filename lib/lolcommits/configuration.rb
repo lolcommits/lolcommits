@@ -114,6 +114,8 @@ module Lolcommits
       end
     ensure
       if plugin
+        # clean away legacy enabled key, later we can remove this
+        plugin_config.delete('enabled')
         # save plugin config (if we have anything in the hash)
         save(plugin.name, plugin_config) unless plugin_config.empty?
 
