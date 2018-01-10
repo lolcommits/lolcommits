@@ -114,8 +114,8 @@ module Lolcommits
       end
     ensure
       if plugin
-        # save plugin config
-        save(plugin.name, plugin_config)
+        # save plugin config (if we have anything in the hash)
+        save(plugin.name, plugin_config) unless plugin_config.empty?
 
         # print config if plugin was enabled
         if plugin_config[:enabled]
