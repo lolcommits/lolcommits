@@ -7,6 +7,14 @@ project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.10.0][] (10 January 2018)
+  * Plugin configuration changes (@matthutchinson [#365][])
+    - `--plugins` now shows if plugin is enabled or not
+    - `default_options` now available, nested hash with default values
+    - if `valid_configuration?` fails, warning message shows
+    - `prompt_autocomplete_hash` helper method added
+  * Better plugin config flow (@matthutchinson [#363][])
+
 ## [0.9.8][] (3 December 2017)
   * Extract protonet to gem (@matthutchinson [#361][])
   * Extract flowdock to gem (@matthutchinson [#360][])
@@ -302,7 +310,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.9.8...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.10.0...HEAD
+[0.10.0]: https://github.com/mroth/lolcommits/compare/v0.9.8...v0.10.0
 [0.9.8]: https://github.com/mroth/lolcommits/compare/v0.9.7...v0.9.8
 [0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.6...v0.9.7
 [0.9.6]: https://github.com/mroth/lolcommits/compare/v0.9.5...v0.9.6
@@ -484,3 +493,5 @@ project adheres to [Semantic Versioning][Semver].
 [#359]: https://github.com/mroth/lolcommits/pull/359
 [#360]: https://github.com/mroth/lolcommits/pull/360
 [#361]: https://github.com/mroth/lolcommits/pull/361
+[#363]: https://github.com/mroth/lolcommits/pull/363
+[#365]: https://github.com/mroth/lolcommits/pull/365
