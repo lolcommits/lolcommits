@@ -68,10 +68,11 @@ module Lolcommits
 
       # check config is valid
       def valid_configuration?
-        configured?
+        !configuration.empty?
       end
 
       # empty plugin configuration
+      # TODO: remove this method in after 0.9.9 release
       def configured?
         !configuration.empty?
       end

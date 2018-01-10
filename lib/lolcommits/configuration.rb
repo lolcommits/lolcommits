@@ -105,12 +105,11 @@ module Lolcommits
       end
     rescue Interrupt
       # e.g. user Ctrl+c or aborted by plugin configure_options!
+      puts "\n"
       if plugin
-        puts "\nConfiguration aborted: #{plugin.name} has been disabled"
+        puts "Configuration aborted: #{plugin.name} has been disabled"
         plugin_config ||= {}
         plugin_config[:enabled] = false
-      else
-        puts "\n"
       end
     ensure
       if plugin
