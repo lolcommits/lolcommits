@@ -44,6 +44,10 @@ module Lolcommits
       warn "failed to load constant from plugin gem '#{plugin_klass_name}: #{e}'"
     end
 
+    def plugin_instance(runner)
+      plugin_klass.new(runner: runner, config: runner.config.yaml[name])
+    end
+
     def gem_name
       gem_spec.name
     end
@@ -55,7 +59,12 @@ module Lolcommits
     end
 
     def plugin_klass_name
-      gem_path.split('/').map(&:capitalize).join('::')
+      # convert gem paths to plugin classes e.g.
+      # lolcommits/loltext --> Lolcommits::Plugin::Loltext
+      # lolcommits/term_output --> Lolcommits::Plugin::TermOutput
+      gem_path.split('/').insert(1, 'plugin').collect do |c|
+        c.split('_').collect(&:capitalize).join
+      end.join('::')
     end
   end
 end

@@ -123,7 +123,7 @@ Feature: Basic UI functionality
       Then the output should contain "Disabling plugin: loltext - answer with 'true' to enable & configure"
     And a file named "~/.lolcommits/test/config.yml" should exist
     When I successfully run `lolcommits --test --show-config`
-    Then the output should match /loltext:\s+enabled: false/
+    Then the output should match /loltext:\s+:enabled: false/
 
   Scenario: test capture should work regardless of whether in a lolrepo
     Given I am in a directory named "nothingtoseehere"
