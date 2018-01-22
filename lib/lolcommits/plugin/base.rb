@@ -62,8 +62,7 @@ module Lolcommits
       end
 
       def enabled?
-        # legacy configs (< 0.9.9) used a string key
-        configuration[:enabled] || configuration['enabled']
+        configuration[:enabled] == true
       end
 
       # check config is valid
