@@ -44,16 +44,13 @@ POSTINSTALL
   s.require_paths = ['lib']
 
   # non-gem dependencies
-  s.required_ruby_version = '>= 2.0'
+  s.required_ruby_version = '>= 2.1'
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
   s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
-  s.add_development_dependency('rake', '=10.5.0') # ~> 11+ introduces lots of warnings from other deps
   s.add_development_dependency('cucumber', '~> 2.4.0') # > 2.4 breaks aruba, since aruba_timeout_seconds not set
-  s.add_runtime_dependency('net-http-persistent', '=2.9.4') # ~> 3+ requires Ruby 2.1
-  s.add_runtime_dependency('public_suffix', '~>2.0.0') # ~> 3+ requires Ruby 2.1
 
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.5')
@@ -67,6 +64,7 @@ POSTINSTALL
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.5')
 
   # development & test gems
+  s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('pry')
   s.add_development_dependency('rubocop')
