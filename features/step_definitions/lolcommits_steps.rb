@@ -14,7 +14,7 @@ def default_repo
 end
 
 def default_loldir
-  absolute_path("~/.lolcommits/#{default_repo}")
+  "~/.lolcommits/#{default_repo}"
 end
 
 Given(/^I am in a directory named "(.*?)"$/) do |dir_name|
@@ -26,7 +26,7 @@ end
 
 Given(/^a git repo named "(.*?)"$/) do |repo_name|
   steps %(
-   Given I successfully run `git init --quiet "#{repo_name}"`
+   Given I run `git init --quiet "#{repo_name}"`
     )
 end
 
@@ -46,7 +46,7 @@ end
 Given(/^I am in a git repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %(
     Given I am in a git repo named "#{repo}"
-    And I successfully run `lolcommits --enable`
+    And I run `lolcommits --enable`
     )
 end
 
@@ -79,7 +79,7 @@ end
 
 Given(/^a mercurial repo named "(.*?)"$/) do |repo_name|
   steps %(
-   Given I successfully run `hg init "#{repo_name}"`
+   Given I run `hg init "#{repo_name}"`
     )
 end
 
@@ -99,7 +99,7 @@ end
 Given(/^I am in a mercurial repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %(
     Given I am in a mercurial repo named "#{repo}"
-    And I successfully run `lolcommits --enable`
+    And I run `lolcommits --enable`
     )
 end
 
@@ -131,7 +131,7 @@ Then(/^the mercurial post\-commit hook (should|should not) contain "(.*?)"$/) do
 end
 
 Given(/^I have environment variable (.*?) set to (.*?)$/) do |var, value|
-  set_env var, value
+  set_environment_variable var, value
 end
 
 Given(/^its loldir has (\d+) lolimages$/) do |num_images|
@@ -141,7 +141,7 @@ Given(/^its loldir has (\d+) lolimages$/) do |num_images|
 end
 
 Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
-  loldir = absolute_path("~/.lolcommits/#{repo}")
+  loldir = expand_path("~/.lolcommits/#{repo}")
   FileUtils.mkdir_p loldir
   num_images.to_i.times do
     hex = format('%011x', (rand * 0xfffffffffff)).to_s
@@ -156,7 +156,7 @@ Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in its loldir$/) do |n, typ
 end
 
 Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in "(.*?)"$/) do |n, type, folder|
-  expect(Dir[absolute_path(folder, "*.#{type}")].count).to eq(n.to_i)
+  expect(Dir[expand_path("#{folder}/*.#{type}")].count).to eq(n.to_i)
 end
 
 Then(/^the output should contain a list of plugins$/) do
@@ -168,8 +168,8 @@ When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|
   filename = FFaker::Lorem.words(1).first
   steps %(
     Given a 98 byte file named "#{filename}"
-    And I successfully run `git add #{filename}`
-    And I successfully run `git commit -m "#{commit_msg}"`
+    And I run `git add #{filename}`
+    And I run `git commit -m "#{commit_msg}"`
     )
 end
 
@@ -180,7 +180,7 @@ end
 When(/^I do (\d+) git commits$/) do |n|
   n.to_i.times do
     step %(I do a git commit)
-    sleep 0.1
+    sleep 0.2
   end
 end
 
@@ -193,8 +193,8 @@ When(/^I do a mercurial commit with commit message "(.*?)"$/) do |commit_msg|
   filename = FFaker::Lorem.words(1).first
   steps %(
     Given a 98 byte file named "#{filename}"
-    And I successfully run `hg add #{filename}`
-    And I successfully run `hg commit -m "#{commit_msg}"`
+    And I run `hg add #{filename}`
+    And I run `hg commit -m "#{commit_msg}"`
     )
 end
 
@@ -215,10 +215,10 @@ Then(/^there should be (\d+) commit entries in the mercurial log$/) do |n|
 end
 
 Given(/^I am using a "(.*?)" platform$/) do |host_os_name|
-  set_env 'LOLCOMMITS_FAKE_HOST_OS', host_os_name
+  set_environment_variable 'LOLCOMMITS_FAKE_HOST_OS', host_os_name
 end
 
 When(/^I wait for the child process to exit in "(.*?)"$/) do |repo_name|
-  pid_loc = absolute_path("~/.lolcommits/#{repo_name}/lolcommits.pid")
+  pid_loc = expand_path("~/.lolcommits/#{repo_name}/lolcommits.pid")
   sleep 0.1 while File.exist?(pid_loc)
 end

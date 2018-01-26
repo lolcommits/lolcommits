@@ -11,20 +11,19 @@ Feature: Bug regression testing
   #
   Scenario: handle git repos with spaces in directory name
     Given I am in a git repo named "test lolol" with lolcommits enabled
-    And I successfully run `git commit --allow-empty -m 'can haz commit'`
+    And I run `git commit --allow-empty -m 'can haz commit'`
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "../.lolcommits/test-lolol" should exist
 
   #
   # issue #68, https://github.com/mroth/lolcommits/issues/68
   #
-  @fake-interactive-rebase @slow_process @unstable
+  @fake-interactive-rebase @slow_process
   Scenario: Don't trigger capture during a git rebase
     Given I am in a git repo named "yuh8history" with lolcommits enabled
-      And I do 6 git commits
-    When I successfully run `git rebase -i HEAD~5`
-    # Then there should be 4 commit entries in the git log
-    Then there should be exactly 6 jpgs in "../.lolcommits/yuh8history"
+      And I do 3 git commits
+    When I run `git rebase -i HEAD~2`
+    Then there should be exactly 3 jpgs in "~/.lolcommits/yuh8history"
 
   #
   # issue #87, https://github.com/mroth/lolcommits/issues/87
@@ -43,7 +42,7 @@ Feature: Bug regression testing
   #
   Scenario: catch upstream bug with ruby-git and color=always
     Given I am in a git repo named "whatev" with lolcommits enabled
-    And I successfully run `git config color.ui always`
+    And I run `git config color.ui always`
     When I run `lolcommits`
     Then the output should contain:
       """

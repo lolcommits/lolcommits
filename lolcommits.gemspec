@@ -49,8 +49,6 @@ POSTINSTALL
   s.requirements << 'a webcam'
 
   # hold back upgrading (and why)
-  s.add_development_dependency('aruba', '=0.6.2') # upgrading requires a lot of test code changes
-  s.add_development_dependency('cucumber', '~> 2.4.0') # > 2.4 breaks aruba, since aruba_timeout_seconds not set
 
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.5')
@@ -64,6 +62,7 @@ POSTINSTALL
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.5')
 
   # development & test gems
+  s.add_development_dependency('aruba')
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('pry')

@@ -5,7 +5,7 @@ require 'lolcommits/platform'
 module PathHelpers
   def reject_paths_with_cmd(cmd)
     # make a new subdir that still contains cmds
-    tmpbindir = File.expand_path(File.join(@dirs, 'bin'))
+    tmpbindir = expand_path('./bin')
     FileUtils.mkdir_p tmpbindir
 
     preseve_cmds_in_path(%w(git mplayer), tmpbindir)
@@ -24,7 +24,7 @@ module PathHelpers
     newpaths << tmpbindir
 
     # use aruba/api set_environment_variable to set PATH, which will be automaticaly restored
-    set_env 'PATH', newpaths.join(File::PATH_SEPARATOR)
+    set_environment_variable 'PATH', newpaths.join(File::PATH_SEPARATOR)
   end
 
   def preseve_cmds_in_path(cmds, tmpbindir)
