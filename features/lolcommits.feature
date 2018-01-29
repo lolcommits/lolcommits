@@ -22,7 +22,7 @@ Feature: Basic UI functionality
 
   Scenario: Enable in a naked git repo
     Given I am in a git repo
-    When I successfully run `lolcommits --enable`
+    When I run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
       And the lolcommits git post-commit hook should be properly installed
       And the exit status should be 0
@@ -30,7 +30,7 @@ Feature: Basic UI functionality
   Scenario: Enable in a git repo that already has a git post-commit hook
     Given I am in a git repo
     And a git post-commit hook with "#!/bin/sh\n\n/my/own/script"
-    When I successfully run `lolcommits --enable`
+    When I run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
       And the lolcommits git post-commit hook should be properly installed
       And the git post-commit hook should contain "#!/bin/sh"
@@ -47,13 +47,13 @@ Feature: Basic UI functionality
 
   Scenario: Enable in a git repo passing capture arguments
     Given I am in a git repo
-    When I successfully run `lolcommits --enable -w 5 --fork --stealth --device 'My Devce'`
+    When I run `lolcommits --enable -w 5 --fork --stealth --device 'My Devce'`
     Then the git post-commit hook should contain "lolcommits --capture --delay 5 --fork --stealth --device 'My Devce'"
     And the exit status should be 0
 
   Scenario: Disable in a enabled git repo
     Given I am in a git repo with lolcommits enabled
-    When I successfully run `lolcommits --disable`
+    When I run `lolcommits --disable`
     Then the output should contain "uninstalled"
     And a file named ".git/hooks/post-commit" should exist
     And the exit status should be 0
@@ -112,17 +112,16 @@ Feature: Basic UI functionality
     And there should be exactly 1 jpg in its loldir
 
   Scenario: Show plugins
-    When I successfully run `lolcommits --plugins`
+    When I run `lolcommits --plugins`
     Then the output should contain a list of plugins
 
   Scenario: Configuring loltext plugin in test mode affects test loldir not repo loldir
     Given I am in a git repo named "testmode-config-test"
     When I run `lolcommits --config --test -p loltext` interactively
-      And I wait for output to contain "enabled:"
       Then I type "false"
       Then the output should contain "Disabling plugin: loltext - answer with 'true' to enable & configure"
     And a file named "~/.lolcommits/test/config.yml" should exist
-    When I successfully run `lolcommits --test --show-config`
+    When I run `lolcommits --test --show-config`
     Then the output should match /loltext:\s+:enabled: false/
 
   Scenario: test capture should work regardless of whether in a lolrepo
@@ -134,7 +133,7 @@ Feature: Basic UI functionality
 
   Scenario: test capture should store in its own test directory
     Given I am in a git repo named "randomgitrepo" with lolcommits enabled
-    When I successfully run `lolcommits --test --capture`
+    When I run `lolcommits --test --capture`
     Then a directory named "~/.lolcommits/test" should exist
     And a directory named "~/.lolcommits/randomgitrepo" should not exist
 
@@ -156,9 +155,8 @@ Feature: Basic UI functionality
       """
     And the exit status should be 0
 
-  @in-tempdir
-  Scenario: last command should fail gracefully if not in a lolrepo
-    Given I am in a directory named "gitsuxcvs4eva"
+  @no-repo-dir
+  Scenario: last command should fail gracefully if not in a repo
     When I run `lolcommits --last`
     Then the output should contain:
       """
@@ -166,10 +164,18 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  @in-tempdir
-  Scenario: Configuring loltext plugin if not in a lolrepo
-    Given I am in a directory named "gitsuxcvs4eva"
+  @no-repo-dir
+  Scenario: Configuring loltext plugin if not in a repo
     When I run `lolcommits --config`
+    Then the output should contain:
+      """
+      You don't appear to be in a directory of a supported vcs project.
+      """
+    And the exit status should be 1
+
+  @no-repo-dir
+  Scenario: browse command should fail gracefully when not in a repo
+    When I run `lolcommits --browse`
     Then the output should contain:
       """
       You don't appear to be in a directory of a supported vcs project.
@@ -204,26 +210,16 @@ Feature: Basic UI functionality
       """
     And the exit status should be 0
 
-  @in-tempdir
-  Scenario: browse command should fail gracefully when not in a lolrepo
-    Given I am in a directory named "gitsuxcvs4eva"
-    When I run `lolcommits --browse`
-    Then the output should contain:
-      """
-      You don't appear to be in a directory of a supported vcs project.
-      """
-    And the exit status should be 1
-
   Scenario: handle git commit messages with quotation marks
     Given I am in a git repo with lolcommits enabled
-    When I successfully run `git commit --allow-empty -m 'no "air quotes" bae'`
+    When I run `git commit --allow-empty -m 'no "air quotes" bae'`
     Then the exit status should be 0
     And there should be exactly 1 jpg in its loldir
 
   Scenario: generate gif should store in its own archive directory
     Given I am in a git repo named "giffy" with lolcommits enabled
       And a loldir named "giffy" with 2 lolimages
-    When I successfully run `lolcommits --timelapse`
+    When I run `lolcommits --timelapse`
     Then the output should contain "Generating animated gif."
       And a directory named "~/.lolcommits/giffy/archive" should exist
       And a file named "~/.lolcommits/giffy/archive/archive.gif" should exist
@@ -231,7 +227,7 @@ Feature: Basic UI functionality
   Scenario: generate gif with argument 'today'
     Given I am in a git repo named "sunday" with lolcommits enabled
       And a loldir named "sunday" with 2 lolimages
-    When I successfully run `lolcommits --timelapse --period today`
+    When I run `lolcommits --timelapse --period today`
     Then there should be exactly 1 gif in "~/.lolcommits/sunday/archive"
 
   @mac-only
@@ -258,13 +254,13 @@ Feature: Basic UI functionality
   Scenario: Enable on windows platform setting PATH in git post-commit hook
     Given I am using a "win32" platform
       And I am in a git repo
-    When I successfully run `lolcommits --enable`
+    When I run `lolcommits --enable`
     Then the git post-commit hook should contain "set path"
     And the exit status should be 0
 
   Scenario: Enable in a naked mercurial repo
     Given I am in a mercurial repo
-    When I successfully run `lolcommits --enable`
+    When I run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
     And the lolcommits mercurial post-commit hook should be properly installed
     And the exit status should be 0
@@ -272,7 +268,7 @@ Feature: Basic UI functionality
   Scenario: Enable in a mercurial repo that already has a mercurial post-commit hook
     Given I am in a mercurial repo
     And a mercurial post-commit hook with "[hooks]\npost-commit.mine = /my/own/script"
-    When I successfully run `lolcommits --enable`
+    When I run `lolcommits --enable`
     Then the output should contain "installed lolcommit hook to:"
     And the lolcommits mercurial post-commit hook should be properly installed
     And the mercurial post-commit hook should contain "post-commit.mine = /my/own/script"
@@ -280,13 +276,13 @@ Feature: Basic UI functionality
 
   Scenario: Enable in a mercurial repo passing capture arguments
     Given I am in a mercurial repo
-    When I successfully run `lolcommits --enable -w 5 --fork`
+    When I run `lolcommits --enable -w 5 --fork`
     Then the mercurial post-commit hook should contain "lolcommits --capture --delay 5 --fork"
     And the exit status should be 0
 
   Scenario: Disable in a enabled mercurial repo
     Given I am in a mercurial repo with lolcommits enabled
-    When I successfully run `lolcommits --disable`
+    When I run `lolcommits --disable`
     Then the output should contain "uninstalled"
     And a file named ".hg/hgrc" should exist
     And the exit status should be 0
@@ -348,8 +344,8 @@ Feature: Basic UI functionality
 
   Scenario: handle mercurial commit messages with quotation marks
     Given I am in a mercurial repo with lolcommits enabled
-    When I successfully run `touch meh`
-    And I successfully run `hg add meh`
-    And I successfully run `hg commit -m 'no "air quotes" bae'`
+    When I run `touch meh`
+    And I run `hg add meh`
+    And I run `hg commit -m 'no "air quotes" bae'`
     Then the exit status should be 0
     And there should be exactly 1 jpg in its loldir

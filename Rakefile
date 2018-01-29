@@ -37,7 +37,6 @@ CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features) do |t|
   optstr = "features --format html -o #{CUKE_RESULTS} --format progress -x"
   optstr << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
-  optstr << ' --tags ~@unstable' if ENV['tag'].nil? # ignore unstable tests unless specifying something at CLI
   t.cucumber_opts = optstr
   t.fork = false
 end
