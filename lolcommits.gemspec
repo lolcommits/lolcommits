@@ -48,8 +48,6 @@ POSTINSTALL
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
-  # hold back upgrading (and why)
-
   # core
   s.add_runtime_dependency('methadone', '~> 1.9.5')
   s.add_runtime_dependency('mercurial-ruby', '~> 0.7.12')
