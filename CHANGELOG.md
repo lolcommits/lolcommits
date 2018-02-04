@@ -7,6 +7,12 @@ project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.11.0][] (4 February 2018)
+  * Require at least Ruby 2.1 (@matthutchinson [#366][])
+    - drop support for Ruby 2.0
+    - update all remaining gem dependencies (incl. Aruba, Cucumber)
+    - remove @unstable tag from features
+
 ## [0.10.0][] (10 January 2018)
   * Plugin configuration changes (@matthutchinson [#365][])
     - `--plugins` now shows if plugin is enabled or not
@@ -310,7 +316,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.10.0...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.11.0...HEAD
+[0.10.0]: https://github.com/mroth/lolcommits/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/mroth/lolcommits/compare/v0.9.8...v0.10.0
 [0.9.8]: https://github.com/mroth/lolcommits/compare/v0.9.7...v0.9.8
 [0.9.7]: https://github.com/mroth/lolcommits/compare/v0.9.6...v0.9.7
@@ -495,3 +502,4 @@ project adheres to [Semantic Versioning][Semver].
 [#361]: https://github.com/mroth/lolcommits/pull/361
 [#363]: https://github.com/mroth/lolcommits/pull/363
 [#365]: https://github.com/mroth/lolcommits/pull/365
+[#366]: https://github.com/mroth/lolcommits/pull/366
