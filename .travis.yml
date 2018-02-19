@@ -2,21 +2,21 @@ sudo: false
 language: ruby
 cache: bundler
 rvm:
- - 2.1.10
- - 2.2.9
- - 2.3.6
- - 2.4.3
- - 2.5.0
- - ruby-head
+  - 2.1.10
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
+  - ruby-head
 
 before_install:
- # stub mplayer/ffmpeg so it looks like they are installed
- - mkdir -p ~/bin
- - touch ~/bin/mplayer ~/bin/ffmpeg
- - chmod +x ~/bin/mplayer ~/bin/ffmpeg
- - export PATH=~/bin:$PATH
- - gem update --system
- - git --version
+  # stub mplayer/ffmpeg so it looks like they are installed
+  - mkdir -p ~/bin
+  - touch ~/bin/mplayer ~/bin/ffmpeg
+  - chmod +x ~/bin/mplayer ~/bin/ffmpeg
+  - export PATH=~/bin:$PATH
+  - gem update --system
+  - git --version
 
 matrix:
   allow_failures:
@@ -35,3 +35,13 @@ deploy:
     tags: true
     all_branches: true
     repo: mroth/lolcommits
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=b8f6cc45b054ac68b7fddf7bb99379efb3dbc6fb728506d9975c63064d971071
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+after_script:
+  - ./cc-test-reporter after-build

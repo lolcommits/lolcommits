@@ -66,6 +66,6 @@ POSTINSTALL
   s.add_development_dependency('pry')
   s.add_development_dependency('rubocop')
   s.add_development_dependency('minitest')
-  s.add_development_dependency('coveralls')
+  s.add_development_dependency('simplecov')
   s.add_development_dependency('ffaker')
 end
