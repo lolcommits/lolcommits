@@ -48,7 +48,6 @@ end
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
-task default: [:rubocop, :test, :features]
 
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do
@@ -71,3 +70,14 @@ task :dropboxify do
   # copy over existing files
   FileUtils.cp_r("#{backup_loldir}/.", loldir)
 end
+
+# run tests with code coverage
+namespace :test do
+  desc 'Run all unit tests and generate a coverage report'
+  task :coverage do
+    ENV['COVERAGE'] = 'true'
+    Rake::Task[:test].execute
+  end
+end
+
+task default: [:rubocop, 'test:coverage', :features]
