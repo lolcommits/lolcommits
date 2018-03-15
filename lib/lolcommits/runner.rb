@@ -20,21 +20,17 @@ module Lolcommits
         raise('Unknown VCS')
       end
 
-      self.sha      = vcs_info.sha if sha.nil?
-      self.message  = vcs_info.message if message.nil?
+      self.sha     = vcs_info.sha if sha.nil?
+      self.message = vcs_info.message if message.nil?
     end
 
     def execute_plugins_for(hook)
-      plugin_manager.plugins_for(hook).each do |gem_plugin|
-        plugin_name = gem_plugin.name
-        plugin      = gem_plugin.plugin_instance(self)
-        next unless plugin.enabled?
-
+      debug "#{self.class}: running enabled plugin hooks for #{hook}"
+      enabled_plugins.each do |plugin|
         if plugin.valid_configuration?
-          debug "Runner: #{plugin_name} is enabled with valid config, running #{hook}"
           plugin.send("run_#{hook}")
         else
-          puts "Warning: skipping plugin #{plugin_name} (invalid configuration, try: lolcommits --config -p #{plugin_name})"
+          puts "Warning: skipping plugin #{plugin.name} (invalid configuration, fix with: lolcommits --config -p #{plugin.name})"
         end
       end
     end
@@ -91,8 +87,8 @@ module Lolcommits
 
     private
 
-    def plugin_manager
-      @plugin_manager ||= config.plugin_manager
+    def enabled_plugins
+      @enabled_plugins ||= config.plugin_manager.enabled_plugins_for(self)
     end
 
     def image_file_type

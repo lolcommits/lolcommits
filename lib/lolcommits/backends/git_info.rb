@@ -80,7 +80,7 @@ module Lolcommits
     end
 
     def last_commit
-      @commit ||= repository.log.first
+      @last_commit ||= repository.log.first
     end
 
     def remote_repo?

@@ -5,10 +5,11 @@ module Lolcommits
     class Base
       include Lolcommits::Plugin::ConfigurationHelper
 
-      attr_accessor :runner, :configuration, :options
+      attr_accessor :runner, :configuration, :options, :name
 
-      def initialize(runner: nil, config: {})
+      def initialize(runner: nil, name: nil, config: {})
         self.runner = runner
+        self.name = name
         self.configuration = config || {}
         self.options = [:enabled]
       end
@@ -89,29 +90,14 @@ module Lolcommits
       end
 
       # helper to log errors with a message via debug
-      def log_error(e, message)
+      def log_error(error, message)
         debug message
-        debug e.backtrace.join("\n")
+        debug error.backtrace.join("\n")
       end
 
       # uniform debug logging for plugins
       def debug(msg)
         super("#{self.class}: " + msg)
-      end
-
-      # Returns position(s) of when a plugin should run during the capture
-      # process.
-      #
-      # Defines when the plugin will execute in the capture process. This must
-      # be defined, if the method returns nil, or [] the plugin will never run.
-      # Three hook positions exist, your plugin code can execute in one or more
-      # of these.
-      #
-      # @return [Array] the position(s) (:pre_capture, :post_capture,
-      # :capture_ready)
-      #
-      def self.runner_order
-        []
       end
 
       private

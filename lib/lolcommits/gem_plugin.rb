@@ -45,7 +45,7 @@ module Lolcommits
     end
 
     def plugin_instance(runner)
-      plugin_klass.new(runner: runner, config: runner.config.yaml[name])
+      plugin_klass.new(runner: runner, config: runner.config.yaml[name], name: name)
     end
 
     def gem_name
