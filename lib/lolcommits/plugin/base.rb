@@ -9,7 +9,7 @@ module Lolcommits
 
       def initialize(runner: nil, name: nil, config: {})
         self.runner = runner
-        self.name = name
+        self.name = name || self.class.to_s
         self.configuration = config || {}
         self.options = [:enabled]
       end

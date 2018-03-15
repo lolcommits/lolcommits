@@ -25,7 +25,7 @@ module Lolcommits
     end
 
     def execute_plugins_for(hook)
-      debug "#{self.class}: running enabled plugin hooks for #{hook}"
+      debug "#{self.class}: running all enabled plugin hooks for #{hook}"
       enabled_plugins.each do |plugin|
         if plugin.valid_configuration?
           plugin.send("run_#{hook}")
