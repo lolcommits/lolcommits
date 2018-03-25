@@ -40,7 +40,7 @@ module Lolcommits
 
     # inspired by this code from @rdp http://tinyurl.com/y7t276bh
     def device_names
-      @_device_names ||= begin
+      @device_names ||= begin
         names      = []
         cmd_output = ''
         count      = 0

@@ -34,10 +34,6 @@ module Lolcommits
       true
     end
 
-    def name
-      gem_name.split('-', 2).last
-    end
-
     def plugin_klass
       self.class.const_get(plugin_klass_name)
     rescue StandardError => e
@@ -45,11 +41,16 @@ module Lolcommits
     end
 
     def plugin_instance(runner)
+      # TODO: pass name to initializer as arg when all gems updated to accept
       plugin_klass.new(runner: runner, config: runner.config.yaml[name])
     end
 
     def gem_name
       gem_spec.name
+    end
+
+    def name
+      gem_name.split('-', 2).last
     end
 
     private

@@ -75,7 +75,7 @@ module Lolcommits
     end
 
     def last_commit
-      @commit ||= repository.commits.parent
+      @last_commit ||= repository.commits.parent
     end
   end
 end

@@ -20,12 +20,6 @@ module Lolcommits
       @plugins.map(&:activate!)
     end
 
-    def plugins_for(position)
-      @plugins.select do |plugin|
-        Array(plugin.plugin_klass.runner_order).include?(position)
-      end
-    end
-
     # @return [Lolcommits::Plugin] finds the first plugin matching name
     def find_by_name(name)
       @plugins.find { |plugin| plugin.name =~ /^#{name}/ } unless name.empty?
@@ -33,6 +27,13 @@ module Lolcommits
 
     def plugin_names
       @plugins.map(&:name).sort
+    end
+
+    def enabled_plugins_for(runner)
+      @plugins.map do |gem_plugin|
+        plugin = gem_plugin.plugin_instance(runner)
+        plugin.enabled? ? plugin : nil
+      end.compact
     end
 
     private
