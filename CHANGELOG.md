@@ -7,6 +7,11 @@ project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.12.1][] (27 March 2018)
+  * Name passed to `Plugin::Base` initializer (@matthutchinson)
+  * Removed dead method `configured? in `Plugin::Base`
+  * Using `YAML.safe_load` for configuration loading
+
 ## [0.12.0][] (15 March 2018)
   * Use CodeClimate and simplecov for coverage reports (@matthutchinson [#367][])
   * Remove plugin runner order (@matthutchinson [#369][])
@@ -320,7 +325,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.12.0...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.12.1...HEAD
+[0.12.1]: https://github.com/mroth/lolcommits/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/mroth/lolcommits/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/mroth/lolcommits/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/mroth/lolcommits/compare/v0.9.8...v0.10.0
