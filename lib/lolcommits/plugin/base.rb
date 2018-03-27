@@ -71,12 +71,6 @@ module Lolcommits
         !configuration.empty?
       end
 
-      # empty plugin configuration
-      # TODO: remove this method in after 0.9.9 release
-      def configured?
-        !configuration.empty?
-      end
-
       # uniform puts and print for plugins
       # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)

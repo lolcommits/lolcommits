@@ -41,8 +41,7 @@ module Lolcommits
     end
 
     def plugin_instance(runner)
-      # TODO: pass name to initializer as arg when all gems updated to accept
-      plugin_klass.new(runner: runner, config: runner.config.yaml[name])
+      plugin_klass.new(runner: runner, config: runner.config.yaml[name], name: name)
     end
 
     def gem_name

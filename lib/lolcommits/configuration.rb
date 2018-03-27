@@ -14,9 +14,7 @@ module Lolcommits
     def yaml
       @yaml ||= begin
         return Hash.new({}) unless File.exist?(configuration_file)
-        # TODO: change to safe_load when Ruby 2.0.0 support drops
-        # YAML.safe_load(File.open(configuration_file), [Symbol])
-        YAML.load(File.open(configuration_file)) || Hash.new({})
+        YAML.safe_load(File.open(configuration_file), [Symbol]) || Hash.new({})
       end
     end
 
