@@ -16,6 +16,7 @@ before_install:
   - chmod +x ~/bin/mplayer ~/bin/ffmpeg
   - export PATH=~/bin:$PATH
   - gem update --system
+  - gem install bundler
   - git --version
 
 matrix:

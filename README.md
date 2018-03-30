@@ -13,6 +13,7 @@ By default, the lol images are stored by a Github style short SHA in a
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/mroth/lolcommits.svg)](https://codeclimate.com/github/mroth/lolcommits/maintainability)
 [![Test Coverage](https://img.shields.io/codeclimate/c/mroth/lolcommits.svg)](https://codeclimate.com/github/mroth/lolcommits/test_coverage)
 
+
 ## Sample images
 
 <img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
