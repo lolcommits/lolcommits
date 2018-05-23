@@ -9,6 +9,9 @@ By default, the lol images are stored by a Github style short SHA in a
 
 [![Gem Version](https://badge.fury.io/rb/lolcommits.svg)](https://rubygems.org/gems/lolcommits)
 [![Build Status](https://travis-ci.org/mroth/lolcommits.svg?branch=master)](https://travis-ci.org/mroth/lolcommits)
+[![Depfu](https://img.shields.io/depfu/mroth/lolcommits.svg?style=flat)](https://depfu.com/github/mroth/lolcommits)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/maintainability)](https://codeclimate.com/github/mroth/lolcommits/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/test_coverage)](https://codeclimate.com/github/mroth/lolcommits/test_coverage)
 
 ## Sample images
 
