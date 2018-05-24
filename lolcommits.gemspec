@@ -57,7 +57,7 @@ POSTINSTALL
   s.add_runtime_dependency('git', '~> 1.4.0')
 
   # included plugins
-  s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.5')
+  s.add_runtime_dependency('lolcommits-loltext', '0.0.9')
 
   # development & test gems
   s.add_development_dependency('aruba')
