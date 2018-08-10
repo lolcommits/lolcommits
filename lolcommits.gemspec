@@ -54,7 +54,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('mini_magick', '~> 4.8.0')
   s.add_runtime_dependency('launchy', '~> 2.4.3')
   s.add_runtime_dependency('open4', '~> 1.3.4')
-  s.add_runtime_dependency('git', '~> 1.4.0')
+  s.add_runtime_dependency('git', '~> 1.5.0')
 
   # included plugins
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.0.5')
