@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   lolcommits takes a snapshot with your webcam every time you git commit code,
   and archives a lolcat style image with it. It's selfies for software
   developers. `git blame` has never been so much fun.
-DESC
+  DESC
 
   s.post_install_message = <<-POSTINSTALL
   -------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ DESC
   Happy Lol'ing!
 
   -------------------------------------------------------------------------------
-POSTINSTALL
+  POSTINSTALL
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

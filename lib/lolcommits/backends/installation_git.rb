@@ -68,10 +68,10 @@ module Lolcommits
       end
 
       <<-HOOK
-### lolcommits hook (begin) ###
-#{exports} && #{capture_cmd}
-###  lolcommits hook (end)  ###
-HOOK
+        ### lolcommits hook (begin) ###
+        #{exports} && #{capture_cmd}
+        ###  lolcommits hook (end)  ###
+      HOOK
     end
 
     # does a git hook exist at all?
