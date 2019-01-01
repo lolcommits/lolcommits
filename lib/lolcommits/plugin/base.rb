@@ -75,11 +75,13 @@ module Lolcommits
       # dont puts or print if the runner wants to be silent (stealth mode)
       def puts(*args)
         return if runner && runner.capture_stealth
+
         super(*args)
       end
 
       def print(*args)
         return if runner && runner.capture_stealth
+
         super(*args)
       end
 

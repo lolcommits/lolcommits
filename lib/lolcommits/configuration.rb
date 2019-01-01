@@ -14,6 +14,7 @@ module Lolcommits
     def yaml
       @yaml ||= begin
         return Hash.new({}) unless File.exist?(configuration_file)
+
         YAML.safe_load(File.open(configuration_file), [Symbol]) || Hash.new({})
       end
     end
@@ -24,6 +25,7 @@ module Lolcommits
 
     def loldir
       return @loldir if @loldir
+
       basename ||= if VCSInfo.repo_root?
                      VCSInfo.local_name
                    else

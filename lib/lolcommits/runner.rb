@@ -12,6 +12,7 @@ module Lolcommits
       end
 
       return unless sha.nil? || message.nil?
+
       if GitInfo.repo_root?
         self.vcs_info = GitInfo.new
       elsif MercurialInfo.repo_root?

@@ -19,6 +19,7 @@ module Lolcommits
 
       def setup_repo
         return if repo_exists?
+
         `git init --quiet #{repo_path}`
       end
 
@@ -31,6 +32,7 @@ module Lolcommits
 
       def in_repo
         return unless repo_exists?
+
         Dir.chdir(File.expand_path(repo_path)) do
           yield
         end

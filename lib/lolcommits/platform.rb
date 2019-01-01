@@ -61,7 +61,9 @@ module Lolcommits
     # @return Boolean
     def self.valid_imagemagick_installed?
       return false unless command_which('identify')
+
       return false unless command_which('mogrify')
+
       # cli_version check will throw a MiniMagick::Error exception if IM is not
       # installed in PATH, since it attempts to parse output from `identify`
       !MiniMagick.cli_version.nil?
@@ -118,6 +120,7 @@ module Lolcommits
     def self.device_list
       # TODO: handle other platforms here (linux/windows) e.g with ffmpeg -list_devices
       return unless Platform.platform_mac?
+
       capturer = Lolcommits::CaptureMacAnimated.new
       `#{capturer.executable_path} -l`
     end

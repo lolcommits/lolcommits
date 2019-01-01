@@ -43,6 +43,7 @@ module Lolcommits
 
         while (line = Readline.readline(prompt, true).strip)
           return line if words.include?(line)
+
           puts "'#{line}' not found"
         end
       end

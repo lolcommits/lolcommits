@@ -196,6 +196,7 @@ class App
         return
       end
       return if VCSInfo.repo_root?
+
       Dir.chdir(nxt)
     end
   end

@@ -8,6 +8,7 @@ module Lolcommits
       # capture the raw video with videosnap
       system_call "#{executable_path} -s 240 #{capture_device_string}#{capture_delay_string}-t #{animated_duration} --no-audio \"#{video_location}\" > /dev/null"
       return unless File.exist?(video_location)
+
       # get fps for ffmpeg output stream configuration
       fps = video_fps(video_location)
       # convert raw video to png frames with ffmpeg

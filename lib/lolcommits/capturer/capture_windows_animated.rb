@@ -12,6 +12,7 @@ module Lolcommits
       system_call "ffmpeg -v quiet -y -f dshow -i video=\"#{capture_device_string}\" -video_size 320x240 -t #{capture_duration} \"#{video_location}\" > NUL"
 
       return unless File.exist?(video_location)
+
       # convert raw video to png frames with ffmpeg
       system_call "ffmpeg #{capture_delay_string} -v quiet -i \"#{video_location}\" -t #{animated_duration} \"#{frames_location}/%09d.png\" > NUL"
 
@@ -48,6 +49,7 @@ module Lolcommits
           cmd_output = system_call(ffpmeg_list_devices_cmd, true)
           count += 1
           raise 'failed to find a video capture device with ffmpeg -list_devices' if count == 5
+
           sleep 0.1
         end
         cmd_output.gsub!("\r\n", "\n")

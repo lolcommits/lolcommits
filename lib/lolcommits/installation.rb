@@ -42,6 +42,7 @@ module Lolcommits
     def self.extract_capture_args(options)
       options.map do |k, v|
         next unless %w(device animate delay stealth fork).include?(k)
+
         if k == 'device'
           "--device '#{v}'"
         else

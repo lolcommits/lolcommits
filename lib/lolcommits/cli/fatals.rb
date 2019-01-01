@@ -16,6 +16,7 @@ module Lolcommits
         if Platform.platform_mac?
           %w(imagesnap videosnap).each do |executable|
             next if File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
+
             fatal "Couldn't properly execute #{executable} for some reason, "\
                   'please file a bug?!'
             exit 1
@@ -36,6 +37,7 @@ module Lolcommits
 
         # check for a error condition with git config affecting ruby-git
         return unless Platform.git_config_color_always?
+
         fatal 'Due to a bug in the ruby-git library, git config for color.ui'\
           " cannot be set to 'always'."
         fatal "Try setting it to 'auto' instead!"
@@ -47,6 +49,7 @@ module Lolcommits
       # this when you know the user wants to perform one of them.
       def self.die_if_no_valid_ffmpeg_installed!
         return if Platform.valid_ffmpeg_installed?
+
         fatal 'FATAL: ffmpeg does not appear to be properly installed!'
         exit 1
       end
@@ -59,6 +62,7 @@ module Lolcommits
         parent = File.dirname(current)
         while current != parent
           return if VCSInfo.repo_root?(current)
+
           current = parent
           parent = File.dirname(current)
         end
