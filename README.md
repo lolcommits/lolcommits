@@ -13,6 +13,18 @@ By default, the lol images are stored by a Github style short SHA in a
 [![Maintainability](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/maintainability)](https://codeclimate.com/github/mroth/lolcommits/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/test_coverage)](https://codeclimate.com/github/mroth/lolcommits/test_coverage)
 
+## History
+
+Originally created by [@mroth] in 2011 as a joke project for [Hack && Tell], lolcommits has grown considerably since then, and is now
+primarily maintained by [@matthutchinson].
+
+Thank you to all of the [contributors] throughout the years!
+
+[@mroth]: https://github.com/mroth
+[@matthutchinson]: https://github.com/matthutchinson
+[Hack && Tell]: https://hackandtell.org
+[contributors]: https://github.com/mroth/lolcommits/graphs/contributors
+
 ## Sample images
 
 <img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
