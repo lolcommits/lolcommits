@@ -50,10 +50,11 @@ module Lolcommits
       if File.exist?(snapshot_loc) || (capture_animated? && File.exist?(video_loc))
 
         # execute post_capture plugins, use to alter the capture
+        resize_snapshot! if File.exist?(snapshot_loc)
+                
         execute_plugins_for(:post_capture)
 
         make_animated_gif if capture_animated?
-        resize_snapshot! if File.exist?(snapshot_loc)
 
         # execute capture_ready plugins, capture is ready for export/sharing
         execute_plugins_for(:capture_ready)
