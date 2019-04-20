@@ -44,7 +44,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   # non-gem dependencies
-  s.required_ruby_version = '>= 2.1'
+  s.required_ruby_version = '>= 2.3'
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
