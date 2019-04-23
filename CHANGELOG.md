@@ -7,6 +7,16 @@ project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.13.0][] (23 April 2019)
+  * Require at least Ruby 2.3
+  * Upgrade git gem dependency to 1.5.0 (@matthutchinson [#377][])
+  * Upgrade mini_magick gem dependency to 4.9.3 (@matthutchinson [#385][])
+  * Add History and Contributor section to README (@mroth [#385][])
+  * add frozen_string_literal: true comment to all Ruby files
+  * change $PATH override precedence in hooks installers
+  * Updated COC (Contributor Covenant v1.4)
+  * Added PR template
+
 ## [0.12.1][] (27 March 2018)
   * Name passed to `Plugin::Base` initializer (@matthutchinson)
   * Removed dead method `configured? in `Plugin::Base`
@@ -292,7 +302,7 @@ project adheres to [Semantic Versioning][Semver].
 ## 0.1.3 (18 May 2012)
   * add LGPLv3 license
   * add option to translate your commit message to lolspeak! (thx
-    to @DanielleSucher!).  To enable, set `LOLCOMMITS_TRANZLATE=1`.
+    to @DanielleSucher!). To enable, set `LOLCOMMITS_TRANZLATE=1`.
   * fix issue with older versions of IM crashing on interline spacing (pull [#31][] via @german)
   * fix issue with git repos with no hooks directory (pull [#43][] via @mkmaster)
   * fix missing dash in capture -c
@@ -302,7 +312,7 @@ project adheres to [Semantic Versioning][Semver].
   * bundle imagesnap as well to remove a dependency on Mac OS X
 
 ## 0.1.1 (21 April 2012)
-  * Windows compatibility!  Thanks to @Prydonious.
+  * Windows compatibility! Thanks to @Prydonious.
 
 ## 0.1.0 (19 April 2012)
   * Linux compatibility! Thanks to @madjar, @cscorely, and @Prydonius.
@@ -325,7 +335,8 @@ project adheres to [Semantic Versioning][Semver].
   instead of compositing multiply image Caption objects (this seems to be more
   reliable to not glitch.)
 
-[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.12.1...HEAD
+[Unreleased]: https://github.com/mroth/lolcommits/compare/v0.13.0...HEAD
+[0.13.0]: https://github.com/mroth/lolcommits/compare/v0.12.1...v0.13.0
 [0.12.1]: https://github.com/mroth/lolcommits/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/mroth/lolcommits/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/mroth/lolcommits/compare/v0.10.0...v0.11.0
@@ -516,3 +527,6 @@ project adheres to [Semantic Versioning][Semver].
 [#366]: https://github.com/mroth/lolcommits/pull/366
 [#367]: https://github.com/mroth/lolcommits/pull/367
 [#369]: https://github.com/mroth/lolcommits/pull/369
+[#377]: https://github.com/mroth/lolcommits/pull/377
+[#384]: https://github.com/mroth/lolcommits/pull/384
+[#385]: https://github.com/mroth/lolcommits/pull/385
