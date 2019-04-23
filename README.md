@@ -36,7 +36,7 @@ page on our wiki!
 
 ## Requirements
 
-* Ruby >= 2.0.0
+* Ruby >= 2.3
 * A webcam
 * [ImageMagick](http://www.imagemagick.org)
 * [ffmpeg](https://www.ffmpeg.org) (optional) for animated gif capturing
