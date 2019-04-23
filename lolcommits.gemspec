@@ -8,7 +8,6 @@ Gem::Specification.new do |s|
 
   s.authors     = ['Matthew Rothenberg', 'Matthew Hutchinson']
   s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
-  s.homepage    = 'http://mroth.github.com/lolcommits/'
   s.license     = 'LGPL-3'
   s.summary     = 'Capture webcam image on git commit for lulz.'
 
@@ -17,6 +16,14 @@ Gem::Specification.new do |s|
   and archives a lolcat style image with it. It's selfies for software
   developers. `git blame` has never been so much fun.
   DESC
+
+  s.metadata = {
+    'homepage_uri' => 'https://lolcommits.github.io',
+    'source_code_uri' => 'https://github.com/mroth/lolcommits',
+    'changelog_uri' => 'https://github.com/mroth/lolcommits/blob/master/CHANGELOG.md',
+    'bug_tracker_uri' => 'https://github.com/mroth/lolcommits/issues',
+    'allowed_push_host' => 'https://rubygems.org'
+  }
 
   s.post_install_message = <<-POSTINSTALL
   -------------------------------------------------------------------------------
