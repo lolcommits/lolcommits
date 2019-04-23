@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class CaptureLinuxAnimated < Capturer
     def capture

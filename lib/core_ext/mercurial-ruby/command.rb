@@ -1,10 +1,11 @@
-# need to use popen3 on windows - popen4 always eventually calls fork
-if Lolcommits::Platform.platform_windows?
+# frozen_string_literal: true
 
+if Lolcommits::Platform.platform_windows?
   module Mercurial
     class Command
       private
 
+      # need to use popen3 on windows - popen4 always eventually calls fork
       def execution_proc
         proc do
           debug(command)

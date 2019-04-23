@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   #
   # Methods to handle enabling and disabling of lolcommits

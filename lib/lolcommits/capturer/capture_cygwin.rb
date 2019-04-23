@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class CaptureCygwin < Capturer
     def capture

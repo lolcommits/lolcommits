@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'lolcommits/plugin/configuration_helper'
 
 module Lolcommits

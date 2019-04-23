@@ -1,6 +1,8 @@
-# windows command line doesn't like single quotes
+# frozen_string_literal: true
+
 module Mercurial
   class Shell
+    # windows command line doesn't like single quotes
     def self.interpolate_arguments(cmd_with_args)
       cmd_with_args.shift.tap do |cmd|
         cmd.gsub!(/\?/) do

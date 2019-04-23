@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   module CLI
     # Helper class for forking lolcommits process to the background (or not).

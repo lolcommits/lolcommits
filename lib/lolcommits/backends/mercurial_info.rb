@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class MercurialInfo
     def self.repo_root?(path = '.')

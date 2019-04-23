@@ -1,5 +1,6 @@
-require 'lolcommits/cli/fatals'
+# frozen_string_literal: true
 
+require 'lolcommits/cli/fatals'
 require 'mini_magick'
 
 module Lolcommits

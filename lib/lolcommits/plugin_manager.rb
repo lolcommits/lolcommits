@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class PluginManager
     GEM_NAME_PREFIX = /^lolcommits-/.freeze

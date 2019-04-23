@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class CaptureMacAnimated < Capturer
     def capture

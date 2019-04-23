@@ -8,6 +8,10 @@ rvm:
   - 2.6.3
   - ruby-head
 
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+
 before_install:
   # stub mplayer/ffmpeg so it looks like they are installed
   - mkdir -p ~/bin
@@ -15,10 +19,6 @@ before_install:
   - chmod +x ~/bin/mplayer ~/bin/ffmpeg
   - export PATH=~/bin:$PATH
   - git --version
-
-matrix:
-  allow_failures:
-    - rvm: ruby-head
 
 notifications:
   slack:

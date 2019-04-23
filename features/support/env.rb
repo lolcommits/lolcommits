@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'aruba/cucumber'
 require 'methadone/cucumber'
 require 'open3'

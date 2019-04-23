@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class VCSInfo
     def self.repo_root?(path = '.')

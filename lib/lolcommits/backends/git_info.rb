@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class GitInfo
     GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}.freeze

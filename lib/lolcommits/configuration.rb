@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Lolcommits
   class Configuration
     LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
