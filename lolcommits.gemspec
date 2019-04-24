@@ -3,13 +3,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'lolcommits/version'
 
 Gem::Specification.new do |s|
-  s.name        = Lolcommits::GEM_NAME.dup
-  s.version     = Lolcommits::VERSION.dup
+  s.name    = Lolcommits::GEM_NAME.dup
+  s.version = Lolcommits::VERSION.dup
 
-  s.authors     = ['Matthew Rothenberg', 'Matthew Hutchinson']
-  s.email       = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
-  s.license     = 'LGPL-3'
-  s.summary     = 'Capture webcam image on git commit for lulz.'
+  s.authors = ['Matthew Rothenberg', 'Matthew Hutchinson']
+  s.email   = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
+  s.license = 'LGPL-3'
+  s.summary = 'Capture webcam image on git commit for lulz.'
 
   s.description = <<-DESC
   lolcommits takes a snapshot with your webcam every time you git commit code,
@@ -24,26 +24,6 @@ Gem::Specification.new do |s|
     'bug_tracker_uri' => 'https://github.com/mroth/lolcommits/issues',
     'allowed_push_host' => 'https://rubygems.org'
   }
-
-  s.post_install_message = <<-POSTINSTALL
-  -------------------------------------------------------------------------------
-
-  Lolcommits: A quick message from the dev team! All plugins have now been
-  extracted to external gems. To continue using a (previously built-in) plugin,
-  first install the gem then configure to enable it e.g.
-
-    gem install lolcommits-twitter
-    lolcommits --config
-
-  See https://github.com/mroth/lolcommits/wiki/Configuring-Plugins for details.
-
-  Future plugin developers should check out this repo to get started:
-  https://github.com/lolcommits/lolcommits-plugin-sample
-
-  Happy Lol'ing!
-
-  -------------------------------------------------------------------------------
-  POSTINSTALL
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
