@@ -31,7 +31,6 @@ deploy:
   gem: lolcommits
   on:
     tags: true
-    all_branches: true
     repo: mroth/lolcommits
 
 env:
