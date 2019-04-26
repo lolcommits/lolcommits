@@ -4,9 +4,9 @@ require 'lolcommits/platform'
 
 module Lolcommits
   class Runner
-    attr_accessor :capture_delay, :capture_stealth, :capture_device, :message,
-                  :sha, :snapshot_loc, :main_image, :config, :vcs_info,
-                  :capture_animate, :video_loc, :main_video
+    attr_accessor :capture_delay, :capture_stealth, :capture_device,
+                  :message, :sha, :snapshot_loc, :main_image, :video_loc,
+                  :main_video, :config, :vcs_info, :capture_animate
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -49,16 +49,18 @@ module Lolcommits
       run_capture
 
       # check capture succeded, file must exist
-      if File.exist?(snapshot_loc) || (capture_animated? && File.exist?(video_loc))
-
-        # execute post_capture plugins, use to alter the capture
+      if File.exist?(snapshot_loc) || File.exist?(video_loc)
+        # resize snapshot (if snapshot image exists)
         resize_snapshot! if File.exist?(snapshot_loc)
-                
+
+        # execute post_capture plugins
         execute_plugins_for(:post_capture)
 
-        make_animated_gif if capture_animated?
+        # create an animated gif (if video exists)
+        make_animated_gif if File.exist?(video_loc)
 
-        # execute capture_ready plugins, capture is ready for export/sharing
+        # execute capture_ready plugins (all post capture plugins
+        # finished, animated-gif ready)
         execute_plugins_for(:capture_ready)
 
         # clean away any tmp files
@@ -73,8 +75,8 @@ module Lolcommits
     def run_capture
       puts '*** Preserving this moment in history.' unless capture_stealth
       self.snapshot_loc = config.raw_image(image_file_type)
-      self.main_image   = config.main_image(sha, image_file_type)
-      self.main_video   = config.main_image(sha, 'mp4')
+      self.main_image   = config.sha_file(sha, image_file_type)
+      self.main_video   = config.sha_file(sha, 'mp4')
       self.video_loc    = config.video_loc
 
       capturer = Platform.capturer_class(capture_animated?).new(
@@ -123,9 +125,9 @@ module Lolcommits
     end
 
     def make_animated_gif
-      null_string = "/dev/null"
+      null_string = '/dev/null'
       if Lolcommits::Platform.platform_windows?
-        null_string = "nul"
+        null_string = 'nul'
       end
       system_call "ffmpeg #{capture_delay_string} -nostats -v quiet -i \"#{main_video}\" -t #{capture_animate} \"#{config.frames_loc}/%09d.png\" > #{null_string}"
 
@@ -137,9 +139,9 @@ module Lolcommits
 
       # create the looping animated gif from frames (delete frame files except every #{skip} frame)
       Dir["#{config.frames_loc}/*.png"].each do |frame_filename|
-          basename = File.basename(frame_filename)
-          frame_number = basename.split('.').first.to_i
-          File.delete(frame_filename) if frame_number % skip != 0
+        basename = File.basename(frame_filename)
+        frame_number = basename.split('.').first.to_i
+        File.delete(frame_filename) if frame_number % skip != 0
       end
 
       # convert to animated gif with delay and gif optimisation
@@ -176,11 +178,9 @@ module Lolcommits
       capture_output ? `#{call_str}` : system(call_str)
     end
 
-
     def cleanup!
       debug 'Runner: running cleanup'
-      # clean up the captured image and any other raw assets
-      FileUtils.rm(snapshot_loc) if File.exists?(snapshot_loc)
+      FileUtils.rm_f(snapshot_loc)
       FileUtils.rm_f(config.video_loc)
       FileUtils.rm_rf(config.frames_loc)
     end

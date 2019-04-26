@@ -56,8 +56,8 @@ module Lolcommits
       File.join loldir, "tmp_snapshot.#{image_file_type}"
     end
 
-    def main_image(commit_sha, image_file_type = 'jpg')
-      File.join loldir, "#{commit_sha}.#{image_file_type}"
+    def sha_file(sha, file_type)
+      File.join loldir, "#{sha}.#{file_type}"
     end
 
     def video_loc

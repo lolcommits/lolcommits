@@ -237,7 +237,7 @@ Feature: Basic UI functionality
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "~/.lolcommits/animate" should exist
-      And a file named "~/.lolcommits/animate/tmp_video.mov" should not exist
+      And a file named "~/.lolcommits/animate/tmp_video.mp4" should not exist
       And a directory named "~/.lolcommits/animate/tmp_frames" should not exist
       And there should be exactly 1 gif in "~/.lolcommits/animate"
 
