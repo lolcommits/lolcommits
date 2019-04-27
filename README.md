@@ -1,4 +1,11 @@
 # lolcommits
+
+[![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
+[![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits)
+[![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/maintainability)](https://codeclimate.com/github/lolcommits/lolcommits/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/test_coverage)](https://codeclimate.com/github/lolcommits/lolcommits/test_coverage)
+
 > git-based selfies for software developers
 
 lolcommits takes a snapshot with your webcam every time you git commit code, and
@@ -6,12 +13,6 @@ archives a lolcat style image with it. Git blame has never been so much fun.
 
 By default, the lol images are stored by a Github style short SHA in a
 `~/.lolcommits` directory created for you.
-
-[![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
-[![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits)
-[![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
-[![Maintainability](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/maintainability)](https://codeclimate.com/github/lolcommits/lolcommits/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/test_coverage)](https://codeclimate.com/github/lolcommits/lolcommits/test_coverage)
 
 ## History
 
