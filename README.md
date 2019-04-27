@@ -7,11 +7,11 @@ archives a lolcat style image with it. Git blame has never been so much fun.
 By default, the lol images are stored by a Github style short SHA in a
 `~/.lolcommits` directory created for you.
 
-[![Gem Version](https://badge.fury.io/rb/lolcommits.svg)](https://rubygems.org/gems/lolcommits)
-[![Build Status](https://travis-ci.org/mroth/lolcommits.svg?branch=master)](https://travis-ci.org/mroth/lolcommits)
-[![Depfu](https://img.shields.io/depfu/mroth/lolcommits.svg?style=flat)](https://depfu.com/github/mroth/lolcommits)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/maintainability)](https://codeclimate.com/github/mroth/lolcommits/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/9d87301dd4fa2184382c/test_coverage)](https://codeclimate.com/github/mroth/lolcommits/test_coverage)
+[![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
+[![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits)
+[![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
+[![Maintainability](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/maintainability)](https://codeclimate.com/github/lolcommits/lolcommits/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/test_coverage)](https://codeclimate.com/github/lolcommits/lolcommits/test_coverage)
 
 ## History
 
@@ -23,14 +23,14 @@ Thank you to all of the [contributors] throughout the years!
 [@mroth]: https://github.com/mroth
 [@matthutchinson]: https://github.com/matthutchinson
 [Hack && Tell]: https://hackandtell.org
-[contributors]: https://github.com/mroth/lolcommits/graphs/contributors
+[contributors]: https://github.com/lolcommits/lolcommits/graphs/contributors
 
 ## Sample images
 
 <img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
 
 Please add your own lolcommit to the [People Using
-Lolcommits](https://github.com/mroth/lolcommits/wiki/Lolcommits-from-around-the-world%21)
+Lolcommits](https://github.com/lolcommits/lolcommits/wiki/Lolcommits-from-around-the-world%21)
 page on our wiki!
 
 
@@ -82,14 +82,14 @@ Then install with:
     gem install lolcommits
 
 For more details, see [Installing on
-Linux](https://github.com/mroth/lolcommits/wiki/Installing-on-Linux).
+Linux](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Linux).
 
 
 ### Windows - here be dragons!
 
 It works, but you'll need some more detailed instructions to get the
 dependencies installed. See the wiki page for [Installing on
-Windows](https://github.com/mroth/lolcommits/wiki/Installing-on-Windows).
+Windows](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Windows).
 
 
 ## Usage
@@ -103,7 +103,7 @@ lolcommits are stored in `~/.lolcommits` and placed in a subdirectory by project
 name, with a filename matching the commit hash.
 
 Follow [these
-steps](https://github.com/mroth/lolcommits/wiki/Enabling-Lolcommits-for-all-your-Git-Repositories)
+steps](https://github.com/lolcommits/lolcommits/wiki/Enabling-Lolcommits-for-all-your-Git-Repositories)
 to enable lolcommits across all your repos; using `git init` and the
 `init.templatedir` setting.
 
@@ -169,7 +169,7 @@ loltext plugin with this command:
     lolcommits --config -p loltext
 
 To find out more about styling, read about the [loltext
-options](https://github.com/mroth/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
+options](https://github.com/lolcommits/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
 
 
 ### Animated Gif Capturing
@@ -199,7 +199,7 @@ message and sha to the captured image. Others can post to Twitter, Tumblr (and
 other services), or even translate your commit messages to
 [lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak). Check them
 out on our [plugins
-page](https://github.com/mroth/lolcommits/wiki/Configuring-Plugins).
+page](https://github.com/lolcommits/lolcommits/wiki/Configuring-Plugins).
 
 To list all installed plugins use:
 
@@ -227,12 +227,12 @@ Watch your face decay while you program, with an animated timelapse gif!
 
 ## Troubles?
 
-Try our trouble-shooting [FAQ](https://github.com/mroth/lolcommits/wiki/FAQ), or
-take a read through our [wiki](https://github.com/mroth/lolcommits/wiki). If you
+Try our trouble-shooting [FAQ](https://github.com/lolcommits/lolcommits/wiki/FAQ), or
+take a read through our [wiki](https://github.com/lolcommits/lolcommits/wiki). If you
 think something is broken or missing, please raise a [Github
-issue](https://github.com/mroth/lolcommits/issues) (and please check if we
+issue](https://github.com/lolcommits/lolcommits/issues) (and please check if we
 haven't [already
-addressed](https://github.com/mroth/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
+addressed](https://github.com/lolcommits/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
 it).
 
 

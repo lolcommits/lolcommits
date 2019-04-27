@@ -31,7 +31,7 @@ deploy:
   gem: lolcommits
   on:
     tags: true
-    repo: mroth/lolcommits
+    repo: lolcommits/lolcommits
 
 env:
   global:

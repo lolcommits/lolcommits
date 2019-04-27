@@ -19,9 +19,9 @@ Gem::Specification.new do |s|
 
   s.metadata = {
     'homepage_uri' => 'https://lolcommits.github.io',
-    'source_code_uri' => 'https://github.com/mroth/lolcommits',
-    'changelog_uri' => 'https://github.com/mroth/lolcommits/blob/master/CHANGELOG.md',
-    'bug_tracker_uri' => 'https://github.com/mroth/lolcommits/issues',
+    'source_code_uri' => 'https://github.com/lolcommits/lolcommits',
+    'changelog_uri' => 'https://github.com/lolcommits/lolcommits/blob/master/CHANGELOG.md',
+    'bug_tracker_uri' => 'https://github.com/lolcommits/lolcommits/issues',
     'allowed_push_host' => 'https://rubygems.org'
   }
 

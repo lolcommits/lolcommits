@@ -67,7 +67,7 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  # flakey test sometimes fails: https://travis-ci.org/mroth/lolcommits/jobs/312629988#L620
+  # flakey test sometimes fails
   # Scenario: Capture doesnt break in forked mode
   #   Given I am in a git repo named "forked"
   #   And I do a git commit

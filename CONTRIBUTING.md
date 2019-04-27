@@ -22,7 +22,7 @@ ensure Ruby style guidelines. If you want to run tests before conforming to this
 to verify functionality, just run `rake test` and `rake features` manually.
 
 With a passing test suite, commit your changes, push and submit a new [Pull
-Request](https://github.com/mroth/lolcommits/compare/):
+Request](https://github.com/lolcommits/lolcommits/compare/):
 
     git commit -am 'Added some feature'
     git push origin my-new-feature
@@ -34,7 +34,7 @@ request gets accepted:
 
 * Explain what your are doing (and why) in your Pull Request description.
 * If you are fixing an
-  [issue](https://github.com/mroth/lolcommits/issues), link to
+  [issue](https://github.com/lolcommits/lolcommits/issues), link to
   it in your description and [mention
   it](https://help.github.com/articles/closing-issues-via-commit-messages/) in
   the commit message.

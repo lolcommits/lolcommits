@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + '/test_helper')
 
 class PermissionsTest < Minitest::Test
   #
-  # issue #53, https://github.com/mroth/lolcommits/issues/53
+  # issue #53, https://github.com/lolcommits/lolcommits/issues/53
   # this will test the permissions but only locally, important before building a gem package!
   #
   def test_permissions

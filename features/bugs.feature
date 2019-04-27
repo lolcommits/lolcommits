@@ -7,7 +7,7 @@ Feature: Bug regression testing
     Given a mocked home directory
 
   #
-  # issue #58, https://github.com/mroth/lolcommits/issues/58
+  # issue #58, https://github.com/lolcommits/lolcommits/issues/58
   #
   Scenario: handle git repos with spaces in directory name
     Given I am in a git repo named "test lolol" with lolcommits enabled
@@ -16,7 +16,7 @@ Feature: Bug regression testing
     And a directory named "../.lolcommits/test-lolol" should exist
 
   #
-  # issue #68, https://github.com/mroth/lolcommits/issues/68
+  # issue #68, https://github.com/lolcommits/lolcommits/issues/68
   #
   @fake-interactive-rebase @slow_process
   Scenario: Don't trigger capture during a git rebase
@@ -26,7 +26,7 @@ Feature: Bug regression testing
     Then there should be exactly 3 jpgs in "~/.lolcommits/yuh8history"
 
   #
-  # issue #87, https://github.com/mroth/lolcommits/issues/87
+  # issue #87, https://github.com/lolcommits/lolcommits/issues/87
   #
   @fake-no-imagemagick
   Scenario: gracefully fail when imagemagick is not installed
@@ -38,7 +38,7 @@ Feature: Bug regression testing
     And the exit status should be 1
 
   #
-  # issue #50, https://github.com/mroth/lolcommits/issues/50
+  # issue #50, https://github.com/lolcommits/lolcommits/issues/50
   #
   Scenario: catch upstream bug with ruby-git and color=always
     Given I am in a git repo named "whatev" with lolcommits enabled
