@@ -7,6 +7,12 @@ project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.13.1][] (29 April 2019)
+  * Update all links and badges (in gemspec, README etc.) to lolcommits
+    organisation
+  * remove gem `post_install` message
+  * use `lolcommits-loltext ~> 0.1.0'
+
 ## [0.13.0][] (23 April 2019)
   * Require at least Ruby 2.3
   * Upgrade git gem dependency to 1.5.0 (@matthutchinson [#377][])
@@ -336,7 +342,8 @@ project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...HEAD
+[0.13.1]: https://github.com/lolcommits/lolcommits/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/lolcommits/lolcommits/compare/v0.12.1...v0.13.0
 [0.12.1]: https://github.com/lolcommits/lolcommits/compare/v0.12.0...v0.12.1
 [0.12.0]: https://github.com/lolcommits/lolcommits/compare/v0.11.0...v0.12.0
