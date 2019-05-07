@@ -70,9 +70,10 @@ module Lolcommits
       end
 
       <<-HOOK
-        ### lolcommits hook (begin) ###
-        #{exports} && #{capture_cmd}
-        ###  lolcommits hook (end)  ###
+
+### lolcommits hook (begin) ###
+#{exports} && #{capture_cmd}
+###  lolcommits hook (end)  ###
       HOOK
     end
 
