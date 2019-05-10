@@ -13,15 +13,15 @@ module Lolcommits
     end
 
     def initialize
-      debug 'GitInfo: parsed the following values from commit:'
-      debug "GitInfo: \t#{message}"
-      debug "GitInfo: \t#{sha}"
-      debug "GitInfo: \t#{repo_internal_path}"
-      debug "GitInfo: \t#{repo}"
-      debug "GitInfo: \t#{branch}"
-      debug "GitInfo: \t#{commit_date}"
-      debug "GitInfo: \t#{author_name}" if author_name
-      debug "GitInfo: \t#{author_email}" if author_email
+      debug 'parsed the following values from commit:'
+      debug "\t#{message}"
+      debug "\t#{sha}"
+      debug "\t#{repo_internal_path}"
+      debug "\t#{repo}"
+      debug "\t#{branch}"
+      debug "\t#{commit_date}"
+      debug "\t#{author_name}" if author_name
+      debug "\t#{author_email}" if author_email
     end
 
     def branch
@@ -72,6 +72,10 @@ module Lolcommits
     end
 
     private
+
+    def debug(message)
+      super("#{self.class}: #{message}")
+    end
 
     def remote_https_url(url)
       url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '') + '/commit/'

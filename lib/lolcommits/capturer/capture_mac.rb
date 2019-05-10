@@ -2,19 +2,14 @@
 
 module Lolcommits
   class CaptureMac < Capturer
-    def capture_device_string
-      @capture_device.nil? ? nil : "-d \"#{@capture_device}\""
+    def capture
+      system_call "#{executable_path} -q \"#{capture_path}\" -w #{capture_delay} #{capture_device_string}"
     end
 
-    def capture
-      # TODO: check we have a webcam we can capture from first. See issue #219
-      # operating laptop in clamshell (lid closed) from 2nd desktop screen,
-      # needs to better handle  the capturer (imagesnap, videosnap
-      # CommandCam, mplayer) return code or check with an option before
-      # attempting capture. Alt solution is puttin in prompt mode option :(
-      call_str = "#{executable_path} -q \"#{snapshot_location}\" -w #{capture_delay} #{capture_device_string}"
-      debug "Capturer: making system call for #{call_str}"
-      system(call_str)
+    private
+
+    def capture_device_string
+      capture_device.nil? ? '' : "-d \"#{capture_device}\""
     end
 
     def executable_path

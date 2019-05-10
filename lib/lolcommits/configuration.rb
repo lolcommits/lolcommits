@@ -38,10 +38,12 @@ module Lolcommits
       @loldir = Configuration.loldir_for(basename)
     end
 
-    def archivedir
-      dir = File.join(loldir, 'archive')
-      FileUtils.mkdir_p dir unless File.directory? dir
-      dir
+    def archive_dir_path
+      @archive_dir_path ||= begin
+        dir = File.join(loldir, 'archive')
+        FileUtils.mkdir_p(dir) unless File.directory?(dir)
+        dir
+      end
     end
 
     def jpg_images
@@ -52,20 +54,12 @@ module Lolcommits
       jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Date.today }
     end
 
-    def raw_image(image_file_type = 'jpg')
-      File.join loldir, "tmp_snapshot.#{image_file_type}"
+    def sha_path(sha, ext)
+      File.join loldir, "#{sha}.#{ext}"
     end
 
-    def sha_file(sha, file_type)
-      File.join loldir, "#{sha}.#{file_type}"
-    end
-
-    def video_loc
-      File.join(loldir, 'tmp_video.mp4')
-    end
-
-    def frames_loc
-      File.join(loldir, 'tmp_frames')
+    def capture_path(ext = 'jpg')
+      File.join loldir, "raw_capture.#{ext}"
     end
 
     def list_plugins

@@ -75,7 +75,7 @@ Feature: Basic UI functionality
   #   Then there should be exactly 1 pid in "~/.lolcommits/forked"
   #   When I wait for the child process to exit in "forked"
   #   Then a directory named "~/.lolcommits/forked" should exist
-  #     And a file named "~/.lolcommits/forked/tmp_snapshot.jpg" should not exist
+  #     And a file named "~/.lolcommits/forked/raw_capture.jpg" should not exist
   #     And there should be exactly 1 jpg in "~/.lolcommits/forked"
 
   Scenario: Commiting in an enabled git repo triggers successful capture
@@ -83,7 +83,7 @@ Feature: Basic UI functionality
     When I do a git commit
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "~/.lolcommits/myrepo" should exist
-      And a file named "~/.lolcommits/myrepo/tmp_snapshot.jpg" should not exist
+      And a file named "~/.lolcommits/myrepo/raw_capture.jpg" should not exist
       And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
 
   Scenario: Commiting in enabled git repo subdirectory triggers successful capture
@@ -124,8 +124,8 @@ Feature: Basic UI functionality
     When I run `lolcommits --test --show-config`
     Then the output should match /loltext:\s+:enabled: false/
 
-  Scenario: test capture should work regardless of whether in a lolrepo
-    Given I am in a directory named "nothingtoseehere"
+  Scenario: test capture should work regardless of whether in a vcs repo
+    Given I am in a directory named "not_a_vcs_repo"
     When I run `lolcommits --test --capture`
     Then the output should contain "*** Capturing in test mode."
       And the output should not contain "path does not exist (ArgumentError)"
@@ -230,16 +230,16 @@ Feature: Basic UI functionality
     When I run `lolcommits --timelapse --period today`
     Then there should be exactly 1 gif in "~/.lolcommits/sunday/archive"
 
-  @mac-only
+  @requires_ffmpeg @slow_process
   Scenario: should generate an animated gif on the Mac platform
     Given I am in a git repo named "animate"
       And I do a git commit
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
       And a directory named "~/.lolcommits/animate" should exist
-      And a file named "~/.lolcommits/animate/tmp_video.mp4" should not exist
-      And a directory named "~/.lolcommits/animate/tmp_frames" should not exist
+      And a file named "~/.lolcommits/animate/raw_capture.mp4" should not exist
       And there should be exactly 1 gif in "~/.lolcommits/animate"
+      And there should be exactly 1 mp4 in "~/.lolcommits/animate"
 
   @fake-no-ffmpeg
   Scenario: gracefully fail when ffmpeg not installed and --animate is used
@@ -292,7 +292,7 @@ Feature: Basic UI functionality
     When I do a mercurial commit
     Then the output should contain "*** Preserving this moment in history."
     And a directory named "~/.lolcommits/myrepo" should exist
-    And a file named "~/.lolcommits/myrepo/tmp_snapshot.jpg" should not exist
+    And a file named "~/.lolcommits/myrepo/raw_capture.jpg" should not exist
     And there should be exactly 1 jpg in "~/.lolcommits/myrepo"
 
   Scenario: Commiting in enabled mercurial repo subdirectory triggers successful capture

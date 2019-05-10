@@ -21,9 +21,9 @@ Feature: Bug regression testing
   @fake-interactive-rebase @slow_process
   Scenario: Don't trigger capture during a git rebase
     Given I am in a git repo named "yuh8history" with lolcommits enabled
-      And I do 3 git commits
+      And I do 2 git commits
     When I run `git rebase -i HEAD~2`
-    Then there should be exactly 3 jpgs in "~/.lolcommits/yuh8history"
+    Then there should be exactly 2 jpgs in "~/.lolcommits/yuh8history"
 
   #
   # issue #87, https://github.com/lolcommits/lolcommits/issues/87

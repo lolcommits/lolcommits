@@ -44,13 +44,13 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '~> 1.5.0')
 
   # included plugins
-  s.add_runtime_dependency('lolcommits-loltext', '~> 0.1.0')
+  s.add_runtime_dependency('lolcommits-loltext', '~> 0.2.3')
 
   # development & test gems
   s.add_development_dependency('aruba')
   s.add_development_dependency('rake')
   s.add_development_dependency('rdoc')
-  s.add_development_dependency('pry')
+  s.add_development_dependency('pry-remote')
   s.add_development_dependency('rubocop')
   s.add_development_dependency('minitest')
   s.add_development_dependency('simplecov')

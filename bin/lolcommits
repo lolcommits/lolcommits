@@ -21,7 +21,7 @@ class App
   include Lolcommits::CLI
 
   description 'git-based selfies for software developers (https://lolcommits.github.io)'
-  version     Lolcommits::VERSION
+  version Lolcommits::VERSION
 
   main do
     # check for fatal conditions before execution
@@ -59,7 +59,7 @@ class App
         end
 
         if options[:last]
-          show_last_lolimage(config.loldir)
+          show_last_lolcommit(config.loldir)
         elsif options[:browse]
           Launcher.open_folder(config.loldir)
         elsif options[:timelapse]
@@ -117,8 +117,8 @@ class App
     'Specify a device with --device "{device name}" or set the LOLCOMMITS_DEVICE env variable'
   end
 
-  def self.show_last_lolimage(loldir)
-    lolimage = Dir.glob(File.join(loldir, '*.{jpg,gif}')).max_by { |f| File.mtime(f) }
+  def self.show_last_lolcommit(loldir)
+    lolimage = Dir.glob(File.join(loldir, '*.{jpg,mp4}')).max_by { |f| File.mtime(f) }
 
     if lolimage.nil?
       warn 'No lolcommits have been captured for this repository yet.'
@@ -127,27 +127,22 @@ class App
     Launcher.open_image(lolimage)
   end
 
-  def self.capture_device
-    result = options[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
-    result ||= Dir.glob('/dev/video*').first if Platform.platform_linux?
-    result
-  end
-
   def self.capture_lolcommit(config)
-    should_we_fork  = options[:fork] || ENV['LOLCOMMITS_FORK'] || false
+    should_fork     = options[:fork] || ENV['LOLCOMMITS_FORK'] || false
     capture_stealth = options[:stealth] || ENV['LOLCOMMITS_STEALTH'] || false
     capture_delay   = (options[:delay] || ENV['LOLCOMMITS_DELAY']).to_i
+    capture_device  = options[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
 
     capture_options = {
       capture_delay: capture_delay,
       capture_stealth: capture_stealth,
       capture_device: capture_device,
-      capture_animate: capture_animate,
+      capture_duration: capture_duration,
       config: config
     }
 
     process_runner = ProcessRunner.new(config)
-    process_runner.fork_me?(should_we_fork) do
+    process_runner.fork_me?(should_fork) do
       if options[:test]
         info '*** Capturing in test mode.'
         capture_options.merge!(test_capture_options)
@@ -157,7 +152,7 @@ class App
       runner.run
 
       # automatically open the image in test mode
-      Launcher.open_image(runner.main_image) if options[:test]
+      Launcher.open_image(runner.lolcommit_path) if options[:test]
     end
   end
 
@@ -170,17 +165,17 @@ class App
 
   # Duration for animated capturing
   #
-  # If animation is enabled, returns an integer > 0 representing seconds.
-  # Seconds will be 0 if no option set, meaning no animated capture will take
-  # place.
+  # If animation is enabled, returns an integer > 0 representing
+  # seconds. Seconds will be 0 if no option set, meaning no animated
+  # capture will take place.
   #
   # @return [Integer]
-  def self.capture_animate
+  def self.capture_duration
     (options[:animate] || ENV['LOLCOMMITS_ANIMATE']).to_i
   end
 
   def self.capture_animated?
-    capture_animate > 0
+    capture_duration > 0
   end
 
   #
