@@ -61,7 +61,7 @@ module Lolcommits
     end
 
     def video_loc
-      File.join(loldir, 'tmp_video.mov')
+      File.join(loldir, 'tmp_video.mp4')
     end
 
     def frames_loc
