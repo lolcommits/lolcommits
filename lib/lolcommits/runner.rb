@@ -6,8 +6,9 @@ require 'lolcommits/animated_gif'
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device,
-                  :capture_duration, :sha, :message, :config, :vcs_info,
-                  :capture_path, :lolcommit_path
+                  :capture_duration, :capture_path,
+                  :sha, :message, :config, :vcs_info,
+                  :lolcommit_path, :animated_gif_path
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -26,6 +27,7 @@ module Lolcommits
       lolcommit_ext = capture_animated? ? 'mp4' : 'jpg'
       self.lolcommit_path = config.sha_path(sha, lolcommit_ext)
       self.capture_path = config.capture_path(lolcommit_ext)
+      self.animated_gif_path = config.sha_path(sha, 'gif')
     end
 
     def execute_plugins_for(hook)
@@ -84,6 +86,12 @@ module Lolcommits
       end
     end
 
+    # backward compatibility with earlier plugin releases
+    # remove when all plugins target 0.14+
+    def main_image
+      capture_animated? ? animated_gif_path : lolcommit_path
+    end
+
     private
 
     def run_capture
@@ -109,7 +117,7 @@ module Lolcommits
       if File.exist?(lolcommit_path) && capture_animated?
         Lolcommits::AnimatedGif.new.create(
           video_path: lolcommit_path,
-          output_path: config.sha_path(sha, 'gif')
+          output_path: animated_gif_path
         )
       end
 
