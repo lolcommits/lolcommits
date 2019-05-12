@@ -216,19 +216,19 @@ Feature: Basic UI functionality
     Then the exit status should be 0
     And there should be exactly 1 jpg in its loldir
 
-  Scenario: generate gif should store in its own archive directory
+  Scenario: generate gif should store in the timelapses directory
     Given I am in a git repo named "giffy" with lolcommits enabled
       And a loldir named "giffy" with 2 lolimages
     When I run `lolcommits --timelapse`
-    Then the output should contain "Generating animated gif."
-      And a directory named "~/.lolcommits/giffy/archive" should exist
-      And a file named "~/.lolcommits/giffy/archive/archive.gif" should exist
+    Then the output should contain "Generating animated timelapse gif."
+      And a directory named "~/.lolcommits/giffy/timelapses" should exist
+      And there should be exactly 1 gif in "~/.lolcommits/giffy/timelapses"
 
   Scenario: generate gif with argument 'today'
     Given I am in a git repo named "sunday" with lolcommits enabled
       And a loldir named "sunday" with 2 lolimages
     When I run `lolcommits --timelapse --period today`
-    Then there should be exactly 1 gif in "~/.lolcommits/sunday/archive"
+    Then there should be exactly 1 gif in "~/.lolcommits/sunday/timelapses"
 
   @requires_ffmpeg @slow_process
   Scenario: should generate an animated gif on the Mac platform

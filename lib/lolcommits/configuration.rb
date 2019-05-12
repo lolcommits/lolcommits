@@ -38,22 +38,6 @@ module Lolcommits
       @loldir = Configuration.loldir_for(basename)
     end
 
-    def archive_dir_path
-      @archive_dir_path ||= begin
-        dir = File.join(loldir, 'archive')
-        FileUtils.mkdir_p(dir) unless File.directory?(dir)
-        dir
-      end
-    end
-
-    def jpg_images
-      Dir.glob(File.join(loldir, '*.jpg')).sort_by { |f| File.mtime(f) }
-    end
-
-    def jpg_images_today
-      jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Date.today }
-    end
-
     def sha_path(sha, ext)
       File.join loldir, "#{sha}.#{ext}"
     end

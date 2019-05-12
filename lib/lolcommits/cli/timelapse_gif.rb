@@ -7,9 +7,9 @@ module Lolcommits
   module CLI
     # Creates an animated timeline GIF of lolcommits history.
     class TimelapseGif
-      # param config [Lolcommits::Configuration]
-      def initialize(config)
-        @configuration = config
+      # param loldir [String] path to loldir
+      def initialize(loldir)
+        self.loldir = loldir
       end
 
       # Runs the history timeline animator task thingy
@@ -17,11 +17,11 @@ module Lolcommits
       def run(args = nil)
         case args
         when 'today'
-          lolimages = @configuration.jpg_images_today
-          filename  = "#{Date.today}.gif"
+          lolimages = jpg_images_today
+          filename  = Date.today.to_s
         else
-          lolimages = @configuration.jpg_images
-          filename  = 'archive.gif'
+          lolimages = jpg_images
+          filename  = "all-until-#{Time.now.strftime('%d-%b-%Y--%Hh%Mm%Ss')}"
         end
 
         if lolimages.empty?
@@ -29,14 +29,30 @@ module Lolcommits
           exit 1
         end
 
-        puts '*** Generating animated gif.'
+        puts '*** Generating animated timelapse gif.'
 
-        gif = MiniMagick::Image.new File.join @configuration.archive_dir_path, filename
+        gif = MiniMagick::Image.new(File.join(timelapses_dir_path, "#{filename}.gif"))
+        gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, gif.path].flatten)
 
-        # This is for ruby 1.8.7, *lolimages just doesn't work with ruby 187
-        gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, gif.path.to_s].flatten)
+        puts "*** Done, generated at #{gif.path}"
+      end
 
-        puts "*** #{gif.path} generated."
+      private
+
+      attr_accessor :loldir
+
+      def jpg_images
+        Dir.glob(File.join(loldir, '*.jpg')).sort_by { |f| File.mtime(f) }
+      end
+
+      def jpg_images_today
+        jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Date.today }
+      end
+
+      def timelapses_dir_path
+        dir = File.join(loldir, 'timelapses')
+        FileUtils.mkdir_p(dir)
+        dir
       end
     end
   end

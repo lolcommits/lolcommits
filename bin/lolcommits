@@ -63,7 +63,7 @@ class App
         elsif options[:browse]
           Launcher.open_folder(config.loldir)
         elsif options[:timelapse]
-          TimelapseGif.new(config).run(options[:period])
+          TimelapseGif.new(config.loldir).run(options[:period])
         elsif options[:config]
           config.do_configure!(options[:plugin])
         elsif options[:capture]
@@ -87,7 +87,7 @@ class App
   on('-l', '--last', 'view the most recent lolcommit')
   on('-b', '--browse', 'browse this repo\'s lolcommits')
 
-  on('--timelapse', 'generate animated timelapse gif from captured images')
+  on('-t', '--timelapse', 'generate animated timelapse gif from captured images')
   on('--period {today}', 'period to use for the timelapse gif (today or all)')
 
   # optional capturing options
