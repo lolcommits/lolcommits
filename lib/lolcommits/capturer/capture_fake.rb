@@ -3,7 +3,7 @@
 module Lolcommits
   class CaptureFake < Capturer
     def capture
-      FileUtils.cp test_file, capture_path
+      FileUtils.cp(test_file, capture_path)
     end
 
     private

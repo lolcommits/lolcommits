@@ -11,11 +11,11 @@ module Lolcommits
       if ENV['LOLCOMMITS_CAPTURER']
         const_get(ENV['LOLCOMMITS_CAPTURER'])
       elsif platform_mac?
-        animate ? CaptureMacAnimated : CaptureMac
+        animate ? CaptureMacVideo : CaptureMac
       elsif platform_linux?
-        animate ? CaptureLinuxAnimated : CaptureLinux
+        animate ? CaptureLinuxVideo : CaptureLinux
       elsif platform_windows?
-        animate ? CaptureWindowsAnimated : CaptureWindows
+        animate ? CaptureWindowsVideo : CaptureWindows
       elsif platform_cygwin?
         CaptureCygwin
       else
@@ -123,7 +123,7 @@ module Lolcommits
       # TODO: handle other platforms here (linux/windows) e.g with ffmpeg -list_devices
       return unless Platform.platform_mac?
 
-      capturer = Lolcommits::CaptureMacAnimated.new
+      capturer = Lolcommits::CaptureMacVideo.new
       `#{capturer.executable_path} -l`
     end
   end

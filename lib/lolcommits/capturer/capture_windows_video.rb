@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lolcommits
-  class CaptureWindowsAnimated < Capturer
+  class CaptureWindowsVideo < Capturer
     def capture
       return unless capture_device_string
 

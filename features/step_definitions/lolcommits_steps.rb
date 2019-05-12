@@ -166,6 +166,10 @@ Then(/^the output should contain a list of plugins$/) do
   step %(the output should contain "[*] loltext")
 end
 
+Then(/^the output should show the version number$/) do
+  step %(the output should match /^#{Lolcommits::VERSION}$/)
+end
+
 When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|
   filename = FFaker::Lorem.words(1).first
   steps %(

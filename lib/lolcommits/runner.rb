@@ -6,9 +6,9 @@ require 'lolcommits/animated_gif'
 module Lolcommits
   class Runner
     attr_accessor :capture_delay, :capture_stealth, :capture_device,
-                  :capture_duration, :capture_path,
-                  :sha, :message, :config, :vcs_info,
-                  :lolcommit_path, :animated_gif_path
+                  :capture_duration, :capture_path, :capture_video,
+                  :capture_gif, :sha, :message, :config, :vcs_info,
+                  :lolcommit_path, :lolcommit_gif_path
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -24,21 +24,9 @@ module Lolcommits
       self.sha = sha || vcs_info.sha
       self.message = message || vcs_info.message
 
-      lolcommit_ext = capture_animated? ? 'mp4' : 'jpg'
-      self.lolcommit_path = config.sha_path(sha, lolcommit_ext)
-      self.capture_path = config.capture_path(lolcommit_ext)
-      self.animated_gif_path = config.sha_path(sha, 'gif')
-    end
-
-    def execute_plugins_for(hook)
-      debug "running all enabled #{hook} plugin hooks"
-      enabled_plugins.each do |plugin|
-        if plugin.valid_configuration?
-          plugin.send("run_#{hook}")
-        else
-          puts "Warning: skipping plugin #{plugin.name} (invalid configuration, fix with: lolcommits --config -p #{plugin.name})"
-        end
-      end
+      self.capture_path       = config.capture_path(lolcommit_ext)
+      self.lolcommit_path     = config.sha_path(sha, lolcommit_ext)
+      self.lolcommit_gif_path = config.sha_path(sha, 'gif') if capture_gif
     end
 
     def run
@@ -53,23 +41,21 @@ module Lolcommits
       end
 
       run_post_capture
+      run_capture_ready
     rescue StandardError => e
       debug("#{e.class}: #{e.message}")
       exit 1
     ensure
-      cleanup!
-    end
-
-    def capture_animated?
-      capture_duration > 0
+      debug 'running cleanup'
+      FileUtils.rm_f(capture_path)
     end
 
     # return MiniMagick overlay png for manipulation (or create one)
     def overlay
       @overlay ||= begin
-        source_path = capture_animated? ? capture_path : lolcommit_path
+        source_path = capture_image? ? lolcommit_path : capture_path
         unless File.exist?(source_path)
-          raise "too early to overlay, a capture doesn't exist yet"
+          raise "too early to overlay, capture doesn't exist yet"
         end
 
         base = MiniMagick::Image.open(source_path)
@@ -87,16 +73,31 @@ module Lolcommits
     end
 
     # backward compatibility with earlier plugin releases
-    # remove when all plugins target 0.14+
+    # remove this when all plugins target 0.14+
     def main_image
-      capture_animated? ? animated_gif_path : lolcommit_path
+      capture_gif ? lolcommit_gif_path : lolcommit_path
     end
 
     private
 
+    def execute_plugins_for(hook)
+      debug "running all enabled #{hook} plugin hooks"
+      enabled_plugins.each do |plugin|
+        if plugin.valid_configuration?
+          plugin.send("run_#{hook}")
+        else
+          puts "Warning: skipping plugin #{plugin.name} (invalid configuration, fix with: lolcommits --config -p #{plugin.name})"
+        end
+      end
+    end
+
+    def capture_image?
+      capture_duration.zero?
+    end
+
     def run_capture
       puts '*** Preserving this moment in history.' unless capture_stealth
-      capturer = Platform.capturer_class(capture_animated?).new(
+      capturer = Platform.capturer_class(!capture_image?).new(
         capture_path: capture_path,
         capture_device: capture_device,
         capture_delay: capture_delay,
@@ -106,21 +107,36 @@ module Lolcommits
     end
 
     def run_post_capture
-      resize_captured_image unless capture_animated?
+      resize_captured_image if capture_image?
 
       execute_plugins_for(:post_capture)
 
-      # apply overlay
-      apply_overlay if @overlay
-
-      # create animated gif
-      if File.exist?(lolcommit_path) && capture_animated?
-        Lolcommits::AnimatedGif.new.create(
-          video_path: lolcommit_path,
-          output_path: animated_gif_path
-        )
+      # apply overlay if present, or cp video to lolcommit_path
+      if @overlay
+        apply_overlay
+      elsif !capture_image?
+        FileUtils.cp(capture_path, lolcommit_path)
       end
 
+      # optionally create animated gif
+      return unless capture_gif
+
+      AnimatedGif.new.create(
+        video_path: lolcommit_path,
+        output_path: lolcommit_gif_path
+      )
+
+      # done if we are capturing both video and gif
+      return if capture_video
+
+      # remove video and assign var (if only capturing gif)
+      FileUtils.rm_f(lolcommit_path)
+      self.lolcommit_path = lolcommit_gif_path
+    end
+
+    def run_capture_ready
+      debug "lolcommit_path: #{lolcommit_path}"
+      debug "lolcommit_gif_path: #{lolcommit_gif_path}"
       execute_plugins_for(:capture_ready)
     end
 
@@ -144,21 +160,23 @@ module Lolcommits
 
     def apply_overlay
       debug 'applying overlay to lolcommit'
-      if capture_animated?
-        system_call "ffmpeg -v quiet -nostats -i #{capture_path} -i #{overlay.path} \
-          -filter_complex \
-          'scale2ref[0:v][1:v];[0:v][1:v] overlay=0:0' \
-          -y #{lolcommit_path}"
-      else
+      if capture_image?
         MiniMagick::Image.open(lolcommit_path).composite(overlay) do |c|
           c.gravity 'center'
         end.write(lolcommit_path)
+      else
+        system_call "ffmpeg -v quiet -nostats -i #{capture_path} -i #{overlay.path} \
+          -filter_complex overlay=0:0 \
+          -y #{lolcommit_path}"
       end
     end
 
-    def cleanup!
-      debug 'running cleanup'
-      FileUtils.rm_f(capture_path)
+    def lolcommit_ext
+      if capture_image?
+        'jpg'
+      else
+        'mp4'
+      end
     end
 
     def enabled_plugins

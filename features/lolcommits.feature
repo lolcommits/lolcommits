@@ -8,6 +8,11 @@ Feature: Basic UI functionality
     Then the exit status should be 0
     And the banner should be present
 
+  Scenario: Shows version information
+    When I run `lolcommits --version`
+    Then the output should show the version number
+    And the exit status should be 0
+
   Scenario: Help should show the animate option on a Mac platform
     Given I am using a "darwin" platform
     When I get help for "lolcommits"
@@ -231,15 +236,35 @@ Feature: Basic UI functionality
     Then there should be exactly 1 gif in "~/.lolcommits/sunday/timelapses"
 
   @requires_ffmpeg @slow_process
-  Scenario: should generate an animated gif on the Mac platform
-    Given I am in a git repo named "animate"
+  Scenario: should generate a lolcommit animated gif
+    Given I am in a git repo named "gif"
       And I do a git commit
     When I run `lolcommits --capture --animate=1`
     Then the output should contain "*** Preserving this moment in history."
-      And a directory named "~/.lolcommits/animate" should exist
+      And a directory named "~/.lolcommits/gif" should exist
       And a file named "~/.lolcommits/animate/raw_capture.mp4" should not exist
-      And there should be exactly 1 gif in "~/.lolcommits/animate"
-      And there should be exactly 1 mp4 in "~/.lolcommits/animate"
+      And there should be exactly 1 gif in "~/.lolcommits/gif"
+
+  @requires_ffmpeg @slow_process
+  Scenario: should generate a lolcommit video
+    Given I am in a git repo named "video"
+      And I do a git commit
+    When I run `lolcommits --capture --video=1`
+    Then the output should contain "*** Preserving this moment in history."
+      And a directory named "~/.lolcommits/video" should exist
+      And a file named "~/.lolcommits/animate/raw_capture.mp4" should not exist
+      And there should be exactly 1 mp4 in "~/.lolcommits/video"
+
+  @requires_ffmpeg @slow_process
+  Scenario: should generate a lolcommit video and animated gif
+    Given I am in a git repo named "video-and-gif"
+      And I do a git commit
+    When I run `lolcommits --capture -v1 -a1`
+    Then the output should contain "*** Preserving this moment in history."
+      And a directory named "~/.lolcommits/video-and-gif" should exist
+      And a file named "~/.lolcommits/animate/raw_capture.mp4" should not exist
+      And there should be exactly 1 mp4 in "~/.lolcommits/video-and-gif"
+      And there should be exactly 1 gif in "~/.lolcommits/video-and-gif"
 
   @fake-no-ffmpeg
   Scenario: gracefully fail when ffmpeg not installed and --animate is used

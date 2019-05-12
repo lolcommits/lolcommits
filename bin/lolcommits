@@ -25,7 +25,7 @@ class App
 
   main do
     # check for fatal conditions before execution
-    Fatals.die_if_no_valid_ffmpeg_installed! if capture_animated?
+    Fatals.die_if_no_valid_ffmpeg_installed! if capture_duration > 0
     Fatals.die_on_fatal_platform_conditions!
 
     if options.empty?
@@ -39,7 +39,9 @@ class App
       plugin_manager = PluginManager.init
       config         = Configuration.new(plugin_manager, test_mode: options[:test])
 
-      if options[:'show-config']
+      if options[:version]
+        puts Lolcommits::VERSION
+      elsif options[:'show-config']
         puts config
       elsif options[:plugins]
         config.list_plugins
@@ -66,7 +68,7 @@ class App
           TimelapseGif.new(config.loldir).run(options[:period])
         elsif options[:config]
           config.do_configure!(options[:plugin])
-        elsif options[:capture]
+        elsif options[:capture] || options[:video] || options[:animate]
           capture_lolcommit(config)
         end
       end
@@ -92,12 +94,14 @@ class App
 
   # optional capturing options
   on('--device {name}', 'device name to capture from (mac/linux only)')
-  on('-a', '--animate {seconds}', 'enable animated gif captures with duration')
+  on('-a', '--animate {seconds}', 'animated gif capture with duration')
+  on('-v', '--video {seconds}', 'video capture with duration')
   on('-w', '--delay {seconds}', 'delay before taking a snapshot')
-  on('--stealth', 'capture image in stealth mode (no output)')
-  on('--fork', 'fork capturing process to the background')
   on('-s', '--sha {string}', 'pass commit sha manually (--test mode only)')
   on('-m', '--msg {string}', 'pass commit message manually (--test mode only)')
+  on('--stealth', 'capture image in stealth mode (no output)')
+  on('--fork', 'fork capturing process to the background')
+  on('--version', 'show current version info')
 
   #
   # No options specified, help the user out
@@ -118,26 +122,30 @@ class App
   end
 
   def self.show_last_lolcommit(loldir)
-    lolimage = Dir.glob(File.join(loldir, '*.{jpg,mp4}')).max_by { |f| File.mtime(f) }
+    lolimage = Dir.glob(File.join(loldir, '*.{jpg,mp4,gif}')).max_by { |f| File.mtime(f) }
 
     if lolimage.nil?
       warn 'No lolcommits have been captured for this repository yet.'
       exit 1
     end
-    Launcher.open_image(lolimage)
+    Launcher.open_file(lolimage)
   end
 
   def self.capture_lolcommit(config)
     should_fork     = options[:fork] || ENV['LOLCOMMITS_FORK'] || false
     capture_stealth = options[:stealth] || ENV['LOLCOMMITS_STEALTH'] || false
-    capture_delay   = (options[:delay] || ENV['LOLCOMMITS_DELAY']).to_i
     capture_device  = options[:device] || ENV['LOLCOMMITS_DEVICE'] || nil
+    capture_delay   = (options[:delay] || ENV['LOLCOMMITS_DELAY']).to_i
+    capture_gif     = !(options[:animate] || ENV['LOLCOMMITS_ANIMATE']).nil?
+    capture_video   = !(options[:video] || ENV['LOLCOMMITS_VIDEO']).nil?
 
     capture_options = {
       capture_delay: capture_delay,
       capture_stealth: capture_stealth,
       capture_device: capture_device,
       capture_duration: capture_duration,
+      capture_gif: capture_gif,
+      capture_video: capture_video,
       config: config
     }
 
@@ -152,7 +160,7 @@ class App
       runner.run
 
       # automatically open the image in test mode
-      Launcher.open_image(runner.lolcommit_path) if options[:test]
+      Launcher.open_file(runner.lolcommit_path) if options[:test]
     end
   end
 
@@ -165,17 +173,19 @@ class App
 
   # Duration for animated capturing
   #
-  # If animation is enabled, returns an integer > 0 representing
-  # seconds. Seconds will be 0 if no option set, meaning no animated
-  # capture will take place.
+  # If video/animation is enabled, this returns an integer > 0 (seconds)
+  # Seconds will be 0 if no option set, meaning a regular image capture
+  # will take place. Video duration takes precedence if both options are
+  # set.
   #
   # @return [Integer]
   def self.capture_duration
-    (options[:animate] || ENV['LOLCOMMITS_ANIMATE']).to_i
-  end
-
-  def self.capture_animated?
-    capture_duration > 0
+    (
+      options[:video] ||
+      ENV['LOLCOMMITS_VIDEO'] ||
+      options[:animate] ||
+      ENV['LOLCOMMITS_ANIMATE']
+    ).to_i
   end
 
   #

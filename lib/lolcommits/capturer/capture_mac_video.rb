@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lolcommits
-  class CaptureMacAnimated < Capturer
+  class CaptureMacVideo < Capturer
     def capture
       system_call "#{executable_path} -p 640x480 #{capture_device_string}#{capture_delay_string}-t #{capture_duration} --no-audio \"#{capture_path}\" > /dev/null"
     end

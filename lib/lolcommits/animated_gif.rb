@@ -54,7 +54,7 @@ module Lolcommits
     end
 
     def frame_skip(fps)
-      # of frames to skip depends on movie fps
+      # of frames to skip depends on video fps
       case fps
       when 0..15
         2

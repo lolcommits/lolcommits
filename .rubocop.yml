@@ -3,6 +3,7 @@ AllCops:
     - 'vendor/bundle/**/*'
     - 'vendor/bundle/**/.*'
     - '.bundle/**/*'
+    - 'bin/lolcommits'
 
 Metrics/BlockLength:
   Exclude:

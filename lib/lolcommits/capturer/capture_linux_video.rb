@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lolcommits
-  class CaptureLinuxAnimated < Capturer
+  class CaptureLinuxVideo < Capturer
     def capture
       system_call "ffmpeg -nostats -v quiet -y -f video4linux2 -video_size 640x480 -i #{capture_device_string} -t #{capture_duration} \"#{capture_path}\" > /dev/null"
     end
