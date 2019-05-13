@@ -13,7 +13,7 @@ module Lolcommits
     end
 
     def capture_delay_string
-      "-w \"#{capture_delay}\" " if capture_delay.to_i > 0
+      "-w \"#{capture_delay}\" " if capture_delay.positive?
     end
 
     def executable_path

@@ -5,7 +5,7 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationMercurial
-    HOOK_SECTION = 'hooks'.freeze
+    HOOK_SECTION = 'hooks'
     HOOK_OPERATIONS = %w(commit record crecord).freeze
 
     #

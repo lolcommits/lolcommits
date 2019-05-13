@@ -44,7 +44,7 @@ module Lolcommits
     end
 
     def url
-      @url ||= remote_repo? ? remote_https_url(repository.remote.url) : nil
+      @url ||= remote_repo? ? remote_https_url(repository.remote&.url) : nil
     end
 
     def repo
@@ -90,7 +90,7 @@ module Lolcommits
     end
 
     def remote_repo?
-      repository.remote && repository.remote.url
+      !repository.remote&.url.nil?
     end
   end
 end

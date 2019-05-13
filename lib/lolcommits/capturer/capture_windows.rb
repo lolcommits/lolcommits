@@ -13,7 +13,7 @@ module Lolcommits
 
     def delay_arg
       # CommandCam delay is in milliseconds
-      if capture_delay > 0
+      if capture_delay.positive?
         " /delay #{capture_delay * 1000}"
       else
         # DirectShow takes a while to show, default to 3 sec delay

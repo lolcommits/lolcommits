@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'bundler'
 require 'rake/clean'
 
@@ -32,7 +34,7 @@ Rake::TestTask.new do |t|
 end
 
 Rake::FileUtilsExt.verbose(false)
-CUKE_RESULTS = 'results.html'.freeze
+CUKE_RESULTS = 'results.html'
 CLEAN << CUKE_RESULTS
 Cucumber::Rake::Task.new(:features) do |t|
   optstr = "features --format html -o #{CUKE_RESULTS} --format progress -x"

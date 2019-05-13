@@ -25,7 +25,7 @@ class App
 
   main do
     # check for fatal conditions before execution
-    Fatals.die_if_no_valid_ffmpeg_installed! if capture_duration > 0
+    Fatals.die_if_no_valid_ffmpeg_installed! if capture_duration.positive?
     Fatals.die_on_fatal_platform_conditions!
 
     if options.empty?
