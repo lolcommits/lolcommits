@@ -59,7 +59,7 @@ module Lolcommits
       # If we are not in a git repo, we can't do git related things!
       # Die with an informative error message in that case.
       def self.die_if_not_vcs_repo!
-        debug 'Checking for valid vcs repo'
+        debug 'Checking for valid VCS repo'
         current = File.expand_path('.')
         parent = File.dirname(current)
         while current != parent

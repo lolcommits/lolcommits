@@ -147,23 +147,27 @@ Given(/^a loldir named "(.*?)" with (\d+) lolimages$/) do |repo, num_images|
   FileUtils.mkdir_p loldir
   num_images.to_i.times do
     hex = format('%011x', (rand * 0xfffffffffff)).to_s
-    FileUtils.cp 'test/images/test_image.jpg', File.join(loldir, "#{hex}.jpg")
+    FileUtils.cp 'test/assets/test_image.jpg', File.join(loldir, "#{hex}.jpg")
   end
 end
 
-Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in its loldir$/) do |n, type|
+Then(/^there should be exactly (.*?) (mp4|jpg|gif|pid)s? in its loldir$/) do |n, type|
   steps %(
     Then there should be exactly #{n} #{type} in "#{default_loldir}"
     )
 end
 
-Then(/^there should be exactly (.*?) (jpg|gif|pid)s? in "(.*?)"$/) do |n, type, folder|
+Then(/^there should be exactly (.*?) (mp4|jpg|gif|pid)s? in "(.*?)"$/) do |n, type, folder|
   expect(Dir[expand_path("#{folder}/*.#{type}")].count).to eq(n.to_i)
 end
 
 Then(/^the output should contain a list of plugins$/) do
   step %(the output should contain "Installed plugins: (* enabled)")
   step %(the output should contain "[*] loltext")
+end
+
+Then(/^the output should show the version number$/) do
+  step %(the output should match /^#{Lolcommits::VERSION}$/)
 end
 
 When(/^I do a git commit with commit message "(.*?)"$/) do |commit_msg|

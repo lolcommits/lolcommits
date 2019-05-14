@@ -20,15 +20,15 @@ module Lolcommits
       Mercurial.configure do |conf|
         conf.hg_binary_path = 'hg'
       end
-      debug 'MercurialInfo: parsed the following values from commit:'
-      debug "MercurialInfo: \t#{message}"
-      debug "MercurialInfo: \t#{sha}"
-      debug "MercurialInfo: \t#{repo_internal_path}"
-      debug "MercurialInfo: \t#{repo}"
-      debug "MercurialInfo: \t#{branch}"
-      debug "MercurialInfo: \t#{commit_date}"
-      debug "MercurialInfo: \t#{author_name}" if author_name
-      debug "MercurialInfo: \t#{author_email}" if author_email
+      debug 'parsed the following values from commit:'
+      debug "\t#{message}"
+      debug "\t#{sha}"
+      debug "\t#{repo_internal_path}"
+      debug "\t#{repo}"
+      debug "\t#{branch}"
+      debug "\t#{commit_date}"
+      debug "\t#{author_name}" if author_name
+      debug "\t#{author_email}" if author_email
     end
 
     def branch
@@ -71,6 +71,10 @@ module Lolcommits
     end
 
     private
+
+    def debug(message)
+      super("#{self.class}: #{message}")
+    end
 
     def repository(path = '.')
       @repository ||= Mercurial::Repository.open(path)

@@ -1,2 +1,2 @@
 ---
-default: <%= (RbConfig::CONFIG['host_os'] =~ /darwin/) ? 'features' : '--tags ~@mac-only' %>
+default: <%= ENV['TRAVIS'] == 'true' ? '--tags ~@requires_ffmpeg' : 'features' %>

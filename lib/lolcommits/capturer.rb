@@ -2,23 +2,31 @@
 
 module Lolcommits
   class Capturer
-    attr_accessor :capture_device, :capture_delay, :snapshot_location,
-                  :video_location, :frames_location, :animated_duration
+    attr_accessor :capture_device, :capture_delay, :capture_duration,
+                  :capture_path
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
         send("#{attr}=", val)
       end
-      debug 'Capturer: initializing new instance ' + to_s
+    end
+
+    def system_call(call_str, capture_output = false)
+      debug "making system call for \n #{call_str}"
+      capture_output ? `#{call_str}` : system(call_str)
+    end
+
+    def debug(message)
+      super("#{self.class}: #{message}")
     end
   end
 end
 
 require 'lolcommits/capturer/capture_mac'
-require 'lolcommits/capturer/capture_mac_animated'
+require 'lolcommits/capturer/capture_mac_video'
 require 'lolcommits/capturer/capture_linux'
-require 'lolcommits/capturer/capture_linux_animated'
+require 'lolcommits/capturer/capture_linux_video'
 require 'lolcommits/capturer/capture_windows'
-require 'lolcommits/capturer/capture_windows_animated'
+require 'lolcommits/capturer/capture_windows_video'
 require 'lolcommits/capturer/capture_cygwin'
 require 'lolcommits/capturer/capture_fake'

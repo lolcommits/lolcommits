@@ -31,7 +31,7 @@ module Lolcommits
       # value is returned.
       def prompt_autocomplete_hash(prompt, items, name: 'name', value: 'value', suggest_words: 5)
         words = items.map { |item| item[name] }.sort
-        puts "e.g. #{words.take(suggest_words).join(', ')}" if suggest_words > 0
+        puts "e.g. #{words.take(suggest_words).join(', ')}" if suggest_words.positive?
         completed_input = gets_autocomplete(prompt, words)
         items.find { |item| item[name] == completed_input }[value]
       end

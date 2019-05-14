@@ -10,7 +10,7 @@ module Lolcommits
     # Right now this is mostly just a wrapper for Launchy, in case we want
     # to factor out it's dependency later or swap it out.
     class Launcher
-      def self.open_image(path)
+      def self.open_file(path)
         open_with_launchy(path)
       end
 

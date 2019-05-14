@@ -3,17 +3,22 @@
 module Lolcommits
   class CaptureWindows < Capturer
     def capture
-      # DirectShow takes a while to show... at least for me anyway
-      delaycmd = ' /delay 3000'
-      if capture_delay > 0
-        # CommandCam delay is in milliseconds
-        delaycmd = " /delay #{capture_delay * 1000}"
-      end
+      _stdin, stdout, _stderr = Open3.popen3("#{executable_path} /filename #{capture_path}#{delay_arg}")
 
-      _stdin, stdout, _stderr = Open3.popen3("#{executable_path} /filename #{snapshot_location}#{delaycmd}")
-
-      # looks like we still need to read the output for something to happen
+      # need to read the output for something to happen
       stdout.read
+    end
+
+    private
+
+    def delay_arg
+      # CommandCam delay is in milliseconds
+      if capture_delay.positive?
+        " /delay #{capture_delay * 1000}"
+      else
+        # DirectShow takes a while to show, default to 3 sec delay
+        ' /delay 3000'
+      end
     end
 
     def executable_path
