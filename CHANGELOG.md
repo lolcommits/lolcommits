@@ -1,17 +1,25 @@
-### Lolcommits Change Log
+### ChangeLog
 
-All notable changes to this project will be documented in this file. This
-project adheres to [Semantic Versioning][Semver].
+All notable changes to this project will be documented in this file.
+This project adheres to [Semantic Versioning][Semver].
 
 ## [Unreleased]
 
   * Your contribution here!
 
+## [0.14.0][] (14 May 2019)
+  * `main_image` now deprecated, use `lolcommit_path` instead (@matthutchinson)
+  * make actual videos to make gifs from (@ruxton [#386][])
+  * improved tabs/spacing on git commit hook text (@matthutchinson)
+  * add video captures `-v {seconds}` and runner overlays (@matthutchinson [#392][])
+  * `Capturer` classes refactored and renamed (@matthutchinson)
+  * `AnimatedGif` class takes care of gif generating (@matthutchinson)
+
 ## [0.13.1][] (29 April 2019)
   * Update all links and badges (in gemspec, README etc.) to lolcommits
-    organisation
-  * remove gem `post_install` message
-  * use `lolcommits-loltext ~> 0.1.0'
+    organisation (@matthutchinson)
+  * remove gem `post_install` message (@matthutchinson)
+  * use `lolcommits-loltext ~> 0.1.0' (@matthutchinson)
 
 ## [0.13.0][] (23 April 2019)
   * Require at least Ruby 2.3
@@ -342,7 +350,8 @@ project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...HEAD
+[0.14.0]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/lolcommits/lolcommits/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/lolcommits/lolcommits/compare/v0.12.1...v0.13.0
 [0.12.1]: https://github.com/lolcommits/lolcommits/compare/v0.12.0...v0.12.1
@@ -537,3 +546,5 @@ project adheres to [Semantic Versioning][Semver].
 [#377]: https://github.com/lolcommits/lolcommits/pull/377
 [#384]: https://github.com/lolcommits/lolcommits/pull/384
 [#385]: https://github.com/lolcommits/lolcommits/pull/385
+[#386]: https://github.com/lolcommits/lolcommits/pull/386
+[#392]: https://github.com/lolcommits/lolcommits/pull/392
