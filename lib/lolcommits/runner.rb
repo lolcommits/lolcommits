@@ -21,8 +21,12 @@ module Lolcommits
         self.vcs_info = MercurialInfo.new
       end
 
-      self.sha = sha || vcs_info.sha
-      self.message = message || vcs_info.message
+      if vcs_info
+        self.sha ||= vcs_info.sha
+        self.message ||= vcs_info.message
+      end
+
+      return unless config
 
       self.capture_path       = config.capture_path(lolcommit_ext)
       self.lolcommit_path     = config.sha_path(sha, lolcommit_ext)
@@ -92,7 +96,7 @@ module Lolcommits
     end
 
     def capture_image?
-      capture_duration.zero?
+      capture_duration.to_i.zero?
     end
 
     def run_capture

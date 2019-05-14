@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.14.1][] (14 May 2019)
+  * minor runner improvements, for friendly plugin testing
+    (@matthutchinson)
+
 ## [0.14.0][] (14 May 2019)
   * `main_image` now deprecated, use `lolcommit_path` instead (@matthutchinson)
   * make actual videos to make gifs from (@ruxton [#386][])
@@ -350,7 +354,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...HEAD
+[0.14.1]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...v0.14.1
 [0.14.0]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/lolcommits/lolcommits/compare/v0.13.0...v0.13.1
 [0.13.0]: https://github.com/lolcommits/lolcommits/compare/v0.12.1...v0.13.0
