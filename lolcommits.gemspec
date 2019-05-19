@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 
   s.authors = ['Matthew Rothenberg', 'Matthew Hutchinson']
   s.email   = ['mrothenberg@gmail.com', 'matt@hiddenloop.com']
-  s.license = 'LGPL-3'
+  s.license = 'LGPL-3.0'
   s.summary = 'Capture webcam image on git commit for lulz.'
 
   s.description = <<-DESC
