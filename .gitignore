@@ -12,3 +12,4 @@ tmp
 *.swp
 *.swo
 vendor/bundle
+cc-test-reporter
