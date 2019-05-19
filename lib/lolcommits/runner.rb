@@ -82,6 +82,10 @@ module Lolcommits
       capture_gif ? lolcommit_gif_path : lolcommit_path
     end
 
+    def capture_image?
+      capture_duration.to_i.zero?
+    end
+
     private
 
     def execute_plugins_for(hook)
@@ -93,10 +97,6 @@ module Lolcommits
           puts "Warning: skipping plugin #{plugin.name} (invalid configuration, fix with: lolcommits --config -p #{plugin.name})"
         end
       end
-    end
-
-    def capture_image?
-      capture_duration.to_i.zero?
     end
 
     def run_capture

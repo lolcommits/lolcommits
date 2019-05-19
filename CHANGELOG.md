@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.14.2][] (19 May 2019)
+  * minor runner improvements, `capture_image?` now public
+    (@matthutchinson)
+
 ## [0.14.1][] (14 May 2019)
   * minor runner improvements, for friendly plugin testing
     (@matthutchinson)
@@ -354,7 +358,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.2...HEAD
+[0.14.2]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.14.2
 [0.14.1]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...v0.14.1
 [0.14.0]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...v0.14.0
 [0.13.1]: https://github.com/lolcommits/lolcommits/compare/v0.13.0...v0.13.1
