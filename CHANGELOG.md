@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning][Semver].
   * Your contribution here!
 
 ## [0.15.0][] (20 May 2019)
+  * require at least lolcommits-loltext `>= 0.3.0` (@matthutchinson)
   * remove `main_image` method, plugins should use `lolcommit_path` on
     `runner` object (@matthutchinson)
 
