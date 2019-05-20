@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('git', '~> 1.5.0')
 
   # included plugins
-  s.add_runtime_dependency('lolcommits-loltext', '~> 0.2.3')
+  s.add_runtime_dependency('lolcommits-loltext', '~> 0.3.0')
 
   # development & test gems
   s.add_development_dependency('aruba')

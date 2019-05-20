@@ -76,12 +76,6 @@ module Lolcommits
       end
     end
 
-    # backward compatibility with earlier plugin releases
-    # remove this when all plugins target 0.14+
-    def main_image
-      capture_gif ? lolcommit_gif_path : lolcommit_path
-    end
-
     def capture_image?
       capture_duration.to_i.zero?
     end

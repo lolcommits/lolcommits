@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.15.0][] (20 May 2019)
+  * remove `main_image` method, plugins should use `lolcommit_path` on
+    `runner` object (@matthutchinson)
+
 ## [0.14.2][] (19 May 2019)
   * minor runner improvements, `capture_image?` now public
     (@matthutchinson)
@@ -358,7 +362,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.14.2...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...HEAD
+[0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.15.0
 [0.14.2]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.14.2
 [0.14.1]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...v0.14.1
 [0.14.0]: https://github.com/lolcommits/lolcommits/compare/v0.13.1...v0.14.0
