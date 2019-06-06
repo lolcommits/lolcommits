@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.15.1][] (6 Jun 2019)
+  * fix device list command (@matthutchinson [#394][])
+
 ## [0.15.0][] (20 May 2019)
   * require at least lolcommits-loltext `>= 0.3.0` (@matthutchinson)
   * remove `main_image` method, plugins should use `lolcommit_path` on
@@ -363,7 +366,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.15.1...HEAD
+[0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.15.0
 [0.14.2]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.14.2
 [0.14.1]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...v0.14.1
@@ -564,3 +568,4 @@ This project adheres to [Semantic Versioning][Semver].
 [#385]: https://github.com/lolcommits/lolcommits/pull/385
 [#386]: https://github.com/lolcommits/lolcommits/pull/386
 [#392]: https://github.com/lolcommits/lolcommits/pull/392
+[#394]: https://github.com/lolcommits/lolcommits/pull/394

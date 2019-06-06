@@ -123,8 +123,8 @@ module Lolcommits
       # TODO: handle other platforms here (linux/windows) e.g with ffmpeg -list_devices
       return unless Platform.platform_mac?
 
-      capturer = Lolcommits::CaptureMacVideo.new
-      `#{capturer.executable_path} -l`
+      videosnap = File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'videosnap', 'videosnap')
+      `#{videosnap} -l`
     end
   end
 end
