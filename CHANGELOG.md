@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.16.0][] (21 Oct 2019)
+  * update macOS binaries for Catalina support (@matthutchinson, @samwize [#398][])
+
 ## [0.15.1][] (6 Jun 2019)
   * fix device list command (@matthutchinson [#394][])
 
@@ -366,8 +369,9 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.15.1...HEAD
-[0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...v0.15.1
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.0...HEAD
+[0.16.0]: https://github.com/lolcommits/lolcommits/compare/v0.15.1...v0.16.0
+[0.15.1]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.15.0
 [0.14.2]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.14.2
 [0.14.1]: https://github.com/lolcommits/lolcommits/compare/v0.14.0...v0.14.1
@@ -569,3 +573,4 @@ This project adheres to [Semantic Versioning][Semver].
 [#386]: https://github.com/lolcommits/lolcommits/pull/386
 [#392]: https://github.com/lolcommits/lolcommits/pull/392
 [#394]: https://github.com/lolcommits/lolcommits/pull/394
+[#398]: https://github.com/lolcommits/lolcommits/pull/398
