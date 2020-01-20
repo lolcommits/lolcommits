@@ -18,7 +18,7 @@ Gemspec/OrderedDependencies:
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: auto_detection, squiggly, active_support, powerpack, unindent
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Exclude:
     - 'lib/lolcommits/backends/installation_git.rb'
 
