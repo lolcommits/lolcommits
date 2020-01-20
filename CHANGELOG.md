@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.16.1][] (21 Jan 2020)
+  * Upgrade mini_magick to version 4.10.1 (@depfu [#399][])
+  * Fix rubocop config (@Salzig [#400][])
+
 ## [0.16.0][] (21 Oct 2019)
   * update macOS binaries for Catalina support (@matthutchinson, @samwize [#398][])
 
@@ -369,7 +373,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.1...HEAD
+[0.16.1]: https://github.com/lolcommits/lolcommits/compare/v0.16.0...v0.16.1
 [0.16.0]: https://github.com/lolcommits/lolcommits/compare/v0.15.1...v0.16.0
 [0.15.1]: https://github.com/lolcommits/lolcommits/compare/v0.15.0...v0.15.1
 [0.15.0]: https://github.com/lolcommits/lolcommits/compare/v0.14.1...v0.15.0
@@ -574,3 +579,5 @@ This project adheres to [Semantic Versioning][Semver].
 [#392]: https://github.com/lolcommits/lolcommits/pull/392
 [#394]: https://github.com/lolcommits/lolcommits/pull/394
 [#398]: https://github.com/lolcommits/lolcommits/pull/398
+[#399]: https://github.com/lolcommits/lolcommits/pull/399
+[#400]: https://github.com/lolcommits/lolcommits/pull/400
