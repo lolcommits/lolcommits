@@ -13,6 +13,8 @@ World(PathHelpers)
 
 Aruba.configure do |config|
   config.exit_timeout = 20
+  # allow absolute paths for tests involving no repo
+  config.allow_absolute_paths = true
 end
 
 Before do
@@ -51,22 +53,4 @@ end
 # adjust the path so tests dont see a global ffmpeg install
 Before('@fake-no-ffmpeg') do
   reject_paths_with_cmd('ffmpeg')
-end
-
-# do test in a new temp directory (outside our own git repo-ness)
-# due to https://github.com/cucumber/aruba/issues/478 aruba no longer allows
-# wandering out of `tmp/aruba` so this pop/restore is necessary
-Before('@no-repo-dir') do
-  @original_root = aruba.root_directory.pop
-  @original_dir  = aruba.current_directory.pop
-  @working_dir   = Dir.mktmpdir
-  aruba.current_directory << @working_dir
-end
-
-After('@no-repo-dir') do
-  aruba.current_directory.pop
-  aruba.root_directory << @original_root
-  aruba.current_directory << @original_dir
-
-  FileUtils.rm_rf(@working_dir)
 end

@@ -45,6 +45,14 @@ Given(/^I am in a git repo$/) do
     )
 end
 
+Given(/^I am not in a git repo/) do
+  steps %(
+    Given I cd to "/tmp"
+    And a directory named "lolcommits_no_repo"
+    And I cd to "lolcommits_no_repo"
+    )
+end
+
 Given(/^I am in a git repo named "(.*?)" with lolcommits enabled$/) do |repo|
   steps %(
     Given I am in a git repo named "#{repo}"

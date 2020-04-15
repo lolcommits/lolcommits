@@ -63,15 +63,6 @@ Feature: Basic UI functionality
     And a file named ".git/hooks/post-commit" should exist
     And the exit status should be 0
 
-  Scenario: Trying to enable while not in a git repo fails
-    Given I am in a directory named "svnrulez"
-    When I run `lolcommits --enable`
-    Then the output should contain:
-      """
-      You don't appear to be in the base directory of a supported vcs project.
-      """
-    And the exit status should be 1
-
   # flakey test sometimes fails
   # Scenario: Capture doesnt break in forked mode
   #   Given I am in a git repo named "forked"
@@ -160,8 +151,17 @@ Feature: Basic UI functionality
       """
     And the exit status should be 0
 
-  @no-repo-dir
+  Scenario: Trying to enable while not in a git repo fails
+    Given I am not in a git repo
+    When I run `lolcommits --enable`
+    Then the output should contain:
+      """
+      You don't appear to be in the base directory of a supported vcs project.
+      """
+    And the exit status should be 1
+
   Scenario: last command should fail gracefully if not in a repo
+    Given I am not in a git repo
     When I run `lolcommits --last`
     Then the output should contain:
       """
@@ -169,8 +169,8 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  @no-repo-dir
   Scenario: Configuring loltext plugin if not in a repo
+    Given I am not in a git repo
     When I run `lolcommits --config`
     Then the output should contain:
       """
@@ -178,8 +178,8 @@ Feature: Basic UI functionality
       """
     And the exit status should be 1
 
-  @no-repo-dir
   Scenario: browse command should fail gracefully when not in a repo
+    Given I am not in a git repo
     When I run `lolcommits --browse`
     Then the output should contain:
       """
