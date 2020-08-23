@@ -50,7 +50,7 @@ Lint/AmbiguousBlockAssociation:
 
 # Offense count: 18
 Metrics/AbcSize:
-  Max: 29
+  Max: 35
 
 # Offense count: 2
 # Configuration parameters: CountComments.
@@ -59,7 +59,7 @@ Metrics/ClassLength:
 
 # Offense count: 5
 Metrics/CyclomaticComplexity:
-  Max: 9
+  Max: 10
 
 # Offense count: 21
 # Configuration parameters: CountComments, ExcludedMethods.
