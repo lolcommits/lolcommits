@@ -1,2 +1,2 @@
 ---
-default: <%= ENV['TRAVIS'] == 'true' ? '--tags ~@requires_ffmpeg' : 'features' %>
+default: <%= ENV['TRAVIS'] == "true" ? "features --tags \"not @requires_ffmpeg\"" : "features" %>
