@@ -1,4 +1,4 @@
-# lolcommits
+# LoL Commits
 
 [![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
 [![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits)
@@ -46,6 +46,7 @@ page on our wiki!
 
 
 ## Installation
+## Please follow the below steps for installation
 
 
 ### macOS
@@ -267,3 +268,5 @@ it).
 
 The program is available as open source under the terms of
 [LGPL-3](https://opensource.org/licenses/LGPL-3.0).
+
+## ==> Hope you find this LuLing.Have fun
