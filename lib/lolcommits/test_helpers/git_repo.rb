@@ -32,11 +32,11 @@ module Lolcommits
         `cd #{repo_path} && git commit -m "#{message}"`
       end
 
-      def in_repo
+      def in_repo(&block)
         return unless repo_exists?
 
         Dir.chdir(File.expand_path(repo_path)) do
-          yield
+          yield block
         end
       end
 

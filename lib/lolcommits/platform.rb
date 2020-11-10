@@ -7,7 +7,7 @@ module Lolcommits
   class Platform
     # The capturer class constant to use
     # @return Class
-    def self.capturer_class(animate = false)
+    def self.capturer_class(animate: false)
       if ENV['LOLCOMMITS_CAPTURER']
         const_get(ENV['LOLCOMMITS_CAPTURER'])
       elsif platform_mac?
@@ -90,7 +90,7 @@ module Lolcommits
     #   command_which('ruby') #=> /usr/bin/ruby
     #
     # @return Boolean
-    def self.command_which(cmd, only_path = false)
+    def self.command_which(cmd, only_path: false)
       exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
       ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|

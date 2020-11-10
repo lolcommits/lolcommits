@@ -95,7 +95,7 @@ module Lolcommits
 
     def run_capture
       puts '*** Preserving this moment in history.' unless capture_stealth
-      capturer = Platform.capturer_class(!capture_image?).new(
+      capturer = Platform.capturer_class(animate: !capture_image?).new(
         capture_path: capture_path,
         capture_device: capture_device,
         capture_delay: capture_delay,
@@ -181,7 +181,7 @@ module Lolcommits
       @enabled_plugins ||= config.plugin_manager.enabled_plugins_for(self)
     end
 
-    def system_call(call_str, capture_output = false)
+    def system_call(call_str, capture_output: false)
       debug "making system call for \n #{call_str}"
       capture_output ? `#{call_str}` : system(call_str)
     end

@@ -2,7 +2,7 @@
 
 module Lolcommits
   class GitInfo
-    GIT_URL_REGEX = %r{.*[:]([\/\w\-]*).git}.freeze
+    GIT_URL_REGEX = %r{.*:([/\w-]*).git}.freeze
 
     def self.repo_root?(path = '.')
       File.directory?(File.join(path, '.git'))
@@ -78,7 +78,7 @@ module Lolcommits
     end
 
     def remote_https_url(url)
-      url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '') + '/commit/'
+      "#{url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '')}/commit/"
     end
 
     def repository(path = '.')

@@ -66,7 +66,7 @@ Given(/^I am in a git repo with lolcommits enabled$/) do
     )
 end
 
-Given(/^a git post\-commit hook with "(.*?)"$/) do |file_content|
+Given(/^a git post-commit hook with "(.*?)"$/) do |file_content|
   steps %(
     Given a file named "#{postcommit_hook_git}" with:
       """
@@ -75,13 +75,13 @@ Given(/^a git post\-commit hook with "(.*?)"$/) do |file_content|
     )
 end
 
-Then(/^the lolcommits git post\-commit hook should be properly installed$/) do
+Then(/^the lolcommits git post-commit hook should be properly installed$/) do
   steps %(
     Then the git post-commit hook should contain "lolcommits --capture"
     )
 end
 
-Then(/^the git post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
+Then(/^the git post-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
   steps %(
     Then the file "#{postcommit_hook_git}" #{should} contain "#{content}"
     )
@@ -119,7 +119,7 @@ Given(/^I am in a mercurial repo with lolcommits enabled$/) do
     )
 end
 
-Given(/^a mercurial post\-commit hook with "(.*?)"$/) do |file_content|
+Given(/^a mercurial post-commit hook with "(.*?)"$/) do |file_content|
   steps %(
     Given a file named "#{postcommit_hook_mercurial}" with:
       """
@@ -128,13 +128,13 @@ Given(/^a mercurial post\-commit hook with "(.*?)"$/) do |file_content|
     )
 end
 
-Then(/^the lolcommits mercurial post\-commit hook should be properly installed$/) do
+Then(/^the lolcommits mercurial post-commit hook should be properly installed$/) do
   steps %(
     Then the mercurial post-commit hook should contain "lolcommits --capture"
     )
 end
 
-Then(/^the mercurial post\-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
+Then(/^the mercurial post-commit hook (should|should not) contain "(.*?)"$/) do |should, content|
   steps %(
     Then the file "#{postcommit_hook_mercurial}" #{should} contain "#{content}"
     )

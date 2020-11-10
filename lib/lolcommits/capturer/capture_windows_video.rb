@@ -25,7 +25,7 @@ module Lolcommits
         cmd_output = ''
         count      = 0
         while cmd_output.empty? || !cmd_output.split('DirectShow')[2]
-          cmd_output = system_call(ffpmeg_list_devices_cmd, true)
+          cmd_output = system_call(ffpmeg_list_devices_cmd, capture_output: true)
           count += 1
           raise 'failed to find a video capture device with ffmpeg -list_devices' if count == 5
 

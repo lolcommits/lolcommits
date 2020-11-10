@@ -49,7 +49,7 @@ module Lolcommits
 
     def video_fps(file)
       # inspect fps of the captured video file (default to 29.97)
-      fps = system_call("ffmpeg -nostats -v quiet -i \"#{file}\" 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", true)
+      fps = system_call("ffmpeg -nostats -v quiet -i \"#{file}\" 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", capture_output: true)
       fps.to_i < 1 ? 29.97 : fps.to_f
     end
 
@@ -65,7 +65,7 @@ module Lolcommits
       end
     end
 
-    def system_call(call_str, capture_output = false)
+    def system_call(call_str, capture_output: false)
       debug "making system call for \n #{call_str}"
       capture_output ? `#{call_str}` : system(call_str)
     end

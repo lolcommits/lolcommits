@@ -60,8 +60,8 @@ module Lolcommits
     end
 
     def self.hook_script(capture_args = '')
-      ruby_path     = Lolcommits::Platform.command_which('ruby', true)
-      imagick_path  = Lolcommits::Platform.command_which('identify', true)
+      ruby_path     = Lolcommits::Platform.command_which('ruby', only_path: true)
+      imagick_path  = Lolcommits::Platform.command_which('identify', only_path: true)
       capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
       exports       = "LANG=\"#{ENV['LANG']}\" && PATH=\"$PATH:#{ruby_path}:#{imagick_path}\""
 
@@ -90,7 +90,7 @@ module Lolcommits
 
     # does the git hook file have a good shebang?
     def self.good_shebang?
-      File.read(HOOK_PATH).lines.first =~ %r{^\#\!.*\/bin\/.*sh}
+      File.read(HOOK_PATH).lines.first =~ %r{^\#!.*/bin/.*sh}
     end
 
     def self.remove_existing_hook!
