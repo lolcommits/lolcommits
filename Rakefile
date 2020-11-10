@@ -5,8 +5,10 @@ require 'rake/clean'
 
 require 'rake/testtask'
 
+ENV['CUCUMBER_PUBLISH_QUIET'] = 'true'
 require 'cucumber'
 require 'cucumber/rake/task'
+
 gem 'rdoc' # we need the installed RDoc gem, not the system one
 require 'rdoc/task'
 
