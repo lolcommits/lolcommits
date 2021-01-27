@@ -8,7 +8,7 @@ module Lolcommits
       tmpdir = Dir.mktmpdir
 
       # Default delay is 1s
-      delay = capture_delay != 0 ? capture_delay : 1
+      delay = capture_delay.zero? ? 1 : capture_delay
 
       # There's no way to give a capture delay in mplayer, but a number of frame
       # mplayer's "delay" is actually a number of frames at 25 fps

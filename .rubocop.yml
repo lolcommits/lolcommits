@@ -1,4 +1,6 @@
 AllCops:
+  SuggestExtensions: false
+  NewCops: enable
   Exclude:
     - 'vendor/bundle/**/*'
     - 'vendor/bundle/**/.*'
