@@ -6,17 +6,10 @@ AllCops:
     - 'vendor/bundle/**/.*'
     - '.bundle/**/*'
     - 'bin/lolcommits'
-
-Metrics/BlockLength:
-  Exclude:
     - 'lolcommits.gemspec'
 
 # don't agree with this one, can lead to long lines that are harder to parse
 Style/IfUnlessModifier:
-  Enabled: false
-
-# our gem supports 2.0+ but Rubocop only supports 2.1+
-Gemspec/RequiredRubyVersion:
   Enabled: false
 
 inherit_from: .rubocop_todo.yml
