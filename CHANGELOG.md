@@ -7,6 +7,11 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.16.3][] (28 Jan 2021)
+  * Upgrade gem dependencies (for Ruby 3.0 compatibility)
+  * Fix failing RuboCops and update config
+  * Update Travis CI rubies
+
 ## [0.16.2][] (24 Aug 2020)
   * Support delays w/ Linux animated GIFs (@theY4Kman [#405][])
   * Upgrade git gem to version 1.6.0 (@depfu [#402][])
@@ -378,7 +383,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.2...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.3...HEAD
+[0.16.3]: https://github.com/lolcommits/lolcommits/compare/v0.16.2...v0.16.3
 [0.16.2]: https://github.com/lolcommits/lolcommits/compare/v0.16.1...v0.16.2
 [0.16.1]: https://github.com/lolcommits/lolcommits/compare/v0.16.0...v0.16.1
 [0.16.0]: https://github.com/lolcommits/lolcommits/compare/v0.15.1...v0.16.0
