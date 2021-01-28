@@ -49,11 +49,7 @@ module Lolcommits
         exports = "set path=\"%PATH%;#{ruby_path};#{imagick_path}\""
       end
 
-      <<-HOOK
-        ### lolcommits hook (begin) ###
-        #{exports} && #{capture_cmd}
-        ###  lolcommits hook (end)  ###
-      HOOK
+      "#{exports} && #{capture_cmd}"
     end
 
     def self.repository

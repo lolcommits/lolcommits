@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning][Semver].
 
 ## [0.16.3][] (28 Jan 2021)
   * Upgrade gem dependencies (for Ruby 3.0 compatibility)
+  * Patched `mercurial-ruby` to work with Ruby 3.0 [#411][])
+  * Fixed up the formatting of generated hooks in `.hg/hgrc` [#411][])
   * Fix failing RuboCops and update config
   * Update Travis CI rubies
 
@@ -596,3 +598,4 @@ This project adheres to [Semantic Versioning][Semver].
 [#401]: https://github.com/lolcommits/lolcommits/pull/401
 [#402]: https://github.com/lolcommits/lolcommits/pull/402
 [#405]: https://github.com/lolcommits/lolcommits/pull/405
+[#411]: https://github.com/lolcommits/lolcommits/pull/411
