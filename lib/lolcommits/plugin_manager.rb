@@ -2,7 +2,7 @@
 
 module Lolcommits
   class PluginManager
-    GEM_NAME_PREFIX = /^#{Lolcommits::GEM_NAME}-/
+    GEM_NAME_PREFIX = /^#{Lolcommits::GEM_NAME}-/.freeze
 
     def self.init
       pm = new

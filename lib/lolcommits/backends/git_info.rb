@@ -2,7 +2,7 @@
 
 module Lolcommits
   class GitInfo
-    GIT_URL_REGEX = %r{.*:([/\w-]*).git}
+    GIT_URL_REGEX = %r{.*:([/\w-]*).git}.freeze
 
     def self.repo_root?(path = '.')
       File.directory?(File.join(path, '.git'))
