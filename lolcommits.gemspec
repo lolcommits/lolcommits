@@ -43,7 +43,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('mini_magick', '~> 4.12.0')
   s.add_runtime_dependency('launchy', '~> 2.5.0')
   s.add_runtime_dependency('open4', '~> 1.3.4')
-  s.add_runtime_dependency('git', '~> 1.14.0')
+  s.add_runtime_dependency('git', '~> 1.17.2')
 
   # included plugins
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.4.0')
