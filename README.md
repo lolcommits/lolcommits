@@ -1,7 +1,6 @@
 # lolcommits
 
 [![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
-[![Travis](https://img.shields.io/travis/com/lolcommits/lolcommits/master.svg?style=flat)](https://travis-ci.com/lolcommits/lolcommits)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
 [![Maintainability](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/maintainability)](https://codeclimate.com/github/lolcommits/lolcommits/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/c13fa50206e122e416c2/test_coverage)](https://codeclimate.com/github/lolcommits/lolcommits/test_coverage)
