@@ -33,11 +33,11 @@ module Lolcommits
       private
 
       def write_pid(pid)
-        File.open(pid_file, 'w') { |f| f.write(pid) }
+        File.write(pid_file, pid)
       end
 
       def delete_pid
-        File.delete(pid_file) if File.exist?(pid_file)
+        File.rm_f(pid_file)
       end
 
       def pid_file

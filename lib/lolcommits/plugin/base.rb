@@ -52,7 +52,7 @@ module Lolcommits
       # @return [Hash] the configured plugin options
       def configure_options!
         configure_option_hash(
-          (options.map { |option| [option, nil] }.to_h).merge(default_options)
+          options.map { |option| [option, nil] }.to_h.merge(default_options)
         )
       end
 

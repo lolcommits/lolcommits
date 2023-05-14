@@ -2,7 +2,7 @@
 
 module Lolcommits
   class Configuration
-    LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(ENV['HOME'], '.lolcommits')
+    LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(Dir.home, '.lolcommits')
     LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
 
     attr_accessor :plugin_manager
@@ -101,16 +101,14 @@ module Lolcommits
         # print config if plugin was enabled
         if plugin_config[:enabled]
           puts "\nSuccessfully configured plugin: #{plugin.name} - at path '#{configuration_file}'"
-          puts plugin_config.to_yaml.to_s
+          puts plugin_config.to_yaml
         end
       end
     end
 
     def save(plugin_name, plugin_config)
       config_file_contents = yaml.merge(plugin_name => plugin_config).to_yaml
-      File.open(configuration_file, 'w') do |f|
-        f.write(config_file_contents)
-      end
+      File.write(configuration_file, config_file_contents)
     end
 
     def to_s
@@ -128,7 +126,7 @@ module Lolcommits
           File.chmod(0o755, loldir)
         rescue Errno::EPERM
           # abort if permissions cannot be met
-          puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV['USER']}'"
+          puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV.fetch('USER', nil)}'"
           puts 'Try changing the directory permissions to 755'
           exit 1
         end

@@ -19,7 +19,7 @@ module Lolcommits
           %w(imagesnap videosnap).each do |executable|
             next if File.executable? File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', executable, executable)
 
-            fatal "Couldn't properly execute #{executable} for some reason, "\
+            fatal "Couldn't properly execute #{executable} for some reason, " \
                   'please file a bug?!'
             exit 1
           end
@@ -32,7 +32,7 @@ module Lolcommits
 
         # make sure imagemagick is around and good to go
         unless Platform.valid_imagemagick_installed?
-          fatal 'FATAL: ImageMagick does not appear to be properly installed!'\
+          fatal 'FATAL: ImageMagick does not appear to be properly installed!' \
                 '(or version is too old)'
           exit 1
         end
@@ -40,8 +40,8 @@ module Lolcommits
         # check for a error condition with git config affecting ruby-git
         return unless Platform.git_config_color_always?
 
-        fatal 'Due to a bug in the ruby-git library, git config for color.ui'\
-          " cannot be set to 'always'."
+        fatal 'Due to a bug in the ruby-git library, git config for color.ui ' \
+              "cannot be set to 'always'."
         fatal "Try setting it to 'auto' instead!"
         exit 1
       end

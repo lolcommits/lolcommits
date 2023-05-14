@@ -55,9 +55,9 @@ RuboCop::RakeTask.new
 
 desc 'Migrate an existing local .lolcommits directory to Dropbox'
 task :dropboxify do
-  dropbox_loldir = "#{ENV['HOME']}/Dropbox/lolcommits"
-  loldir = "#{ENV['HOME']}/.lolcommits"
-  backup_loldir = "#{ENV['HOME']}/.lolcommits.old"
+  dropbox_loldir = "#{Dir.home}/Dropbox/lolcommits"
+  loldir = "#{Dir.home}/.lolcommits"
+  backup_loldir = "#{Dir.home}/.lolcommits.old"
 
   # check whether we've done this already
   abort 'already dropboxified!' if File.symlink? loldir

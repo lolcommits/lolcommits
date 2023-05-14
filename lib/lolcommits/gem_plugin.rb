@@ -15,7 +15,7 @@ module Lolcommits
         require gem_path unless required?
       rescue LoadError => e
         warn "Found plugin #{name}, but could not require gem '#{gem_name}'"
-        warn e.to_s
+        warn e
       rescue StandardError => e
         warn "require gem '#{gem_name}' failed with: #{e}"
       end
@@ -43,7 +43,7 @@ module Lolcommits
     end
 
     def plugin_instance(runner)
-      plugin_klass.new(runner: runner, config: runner.config.yaml[name], name: name)
+      plugin_klass.new(runner:, config: runner.config.yaml[name], name:)
     end
 
     def gem_name

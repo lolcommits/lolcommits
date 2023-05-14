@@ -63,7 +63,7 @@ module Lolcommits
       ruby_path     = Lolcommits::Platform.command_which('ruby', only_path: true)
       imagick_path  = Lolcommits::Platform.command_which('identify', only_path: true)
       capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
-      exports       = "GIT_DIR=${GIT_DIR-`git rev-parse --git-dir`} && LANG=\"#{ENV['LANG']}\" && PATH=\"$PATH:#{ruby_path}:#{imagick_path}\""
+      exports       = "GIT_DIR=${GIT_DIR-`git rev-parse --git-dir`} && LANG=\"#{ENV.fetch('LANG', nil)}\" && PATH=\"$PATH:#{ruby_path}:#{imagick_path}\""
 
       if Lolcommits::Platform.platform_windows?
         exports = "set path=\"%PATH%;#{ruby_path};#{imagick_path}\""
