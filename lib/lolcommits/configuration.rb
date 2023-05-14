@@ -15,7 +15,7 @@ module Lolcommits
 
     def yaml
       @yaml ||= if File.exist?(configuration_file)
-                  YAML.safe_load(File.open(configuration_file), [Symbol]) || Hash.new({})
+                  YAML.safe_load(File.open(configuration_file), permitted_classes: [Symbol]) || Hash.new({})
                 else
                   Hash.new({})
                 end
