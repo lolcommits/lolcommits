@@ -7,8 +7,8 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
-## [0.16.4][] (28 Jan 2021)
-  * Fixing for Git 2.18+, it no longer sets a `$GIT_DIR` in post-commit hooks [#417][]
+## [0.16.4][] (05 Sep 2023)
+  * Fixing for Git 1.18+, it no longer sets a `$GIT_DIR` in post-commit hooks [#417][]
 
 ## [0.16.3][] (28 Jan 2021)
   * Upgrade gem dependencies (for Ruby 3.0 compatibility)
