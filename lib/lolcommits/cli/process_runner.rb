@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'fileutils'
+
 module Lolcommits
   module CLI
     # Helper class for forking lolcommits process to the background (or not).
@@ -37,7 +39,7 @@ module Lolcommits
       end
 
       def delete_pid
-        File.rm_f(pid_file)
+        FileUtils.rm_f(pid_file)
       end
 
       def pid_file
