@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
   * Your contribution here!
 
+## [0.16.5][] (29 May 2024)
+  * Use Git 1.19.1 [#430][]
+  * Fix undefined method `rm_f` for File:Class (@khramtsoff [#432][])
+
 ## [0.16.4][] (05 Sep 2023)
   * Fixing for Git 1.18+, it no longer sets a `$GIT_DIR` in post-commit hooks [#417][]
 
@@ -388,7 +392,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.4...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.5...HEAD
+[0.16.5]: https://github.com/lolcommits/lolcommits/compare/v0.16.4...v0.16.5
 [0.16.4]: https://github.com/lolcommits/lolcommits/compare/v0.16.3...v0.16.4
 [0.16.3]: https://github.com/lolcommits/lolcommits/compare/v0.16.2...v0.16.3
 [0.16.2]: https://github.com/lolcommits/lolcommits/compare/v0.16.1...v0.16.2
@@ -604,3 +609,5 @@ This project adheres to [Semantic Versioning][Semver].
 [#405]: https://github.com/lolcommits/lolcommits/pull/405
 [#411]: https://github.com/lolcommits/lolcommits/pull/411
 [#417]: https://github.com/lolcommits/lolcommits/pull/417
+[#430]: https://github.com/lolcommits/lolcommits/pull/430
+[#432]: https://github.com/lolcommits/lolcommits/pull/432
