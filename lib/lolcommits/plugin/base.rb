@@ -78,13 +78,13 @@ module Lolcommits
       def puts(*args)
         return if runner&.capture_stealth
 
-        super(*args)
+        super
       end
 
       def print(*args)
         return if runner&.capture_stealth
 
-        super(*args)
+        super
       end
 
       # helper to log errors with a message via debug
