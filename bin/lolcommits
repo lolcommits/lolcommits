@@ -8,14 +8,14 @@ rescue LoadError
 end
 
 require 'optparse'
-require 'methadone'
+require 'optparse_plus'
 require 'lolcommits/cli.rb'
 
 # allow logging from everywhere
-include Methadone::CLILogging
+include OptparsePlus::CLILogging
 
 class App
-  include Methadone::Main
+  include OptparsePlus::Main
 
   include Lolcommits
   include Lolcommits::CLI

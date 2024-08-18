@@ -33,17 +33,17 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   # non-gem dependencies
-  s.required_ruby_version = '>= 2.4'
+  s.required_ruby_version = '>= 3.1'
   s.requirements << 'imagemagick'
   s.requirements << 'a webcam'
 
   # core
-  s.add_runtime_dependency('methadone', '~> 1.9.5')
+  s.add_runtime_dependency('optparse-plus', '~> 3.0')
   s.add_runtime_dependency('mercurial-ruby', '~> 0.7.12')
-  s.add_runtime_dependency('mini_magick', '~> 4.12.0')
-  s.add_runtime_dependency('launchy', '~> 2.5.0')
+  s.add_runtime_dependency('mini_magick', '~> 5.0.1')
+  s.add_runtime_dependency('launchy', '~> 3.0.1')
   s.add_runtime_dependency('open4', '~> 1.3.4')
-  s.add_runtime_dependency('git', '~> 1.19.1')
+  s.add_runtime_dependency('git', '~> 2.1.1')
 
   # included plugins
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.4.0')
