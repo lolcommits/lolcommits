@@ -8,8 +8,13 @@ AllCops:
     - 'bin/lolcommits'
     - 'lolcommits.gemspec'
 
-# don't agree with this one, can lead to long lines that are harder to parse
 Style/IfUnlessModifier:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 
 inherit_from: .rubocop_todo.yml

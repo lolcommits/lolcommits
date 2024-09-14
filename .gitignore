@@ -1,4 +1,3 @@
-coverage
 *.gem
 .bundle
 Gemfile.lock
@@ -9,8 +8,8 @@ pkg/*
 results.html
 html
 tmp
+doc
 *.swp
 *.swo
 vendor/bundle
-cc-test-reporter
 .idea

@@ -5,12 +5,19 @@ This project adheres to [Semantic Versioning][Semver].
 
 ## [Unreleased]
 
-  * Update minimum Ruby version to 3.1 (oldest supported version)
-  * Patch `mercurial-ruby` to work with Ruby 3.2
-  * Update `optparse-plus` gem from 1.x to 3.x
-  * Update `mini_magick` gem from 4.x to 5.x
-  * Update `launchy` gem from 2.x to 3.x
-  * Update `git` gem from 1.x to 2.x
+* Your contribution here!
+
+## [0.17.0][] (soon)
+  * Bump all gem dependencies
+  * Add runtime gems (logger, ostruct, base64) to prep for Ruby 3.5+
+  * Drop code coverage tooling
+  * Swap pry for debug gem
+  * Update minimum Ruby version to 3.1 (oldest supported version) (@SalvatoreT [#433][])
+    * Patch `mercurial-ruby` to work with Ruby 3.2
+    * Update `optparse-plus` gem from 1.x to 3.x
+    * Update `mini_magick` gem from 4.x to 5.x
+    * Update `launchy` gem from 2.x to 3.x
+    * Update `git` gem from 1.x to 2.x
 
 ## [0.16.5][] (29 May 2024)
   * Use Git 1.19.1 [#430][]
@@ -397,7 +404,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.16.5...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.0...HEAD
+[0.17.0]: https://github.com/lolcommits/lolcommits/compare/v0.16.5...v0.17.0
 [0.16.5]: https://github.com/lolcommits/lolcommits/compare/v0.16.4...v0.16.5
 [0.16.4]: https://github.com/lolcommits/lolcommits/compare/v0.16.3...v0.16.4
 [0.16.3]: https://github.com/lolcommits/lolcommits/compare/v0.16.2...v0.16.3
@@ -616,3 +624,4 @@ This project adheres to [Semantic Versioning][Semver].
 [#417]: https://github.com/lolcommits/lolcommits/pull/417
 [#430]: https://github.com/lolcommits/lolcommits/pull/430
 [#432]: https://github.com/lolcommits/lolcommits/pull/432
+[#433]: https://github.com/lolcommits/lolcommits/pull/433

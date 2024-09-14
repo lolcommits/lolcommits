@@ -2,21 +2,22 @@
 
 require 'bundler'
 require 'rake/clean'
-
 require 'rake/testtask'
-
-ENV['CUCUMBER_PUBLISH_QUIET'] = 'true'
 require 'cucumber'
 require 'cucumber/rake/task'
-
-gem 'rdoc' # we need the installed RDoc gem, not the system one
 require 'rdoc/task'
+require 'rubocop/rake_task'
 
-include Rake::DSL
+# docs
+Rake::RDocTask.new do |rdoc|
+  rdoc.main = 'README.md'
+  rdoc.rdoc_files.include('README.md', 'lib/**/*.rb', 'bin/**/*')
+  rdoc.rdoc_dir = 'doc'
+end
 
+# gem building
 Bundler::GemHelper.install_tasks
-
-task :fix_permissions do
+task :ensure_executable_permissions do
   # Reset all permissions.
   system 'bash -c "find . -type f -exec chmod 644 {} \; && find . -type d -exec chmod 755 {} \;"'
   # Executable files.
@@ -28,60 +29,25 @@ task :fix_permissions do
 
   system "bash -c \"chmod +x ./bin/* #{executables.join(' ')}\""
 end
+Rake::Task[:build].prerequisites.unshift :ensure_executable_permissions
 
-Rake::Task[:build].prerequisites.unshift :fix_permissions
+# rubocop
+RuboCop::RakeTask.new
 
+# tests
 Rake::TestTask.new do |t|
   t.pattern = 'test/*_test.rb'
 end
 
-Rake::FileUtilsExt.verbose(false)
-CUKE_RESULTS = 'results.html'
-CLEAN << CUKE_RESULTS
+# cucumber
+ENV['CUCUMBER_PUBLISH_QUIET'] = 'true'
+CLEAN.include("results.html")
 Cucumber::Rake::Task.new(:features) do |t|
-  optstr = "features --format html -o #{CUKE_RESULTS} --format progress -x"
-  optstr << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
-  t.cucumber_opts = optstr
+  opts = %w[ features --format html -o results.html --format progress -x ]
+  opts << " --tags @#{ENV['tag']}" unless ENV['tag'].nil?
+  t.cucumber_opts = opts
   t.fork = false
 end
 
-Rake::RDocTask.new do |rd|
-  rd.main = 'README.md'
-  rd.rdoc_files.include('README.md', 'lib/**/*.rb', 'bin/**/*')
-end
-
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
-
-desc 'Migrate an existing local .lolcommits directory to Dropbox'
-task :dropboxify do
-  dropbox_loldir = "#{Dir.home}/Dropbox/lolcommits"
-  loldir = "#{Dir.home}/.lolcommits"
-  backup_loldir = "#{Dir.home}/.lolcommits.old"
-
-  # check whether we've done this already
-  abort 'already dropboxified!' if File.symlink? loldir
-
-  # create dropbox folder
-  FileUtils.mkdir_p dropbox_loldir unless File.directory? dropbox_loldir
-
-  # backup existing loldir
-  FileUtils.mv(loldir, backup_loldir) if File.directory? loldir
-
-  # symlink dropbox to local
-  FileUtils.ln_s(dropbox_loldir, loldir)
-
-  # copy over existing files
-  FileUtils.cp_r("#{backup_loldir}/.", loldir)
-end
-
-# run tests with code coverage
-namespace :test do
-  desc 'Run all unit tests and generate a coverage report'
-  task :coverage do
-    ENV['COVERAGE'] = 'true'
-    Rake::Task[:test].execute
-  end
-end
-
-task default: [:rubocop, 'test:coverage', :features]
+# default tasks
+task default: %i[ rubocop test features ]
