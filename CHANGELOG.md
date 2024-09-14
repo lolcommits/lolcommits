@@ -5,7 +5,12 @@ This project adheres to [Semantic Versioning][Semver].
 
 ## [Unreleased]
 
-  * Your contribution here!
+  * Update minimum Ruby version to 3.1 (oldest supported version)
+  * Patch `mercurial-ruby` to work with Ruby 3.2
+  * Update `optparse-plus` gem from 1.x to 3.x
+  * Update `mini_magick` gem from 4.x to 5.x
+  * Update `launchy` gem from 2.x to 3.x
+  * Update `git` gem from 1.x to 2.x
 
 ## [0.16.5][] (29 May 2024)
   * Use Git 1.19.1 [#430][]

@@ -13,3 +13,4 @@ tmp
 *.swo
 vendor/bundle
 cc-test-reporter
+.idea

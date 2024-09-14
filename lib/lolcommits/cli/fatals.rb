@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'lolcommits/platform'
-require 'methadone'
+require 'optparse_plus'
 
 module Lolcommits
   module CLI

@@ -6,7 +6,7 @@ require 'mini_magick'
 require 'fileutils'
 require 'git'
 require 'open3'
-require 'methadone'
+require 'optparse_plus'
 require 'date'
 require 'mercurial-ruby'
 
@@ -26,6 +26,10 @@ require 'core_ext/mercurial-ruby/shell'
 
 # String#encode patched to be Ruby 3.0+ compatible
 require 'core_ext/mercurial-ruby/changed_file'
+# Mercurial::ConfigFile#exists? patched to be Ruby 3.2+ compatible
+require 'core_ext/mercurial-ruby/config_file'
+# Mercurial::Repository.open patched to be Ruby 3.2+ compatible
+require 'core_ext/mercurial-ruby/repository'
 
 # backends
 require 'lolcommits/backends/installation_git'

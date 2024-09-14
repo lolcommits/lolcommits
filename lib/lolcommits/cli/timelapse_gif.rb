@@ -31,8 +31,12 @@ module Lolcommits
 
         puts '*** Generating animated timelapse gif.'
 
-        gif = MiniMagick::Image.new(File.join(timelapses_dir_path, "#{filename}.gif"))
-        gif.run_command('convert', *['-delay', '50', '-loop', '0', lolimages, gif.path].flatten)
+        MiniMagick.convert do |convert|
+          convert.delay 50
+          convert.loop 0
+          lolimages.each { |image| convert << image }
+          convert << File.join(timelapses_dir_path, "#{filename}.gif")
+        end
 
         puts "*** Done, generated at #{gif.path}"
       end
