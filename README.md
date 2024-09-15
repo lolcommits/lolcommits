@@ -1,7 +1,8 @@
 # lolcommits
 
-[![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
+[![Build](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/build.yml?branch=main&style=flat)](https://github.com/lolcommits/lolcommits/actions/workflows/build.yml)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
+[![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
 
 > git-based selfies for software developers
 
