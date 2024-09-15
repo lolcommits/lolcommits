@@ -8,6 +8,8 @@ This project adheres to [Semantic Versioning][Semver].
 * Your contribution here!
 
 ## [0.17.0][] (soon)
+  * Ditch Travis, switch to GitHub actions for CI
+  * Use GitHub actions for trusted gem publishing
   * Bump all gem dependencies
   * Add runtime gems (logger, ostruct, base64) to prep for Ruby 3.5+
   * Drop code coverage tooling
