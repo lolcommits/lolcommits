@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
-## [0.17.0][] (soon)
+## [0.17.0][] (15 Sep 2024)
   * Ditch Travis, switch to GitHub actions for CI
   * Use GitHub actions for trusted gem publishing
   * Bump all gem dependencies
