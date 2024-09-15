@@ -10,12 +10,13 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  features:
 
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        ruby-version: ['3.1', '3.2', '3.3', '3.4']
+        ruby-version: ['3.1', '3.2', '3.3', '3.4', head]
 
     steps:
     - uses: actions/checkout@v4
@@ -30,5 +31,14 @@ jobs:
         cache: true
     - name: Set up ffmpeg
       uses: FedericoCarboni/setup-ffmpeg@v3
+    - name: Set up mplayer
+      run: sudo apt-get install -y mplayer
+    - name: Configure git user name, email
+      run: |
+        git config user.name $NAME
+        git config user.email $EMAIL
+      env:
+        NAME: "George Costanza"
+        EMAIL: "george.costanza@vandelay.com"
     - name: Run cucumber features
       run: bundle exec rake features
