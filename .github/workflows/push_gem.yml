@@ -1,4 +1,10 @@
 name: Publish gem to RubyGems.org
+
+on:
+  push:
+    tags:
+      - v*
+
 jobs:
   push:
     name: Push gem to RubyGems.org
@@ -9,7 +15,6 @@ jobs:
       contents: write
 
     steps:
-      # setup
       - uses: actions/checkout@v4
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -17,5 +22,4 @@ jobs:
           bundler-cache: true
           ruby-version: ruby
 
-      # release
       - uses: rubygems/release-gem@v1
