@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
+## [0.17.1][] (20 Sep 2024)
+  * Use latest lolcommits-loltext gem
+
 ## [0.17.0][] (15 Sep 2024)
   * Ditch Travis, switch to GitHub actions for CI
   * Use GitHub actions for trusted gem publishing
