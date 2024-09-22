@@ -55,8 +55,8 @@ jobs:
       run: sudo apt-get install -y mplayer
     - name: Configure git user name, email
       run: |
-        git config user.name $NAME
-        git config user.email $EMAIL
+        git config --global user.name $NAME
+        git config --global user.email $EMAIL
       env:
         NAME: "George Costanza"
         EMAIL: "george.costanza@vandelay.com"
