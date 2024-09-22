@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
+## [0.17.2][] (22 Sep 2024)
+  * Change plugin testing helper to use /tmp for test repo path
+
 ## [0.17.1][] (20 Sep 2024)
   * Use latest lolcommits-loltext gem
 
@@ -409,7 +412,9 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.2...HEAD
+[0.17.2]: https://github.com/lolcommits/lolcommits/compare/v0.17.1...v0.17.2
+[0.17.1]: https://github.com/lolcommits/lolcommits/compare/v0.17.0...v0.17.1
 [0.17.0]: https://github.com/lolcommits/lolcommits/compare/v0.16.5...v0.17.0
 [0.16.5]: https://github.com/lolcommits/lolcommits/compare/v0.16.4...v0.16.5
 [0.16.4]: https://github.com/lolcommits/lolcommits/compare/v0.16.3...v0.16.4

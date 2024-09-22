@@ -8,7 +8,7 @@ module Lolcommits
       end
 
       def repo_path
-        '~/.lolcommits/plugin-test-repo'
+        '/tmp/lolcommits-plugin-test-repo'
       end
 
       def repo_exists?
