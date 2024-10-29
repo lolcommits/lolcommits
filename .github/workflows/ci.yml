@@ -11,8 +11,6 @@ jobs:
   rubocop:
     name: RuboCop
     runs-on: ubuntu-latest
-    env:
-      BUNDLE_ONLY: rubocop
     steps:
     - uses: actions/checkout@v4
     - name: Setup Ruby and install rubocop
@@ -68,4 +66,4 @@ jobs:
         NAME: "George Costanza"
         EMAIL: "george.costanza@vandelay.com"
     - name: Run features
-      run: bin/cucumber --publish-quiet
+      run: bin/cucumber --publish-quiet -f progress
