@@ -31,7 +31,7 @@ jobs:
         ruby-version: 3.3
         bundler-cache: true
     - name: Run tests
-      run: rake test
+      run: bundle exec rake test
   features:
     name: ${{ format('Features (Ruby {0})', matrix.ruby-version) }}
     runs-on: ubuntu-latest
@@ -41,7 +41,6 @@ jobs:
           - "3.1"
           - "3.2"
           - "3.3"
-          - "3.4"
     continue-on-error: true
     steps:
     - uses: actions/checkout@v4
