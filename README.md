@@ -1,6 +1,6 @@
 # lolcommits
 
-[![CI](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/ci.yml?branch=main&style=flat)](https://github.com/lolcommits/lolcommits/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/ci.yml?branch=main&style=flat&label=CI)](https://github.com/lolcommits/lolcommits/actions/workflows/ci.yml)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
 [![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
 
@@ -15,14 +15,14 @@ By default, the lol images are stored by a Github style short SHA in a
 
 ## History
 
-Originally created by [@mroth] in 2011 as a joke project for [Hack &&
-Tell], lolcommits has grown considerably since then, and is now
-primarily maintained by [@matthutchinson].
+Originally created by [@mroth] in 2011 as a joke project for [Hack && Tell],
+lolcommits has grown considerably since then, and is now maintained by
+[@matthutchinson].
 
 Thank you to all of the [contributors] throughout the years!
 
-[@mroth]: https://github.com/mroth
 [@matthutchinson]: https://github.com/matthutchinson
+[@mroth]: https://github.com/mroth
 [Hack && Tell]: https://hackandtell.org
 [contributors]: https://github.com/lolcommits/lolcommits/graphs/contributors
 
