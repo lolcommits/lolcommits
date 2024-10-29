@@ -54,21 +54,11 @@ You'll need ImageMagick installed.
 
 Then install with:
 
-	[sudo] gem install lolcommits
-
-If you're using RVM (or rbenv), you can/should probably omit the sudo,
-but the default macOS Ruby install usually requires it.
-
-Lolcommits v0.8.1 was the last release to support Ruby < 2.0. If you'd
-like to use older Rubies try:
-
-    [sudo] gem install lolcommits --version 0.8.1   # for Ruby 1.9
-    [sudo] gem install lolcommits --version 0.7.0   # for Ruby 1.8
-
+	gem install lolcommits
 
 ### Linux
 
-Install these dependencies using your package manager of choice, for
+Install dependencies using your package manager of choice, for
 example in Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
@@ -84,7 +74,6 @@ Then install with:
 For more details, see [Installing on
 Linux](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Linux).
 
-
 ### Windows - here be dragons!
 
 It works, but you'll need some more detailed instructions to get the
@@ -93,7 +82,6 @@ Windows](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Windows).
 
 
 ## Usage
-
 
 ### Enabling and basic usage
 
