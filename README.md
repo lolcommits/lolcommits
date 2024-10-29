@@ -1,6 +1,6 @@
 # lolcommits
 
-[![Build](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/build.yml?branch=main&style=flat)](https://github.com/lolcommits/lolcommits/actions/workflows/build.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/ci.yml?branch=main&style=flat)](https://github.com/lolcommits/lolcommits/actions/workflows/ci.yml)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
 [![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
 
