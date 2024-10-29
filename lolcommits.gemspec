@@ -52,8 +52,8 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('lolcommits-loltext', '~> 0.5.0')
 
   # development & test gems
-  s.add_development_dependency('aruba')
   s.add_development_dependency('rake')
+  s.add_development_dependency('aruba')
   s.add_development_dependency('rdoc')
   s.add_development_dependency('debug')
   s.add_development_dependency('rubocop')

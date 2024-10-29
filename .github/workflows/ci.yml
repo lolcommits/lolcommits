@@ -18,10 +18,10 @@ jobs:
     - name: Setup Ruby and install rubocop
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.4
+        ruby-version: 3.3
         bundler-cache: true
     - name: Run rubocop
-      run: bundle exec rubocop --parallel
+      run: bin/rubocop --parallel
   tests:
     name: Unit tests
     runs-on: ubuntu-latest
@@ -30,7 +30,7 @@ jobs:
     - name: Set up Ruby and install gems
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.4
+        ruby-version: 3.3
         bundler-cache: true
     - name: Run tests
       run: bundle exec rake test
@@ -68,4 +68,4 @@ jobs:
         NAME: "George Costanza"
         EMAIL: "george.costanza@vandelay.com"
     - name: Run features
-      run: bundle exec cucumber
+      run: bin/cucumber --publish-quiet
