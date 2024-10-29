@@ -18,7 +18,7 @@ jobs:
     - name: Setup Ruby and install rubocop
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.3
+        ruby-version: 3.4
         bundler-cache: true
     - name: Run rubocop
       run: bundle exec rubocop --parallel
@@ -30,10 +30,10 @@ jobs:
     - name: Set up Ruby and install gems
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.3
+        ruby-version: 3.4
         bundler-cache: true
     - name: Run tests
-      run: rake test
+      run: bundle exec rake test
   features:
     name: ${{ format('Features (Ruby {0})', matrix.ruby-version) }}
     runs-on: ubuntu-latest
