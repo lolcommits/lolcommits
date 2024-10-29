@@ -1,4 +1,5 @@
 # frozen_string_literal: true
 
-require 'lolcommits'
-require 'minitest/autorun'
+require "bundler/setup"
+require "minitest/autorun"
+require "lolcommits"

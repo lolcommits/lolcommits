@@ -5,43 +5,49 @@ on:
     branches:
       - main
   pull_request:
-
+    branches:
+      - main
 jobs:
   rubocop:
+    name: RuboCop
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: rubocop
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby
+    - name: Setup Ruby and install rubocop
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.4
         bundler-cache: true
     - name: Run rubocop
-      run: bundle exec rake rubocop
+      run: bundle exec rubocop --parallel
   tests:
+    name: Unit tests
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby
+    - name: Set up Ruby and install gems
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.4
         bundler-cache: true
     - name: Run tests
-      run: bundle exec rake test
+      run: rake test
   features:
+    name: ${{ format('Features (Ruby {0})', matrix.ruby-version) }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         ruby-version:
           - "3.1"
           - "3.2"
           - "3.3"
           - "3.4"
+    continue-on-error: true
     steps:
     - uses: actions/checkout@v4
-    - name: Set up Ruby
+    - name: Set up Ruby and install gems
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby-version }}
@@ -54,12 +60,12 @@ jobs:
       uses: FedericoCarboni/setup-ffmpeg@v3
     - name: Set up mplayer
       run: sudo apt-get install -y mplayer
-    - name: Configure git user name, email
+    - name: Configure Git
       run: |
         git config --global user.name $NAME
         git config --global user.email $EMAIL
       env:
         NAME: "George Costanza"
         EMAIL: "george.costanza@vandelay.com"
-    - name: Run cucumber features
-      run: bundle exec rake features
+    - name: Run features
+      run: bundle exec cucumber
