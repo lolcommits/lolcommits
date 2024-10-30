@@ -1,22 +1,13 @@
 #!/usr/bin/env ruby
 
-begin
-  require 'lolcommits'
-rescue LoadError
-  require 'rubygems'
-  require 'lolcommits'
-end
-
-require 'optparse'
-require 'optparse_plus'
-require 'lolcommits/cli.rb'
+require 'lolcommits'
+require 'lolcommits/cli'
 
 # allow logging from everywhere
 include OptparsePlus::CLILogging
 
 class App
   include OptparsePlus::Main
-
   include Lolcommits
   include Lolcommits::CLI
 
@@ -37,7 +28,7 @@ class App
       end
 
       plugin_manager = PluginManager.init
-      config         = Configuration.new(plugin_manager, test_mode: options[:test])
+      config = Configuration.new(plugin_manager, test_mode: options[:test])
 
       if options[:version]
         puts Lolcommits::VERSION
