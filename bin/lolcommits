@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 
 require 'lolcommits'
-require 'lolcommits/cli'
 
 # allow logging from everywhere
 include OptparsePlus::CLILogging

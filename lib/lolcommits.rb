@@ -1,17 +1,14 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift File.expand_path('.')
-
 require 'mini_magick'
 require 'fileutils'
 require 'git'
 require 'open3'
-require 'optparse'
-require 'optparse_plus'
 require 'date'
 require 'mercurial-ruby'
 
 require 'lolcommits/version'
+require 'lolcommits/cli'
 require 'lolcommits/configuration'
 require 'lolcommits/capturer'
 require 'lolcommits/vcs_info'

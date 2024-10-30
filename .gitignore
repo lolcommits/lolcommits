@@ -13,3 +13,4 @@ doc
 *.swo
 vendor/bundle
 .idea
+checksums

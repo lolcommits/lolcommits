@@ -1,8 +1,5 @@
 # frozen_string_literal: true
-
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lolcommits/version'
+require_relative 'lib/lolcommits/version'
 
 Gem::Specification.new do |s|
   s.name    = Lolcommits::GEM_NAME.dup
