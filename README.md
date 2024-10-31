@@ -7,7 +7,8 @@
 > git-based selfies for software developers
 
 lolcommits takes a snapshot with your webcam every time you git commit,
-archiving a "lolcat" style image. Git blame has never been so much fun!
+archiving a "[LOLcat](https://en.wikipedia.org/wiki/Lolcat)" style image. Git
+blame has never been so much fun!
 
 By default these lol images are stored with a short SHA filename in a
 `~/.lolcommits` directory created just for you.
