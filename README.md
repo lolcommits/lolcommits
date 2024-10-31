@@ -6,20 +6,19 @@
 
 > git-based selfies for software developers
 
-lolcommits takes a snapshot with your webcam every time you git commit
-code, and archives a lolcat style image with it. Git blame has never
-been so much fun.
+lolcommits takes a snapshot with your webcam every time you git commit,
+archiving a "lolcat" style image. Git blame has never been so much fun!
 
-By default, the lol images are stored by a Github style short SHA in a
-`~/.lolcommits` directory created for you.
+By default these lol images are stored with a short SHA filename in a
+`~/.lolcommits` directory created just for you.
 
 ## History
 
-Originally created by [@mroth] in 2011 as a joke project for [Hack && Tell],
-lolcommits has grown considerably since then, and is now maintained by
-[@matthutchinson].
+Originally created by [@mroth] in 2011 (as a joke project for [Hack && Tell]),
+lolcommits has grown considerably, has a plugin ecosystem and is now maintained
+by [@matthutchinson].
 
-Thank you to all of the [contributors] throughout the years!
+Thanks to all the [contributors] and users throughout the years!
 
 [@matthutchinson]: https://github.com/matthutchinson
 [@mroth]: https://github.com/mroth
@@ -32,7 +31,7 @@ Thank you to all of the [contributors] throughout the years!
 
 Please add your own lolcommit to the [People Using
 Lolcommits](https://github.com/lolcommits/lolcommits/wiki/Lolcommits-from-around-the-world%21)
-page on our wiki!
+page!
 
 
 ## Requirements
