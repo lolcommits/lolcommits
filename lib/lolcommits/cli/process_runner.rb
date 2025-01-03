@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'fileutils'
+require "fileutils"
 
 module Lolcommits
   module CLI
@@ -43,7 +43,7 @@ module Lolcommits
       end
 
       def pid_file
-        File.join(@configuration.loldir, 'lolcommits.pid')
+        File.join(@configuration.loldir, "lolcommits.pid")
       end
     end
   end

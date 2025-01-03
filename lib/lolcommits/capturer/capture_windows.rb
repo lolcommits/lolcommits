@@ -17,12 +17,12 @@ module Lolcommits
         " /delay #{capture_delay * 1000}"
       else
         # DirectShow takes a while to show, default to 3 sec delay
-        ' /delay 3000'
+        " /delay 3000"
       end
     end
 
     def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'CommandCam', 'CommandCam.exe')
+      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "CommandCam", "CommandCam.exe")
     end
   end
 end

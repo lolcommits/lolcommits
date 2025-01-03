@@ -62,7 +62,7 @@ module Lolcommits
 
     def gem_list
       Gem.refresh
-      Gem::Specification.respond_to?(:each) ? Gem::Specification : Gem.source_index.find_name('')
+      Gem::Specification.respond_to?(:each) ? Gem::Specification : Gem.source_index.find_name("")
     end
   end
 end

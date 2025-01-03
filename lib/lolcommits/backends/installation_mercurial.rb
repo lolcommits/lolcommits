@@ -5,13 +5,13 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationMercurial
-    HOOK_SECTION = 'hooks'
-    HOOK_OPERATIONS = %w(commit record crecord).freeze
+    HOOK_SECTION = "hooks"
+    HOOK_OPERATIONS = %w[commit record crecord].freeze
 
     #
     # IF --ENABLE, DO ENABLE
     #
-    def self.do_enable(capture_args = '')
+    def self.do_enable(capture_args = "")
       if lolcommits_hook_exists?
         # clear away any existing lolcommits hook
         remove_existing_hook!
@@ -39,9 +39,9 @@ module Lolcommits
       end
     end
 
-    def self.hook_script(capture_args = '')
-      ruby_path     = Lolcommits::Platform.command_which('ruby', only_path: true)
-      imagick_path  = Lolcommits::Platform.command_which('identify', only_path: true)
+    def self.hook_script(capture_args = "")
+      ruby_path     = Lolcommits::Platform.command_which("ruby", only_path: true)
+      imagick_path  = Lolcommits::Platform.command_which("identify", only_path: true)
       capture_cmd   = "if [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
       exports       = "LANG=\"#{ENV.fetch('LANG', nil)}\" && PATH=\"$PATH:#{ruby_path}:#{imagick_path}\""
 
@@ -53,13 +53,13 @@ module Lolcommits
     end
 
     def self.repository
-      Mercurial::Repository.open('.')
+      Mercurial::Repository.open(".")
     end
 
     # does a mercurial hook exist with lolcommits commands?
     def self.lolcommits_hook_exists?
       config = repository.config
-      config.exists? && config.setting_exists?(HOOK_SECTION, 'post-crecord.lolcommits')
+      config.exists? && config.setting_exists?(HOOK_SECTION, "post-crecord.lolcommits")
     end
 
     # can we load the hgrc?

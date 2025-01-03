@@ -5,13 +5,13 @@ module Lolcommits
   # Methods to handle enabling and disabling of lolcommits
   #
   class InstallationGit
-    HOOK_PATH = File.join '.git', 'hooks', 'post-commit'
-    HOOK_DIR = File.join '.git', 'hooks'
+    HOOK_PATH = File.join ".git", "hooks", "post-commit"
+    HOOK_DIR = File.join ".git", "hooks"
 
     #
     # IF --ENABLE, DO ENABLE
     #
-    def self.do_enable(capture_args = '')
+    def self.do_enable(capture_args = "")
       # its possible a hooks dir doesnt exist, so create it if so
       Dir.mkdir(HOOK_DIR) unless File.directory?(HOOK_DIR)
 
@@ -33,7 +33,7 @@ module Lolcommits
         add_shebang = true
       end
 
-      File.open(HOOK_PATH, add_shebang ? 'w' : 'a') do |f|
+      File.open(HOOK_PATH, add_shebang ? "w" : "a") do |f|
         f.write("#!/bin/sh\n") if add_shebang
         f.write(hook_script(capture_args))
       end
@@ -59,9 +59,9 @@ module Lolcommits
       end
     end
 
-    def self.hook_script(capture_args = '')
-      ruby_path     = Lolcommits::Platform.command_which('ruby', only_path: true)
-      imagick_path  = Lolcommits::Platform.command_which('identify', only_path: true)
+    def self.hook_script(capture_args = "")
+      ruby_path     = Lolcommits::Platform.command_which("ruby", only_path: true)
+      imagick_path  = Lolcommits::Platform.command_which("identify", only_path: true)
       capture_cmd   = "if [ ! -d \"$GIT_DIR/rebase-merge\" ] && [ \"$LOLCOMMITS_CAPTURE_DISABLED\" != \"true\" ]; then lolcommits --capture #{capture_args}; fi"
       exports       = "GIT_DIR=${GIT_DIR-`git rev-parse --git-dir`} && LANG=\"#{ENV.fetch('LANG', nil)}\" && PATH=\"$PATH:#{ruby_path}:#{imagick_path}\""
 
@@ -95,7 +95,7 @@ module Lolcommits
 
     def self.remove_existing_hook!
       hook = File.read(HOOK_PATH)
-      out  = File.open(HOOK_PATH, 'w')
+      out  = File.open(HOOK_PATH, "w")
       skip = false
 
       hook.lines.each do |line|

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'lolcommits/platform'
-require 'lolcommits/animated_gif'
+require "lolcommits/platform"
+require "lolcommits/animated_gif"
 
 module Lolcommits
   class Runner
@@ -30,7 +30,7 @@ module Lolcommits
 
       self.capture_path       = config.capture_path(lolcommit_ext)
       self.lolcommit_path     = config.sha_path(sha, lolcommit_ext)
-      self.lolcommit_gif_path = config.sha_path(sha, 'gif') if capture_gif
+      self.lolcommit_gif_path = config.sha_path(sha, "gif") if capture_gif
     end
 
     def run
@@ -41,7 +41,7 @@ module Lolcommits
 
       # capture must exist to run post capture methods
       unless File.exist?(capture_path)
-        raise 'failed to capture any image or video!'
+        raise "failed to capture any image or video!"
       end
 
       run_post_capture
@@ -50,7 +50,7 @@ module Lolcommits
       debug("#{e.class}: #{e.message}")
       exit 1
     ensure
-      debug 'running cleanup'
+      debug "running cleanup"
       FileUtils.rm_f(capture_path)
     end
 
@@ -63,12 +63,12 @@ module Lolcommits
         end
 
         base = MiniMagick::Image.open(source_path)
-        png_tempfile = MiniMagick::Utilities.tempfile('.png')
+        png_tempfile = MiniMagick::Utilities.tempfile(".png")
         debug("creating a new empty overlay png for lolcommit (#{base.dimensions.join('x')})")
 
         MiniMagick::Tool::Convert.new do |i|
           i.size "#{base.width}x#{base.height}"
-          i.xc 'transparent'
+          i.xc "transparent"
           i << png_tempfile.path
         end
 
@@ -94,7 +94,7 @@ module Lolcommits
     end
 
     def run_capture
-      puts '*** Preserving this moment in history.' unless capture_stealth
+      puts "*** Preserving this moment in history." unless capture_stealth
       capturer = Platform.capturer_class(animate: !capture_image?).new(
         capture_path: capture_path,
         capture_device: capture_device,
@@ -119,10 +119,7 @@ module Lolcommits
       # optionally create animated gif
       return unless capture_gif
 
-      AnimatedGif.new.create(
-        video_path: lolcommit_path,
-        output_path: lolcommit_gif_path
-      )
+      AnimatedGif.new.create(video_path: lolcommit_path, output_path: lolcommit_gif_path)
 
       # done if we are capturing both video and gif
       return if capture_video
@@ -145,9 +142,9 @@ module Lolcommits
         debug "resizing raw image (#{image.dimensions.join('x')}) to #{lolcommit_path} (640x480)"
         # hacky resize to fill bounds
         image.combine_options do |c|
-          c.resize '640x480^'
-          c.gravity 'center'
-          c.extent '640x480'
+          c.resize "640x480^"
+          c.gravity "center"
+          c.extent "640x480"
         end
         image.write(lolcommit_path)
       else
@@ -157,10 +154,10 @@ module Lolcommits
     end
 
     def apply_overlay
-      debug 'applying overlay to lolcommit'
+      debug "applying overlay to lolcommit"
       if capture_image?
         MiniMagick::Image.open(lolcommit_path).composite(overlay) do |c|
-          c.gravity 'center'
+          c.gravity "center"
         end.write(lolcommit_path)
       else
         system_call "ffmpeg -v quiet -nostats -i #{capture_path} -i #{overlay.path} \
@@ -171,9 +168,9 @@ module Lolcommits
 
     def lolcommit_ext
       if capture_image?
-        'jpg'
+        "jpg"
       else
-        'mp4'
+        "mp4"
       end
     end
 

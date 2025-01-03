@@ -14,3 +14,4 @@ doc
 vendor/bundle
 .idea
 checksums
+mise.toml

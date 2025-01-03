@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'mini_magick'
-require 'rbconfig'
+require "mini_magick"
+require "rbconfig"
 
 module Lolcommits
   class Platform
     # The capturer class constant to use
     # @return Class
     def self.capturer_class(animate: false)
-      if ENV['LOLCOMMITS_CAPTURER']
-        const_get(ENV['LOLCOMMITS_CAPTURER'])
+      if ENV["LOLCOMMITS_CAPTURER"]
+        const_get(ENV["LOLCOMMITS_CAPTURER"])
       elsif platform_mac?
         animate ? CaptureMacVideo : CaptureMac
       elsif platform_linux?
@@ -19,20 +19,20 @@ module Lolcommits
       elsif platform_cygwin?
         CaptureCygwin
       else
-        raise 'Unknown / Unsupported Platform.'
+        raise "Unknown / Unsupported Platform."
       end
     end
 
     # Are we on a Mac platform?
     # @return Boolean
     def self.platform_mac?
-      host_os.include?('darwin')
+      host_os.include?("darwin")
     end
 
     # Are we on a Linux platform?
     # @return Boolean
     def self.platform_linux?
-      host_os.include?('linux')
+      host_os.include?("linux")
     end
 
     # Are we on a Windows platform?
@@ -44,13 +44,13 @@ module Lolcommits
     # Are we on a Cygwin platform?
     # @return Boolean
     def self.platform_cygwin?
-      host_os.include?('cygwin')
+      host_os.include?("cygwin")
     end
 
     # return host_os identifier from the RbConfig::CONFIG constant
     # @return String
     def self.host_os
-      ENV['LOLCOMMITS_FAKE_HOST_OS'] || RbConfig::CONFIG['host_os'].downcase
+      ENV["LOLCOMMITS_FAKE_HOST_OS"] || RbConfig::CONFIG["host_os"].downcase
     end
 
     # Is the platform capable of capturing animated GIFs from webcam?
@@ -62,9 +62,9 @@ module Lolcommits
     # Is a valid install of imagemagick present on the system?
     # @return Boolean
     def self.valid_imagemagick_installed?
-      return false unless command_which('identify')
+      return false unless command_which("identify")
 
-      return false unless command_which('mogrify')
+      return false unless command_which("mogrify")
 
       # cli_version check will throw a MiniMagick::Error exception if IM is not
       # installed in PATH, since it attempts to parse output from `identify`
@@ -78,7 +78,7 @@ module Lolcommits
     # @note For now, this just checks for presence, any version should work.
     # @return Boolean
     def self.valid_ffmpeg_installed?
-      command_which('ffmpeg')
+      command_which("ffmpeg")
     end
 
     # Cross-platform way of finding an executable in the $PATH.
@@ -91,8 +91,8 @@ module Lolcommits
     #
     # @return Boolean
     def self.command_which(cmd, only_path: false)
-      exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-      ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+      exts = ENV["PATHEXT"] ? ENV["PATHEXT"].split(";") : [ "" ]
+      ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
         exts.each do |ext|
           exe = "#{path}/#{cmd}#{ext}"
           return only_path ? path : exe if File.executable? exe
@@ -123,7 +123,7 @@ module Lolcommits
       # TODO: handle other platforms here (linux/windows) e.g with ffmpeg -list_devices
       return unless Platform.platform_mac?
 
-      videosnap = File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'videosnap', 'videosnap')
+      videosnap = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")
       `#{videosnap} -l`
     end
   end

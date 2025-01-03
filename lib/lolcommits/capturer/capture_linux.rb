@@ -15,13 +15,13 @@ module Lolcommits
       # multiply the set value (in seconds) by 25
       frames = delay.to_i * MPLAYER_FPS
 
-      debug 'calling out to mplayer to capture image'
+      debug "calling out to mplayer to capture image"
       # mplayer's output is ugly and useless, let's throw it away
       _stdin, stdout, _stderr = Open3.popen3("mplayer -vo jpeg:outdir=#{tmpdir} #{capture_device_string} -frames #{frames} -fps #{MPLAYER_FPS} tv://")
       # looks like we still need to read the output for something to happen
       stdout.read
 
-      debug 'calling out to mplayer to capture image'
+      debug "calling out to mplayer to capture image"
 
       # get last frame from tmpdir (regardless of fps)
       all_frames = Dir.glob("#{tmpdir}/*.jpg").sort_by do |f|
@@ -29,10 +29,10 @@ module Lolcommits
       end
 
       if all_frames.empty?
-        debug 'failed to capture any image'
+        debug "failed to capture any image"
       else
         FileUtils.mv(all_frames.last, capture_path)
-        debug 'cleaning up'
+        debug "cleaning up"
       end
 
       FileUtils.rm_rf(tmpdir)

@@ -5,9 +5,9 @@ module Lolcommits
     module ConfigurationHelper
       # handle for bools, strings, ints and blanks from user input
       def parse_user_input(str)
-        if 'true'.casecmp(str).zero?
+        if "true".casecmp(str).zero?
           true
-        elsif 'false'.casecmp(str).zero?
+        elsif "false".casecmp(str).zero?
           false
         elsif str =~ /^[0-9]+$/
           str.to_i
@@ -29,7 +29,7 @@ module Lolcommits
       # ]
       # User will be asked for Organization, can tab to autocomplete, and chosen
       # value is returned.
-      def prompt_autocomplete_hash(prompt, items, name: 'name', value: 'value', suggest_words: 5)
+      def prompt_autocomplete_hash(prompt, items, name: "name", value: "value", suggest_words: 5)
         words = items.map { |item| item[name] }.sort
         puts "e.g. #{words.take(suggest_words).join(', ')}" if suggest_words.positive?
         completed_input = gets_autocomplete(prompt, words)
@@ -40,7 +40,7 @@ module Lolcommits
 
       def gets_autocomplete(prompt, words)
         completion_handler = proc { |s| words.grep(/^#{Regexp.escape(s)}/) }
-        Readline.completion_append_character = ''
+        Readline.completion_append_character = ""
         Readline.completion_proc = completion_handler
 
         while (line = Readline.readline(prompt, true).strip)

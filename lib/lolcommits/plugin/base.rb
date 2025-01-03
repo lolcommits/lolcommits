@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'lolcommits/plugin/configuration_helper'
+require "lolcommits/plugin/configuration_helper"
 
 module Lolcommits
   module Plugin
@@ -13,7 +13,7 @@ module Lolcommits
         self.runner = runner
         self.name = name || self.class.to_s
         self.configuration = config || {}
-        self.options = [:enabled]
+        self.options = [ :enabled ]
       end
 
       def run_pre_capture; end
@@ -51,9 +51,7 @@ module Lolcommits
       #
       # @return [Hash] the configured plugin options
       def configure_options!
-        configure_option_hash(
-          options.map { |option| [option, nil] }.to_h.merge(default_options)
-        )
+        configure_option_hash(options.map { |option| [ option, nil ] }.to_h.merge(default_options))
       end
 
       def default_options
@@ -103,7 +101,7 @@ module Lolcommits
       def configure_option_hash(option_hash, spacing_count = 0)
         option_hash.keys.reduce({}) do |acc, option|
           option_value = option_hash[option]
-          prefix       = '  ' * spacing_count
+          prefix       = "  " * spacing_count
           if option_value.is_a?(Hash)
             puts "#{prefix}#{option}:\n"
             acc.merge(option => configure_option_hash(option_value, (spacing_count + 1)))

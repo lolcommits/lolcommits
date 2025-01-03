@@ -4,16 +4,16 @@ module Lolcommits
   class GitInfo
     GIT_URL_REGEX = %r{.*:([/\w-]*).git}
 
-    def self.repo_root?(path = '.')
-      File.directory?(File.join(path, '.git'))
+    def self.repo_root?(path = ".")
+      File.directory?(File.join(path, ".git"))
     end
 
-    def self.local_name(path = '.')
+    def self.local_name(path = ".")
       File.basename(Git.open(path).dir.to_s)
     end
 
     def initialize
-      debug 'parsed the following values from commit:'
+      debug "parsed the following values from commit:"
       debug "\t#{message}"
       debug "\t#{sha}"
       debug "\t#{repo_internal_path}"
@@ -30,7 +30,7 @@ module Lolcommits
 
     def message
       @message ||= begin
-        message = last_commit.message || ''
+        message = last_commit.message || ""
         message.split("\n").first
       end
     end
@@ -81,7 +81,7 @@ module Lolcommits
       "#{url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '')}/commit/"
     end
 
-    def repository(path = '.')
+    def repository(path = ".")
       @repository ||= Git.open(path)
     end
 

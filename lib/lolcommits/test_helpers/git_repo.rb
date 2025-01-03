@@ -8,11 +8,11 @@ module Lolcommits
       end
 
       def repo_path
-        '/tmp/lolcommits-plugin-test-repo'
+        "/tmp/lolcommits-plugin-test-repo"
       end
 
       def repo_exists?
-        File.directory?(File.expand_path(repo_path, '.git'))
+        File.directory?(File.expand_path(repo_path, ".git"))
       end
 
       def last_commit
@@ -25,7 +25,7 @@ module Lolcommits
         `git init --quiet #{repo_path}`
       end
 
-      def commit_repo_with_message(message = 'test message', file_name: 'test.txt', file_content: 'testing')
+      def commit_repo_with_message(message = "test message", file_name: "test.txt", file_content: "testing")
         setup_repo unless repo_exists?
         `echo '#{file_content}' >> #{repo_path}/#{file_name}`
         `cd #{repo_path} && git add #{file_name}`

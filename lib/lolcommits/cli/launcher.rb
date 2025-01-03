@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'launchy'
+require "launchy"
 
 module Lolcommits
   module CLI

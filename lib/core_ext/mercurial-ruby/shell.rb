@@ -5,7 +5,7 @@ module Mercurial
     # windows command line doesn't like single quotes
     def self.interpolate_arguments(cmd_with_args)
       cmd_with_args.shift.tap do |cmd|
-        cmd.gsub!('?') do
+        cmd.gsub!("?") do
           if Lolcommits::Platform.platform_windows?
             "\"#{cmd_with_args.shift}\""
           else

@@ -9,8 +9,8 @@ if Lolcommits::Platform.platform_windows?
       def execution_proc
         proc do
           debug(command)
-          result = ''
-          error = ''
+          result = ""
+          error = ""
           status = nil
           Open3.popen3(command) do |_stdin, stdout, stderr, wait_thread|
             Timeout.timeout(timeout) do

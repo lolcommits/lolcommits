@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'lolcommits/cli/fatals'
-require 'mini_magick'
+require "lolcommits/cli/fatals"
+require "mini_magick"
 
 module Lolcommits
   module CLI
@@ -16,7 +16,7 @@ module Lolcommits
       # param args [String] the arg passed to the gif command on CLI (optional)
       def run(args = nil)
         case args
-        when 'today'
+        when "today"
           lolimages = jpg_images_today
           filename  = Date.today.to_s
         else
@@ -25,11 +25,11 @@ module Lolcommits
         end
 
         if lolimages.empty?
-          warn 'No lolcommits have been captured for this time yet.'
+          warn "No lolcommits have been captured for this time yet."
           exit 1
         end
 
-        puts '*** Generating animated timelapse gif.'
+        puts "*** Generating animated timelapse gif."
 
         MiniMagick.convert do |convert|
           convert.delay 50
@@ -46,7 +46,7 @@ module Lolcommits
       attr_accessor :loldir
 
       def jpg_images
-        Dir.glob(File.join(loldir, '*.jpg')).sort_by { |f| File.mtime(f) }
+        Dir.glob(File.join(loldir, "*.jpg")).sort_by { |f| File.mtime(f) }
       end
 
       def jpg_images_today
@@ -54,7 +54,7 @@ module Lolcommits
       end
 
       def timelapses_dir_path
-        dir = File.join(loldir, 'timelapses')
+        dir = File.join(loldir, "timelapses")
         FileUtils.mkdir_p(dir)
         dir
       end

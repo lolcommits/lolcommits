@@ -2,25 +2,25 @@
 
 module Lolcommits
   class MercurialInfo
-    def self.repo_root?(path = '.')
-      File.directory?(File.join(path, '.hg'))
+    def self.repo_root?(path = ".")
+      File.directory?(File.join(path, ".hg"))
     end
 
-    def self.local_name(path = '.')
+    def self.local_name(path = ".")
       File.basename(File.dirname(Mercurial::Repository.open(path).dothg_path))
     end
 
     def initialize
       # mercurial sets HG_RESULT for post- hooks
-      if ENV.key?('HG_RESULT') && ENV['HG_RESULT'] != '0'
-        debug 'Aborting lolcommits hook from failed operation'
+      if ENV.key?("HG_RESULT") && ENV["HG_RESULT"] != "0"
+        debug "Aborting lolcommits hook from failed operation"
         exit 1
       end
 
       Mercurial.configure do |conf|
-        conf.hg_binary_path = 'hg'
+        conf.hg_binary_path = "hg"
       end
-      debug 'parsed the following values from commit:'
+      debug "parsed the following values from commit:"
       debug "\t#{message}"
       debug "\t#{sha}"
       debug "\t#{repo_internal_path}"
@@ -37,7 +37,7 @@ module Lolcommits
 
     def message
       @message ||= begin
-        message = last_commit.message || ''
+        message = last_commit.message || ""
         message.split("\n").first
       end
     end
@@ -76,7 +76,7 @@ module Lolcommits
       super("#{self.class}: #{message}")
     end
 
-    def repository(path = '.')
+    def repository(path = ".")
       @repository ||= Mercurial::Repository.open(path)
     end
 

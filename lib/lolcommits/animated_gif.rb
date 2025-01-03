@@ -20,7 +20,7 @@ module Lolcommits
       # create the looping animated gif from frames (delete frame files except every #{skip} frame)
       Dir["#{frames_dir}/*.png"].each do |frame_filename|
         basename = File.basename(frame_filename)
-        frame_number = basename.split('.').first.to_i
+        frame_number = basename.split(".").first.to_i
         File.delete(frame_filename) if frame_number % skip != 0
       end
 
@@ -38,13 +38,13 @@ module Lolcommits
     end
 
     def null_string
-      Lolcommits::Platform.platform_windows? ? 'nul' : '/dev/null'
+      Lolcommits::Platform.platform_windows? ? "nul" : "/dev/null"
     end
 
     def frame_delay(fps, skip)
       # calculate frame delay
       delay = ((100.0 * skip) / fps.to_f).to_i
-      [delay, 6].max # hard limit for IE browsers
+      [ delay, 6 ].max # hard limit for IE browsers
     end
 
     def video_fps(file)

@@ -9,11 +9,11 @@ module Lolcommits
     private
 
     def capture_device_string
-      capture_device.nil? ? '' : "-d \"#{capture_device}\""
+      capture_device.nil? ? "" : "-d \"#{capture_device}\""
     end
 
     def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, 'vendor', 'ext', 'imagesnap', 'imagesnap')
+      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
     end
   end
 end

@@ -9,7 +9,7 @@ module Lolcommits
     private
 
     def capture_device_string
-      capture_device || Dir.glob('/dev/video*').first
+      capture_device || Dir.glob("/dev/video*").first
     end
   end
 end

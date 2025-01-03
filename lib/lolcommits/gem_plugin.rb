@@ -51,22 +51,22 @@ module Lolcommits
     end
 
     def name
-      gem_name.split('-', 2).last
+      gem_name.split("-", 2).last
     end
 
     private
 
     def gem_path
-      gem_name.tr('-', '/')
+      gem_name.tr("-", "/")
     end
 
     def plugin_klass_name
       # convert gem paths to plugin classes e.g.
       # lolcommits/loltext --> Lolcommits::Plugin::Loltext
       # lolcommits/term_output --> Lolcommits::Plugin::TermOutput
-      gem_path.split('/').insert(1, 'plugin').collect do |c|
-        c.split('_').collect(&:capitalize).join
-      end.join('::')
+      gem_path.split("/").insert(1, "plugin").collect do |c|
+        c.split("_").collect(&:capitalize).join
+      end.join("::")
     end
   end
 end

@@ -2,23 +2,42 @@
 
 module Lolcommits
   class Configuration
-    LOLCOMMITS_BASE = ENV['LOLCOMMITS_DIR'] || File.join(Dir.home, '.lolcommits')
-    LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), '../..')
+    LOLCOMMITS_BASE = ENV["LOLCOMMITS_DIR"] || File.join(Dir.home, ".lolcommits")
+    LOLCOMMITS_ROOT = File.join(File.dirname(__FILE__), "../..")
 
     attr_accessor :plugin_manager
     attr_writer :loldir
 
+    def self.loldir_for(basename)
+      loldir = File.join(LOLCOMMITS_BASE, basename)
+
+      if File.directory? loldir
+        begin
+          # ensure 755 permissions for loldir
+          File.chmod(0o755, loldir)
+        rescue Errno::EPERM
+          # abort if permissions cannot be met
+          puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV.fetch('USER', nil)}'"
+          puts "Try changing the directory permissions to 755"
+          exit 1
+        end
+      else
+        FileUtils.mkdir_p loldir
+      end
+      loldir
+    end
+
     def initialize(plugin_manager, test_mode: false)
       @plugin_manager = plugin_manager
-      @loldir         = Configuration.loldir_for('test') if test_mode
+      @loldir         = Configuration.loldir_for("test") if test_mode
     end
 
     def yaml
       @yaml ||= if File.exist?(configuration_file)
-                  YAML.safe_load(File.open(configuration_file), permitted_classes: [Symbol]) || Hash.new({})
-                else
+                  YAML.safe_load(File.open(configuration_file), permitted_classes: [ Symbol ]) || Hash.new({})
+      else
                   Hash.new({})
-                end
+      end
     end
 
     def configuration_file
@@ -30,11 +49,11 @@ module Lolcommits
 
       basename ||= if VCSInfo.repo_root?
                      VCSInfo.local_name
-                   else
+      else
                      File.basename(Dir.getwd)
-                   end
-      basename.sub!(/^\./, 'dot')
-      basename.sub!(/ /, '-')
+      end
+      basename.sub!(/^\./, "dot")
+      basename.sub!(/ /, "-")
       @loldir = Configuration.loldir_for(basename)
     end
 
@@ -42,7 +61,7 @@ module Lolcommits
       File.join loldir, "#{sha}.#{ext}"
     end
 
-    def capture_path(ext = 'jpg')
+    def capture_path(ext = "jpg")
       File.join loldir, "raw_capture.#{ext}"
     end
 
@@ -68,7 +87,7 @@ module Lolcommits
 
     def ask_for_plugin_name
       list_plugins
-      print 'Name of plugin to configure: '
+      print "Name of plugin to configure: "
       gets.strip
     end
 
@@ -94,7 +113,7 @@ module Lolcommits
     ensure
       if plugin
         # clean away legacy enabled key, later we can remove this
-        plugin_config.delete('enabled')
+        plugin_config.delete("enabled")
         # save plugin config (if we have anything in the hash)
         save(plugin.name, plugin_config) unless plugin_config.empty?
 
@@ -113,27 +132,6 @@ module Lolcommits
 
     def to_s
       yaml.to_yaml.to_s
-    end
-
-    # class methods
-
-    def self.loldir_for(basename)
-      loldir = File.join(LOLCOMMITS_BASE, basename)
-
-      if File.directory? loldir
-        begin
-          # ensure 755 permissions for loldir
-          File.chmod(0o755, loldir)
-        rescue Errno::EPERM
-          # abort if permissions cannot be met
-          puts "FATAL: directory '#{loldir}' should be present and writeable by user '#{ENV.fetch('USER', nil)}'"
-          puts 'Try changing the directory permissions to 755'
-          exit 1
-        end
-      else
-        FileUtils.mkdir_p loldir
-      end
-      loldir
     end
   end
 end

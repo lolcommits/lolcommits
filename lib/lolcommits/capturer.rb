@@ -2,8 +2,7 @@
 
 module Lolcommits
   class Capturer
-    attr_accessor :capture_device, :capture_delay, :capture_duration,
-                  :capture_path
+    attr_accessor :capture_device, :capture_delay, :capture_duration, :capture_path
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -22,11 +21,11 @@ module Lolcommits
   end
 end
 
-require 'lolcommits/capturer/capture_mac'
-require 'lolcommits/capturer/capture_mac_video'
-require 'lolcommits/capturer/capture_linux'
-require 'lolcommits/capturer/capture_linux_video'
-require 'lolcommits/capturer/capture_windows'
-require 'lolcommits/capturer/capture_windows_video'
-require 'lolcommits/capturer/capture_cygwin'
-require 'lolcommits/capturer/capture_fake'
+require "lolcommits/capturer/capture_mac"
+require "lolcommits/capturer/capture_mac_video"
+require "lolcommits/capturer/capture_linux"
+require "lolcommits/capturer/capture_linux_video"
+require "lolcommits/capturer/capture_windows"
+require "lolcommits/capturer/capture_windows_video"
+require "lolcommits/capturer/capture_cygwin"
+require "lolcommits/capturer/capture_fake"
