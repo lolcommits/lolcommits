@@ -63,7 +63,6 @@ module Lolcommits
     # @return Boolean
     def self.valid_imagemagick_installed?
       return false unless command_which("identify")
-
       return false unless command_which("mogrify")
 
       # cli_version check will throw a MiniMagick::Error exception if IM is not
