@@ -22,11 +22,11 @@ Gem::Specification.new do |s|
     'source_code_uri' => 'https://github.com/lolcommits/lolcommits',
     'changelog_uri' => 'https://github.com/lolcommits/lolcommits/blob/master/CHANGELOG.md',
     'bug_tracker_uri' => 'https://github.com/lolcommits/lolcommits/issues',
-    'allowed_push_host' => 'https://rubygems.org'
+    'allowed_push_host' => 'https://rubygems.org',
+'rubygems_mfa_required' => 'true'
   }
 
   s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,features}/*`.split("\n")
   s.executables   = 'lolcommits'
   s.require_paths = [ 'lib' ]
 
@@ -36,15 +36,15 @@ Gem::Specification.new do |s|
   s.requirements << 'a webcam'
 
   # core
-  s.add_dependency('optparse-plus', '~> 3.0.1')
+  s.add_dependency('base64')
+  s.add_dependency('git', '~> 2.3.3')
+  s.add_dependency('launchy', '~> 3.0.1')
+  s.add_dependency('logger')
   s.add_dependency('mercurial-ruby', '~> 0.7.12')
   s.add_dependency('mini_magick', '~> 5.0.1')
-  s.add_dependency('launchy', '~> 3.0.1')
   s.add_dependency('open4', '~> 1.3.4')
-  s.add_dependency('git', '~> 2.3.3')
-  s.add_dependency('logger')
+  s.add_dependency('optparse-plus', '~> 3.0.1')
   s.add_dependency('ostruct')
-  s.add_dependency('base64')
 
   # included plugins
   s.add_dependency('lolcommits-loltext', '~> 0.5.0')
@@ -54,10 +54,10 @@ Gem::Specification.new do |s|
   s.add_dependency('rubocop-performance')
 
   # development & test gems
-  s.add_development_dependency('rake')
   s.add_development_dependency('aruba')
-  s.add_development_dependency('rdoc')
   s.add_development_dependency('debug')
-  s.add_development_dependency('minitest')
   s.add_development_dependency('ffaker')
+  s.add_development_dependency('minitest')
+  s.add_development_dependency('rake')
+  s.add_development_dependency('rdoc')
 end
