@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
   s.add_dependency('mini_magick', '~> 5.0.1')
   s.add_dependency('launchy', '~> 3.0.1')
   s.add_dependency('open4', '~> 1.3.4')
-  s.add_dependency('git', '~> 2.3.0')
+  s.add_dependency('git', '~> 2.3.3')
   s.add_dependency('logger')
   s.add_dependency('ostruct')
   s.add_dependency('base64')
