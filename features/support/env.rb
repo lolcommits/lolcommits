@@ -47,7 +47,7 @@ end
 
 # adjust the path so tests dont see a global imagemagick install
 Before('@fake-no-imagemagick') do
-  reject_paths_with_cmd('mogrify')
+  reject_paths_with_cmd('magick')
 end
 
 # adjust the path so tests dont see a global ffmpeg install

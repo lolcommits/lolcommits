@@ -61,9 +61,6 @@ jobs:
       run: |
         git config --global user.name $NAME
         git config --global user.email $EMAIL
-        mogrify --version
-        identify --version
-        magick --version
       env:
         NAME: "George Costanza"
         EMAIL: "george.costanza@vandelay.com"
