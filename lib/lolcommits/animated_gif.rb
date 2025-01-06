@@ -25,7 +25,7 @@ module Lolcommits
       end
 
       # convert to animated gif with delay and gif optimisation
-      system_call "convert -layers OptimizeTransparency -delay #{delay} -loop 0 \"#{frames_dir}/*.png\" -coalesce \"#{output_path}\""
+      system_call "magick convert -layers OptimizeTransparency -delay #{delay} -loop 0 \"#{frames_dir}/*.png\" -coalesce \"#{output_path}\""
 
       # remove tmp frames dir
       FileUtils.rm_rf(frames_dir)
