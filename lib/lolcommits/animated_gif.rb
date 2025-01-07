@@ -24,8 +24,15 @@ module Lolcommits
         File.delete(frame_filename) if frame_number % skip != 0
       end
 
-      # convert to animated gif with delay and gif optimisation
-      system_call "magick convert -layers OptimizeTransparency -delay #{delay} -loop 0 \"#{frames_dir}/*.png\" -coalesce \"#{output_path}\""
+      # convert to animated gif with delay and transparency optimising
+      MiniMagick.convert do |convert|
+        convert << "#{frames_dir}/*.png"
+        convert.layers "OptimizeTransparency"
+        convert.delay delay
+        convert.loop 0
+        convert.coalesce
+        convert << output_path
+      end
 
       # remove tmp frames dir
       FileUtils.rm_rf(frames_dir)
