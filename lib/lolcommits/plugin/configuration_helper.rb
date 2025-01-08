@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Lolcommits
   module Plugin
     module ConfigurationHelper

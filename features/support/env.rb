@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'aruba/cucumber'
 require 'optparse_plus/cucumber'
 require 'open3'

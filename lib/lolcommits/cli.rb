@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "optparse"
 require "optparse_plus"
 require "lolcommits/cli/fatals"

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Lolcommits
   class CaptureMacVideo < Capturer
     def capture

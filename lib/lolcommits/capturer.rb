@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Lolcommits
   class Capturer
     attr_accessor :capture_device, :capture_delay, :capture_duration, :capture_path

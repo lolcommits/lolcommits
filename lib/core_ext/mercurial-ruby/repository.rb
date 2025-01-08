@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Mercurial
   class Repository
     def self.open(destination)

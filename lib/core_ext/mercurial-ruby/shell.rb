@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Mercurial
   class Shell
     # windows command line doesn't like single quotes

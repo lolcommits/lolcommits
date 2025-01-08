@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 if Lolcommits::Platform.platform_windows?
   module Mercurial
     class Command
