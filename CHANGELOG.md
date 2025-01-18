@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
+## [0.17.3][] (18 Jan 2025)
+  * Truncate CHANGELOG
+  * Update Github CI workflows
+  * Bump Ruby in CI
+  * Refresh rubocop rules with omakase Rails rules (minus the Rails stuff)
+  * Appease all rubocop rules
+  * Update README
+  * Remove unused files
+  * Use bundler for gem pushing (not GH)
+  * Remove frozen_string_literal: true magic comment
+  * Use MiniMagick instead of shell cmd for animated gifs
+
 ## [0.17.2][] (22 Sep 2024)
   * Change plugin testing helper to use /tmp for test repo path
 
@@ -108,7 +120,7 @@ This project adheres to [Semantic Versioning][Semver].
     - update all remaining gem dependencies (incl. Aruba, Cucumber)
     - remove @unstable tag from features
 
-## [0.10.0][] (10 January 2018)
+## 0.10.0 (10 January 2018)
   * Plugin configuration changes (@matthutchinson [#365][])
     - `--plugins` now shows if plugin is enabled or not
     - `default_options` now available, nested hash with default values
@@ -116,7 +128,7 @@ This project adheres to [Semantic Versioning][Semver].
     - `prompt_autocomplete_hash` helper method added
   * Better plugin config flow (@matthutchinson [#363][])
 
-## [0.9.8][] (3 December 2017)
+## 0.9.8 (3 December 2017)
   * Extract protonet to gem (@matthutchinson [#361][])
   * Extract flowdock to gem (@matthutchinson [#360][])
   * Extract yammer to gem (@matthutchinson [#359][])
@@ -125,99 +137,99 @@ This project adheres to [Semantic Versioning][Semver].
   * Extract term_output to gem (@matthutchinson [#356][])
   * Add Ruby 2.4.2 to Travis config (@matthutchinson)
 
-## [0.9.7][] (17 September 2017)
+## 0.9.7 (17 September 2017)
   * Extract dotcom to gem (@matthutchinson [#355][])
   * Extract uploldz to gem (@matthutchinson [#354][])
   * Extract lolsrv to gem (@matthutchinson [#353][])
 
-## [0.9.6][] (28 August 2017)
+## 0.9.6 (28 August 2017)
   * Clean legacy plugin methods (@matthutchinson [#348][])
   * Extract Slack Plugin to gem (@matthutchinson [#349][])
   * Fix Windows install hook (@matthutchinson)
   * Animated capturing for Windows via ffmpeg (@freehugs [#351][])
   * Pin `public_suffix` gem version (@matthutchinson [#352][])
 
-## [0.9.5][] (21 July 2017)
+## 0.9.5 (21 July 2017)
   * Extract Twitter Plugin / refactor Plugin::Base (@matthutchinson [#347][])
 
-## [0.9.4][] (17 April 2017)
+## 0.9.4 (17 April 2017)
   * Add captureready plugin hook (@matthutchinson [#342][])
   * README changes (@mroth [#341][])
   * Extract tranzlate plugin to gem (@matthutchinson [#340][])
   * Extract loltext plugin to gem (@matthutchinson [#339][])
 
-## [0.9.3][] (5 April 2017)
+## 0.9.3 (5 April 2017)
   * LOLCOMMITS_CAPTURE_DISABLED env var (@williamboman [#338][])
   * Plugin Manager and Gem plugin support (@matthutchinson [#332][])
   * Add North gravity for ImageMagick (@domudall [#331][])
   * remove Ruby 1.9 magic comments (@matthutchinson [#330][])
   * add links to PRs in CHANGELOG (@bfontaine [#329][])
 
-## [0.9.2][] (3 January 2017)
+## 0.9.2 (3 January 2017)
   * Remove twitter gem, fixes Ruby 2.4 issues (@matthutchinson [#328][])
 
-## [0.9.1][] (20 December 2016)
+## 0.9.1 (20 December 2016)
   * Remove Choice gem, use Methadone (@matthutchinson [#326][])
 
-## [0.9.0][] (14 December 2016)
+## 0.9.0 (14 December 2016)
   * ditch ruby 1.9 support and upgrade some gems (@matthutchinson [#325][])
   * term_output plugin added (iTerm2 only) (@ruxton [#323][])
 
-## [0.8.1][] (11 October 2016)
+## 0.8.1 (11 October 2016)
   * **last release supporting Ruby < 2.0**
   * shebang fix in installer (@matthutchinson [#317][])
   * FlowDock plugin (@mikecrittenden [#318][])
   * HipChat plugin (@Salzig [#320][])
   * peg gems for legacy ruby 1.9.3 (@matthutchinson [#321][])
 
-## [0.8.0][] (13 July 2016)
+## 0.8.0 (13 July 2016)
   * New release requires Ruby 1.9.3+ minimum (@matthutchinson [#313][])
   * All gems upgraded to latest versions (6 held back, see lolcommits.gemspec)
   * See [this issue](https://github.com/lolcommits/lolcommits/issues/310) for details
 
-## [0.7.0][] (13 July 2016)
+## 0.7.0 (13 July 2016)
   * **last release supporting Ruby < 1.9.3** (@matthutchinson [#313][])
 
-## [0.6.7][] (8 June 2016)
+## 0.6.7 (8 June 2016)
   * Remove `console` binary from packaged gem (@samgranieri [#309][])
 
-## [0.6.6][] (1 June 2016)
+## 0.6.6 (1 June 2016)
   * Show error/exit when --config outside a git repo (@matthutchinson [#308][])
   * Add more options to loltext plugin (@ruxton [#304][])
   * Added CODE_OF_CONDUCT.md to repo (@matthutchinson)
   * Added a useful `console` binary for development and debugging (@matthutchinson)
 
-## [0.6.5][] (12 April 2016)
+## 0.6.5 (12 April 2016)
   * Add mercurial support (@tak [#301][] [#302][] [#303][])
 
-## [0.6.4][] (15 March 2016)
+## 0.6.4 (15 March 2016)
   * Add quotes to correctly handle paths with spaces (@matthutchinson [#298][])
 
-## [0.6.3][] (14 March 2016)
+## 0.6.3 (14 March 2016)
   * Add quotes to correctly handle paths with spaces (@pedrocunha [#296][])
   * Added plugin config path to output (@KrauseFx [#294][])
 
-## [0.6.2][] (21 February 2016)
+## 0.6.2 (21 February 2016)
   * Avoid invoking ruby if in a rebase (@jhawthorn [#286][])
   * Slow gif problem on mac (@a06kin [#289][])
   * Peg RuboCop gem to 0.37.2 and fix cop issues (@matthutchinson [#292][])
 
-## [0.6.1][] (16 September 2015)
+## 0.6.1 (16 September 2015)
   * Optional http auth header user/password in uploldz plugin (@felixroos [#283][])
   * Slack plugin added (@yasakbulut [#284][])
   * Updated rubies in Travis settings (@matthutchinson)
   * Fixed README badge URLS (@matthutchinson)
 
-## [0.6.0][] (27 July 2015)
+## 0.6.0 (27 July 2015)
   * Configurable text options for loltext plugin (@matthutchinson [#282][])
   * Working AppVeyor configuration added (@nysthee [#280][])
   * Tumblr plugin (@mveytsman [#279][])
   * CHANGELOG (this file) now in markdown format (@matthutchinson)
 
-## [0.5.9][] (24 April 2015)
+## 0.5.9 (24 April 2015)
   * Fix windows post commit hook path (@matthutchinson [#278][])
 
-## [0.5.8][] (22 April 2015)
+## 0.5.8 (22 April 2015)
   * Fix Windows MiniMagick issue (@matthutchinson [#276][])
   * Rubocop code clean ups (@nysthee [#272][])
   * Fix gem issues on earlier Ruby versions ([#270][])
@@ -228,14 +240,14 @@ This project adheres to [Semantic Versioning][Semver].
   * lol_protonet plugin added (@salzig [#251][])
   * Allow local plugins in $LOLCOMMITS_DIR/.plugins (@salzig [#250][])
 
-## [0.5.7][] (28 December 2014)
+## 0.5.7 (28 December 2014)
   * Uploldz plugin sends more post params (@clops [#224][] @matthutchinson [#241][])
   * More configurable twitter plugin (@woodrowbarlow [#207][] @matthutchinson)
   * Upgrade all gems that can be, 4 held back ([#244][] @matthutchinson)
   * Ruby 2.2.0 compatible ([#244][] @matthutchinson)
   * Glob /dev/video for default video device (linux only) ([#246][] @Ferada)
 
-## [0.5.6][] (24 November 2014)
+## 0.5.6 (24 November 2014)
   * Updates and clean ups on the gemspec (@mroth [#228][])
   * Travis CI now includes ruby-head (@mroth [#229][])
   * Improved error message for ImageMagick issues [#159][] (@matthutchinson [#233][])
@@ -246,7 +258,7 @@ This project adheres to [Semantic Versioning][Semver].
   * Better failover when no snapshot created  (@matthutchinson [#237][])
   * Export LANG to post-commit hook, fixes GitHub client (@matthutchinson [#240][])
 
-## [0.5.5][] (29 September 2014)
+## 0.5.5 (29 September 2014)
   * Animated gif capture support (@theY4Kman [#226][])
   * Fix plugin config issues with user input (@matthutchinson [#225][] [#223][])
   * Fix Linux FPS timing issues (@matthutchinson [#215][])
@@ -256,14 +268,14 @@ This project adheres to [Semantic Versioning][Semver].
   * Explain global Git hooks how-to in README (@matthutchinson [#212][] [#112][])
   * Minor improvments to Linux Capturer (@matthutchinson)
 
-## [0.5.4][] (13 April 2014)
+## 0.5.4 (13 April 2014)
   * Excluded vendor/bundle from rubocop cops (@matthutchinson)
   * Peg fivemat gem to ~> 1.2.1 (@mroth)
   * Fix lolsrv log file issue (@matthutchinson [#202][])
   * Yammer Plugin added (@mrclmvn [#160][])
   * Refactor on capture options (@mroth)
 
-## [0.5.3][] (30 March 2014)
+## 0.5.3 (30 March 2014)
   * Fixed permissions on CommandCam (755) for cygwin (@matthutchinson)
   * Added `--devices` option, mac only for now (@matthutchinson [#183][], [#174][])
   * Replace http with https in twitter plugin (@kleinschmidt [#195][])
@@ -274,7 +286,7 @@ This project adheres to [Semantic Versioning][Semver].
   * Added --version (-v) flag (@bfontaine [#184][])
   * Send more VCS details to lolsrv (@drewwells [#181][])
 
-## [0.5.2][] (5 December 2013)
+## 0.5.2 (5 December 2013)
   * Allow lolsrv plugin to sync/upload gifs (@matthutchinson [#180][])
   * Plugins refactor, can now configure themselves (@matthutchinson [#179][])
     - also closes issue [#136][] and issue [#73][]
@@ -287,14 +299,14 @@ This project adheres to [Semantic Versioning][Semver].
   * Improved --enable option, accepts passing arguments (@matthutchinson [#154][])
     - README updated to explain enabling with options
 
-## [0.5.1][] (13 November 2013)
+## 0.5.1 (13 November 2013)
   * Fix JSON gem issue [#163][] (@matthutchinson, [#171][])
   * Enable image capture under Cygwin (@cwc, [#105][])
   * Add Ruby PATH to post-commit hook (@matthutchinson, [#155][])
   * "Stealth mode" where no notification is given (@sionide21, [#156][])
   * BUGFIX: comparison error for animate (@Yabes, [#151][])
 
-## [0.5.0][] (10 September 2013)
+## 0.5.0 (10 September 2013)
   * better handling of LOLCOMMITS_DELAY (thx @leewillis77, [#125][])
   * LOLCOMMITS_DEVICE support on Linux (thx @EbenezerEdelman, [#139][])
   * better handling of repository names (thx @drocamor and @andromedado, [#145][] and [#146][])
@@ -412,7 +424,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.2...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.3...HEAD
+[0.17.3]: https://github.com/lolcommits/lolcommits/compare/v0.17.2...v0.17.3
 [0.17.2]: https://github.com/lolcommits/lolcommits/compare/v0.17.1...v0.17.2
 [0.17.1]: https://github.com/lolcommits/lolcommits/compare/v0.17.0...v0.17.1
 [0.17.0]: https://github.com/lolcommits/lolcommits/compare/v0.16.5...v0.17.0
@@ -433,205 +446,3 @@ This project adheres to [Semantic Versioning][Semver].
 [0.12.0]: https://github.com/lolcommits/lolcommits/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/lolcommits/lolcommits/compare/v0.10.0...v0.11.0
 [0.10.0]: https://github.com/lolcommits/lolcommits/compare/v0.9.8...v0.10.0
-[0.9.8]: https://github.com/lolcommits/lolcommits/compare/v0.9.7...v0.9.8
-[0.9.7]: https://github.com/lolcommits/lolcommits/compare/v0.9.6...v0.9.7
-[0.9.6]: https://github.com/lolcommits/lolcommits/compare/v0.9.5...v0.9.6
-[0.9.5]: https://github.com/lolcommits/lolcommits/compare/v0.9.4...v0.9.5
-[0.9.4]: https://github.com/lolcommits/lolcommits/compare/v0.9.3...v0.9.4
-[0.9.3]: https://github.com/lolcommits/lolcommits/compare/v0.9.2...v0.9.3
-[0.9.2]: https://github.com/lolcommits/lolcommits/compare/v0.9.1...v0.9.2
-[0.9.1]: https://github.com/lolcommits/lolcommits/compare/v0.9.0...v0.9.1
-[0.9.0]: https://github.com/lolcommits/lolcommits/compare/v0.8.1...v0.9.0
-[0.8.1]: https://github.com/lolcommits/lolcommits/compare/v0.8.0...v0.8.1
-[0.8.0]: https://github.com/lolcommits/lolcommits/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/lolcommits/lolcommits/compare/v0.6.7...v0.7.0
-[0.6.7]: https://github.com/lolcommits/lolcommits/compare/v0.6.6...v0.6.7
-[0.6.6]: https://github.com/lolcommits/lolcommits/compare/v0.6.5...v0.6.6
-[0.6.5]: https://github.com/lolcommits/lolcommits/compare/v0.6.4...v0.6.5
-[0.6.4]: https://github.com/lolcommits/lolcommits/compare/v0.6.3...v0.6.4
-[0.6.3]: https://github.com/lolcommits/lolcommits/compare/v0.6.2...v0.6.3
-[0.6.2]: https://github.com/lolcommits/lolcommits/compare/v0.6.1...v0.6.2
-[0.6.1]: https://github.com/lolcommits/lolcommits/compare/v0.6.0...v0.6.1
-[0.6.0]: https://github.com/lolcommits/lolcommits/compare/v0.5.9...v0.6.0
-[0.5.9]: https://github.com/lolcommits/lolcommits/compare/v0.5.8...v0.5.9
-[0.5.8]: https://github.com/lolcommits/lolcommits/compare/v0.5.7...v0.5.8
-[0.5.7]: https://github.com/lolcommits/lolcommits/compare/v0.5.6...v0.5.7
-[0.5.6]: https://github.com/lolcommits/lolcommits/compare/v0.5.5...v0.5.6
-[0.5.5]: https://github.com/lolcommits/lolcommits/compare/v0.5.4...v0.5.5
-[0.5.4]: https://github.com/lolcommits/lolcommits/compare/v0.5.3...v0.5.4
-[0.5.3]: https://github.com/lolcommits/lolcommits/compare/v0.5.2...v0.5.3
-[0.5.2]: https://github.com/lolcommits/lolcommits/compare/v0.5.1...v0.5.2
-[0.5.1]: https://github.com/lolcommits/lolcommits/compare/v0.5.0...v0.5.1
-[0.5.0]: https://github.com/lolcommits/lolcommits/compare/v0.4.9...v0.5.0
-[#9]: https://github.com/lolcommits/lolcommits/pull/9
-[#21]: https://github.com/lolcommits/lolcommits/pull/21
-[#31]: https://github.com/lolcommits/lolcommits/pull/31
-[#43]: https://github.com/lolcommits/lolcommits/pull/43
-[#50]: https://github.com/lolcommits/lolcommits/pull/50
-[#51]: https://github.com/lolcommits/lolcommits/pull/51
-[#73]: https://github.com/lolcommits/lolcommits/pull/73
-[#82]: https://github.com/lolcommits/lolcommits/pull/82
-[#83]: https://github.com/lolcommits/lolcommits/pull/83
-[#87]: https://github.com/lolcommits/lolcommits/pull/87
-[#89]: https://github.com/lolcommits/lolcommits/pull/89
-[#90]: https://github.com/lolcommits/lolcommits/pull/90
-[#91]: https://github.com/lolcommits/lolcommits/pull/91
-[#92]: https://github.com/lolcommits/lolcommits/pull/92
-[#93]: https://github.com/lolcommits/lolcommits/pull/93
-[#94]: https://github.com/lolcommits/lolcommits/pull/94
-[#95]: https://github.com/lolcommits/lolcommits/pull/95
-[#104]: https://github.com/lolcommits/lolcommits/pull/104
-[#105]: https://github.com/lolcommits/lolcommits/pull/105
-[#107]: https://github.com/lolcommits/lolcommits/pull/107
-[#108]: https://github.com/lolcommits/lolcommits/pull/108
-[#109]: https://github.com/lolcommits/lolcommits/pull/109
-[#112]: https://github.com/lolcommits/lolcommits/pull/112
-[#112]: https://github.com/lolcommits/lolcommits/pull/112
-[#114]: https://github.com/lolcommits/lolcommits/pull/114
-[#119]: https://github.com/lolcommits/lolcommits/pull/119
-[#123]: https://github.com/lolcommits/lolcommits/pull/123
-[#125]: https://github.com/lolcommits/lolcommits/pull/125
-[#133]: https://github.com/lolcommits/lolcommits/pull/133
-[#136]: https://github.com/lolcommits/lolcommits/pull/136
-[#139]: https://github.com/lolcommits/lolcommits/pull/139
-[#145]: https://github.com/lolcommits/lolcommits/pull/145
-[#146]: https://github.com/lolcommits/lolcommits/pull/146
-[#151]: https://github.com/lolcommits/lolcommits/pull/151
-[#154]: https://github.com/lolcommits/lolcommits/pull/154
-[#155]: https://github.com/lolcommits/lolcommits/pull/155
-[#156]: https://github.com/lolcommits/lolcommits/pull/156
-[#159]: https://github.com/lolcommits/lolcommits/pull/159
-[#159]: https://github.com/lolcommits/lolcommits/pull/159
-[#160]: https://github.com/lolcommits/lolcommits/pull/160
-[#163]: https://github.com/lolcommits/lolcommits/pull/163
-[#168]: https://github.com/lolcommits/lolcommits/pull/168
-[#171]: https://github.com/lolcommits/lolcommits/pull/171
-[#173]: https://github.com/lolcommits/lolcommits/pull/173
-[#174]: https://github.com/lolcommits/lolcommits/pull/174
-[#175]: https://github.com/lolcommits/lolcommits/pull/175
-[#176]: https://github.com/lolcommits/lolcommits/pull/176
-[#177]: https://github.com/lolcommits/lolcommits/pull/177
-[#178]: https://github.com/lolcommits/lolcommits/pull/178
-[#179]: https://github.com/lolcommits/lolcommits/pull/179
-[#180]: https://github.com/lolcommits/lolcommits/pull/180
-[#181]: https://github.com/lolcommits/lolcommits/pull/181
-[#183]: https://github.com/lolcommits/lolcommits/pull/183
-[#184]: https://github.com/lolcommits/lolcommits/pull/184
-[#186]: https://github.com/lolcommits/lolcommits/pull/186
-[#188]: https://github.com/lolcommits/lolcommits/pull/188
-[#189]: https://github.com/lolcommits/lolcommits/pull/189
-[#192]: https://github.com/lolcommits/lolcommits/pull/192
-[#193]: https://github.com/lolcommits/lolcommits/pull/193
-[#194]: https://github.com/lolcommits/lolcommits/pull/194
-[#195]: https://github.com/lolcommits/lolcommits/pull/195
-[#196]: https://github.com/lolcommits/lolcommits/pull/196
-[#202]: https://github.com/lolcommits/lolcommits/pull/202
-[#206]: https://github.com/lolcommits/lolcommits/pull/206
-[#207]: https://github.com/lolcommits/lolcommits/pull/207
-[#208]: https://github.com/lolcommits/lolcommits/pull/208
-[#212]: https://github.com/lolcommits/lolcommits/pull/212
-[#215]: https://github.com/lolcommits/lolcommits/pull/215
-[#223]: https://github.com/lolcommits/lolcommits/pull/223
-[#224]: https://github.com/lolcommits/lolcommits/pull/224
-[#225]: https://github.com/lolcommits/lolcommits/pull/225
-[#226]: https://github.com/lolcommits/lolcommits/pull/226
-[#228]: https://github.com/lolcommits/lolcommits/pull/228
-[#229]: https://github.com/lolcommits/lolcommits/pull/229
-[#231]: https://github.com/lolcommits/lolcommits/pull/231
-[#232]: https://github.com/lolcommits/lolcommits/pull/232
-[#233]: https://github.com/lolcommits/lolcommits/pull/233
-[#234]: https://github.com/lolcommits/lolcommits/pull/234
-[#235]: https://github.com/lolcommits/lolcommits/pull/235
-[#236]: https://github.com/lolcommits/lolcommits/pull/236
-[#237]: https://github.com/lolcommits/lolcommits/pull/237
-[#240]: https://github.com/lolcommits/lolcommits/pull/240
-[#241]: https://github.com/lolcommits/lolcommits/pull/241
-[#244]: https://github.com/lolcommits/lolcommits/pull/244
-[#244]: https://github.com/lolcommits/lolcommits/pull/244
-[#246]: https://github.com/lolcommits/lolcommits/pull/246
-[#250]: https://github.com/lolcommits/lolcommits/pull/250
-[#251]: https://github.com/lolcommits/lolcommits/pull/251
-[#252]: https://github.com/lolcommits/lolcommits/pull/252
-[#254]: https://github.com/lolcommits/lolcommits/pull/254
-[#256]: https://github.com/lolcommits/lolcommits/pull/256
-[#258]: https://github.com/lolcommits/lolcommits/pull/258
-[#263]: https://github.com/lolcommits/lolcommits/pull/263
-[#266]: https://github.com/lolcommits/lolcommits/pull/266
-[#266]: https://github.com/lolcommits/lolcommits/pull/266
-[#267]: https://github.com/lolcommits/lolcommits/pull/267
-[#270]: https://github.com/lolcommits/lolcommits/pull/270
-[#272]: https://github.com/lolcommits/lolcommits/pull/272
-[#276]: https://github.com/lolcommits/lolcommits/pull/276
-[#278]: https://github.com/lolcommits/lolcommits/pull/278
-[#279]: https://github.com/lolcommits/lolcommits/pull/279
-[#280]: https://github.com/lolcommits/lolcommits/pull/280
-[#282]: https://github.com/lolcommits/lolcommits/pull/282
-[#283]: https://github.com/lolcommits/lolcommits/pull/283
-[#284]: https://github.com/lolcommits/lolcommits/pull/284
-[#286]: https://github.com/lolcommits/lolcommits/pull/286
-[#289]: https://github.com/lolcommits/lolcommits/pull/289
-[#292]: https://github.com/lolcommits/lolcommits/pull/292
-[#294]: https://github.com/lolcommits/lolcommits/pull/294
-[#296]: https://github.com/lolcommits/lolcommits/pull/296
-[#298]: https://github.com/lolcommits/lolcommits/pull/298
-[#301]: https://github.com/lolcommits/lolcommits/pull/301
-[#302]: https://github.com/lolcommits/lolcommits/pull/302
-[#303]: https://github.com/lolcommits/lolcommits/pull/303
-[#304]: https://github.com/lolcommits/lolcommits/pull/304
-[#308]: https://github.com/lolcommits/lolcommits/pull/308
-[#309]: https://github.com/lolcommits/lolcommits/pull/309
-[#313]: https://github.com/lolcommits/lolcommits/pull/313
-[#313]: https://github.com/lolcommits/lolcommits/pull/313
-[#317]: https://github.com/lolcommits/lolcommits/pull/317
-[#318]: https://github.com/lolcommits/lolcommits/pull/318
-[#320]: https://github.com/lolcommits/lolcommits/pull/320
-[#321]: https://github.com/lolcommits/lolcommits/pull/321
-[#323]: https://github.com/lolcommits/lolcommits/pull/323
-[#325]: https://github.com/lolcommits/lolcommits/pull/325
-[#326]: https://github.com/lolcommits/lolcommits/pull/326
-[#328]: https://github.com/lolcommits/lolcommits/pull/328
-[#329]: https://github.com/lolcommits/lolcommits/pull/329
-[#330]: https://github.com/lolcommits/lolcommits/pull/330
-[#331]: https://github.com/lolcommits/lolcommits/pull/331
-[#332]: https://github.com/lolcommits/lolcommits/pull/332
-[#338]: https://github.com/lolcommits/lolcommits/pull/338
-[#339]: https://github.com/lolcommits/lolcommits/pull/339
-[#340]: https://github.com/lolcommits/lolcommits/pull/340
-[#341]: https://github.com/lolcommits/lolcommits/pull/341
-[#342]: https://github.com/lolcommits/lolcommits/pull/342
-[#347]: https://github.com/lolcommits/lolcommits/pull/347
-[#348]: https://github.com/lolcommits/lolcommits/pull/348
-[#349]: https://github.com/lolcommits/lolcommits/pull/349
-[#351]: https://github.com/lolcommits/lolcommits/pull/351
-[#352]: https://github.com/lolcommits/lolcommits/pull/352
-[#353]: https://github.com/lolcommits/lolcommits/pull/353
-[#354]: https://github.com/lolcommits/lolcommits/pull/354
-[#355]: https://github.com/lolcommits/lolcommits/pull/355
-[#356]: https://github.com/lolcommits/lolcommits/pull/356
-[#357]: https://github.com/lolcommits/lolcommits/pull/357
-[#358]: https://github.com/lolcommits/lolcommits/pull/358
-[#359]: https://github.com/lolcommits/lolcommits/pull/359
-[#360]: https://github.com/lolcommits/lolcommits/pull/360
-[#361]: https://github.com/lolcommits/lolcommits/pull/361
-[#363]: https://github.com/lolcommits/lolcommits/pull/363
-[#365]: https://github.com/lolcommits/lolcommits/pull/365
-[#366]: https://github.com/lolcommits/lolcommits/pull/366
-[#367]: https://github.com/lolcommits/lolcommits/pull/367
-[#369]: https://github.com/lolcommits/lolcommits/pull/369
-[#377]: https://github.com/lolcommits/lolcommits/pull/377
-[#384]: https://github.com/lolcommits/lolcommits/pull/384
-[#385]: https://github.com/lolcommits/lolcommits/pull/385
-[#386]: https://github.com/lolcommits/lolcommits/pull/386
-[#392]: https://github.com/lolcommits/lolcommits/pull/392
-[#394]: https://github.com/lolcommits/lolcommits/pull/394
-[#398]: https://github.com/lolcommits/lolcommits/pull/398
-[#399]: https://github.com/lolcommits/lolcommits/pull/399
-[#400]: https://github.com/lolcommits/lolcommits/pull/400
-[#401]: https://github.com/lolcommits/lolcommits/pull/401
-[#402]: https://github.com/lolcommits/lolcommits/pull/402
-[#405]: https://github.com/lolcommits/lolcommits/pull/405
-[#411]: https://github.com/lolcommits/lolcommits/pull/411
-[#417]: https://github.com/lolcommits/lolcommits/pull/417
-[#430]: https://github.com/lolcommits/lolcommits/pull/430
-[#432]: https://github.com/lolcommits/lolcommits/pull/432
-[#433]: https://github.com/lolcommits/lolcommits/pull/433

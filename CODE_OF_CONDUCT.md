@@ -52,18 +52,16 @@ address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
-## Enforcement
+## Reporting
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported by contacting the project team at matt@hiddenloop.com. All
-complaints will be reviewed and investigated and will result in a response that
-is deemed necessary and appropriate to the circumstances. The project team is
-obligated to maintain confidentiality with regard to the reporter of an incident.
-Further details of specific enforcement policies may be posted separately.
+If you are subject to or witness unacceptable behavior, or have any other
+concerns, please notify a project maintainer. All reports will be kept
+confidential and will be reviewed and investigated promptly.
 
-Project maintainers who do not follow or enforce the Code of Conduct in good
-faith may face temporary or permanent repercussions as determined by other
-members of the project's leadership.
+We will investigate every complaint and take appropriate action. We reserve the
+right to remove any content that violates this Code of Conduct, or to
+temporarily or permanently ban any contributor for other behaviors that we deem
+inappropriate, threatening, offensive, or harmful.
 
 ## Attribution
 
