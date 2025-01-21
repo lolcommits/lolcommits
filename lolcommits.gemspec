@@ -21,11 +21,11 @@ Gem::Specification.new do |s|
     'changelog_uri' => 'https://github.com/lolcommits/lolcommits/blob/master/CHANGELOG.md',
     'bug_tracker_uri' => 'https://github.com/lolcommits/lolcommits/issues',
     'allowed_push_host' => 'https://rubygems.org',
-'rubygems_mfa_required' => 'true'
+    'rubygems_mfa_required' => 'true'
   }
 
-  s.files         = `git ls-files`.split("\n")
-  s.executables   = 'lolcommits'
+  s.files = Dir["lib/**/*", "vendor/ext/**/*", "bin/lolcommits", "LICENSE", "README.md"]
+  s.executables = 'lolcommits'
   s.require_paths = [ 'lib' ]
 
   # non-gem dependencies
