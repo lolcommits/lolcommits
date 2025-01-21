@@ -48,8 +48,8 @@ Gem::Specification.new do |s|
   s.add_dependency('lolcommits-loltext', '~> 0.5.0')
 
   # rubocop
-  s.add_dependency('rubocop')
-  s.add_dependency('rubocop-performance')
+  s.add_development_dependency('rubocop')
+  s.add_development_dependency('rubocop-performance')
 
   # development & test gems
   s.add_development_dependency('aruba')
