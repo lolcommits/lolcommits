@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.files = Dir["lib/**/*", "vendor/ext/**/*", "bin/lolcommits", "LICENSE", "README.md"]
+  s.files = Dir["lib/**/*", "vendor/ext/**/*", "bin/lolcommits", "LICENSE", "README.md", ".rubocop.yml"]
   s.executables = 'lolcommits'
   s.require_paths = [ 'lib' ]
 
