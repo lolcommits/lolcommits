@@ -47,10 +47,6 @@ Gem::Specification.new do |s|
   # included plugins
   s.add_dependency('lolcommits-loltext', '~> 0.5.0')
 
-  # rubocop
-  s.add_development_dependency('rubocop')
-  s.add_development_dependency('rubocop-performance')
-
   # development & test gems
   s.add_development_dependency('aruba')
   s.add_development_dependency('debug')

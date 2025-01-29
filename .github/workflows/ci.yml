@@ -11,15 +11,18 @@ jobs:
   rubocop:
     name: RuboCop
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_ONLY: rubocop
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup Ruby and install rubocop
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.4
-        bundler-cache: true
-    - name: Run rubocop
-      run: bin/rubocop --parallel
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Ruby and install rubocop
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.4
+          bundler-cache: true
+      - name: Run rubocop
+        run: bundle exec rubocop --parallel
   tests:
     name: Unit tests
     runs-on: ubuntu-latest
