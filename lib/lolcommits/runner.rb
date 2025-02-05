@@ -64,11 +64,13 @@ module Lolcommits
         png_tempfile = MiniMagick::Utilities.tempfile(".png")
         debug("creating a new empty overlay png for lolcommit (#{base.dimensions.join('x')})")
 
-        MiniMagick::Tool::Convert.new do |i|
-          i.size "#{base.width}x#{base.height}"
-          i.xc "transparent"
-          i << png_tempfile.path
+        MiniMagick.convert do |convert|
+          convert.size "#{base.width}x#{base.height}"
+          convert.xc "transparent"
+          convert << png_tempfile.path
         end
+
+        debug "mehhh!"
 
         MiniMagick::Image.open(png_tempfile.path)
       end
