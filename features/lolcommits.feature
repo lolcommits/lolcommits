@@ -226,6 +226,8 @@ Feature: Basic UI functionality
       And a loldir named "giffy" with 2 lolimages
     When I run `lolcommits --timelapse`
     Then the output should contain "Generating animated timelapse gif."
+      And the output should contain "Done, generated at"
+      And the output should contain ".lolcommits/giffy/timelapses/all-until-"
       And a directory named "~/.lolcommits/giffy/timelapses" should exist
       And there should be exactly 1 gif in "~/.lolcommits/giffy/timelapses"
 
