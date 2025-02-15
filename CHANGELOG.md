@@ -7,10 +7,12 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
-## [0.17.4][] (29 Jan 2025)
+## [0.18.0][] (15 Feb 2025)
   * Only include relevant files in gemspec
-  * Rubocop as dev dependency only
+  * Rubocop as dev dependency only, move to a group for faster CI builds
   * Add .rubocop.yml in gemspec, allow inheritance use from plugins
+  * Fix gif path when generating timelapses
+  * Use MiniMagick#convert to avoid another Imagemagick warning
 
 ## [0.17.3][] (18 Jan 2025)
   * Truncate CHANGELOG
@@ -429,8 +431,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.17.4...HEAD
-[0.17.4]: https://github.com/lolcommits/lolcommits/compare/v0.17.3...v0.17.4
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.18.0...HEAD
+[0.18.0]: https://github.com/lolcommits/lolcommits/compare/v0.17.3...v0.18.0
 [0.17.3]: https://github.com/lolcommits/lolcommits/compare/v0.17.2...v0.17.3
 [0.17.2]: https://github.com/lolcommits/lolcommits/compare/v0.17.1...v0.17.2
 [0.17.1]: https://github.com/lolcommits/lolcommits/compare/v0.17.0...v0.17.1
