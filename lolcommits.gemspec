@@ -36,19 +36,20 @@ Gem::Specification.new do |s|
   # core
   s.add_dependency('base64')
   s.add_dependency('git', '~> 2.3.3')
-  s.add_dependency('launchy', '~> 3.0.1')
+  s.add_dependency('launchy', '~> 3.1.0')
   s.add_dependency('logger')
   s.add_dependency('mercurial-ruby', '~> 0.7.12')
-  s.add_dependency('mini_magick', '~> 5.0.1')
+  s.add_dependency('mini_magick', '~> 5.1.2')
   s.add_dependency('open4', '~> 1.3.4')
   s.add_dependency('optparse-plus', '~> 3.0.1')
   s.add_dependency('ostruct')
 
   # included plugins
-  s.add_dependency('lolcommits-loltext', '~> 0.5.0')
+  s.add_dependency('lolcommits-loltext', '~> 0.5.1')
 
   # development & test gems
   s.add_development_dependency('aruba')
+  s.add_development_dependency('cucumber')
   s.add_development_dependency('debug')
   s.add_development_dependency('ffaker')
   s.add_development_dependency('minitest')
