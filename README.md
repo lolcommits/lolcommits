@@ -48,7 +48,7 @@ page!
 ### macOS
 
 You'll need ImageMagick installed.
-[Homebrew](http://mxcl.github.com/homebrew/) makes this easy.
+[Homebrew](https://brew.sh) makes this easy.
 
 	brew install imagemagick
 
