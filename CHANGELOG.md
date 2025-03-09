@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning][Semver].
 
 * Your contribution here!
 
+## [0.18.1][] (09 Mar 2025)
+  * Upgrade mini_magick gem
+  * Upgrade git gem
+
 ## [0.18.0][] (15 Feb 2025)
   * Only include relevant files in gemspec
   * Rubocop as dev dependency only, move to a group for faster CI builds
@@ -431,7 +435,8 @@ This project adheres to [Semantic Versioning][Semver].
   reliable to not glitch.)
 
 [Semver]: http://semver.org
-[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.18.0...HEAD
+[Unreleased]: https://github.com/lolcommits/lolcommits/compare/v0.18.1...HEAD
+[0.18.1]: https://github.com/lolcommits/lolcommits/compare/v0.18.0...v0.18.1
 [0.18.0]: https://github.com/lolcommits/lolcommits/compare/v0.17.3...v0.18.0
 [0.17.3]: https://github.com/lolcommits/lolcommits/compare/v0.17.2...v0.17.3
 [0.17.2]: https://github.com/lolcommits/lolcommits/compare/v0.17.1...v0.17.2
