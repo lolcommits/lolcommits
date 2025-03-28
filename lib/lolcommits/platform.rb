@@ -119,47 +119,23 @@ module Lolcommits
       if Platform.platform_mac?
         videosnap = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")
         `#{videosnap} -l`
-      
-      elsif Platform.platform_linux?
-        if system('which v4l2-ctl > /dev/null 2>&1')
-          devices = `v4l2-ctl --list-devices 2>&1`.chomp
-          
-          # Parse devices and select one primary interface per physical camera
-          camera_devices = {}
-          current_camera = nil
     
-          devices.each_line do |line|
-            if line.end_with?(":\n")
-              # New camera found - extract clean name without USB path
-              current_camera = line.strip.chomp(':').gsub(/\(usb-.*\)/, '').strip
-            elsif line.start_with?("\t/dev/video")
-              # For each video device, check if it's a capture device
-              path = line.strip
-              if `v4l2-ctl -d #{path} --list-formats 2>&1`.include?('Video Capture')
-                # Only store if we haven't found a device for this camera yet
-                camera_devices[current_camera] ||= path
-              end
-            end
+      elsif Platform.platform_linux? && system('which v4l2-ctl > /dev/null 2>&1')
+        devices = `v4l2-ctl --list-devices 2>&1`.chomp
+        camera_devices = {}
+        current_camera = nil
+    
+        devices.each_line do |line|
+          if line.end_with?(":\n")
+            current_camera = line.strip.chomp(':').gsub(/\(usb-.*\)/, '').strip
+          elsif line.start_with?("\t/dev/video") && `v4l2-ctl -d #{line.strip} --list-formats 2>&1`.include?('Video Capture')
+            camera_devices[current_camera] ||= line.strip
           end
-    
-          if camera_devices.empty?
-            # Fallback: just show first device per camera if no capture devices found
-            current_camera = nil
-            devices.each_line do |line|
-              if line.end_with?(":\n")
-                current_camera = line.strip.chomp(':').gsub(/\(usb-.*\)/, '').strip
-              elsif line.start_with?("\t/dev/video")
-                path = line.strip
-                camera_devices[current_camera] ||= path
-              end
-            end
-          end
-    
-          # Format output as "Camera Name (/dev/videoX)"
-          camera_devices.map { |name, path| "#{name} (#{path})" }.join("\n")
-        else
-          "Install v4l-utils: sudo apt install v4l-utils"
         end
+    
+        camera_devices.map { |name, path| "#{name} (#{path})" }.join("\n")
+      else
+        "Install v4l-utils: sudo apt install v4l-utils"
       end
     end
   end
