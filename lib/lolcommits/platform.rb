@@ -113,7 +113,36 @@ module Lolcommits
     # Returns a list of system camera devices in a format suitable to display
     # to the user.
     #
-    # @note Currently only functions on Mac.
+    # @note mac/linux support only
+    # @return String
+    def self.device_list
+      if Platform.platform_mac?
+        videosnap = File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")
+        `#{videosnap} -l`
+      elsif Platform.platform_linux?
+        if system("which v4l2-ctl > /dev/null 2>&1")
+          device_list_linux
+        else
+          "v4l-utils required to list devices (sudo apt install v4l-utils)"
+        end
+      end
+    end
+
+    def self.device_list_linux
+      device_list = `v4l2-ctl --list-devices 2>&1`.chomp
+      camera_devices = {}
+      current_camera = nil
+
+      device_list.each_line do |line|
+        if line.end_with?(":\n")
+          current_camera = line.strip.chomp(":").gsub(/\(usb-.*\)/, "").strip
+        elsif line.start_with?("\t/dev/video") && `v4l2-ctl -d #{line.strip} --list-formats 2>&1`.include?("Video Capture")
+          camera_devices[current_camera] ||= line.strip
+        end
+      end
+
+      camera_devices.map { |name, path| "#{name} (#{path})" }.join("\n")
+    end
     # @return String
     def self.device_list
       if Platform.platform_mac?
