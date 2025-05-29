@@ -42,22 +42,21 @@ module Lolcommits
       end
 
       private
+        attr_accessor :loldir
 
-      attr_accessor :loldir
+        def jpg_images
+          Dir.glob(File.join(loldir, "*.jpg")).sort_by { |f| File.mtime(f) }
+        end
 
-      def jpg_images
-        Dir.glob(File.join(loldir, "*.jpg")).sort_by { |f| File.mtime(f) }
-      end
+        def jpg_images_today
+          jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Date.today }
+        end
 
-      def jpg_images_today
-        jpg_images.select { |f| Date.parse(File.mtime(f).to_s) == Date.today }
-      end
-
-      def timelapses_dir_path
-        dir = File.join(loldir, "timelapses")
-        FileUtils.mkdir_p(dir)
-        dir
-      end
+        def timelapses_dir_path
+          dir = File.join(loldir, "timelapses")
+          FileUtils.mkdir_p(dir)
+          dir
+        end
     end
   end
 end

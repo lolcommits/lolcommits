@@ -70,25 +70,24 @@ module Lolcommits
     end
 
     private
+      def debug(message)
+        super("#{self.class}: #{message}")
+      end
 
-    def debug(message)
-      super("#{self.class}: #{message}")
-    end
+      def remote_https_url(url)
+        "#{url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '')}/commit/"
+      end
 
-    def remote_https_url(url)
-      "#{url.tr(':', '/').gsub(/^git@/, 'https://').gsub(/\.git$/, '')}/commit/"
-    end
+      def repository(path = ".")
+        @repository ||= Git.open(path)
+      end
 
-    def repository(path = ".")
-      @repository ||= Git.open(path)
-    end
+      def last_commit
+        @last_commit ||= repository.log.first
+      end
 
-    def last_commit
-      @last_commit ||= repository.log.first
-    end
-
-    def remote_repo?
-      !repository.remote&.url.nil?
-    end
+      def remote_repo?
+        !repository.remote&.url.nil?
+      end
   end
 end

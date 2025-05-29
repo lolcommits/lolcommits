@@ -69,17 +69,16 @@ module Lolcommits
     end
 
     private
+      def debug(message)
+        super("#{self.class}: #{message}")
+      end
 
-    def debug(message)
-      super("#{self.class}: #{message}")
-    end
+      def repository(path = ".")
+        @repository ||= Mercurial::Repository.open(path)
+      end
 
-    def repository(path = ".")
-      @repository ||= Mercurial::Repository.open(path)
-    end
-
-    def last_commit
-      @last_commit ||= repository.commits.parent
-    end
+      def last_commit
+        @last_commit ||= repository.commits.parent
+      end
   end
 end

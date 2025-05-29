@@ -35,18 +35,17 @@ module Lolcommits
       end
 
       private
+        def gets_autocomplete(prompt, words)
+          completion_handler = proc { |s| words.grep(/^#{Regexp.escape(s)}/) }
+          Readline.completion_append_character = ""
+          Readline.completion_proc = completion_handler
 
-      def gets_autocomplete(prompt, words)
-        completion_handler = proc { |s| words.grep(/^#{Regexp.escape(s)}/) }
-        Readline.completion_append_character = ""
-        Readline.completion_proc = completion_handler
+          while (line = Readline.readline(prompt, true).strip)
+            return line if words.include?(line)
 
-        while (line = Readline.readline(prompt, true).strip)
-          return line if words.include?(line)
-
-          puts "'#{line}' not found"
+            puts "'#{line}' not found"
+          end
         end
-      end
     end
   end
 end

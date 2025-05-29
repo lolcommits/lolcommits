@@ -31,18 +31,17 @@ module Lolcommits
       end
 
       private
+        def write_pid(pid)
+          File.write(pid_file, pid)
+        end
 
-      def write_pid(pid)
-        File.write(pid_file, pid)
-      end
+        def delete_pid
+          FileUtils.rm_f(pid_file)
+        end
 
-      def delete_pid
-        FileUtils.rm_f(pid_file)
-      end
-
-      def pid_file
-        File.join(@configuration.loldir, "lolcommits.pid")
-      end
+        def pid_file
+          File.join(@configuration.loldir, "lolcommits.pid")
+        end
     end
   end
 end

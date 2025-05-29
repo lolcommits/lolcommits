@@ -37,30 +37,29 @@ module Lolcommits
     end
 
     private
+      # @return [Array] find all installed and supported plugins, populate
+      #   @plugins array and return it
+      def find_plugins
+        find_gems.map do |gem|
+          plugin = GemPlugin.new(gem)
+          @plugins << plugin if plugin.supported? && !plugin_located?(plugin)
+        end
 
-    # @return [Array] find all installed and supported plugins, populate
-    #   @plugins array and return it
-    def find_plugins
-      find_gems.map do |gem|
-        plugin = GemPlugin.new(gem)
-        @plugins << plugin if plugin.supported? && !plugin_located?(plugin)
+        @plugins
       end
 
-      @plugins
-    end
+      # @return [Array] find all installed gems matching GEM_NAME_PREFIX
+      def find_gems
+        gem_list.select { |gem| gem.name =~ GEM_NAME_PREFIX }
+      end
 
-    # @return [Array] find all installed gems matching GEM_NAME_PREFIX
-    def find_gems
-      gem_list.select { |gem| gem.name =~ GEM_NAME_PREFIX }
-    end
+      def plugin_located?(plugin)
+        @plugins.any? { |existing| existing.gem_name == plugin.gem_name }
+      end
 
-    def plugin_located?(plugin)
-      @plugins.any? { |existing| existing.gem_name == plugin.gem_name }
-    end
-
-    def gem_list
-      Gem.refresh
-      Gem::Specification.respond_to?(:each) ? Gem::Specification : Gem.source_index.find_name("")
-    end
+      def gem_list
+        Gem.refresh
+        Gem::Specification.respond_to?(:each) ? Gem::Specification : Gem.source_index.find_name("")
+      end
   end
 end

@@ -23,7 +23,7 @@ module Lolcommits
       # Opens with Launchy, which knows how to open pretty much anything
       # local files, urls, etc.
       #
-      # Private so we replace it later easier if we want.
+      # private so we replace it later easier if we want.
       def self.open_with_launchy(thing)
         Launchy.open(thing)
       end

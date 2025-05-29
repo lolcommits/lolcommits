@@ -5,17 +5,16 @@ module Lolcommits
     end
 
     private
+      def capture_device_string
+        "-d \"#{capture_device}\" " if capture_device
+      end
 
-    def capture_device_string
-      "-d \"#{capture_device}\" " if capture_device
-    end
+      def capture_delay_string
+        "-w \"#{capture_delay}\" " if capture_delay.positive?
+      end
 
-    def capture_delay_string
-      "-w \"#{capture_delay}\" " if capture_delay.positive?
-    end
-
-    def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")
-    end
+      def executable_path
+        File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "videosnap", "videosnap")
+      end
   end
 end

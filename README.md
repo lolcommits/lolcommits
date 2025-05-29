@@ -6,31 +6,17 @@
 
 > git-based selfies for software developers
 
-lolcommits takes a snapshot with your webcam every time you git commit,
-archiving a "[LOLcat](https://en.wikipedia.org/wiki/Lolcat)" style image. Git
-blame has never been so much fun!
-
-By default these lol images are stored with a short SHA filename in a
-`~/.lolcommits` directory created just for you.
-
-## History
-
-Originally created by [@mroth] in 2011 (as a joke project for [Hack && Tell]),
-lolcommits has grown considerably, has a plugin ecosystem and is now maintained
-by [@matthutchinson].
-
-Thanks to all the [contributors] and users throughout the years!
-
-[@matthutchinson]: https://github.com/matthutchinson
-[@mroth]: https://github.com/mroth
-[Hack && Tell]: https://hackandtell.org
-[contributors]: https://github.com/lolcommits/lolcommits/graphs/contributors
+[lolcommits](https://lolcommits.github.io/) takes a snapshot with your webcam
+every time you git commit, archiving a
+"[LOLcat](https://en.wikipedia.org/wiki/Lolcat)" style image. Git blame has
+never been so much fun!
 
 ## Sample images
 
-<img src="https://lolcommits.github.io/assets/img/gallery.jpeg" />
+<img src="https://lolcommits.github.io/assets/img/gallery.jpeg" alt="Gallery
+grid of captured lolcommit images" />
 
-Please add your own lolcommit to the [People Using
+Feel free to add your own lolcommit to the [People Using
 Lolcommits](https://github.com/lolcommits/lolcommits/wiki/Lolcommits-from-around-the-world%21)
 page!
 
@@ -47,8 +33,7 @@ page!
 
 ### macOS
 
-You'll need ImageMagick installed.
-[Homebrew](https://brew.sh) makes this easy.
+You'll need ImageMagick installed. [Homebrew](https://brew.sh) makes this easy.
 
 	brew install imagemagick
 
@@ -56,15 +41,19 @@ Then install with:
 
 	gem install lolcommits
 
+Optionally add ffmpeg if you plan on capturing animated gifs or videos.
+
+	brew install ffmpeg
+
 ### Linux
 
-Install dependencies using your package manager of choice, for
-example in Ubuntu:
+Install dependencies using your package manager of choice. For example in
+Ubuntu:
 
     sudo apt-get install mplayer imagemagick libmagickwand-dev
 
-For Ubuntu 14.04 or newer, you need to manually install ffmpeg since it
-no longer ships with the default Ubuntu sources ([downloads
+For Ubuntu 14.04 or newer, you'll need to manually install ffmpeg, as it no
+longer ships with the base image ([download
 here](http://ffmpeg.org/download.html)).
 
 Then install with:
@@ -76,8 +65,8 @@ Linux](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Linux).
 
 ### Windows - here be dragons!
 
-It works, but you'll need some more detailed instructions to get the
-dependencies installed. See the wiki page for [Installing on
+It works, but you'll need to follow some extra instructions to get dependencies
+installed. See [Installing on
 Windows](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Windows).
 
 
@@ -85,10 +74,13 @@ Windows](https://github.com/lolcommits/lolcommits/wiki/Installing-on-Windows).
 
 ### Enabling and basic usage
 
-Within any git repository, simply run `lolcommits --enable`. From that
-point on, any git commit will automatically trigger a lolcommit capture!
-By default, all lolcommits are stored in `~/.lolcommits` and placed in a
-subdirectory by project name, with a filename matching the commit hash.
+Within any git repository, simply run
+
+    lolcommits --enable
+
+Now any git commit will automatically trigger a lolcommit capture! lolcommits
+are stored in `~/.lolcommits` with a short sha filename and organized into
+folders for each git repo.
 
 Follow [these
 steps](https://github.com/lolcommits/lolcommits/wiki/Enabling-Lolcommits-for-all-your-Git-Repositories)
@@ -96,7 +88,7 @@ to enable lolcommits across all your repos; using `git init` and the
 `init.templatedir` setting.
 
 Don't worry about it too much, half the fun of lolcommits is forgetting
-it's installed!
+it's even installed!
 
 
 ### Other commands
@@ -108,17 +100,17 @@ can guess what that does.
 Other handy common commands include `--last`, which will open for
 display your most recent lolcommit, or `--browse`, which pops open the
 directory containing all the lolcommit images for your current
-repository. You can always do `--help` for a full list of available
-commands.
+repository.
 
-**NOTE**: Any extra arguments you pass with `--enable` are appended to
-the git post-hook capture command. For example;
+Use `--help` for a full list of available commands.
 
-    lolcommits --enable --delay 5 --animate 4 --fork
+**TIP**: Any extra args you pass with `--enable` are auto-appended to
+the git hook capture command. For example;
 
-Will configure capturing of an animated gif (4 secs) after a 5 sec delay
-in a forked process. See the section below for more capture
-configuration options.
+    lolcommits --enable --delay 2 --animate 4 --fork
+
+Configures capturing of an animated gif (4 secs) after a 2 sec delay in a forked
+process.
 
 
 ### Capture configuration options
@@ -142,7 +134,7 @@ these via environment variables like so;
 * `LOLCOMMITS_CAPTURE_DISABLED` disables lolcommit capturing in the
   commit hook (when set as 'true')
 
-Or they can be set with arguments to the capture command (located in
+Or apply arguments directly on the git hook capture command (located in
 your repository's `.git/hooks/post-commit` file).
 
 * `--device {name}` or `-d {name}`
@@ -152,20 +144,19 @@ your repository's `.git/hooks/post-commit` file).
 * `--fork`
 * `--stealth`
 
-You can configure lolcommit text positions, font styles (type, size,
-color etc.) or add a transparent overlay to your images. Simply
-configure the default loltext plugin with this command:
+You can configure lolcommit text layout, font styles (type, size, color etc.) or
+add a transparent overlay to your images. Simply configure the default loltext
+plugin with this command:
 
     lolcommits --config -p loltext
 
 To find out more about styling, read about the [loltext
 options](https://github.com/lolcommits/lolcommits/wiki/Configure-Commit-Capturing#loltext-options).
 
-Use `lolcommits --devices` to list all attached video devices available
-for capturing.
+Use `lolcommits --devices` to list all attached video devices available for
+capturing.
 
-Finally, run `lolcommits --help` for details on all the available
-arguments.
+Finally, `lolcommits --help` has details on all available arguments.
 
 
 ### Videos
@@ -174,9 +165,9 @@ You can tell lolcommits to capture an mp4 video (instead of an image).
 [ffmpeg](https://www.ffmpeg.org) is required and can be installed like
 so;
 
+* macOS - `brew install ffmpeg`
 * Linux - [follow this
   guide](https://www.ffmpeg.org/download.html#build-linux)
-* macOS - `brew install ffmpeg`
 * Windows - [follow this
   guide](https://ffmpeg.org/download.html#build-windows)
 
@@ -197,18 +188,20 @@ animated capturing takes too long, try setting `LOLCOMMITS_FORK=true`.
 gif](http://cdn2.usa.bugleblogs.com/blogs/000/000/003/de0eb9aa695.gif
 "Example animated lolcommit gif")
 
-**NOTE**: If both `LOLCOMMITS_ANIMATE` and `LOLCOMMITS_VIDEO` options are set, the
-video duration takes precedence and is applied to both captures.
+**NOTE**: If both `LOLCOMMITS_ANIMATE` and `LOLCOMMITS_VIDEO` options are set,
+the video duration takes precedence and is applied to both captures.
 
 
 ### Plugins
 
-A growing number of plugins are available, allowing you to transform or
-share your lolcommits with others. The default plugin simply appends
-your commit message and sha to the captured image. Others can post to
-Twitter, Tumblr (and other services), or even translate your commit
-messages to
+A growing number of plugins are available, allowing you to transform or share
+your lolcommits with others.
+
+The default `loltxt` plugin simply appends your commit message and sha to the
+captured image. Others can post to Twitter, Tumblr or HTTP Post anywhere. You
+can even translate your commit messages to
 [lolspeak](http://www.urbandictionary.com/define.php?term=lolspeak).
+
 Check them out on our [plugins
 page](https://github.com/lolcommits/lolcommits/wiki/Configuring-Plugins).
 
@@ -223,30 +216,69 @@ Installed plugins can be easily enabled, configured or disabled with the
     # or
     lolcommits --config -p loltext
 
-Interested in developing your own plugin? Follow [this simple
-guide](https://github.com/lolcommits/lolcommits-sample_plugin#developing-your-own-plugin)
-at the Lolcommits Sample Plugin README.
+Interested in developing your own? Follow [this plugin developers
+guide](https://github.com/lolcommits/lolcommits-sample_plugin#developing-your-own-plugin).
 
 
 ## Timelapse
 
-Watch your face decay while you program, with an animated timelapse gif!
+Watch your face rapidly decay while you program! Enjoy (or despair) with:
 
     lolcommits --timelapse
     # or for just today's lolcommits
     lolcommits --timelapse --period today
 
+## Development
+
+Check out this repo and run `bundle install` to install dependencies.
+
+### Tests
+
+Cucumber is used for testing. Run the full suite with:
+
+    $ cucumber
+
+Some MiniTest unit tests can also be ran with:
+
+    $ rake test
+
+### Linting
+
+[Rubocop](https://github.com/rubocop/rubocop) is used for linting, and a git
+[quickhook](https://github.com/dirk/quickhook) can be installed to check this on
+a pre-commit.
+
+    $ rubocop
+
+    $ quickhook install
+
+### Docs
+
+Generate docs for this gem with:
+
+    $ rake rdoc
+
 ## Troubles?
 
 Try our trouble-shooting
-[FAQ](https://github.com/lolcommits/lolcommits/wiki/FAQ), or take a read
-through our [wiki](https://github.com/lolcommits/lolcommits/wiki). If
-you think something is broken or missing, please raise a [Github
-issue](https://github.com/lolcommits/lolcommits/issues) (and please
-check if we haven't [already
-addressed](https://github.com/lolcommits/lolcommits/issues?q=is%3Aissue+is%3Aclosed)
-it).
+[FAQ](https://github.com/lolcommits/lolcommits/wiki/FAQ), or take a read through
+our [wiki](https://github.com/lolcommits/lolcommits/wiki).
 
+If you think something is broken or missing, please raise a [Github
+issue](https://github.com/lolcommits/lolcommits/issues).
+
+## History
+
+Originally created by [@mroth] in 2011 (as a joke project for [Hack && Tell]),
+lolcommits has grown considerably, has a plugin ecosystem and is now maintained
+by [@matthutchinson].
+
+Thanks to all the [contributors] and users throughout the years!
+
+[@matthutchinson]: https://github.com/matthutchinson
+[@mroth]: https://github.com/mroth
+[Hack && Tell]: https://hackandtell.org
+[contributors]: https://github.com/lolcommits/lolcommits/graphs/contributors
 
 ## License
 

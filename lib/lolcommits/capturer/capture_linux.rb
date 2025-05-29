@@ -37,9 +37,8 @@ module Lolcommits
     end
 
     private
-
-    def capture_device_string
-      "-tv device=\"#{capture_device || Dir.glob('/dev/video*').first}\""
-    end
+      def capture_device_string
+        "-tv device=\"#{capture_device || Dir.glob('/dev/video*').first}\""
+      end
   end
 end

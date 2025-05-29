@@ -95,27 +95,26 @@ module Lolcommits
       end
 
       private
+        def configure_option_hash(option_hash, spacing_count = 0)
+          option_hash.keys.reduce({}) do |acc, option|
+            option_value = option_hash[option]
+            prefix       = "  " * spacing_count
+            if option_value.is_a?(Hash)
+              puts "#{prefix}#{option}:\n"
+              acc.merge(option => configure_option_hash(option_value, (spacing_count + 1)))
+            else
+              print "#{prefix}#{option.to_s.tr('_', ' ')}#{" (#{option_value})" unless option_value.nil?}: "
+              user_value = parse_user_input(gets.chomp.strip)
 
-      def configure_option_hash(option_hash, spacing_count = 0)
-        option_hash.keys.reduce({}) do |acc, option|
-          option_value = option_hash[option]
-          prefix       = "  " * spacing_count
-          if option_value.is_a?(Hash)
-            puts "#{prefix}#{option}:\n"
-            acc.merge(option => configure_option_hash(option_value, (spacing_count + 1)))
-          else
-            print "#{prefix}#{option.to_s.tr('_', ' ')}#{" (#{option_value})" unless option_value.nil?}: "
-            user_value = parse_user_input(gets.chomp.strip)
+              # if not enabled, disable and return without setting more options
+              # useful with nested hash configs, place enabled as first sub-option
+              # if answer is !true, no further sub-options will be prompted for
+              return { option => false } if option == :enabled && user_value != true
 
-            # if not enabled, disable and return without setting more options
-            # useful with nested hash configs, place enabled as first sub-option
-            # if answer is !true, no further sub-options will be prompted for
-            return { option => false } if option == :enabled && user_value != true
-
-            acc.merge(option => user_value)
+              acc.merge(option => user_value)
+            end
           end
         end
-      end
     end
   end
 end

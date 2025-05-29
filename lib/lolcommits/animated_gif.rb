@@ -37,46 +37,45 @@ module Lolcommits
     end
 
     private
-
-    def frames_dir
-      @frames_dir ||= Dir.mktmpdir
-    end
-
-    def null_string
-      Lolcommits::Platform.platform_windows? ? "nul" : "/dev/null"
-    end
-
-    def frame_delay(fps, skip)
-      # calculate frame delay
-      delay = ((100.0 * skip) / fps.to_f).to_i
-      [ delay, 6 ].max # hard limit for IE browsers
-    end
-
-    def video_fps(file)
-      # inspect fps of the captured video file (default to 29.97)
-      fps = system_call("ffmpeg -nostats -v quiet -i \"#{file}\" 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", capture_output: true)
-      fps.to_i < 1 ? 29.97 : fps.to_f
-    end
-
-    def frame_skip(fps)
-      # of frames to skip depends on video fps
-      case fps
-      when 0..15
-        2
-      when 16..28
-        3
-      else
-        4
+      def frames_dir
+        @frames_dir ||= Dir.mktmpdir
       end
-    end
 
-    def system_call(call_str, capture_output: false)
-      debug "making system call for \n #{call_str}"
-      capture_output ? `#{call_str}` : system(call_str)
-    end
+      def null_string
+        Lolcommits::Platform.platform_windows? ? "nul" : "/dev/null"
+      end
 
-    def debug(message)
-      super("#{self.class}: #{message}")
-    end
+      def frame_delay(fps, skip)
+        # calculate frame delay
+        delay = ((100.0 * skip) / fps.to_f).to_i
+        [ delay, 6 ].max # hard limit for IE browsers
+      end
+
+      def video_fps(file)
+        # inspect fps of the captured video file (default to 29.97)
+        fps = system_call("ffmpeg -nostats -v quiet -i \"#{file}\" 2>&1 | sed -n \"s/.*, \\(.*\\) fp.*/\\1/p\"", capture_output: true)
+        fps.to_i < 1 ? 29.97 : fps.to_f
+      end
+
+      def frame_skip(fps)
+        # of frames to skip depends on video fps
+        case fps
+        when 0..15
+          2
+        when 16..28
+          3
+        else
+          4
+        end
+      end
+
+      def system_call(call_str, capture_output: false)
+        debug "making system call for \n #{call_str}"
+        capture_output ? `#{call_str}` : system(call_str)
+      end
+
+      def debug(message)
+        super("#{self.class}: #{message}")
+      end
   end
 end

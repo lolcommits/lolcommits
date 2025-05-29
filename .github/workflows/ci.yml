@@ -22,7 +22,7 @@ jobs:
           ruby-version: 3.4
           bundler-cache: true
       - name: Run rubocop
-        run: bundle exec rubocop --parallel
+        run: bin/rubocop --parallel
   tests:
     name: Unit tests
     runs-on: ubuntu-latest
@@ -34,7 +34,7 @@ jobs:
         ruby-version: 3.4
         bundler-cache: true
     - name: Run tests
-      run: bundle exec rake test
+      run: rake test
   features:
     name: ${{ format('Features (Ruby {0})', matrix.ruby-version) }}
     runs-on: ubuntu-latest

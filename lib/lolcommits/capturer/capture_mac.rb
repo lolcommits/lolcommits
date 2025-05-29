@@ -5,13 +5,12 @@ module Lolcommits
     end
 
     private
+      def capture_device_string
+        capture_device.nil? ? "" : "-d \"#{capture_device}\""
+      end
 
-    def capture_device_string
-      capture_device.nil? ? "" : "-d \"#{capture_device}\""
-    end
-
-    def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
-    end
+      def executable_path
+        File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "imagesnap", "imagesnap")
+      end
   end
 end

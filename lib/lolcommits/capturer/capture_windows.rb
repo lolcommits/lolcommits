@@ -8,19 +8,18 @@ module Lolcommits
     end
 
     private
-
-    def delay_arg
-      # CommandCam delay is in milliseconds
-      if capture_delay.positive?
-        " /delay #{capture_delay * 1000}"
-      else
-        # DirectShow takes a while to show, default to 3 sec delay
-        " /delay 3000"
+      def delay_arg
+        # CommandCam delay is in milliseconds
+        if capture_delay.positive?
+          " /delay #{capture_delay * 1000}"
+        else
+          # DirectShow takes a while to show, default to 3 sec delay
+          " /delay 3000"
+        end
       end
-    end
 
-    def executable_path
-      File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "CommandCam", "CommandCam.exe")
-    end
+      def executable_path
+        File.join(Configuration::LOLCOMMITS_ROOT, "vendor", "ext", "CommandCam", "CommandCam.exe")
+      end
   end
 end
