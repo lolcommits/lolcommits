@@ -35,7 +35,7 @@ Gem::Specification.new do |s|
 
   # core
   s.add_dependency('base64')
-  s.add_dependency('git', '~> 3.1.0')
+  s.add_dependency('git', '~> 4.0.0')
   s.add_dependency('launchy', '~> 3.1.1')
   s.add_dependency('logger')
   s.add_dependency('mercurial-ruby', '~> 0.7.12')
