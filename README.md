@@ -3,6 +3,7 @@
 [![CI](https://img.shields.io/github/actions/workflow/status/lolcommits/lolcommits/ci.yml?branch=main&style=flat&label=CI)](https://github.com/lolcommits/lolcommits/actions/workflows/ci.yml)
 [![Depfu](https://img.shields.io/depfu/lolcommits/lolcommits.svg?style=flat)](https://depfu.com/github/lolcommits/lolcommits)
 [![Gem](https://img.shields.io/gem/v/lolcommits.svg?style=flat)](http://rubygems.org/gems/lolcommits)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/lolcommits/lolcommits)
 
 > git-based selfies for software developers
 
