@@ -15,14 +15,7 @@ Gem::Specification.new do |s|
   developers. `git blame` has never been so much fun.
   DESC
 
-  s.metadata = {
-    'homepage_uri' => 'https://lolcommits.github.io',
-    'source_code_uri' => 'https://github.com/lolcommits/lolcommits',
-    'changelog_uri' => 'https://github.com/lolcommits/lolcommits/blob/master/CHANGELOG.md',
-    'bug_tracker_uri' => 'https://github.com/lolcommits/lolcommits/issues',
-    'allowed_push_host' => 'https://rubygems.org',
-    'rubygems_mfa_required' => 'true'
-  }
+  s.metadata = { 'homepage_uri' => 'https://lolcommits.github.io', 'source_code_uri' => 'https://github.com/lolcommits/lolcommits', 'changelog_uri' => 'https://github.com/lolcommits/lolcommits/blob/master/CHANGELOG.md', 'bug_tracker_uri' => 'https://github.com/lolcommits/lolcommits/issues', 'allowed_push_host' => 'https://rubygems.org', 'rubygems_mfa_required' => 'true' }
 
   s.files = Dir["lib/**/*", "vendor/ext/**/*", "bin/lolcommits", "LICENSE", "README.md", ".rubocop.yml"]
   s.executables = 'lolcommits'

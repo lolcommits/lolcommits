@@ -3,10 +3,7 @@ require "lolcommits/animated_gif"
 
 module Lolcommits
   class Runner
-    attr_accessor :capture_delay, :capture_stealth, :capture_device,
-                  :capture_duration, :capture_path, :capture_video,
-                  :capture_gif, :sha, :message, :config, :vcs_info,
-                  :lolcommit_path, :lolcommit_gif_path
+    attr_accessor :capture_delay, :capture_stealth, :capture_device, :capture_duration, :capture_path, :capture_video, :capture_gif, :sha, :message, :config, :vcs_info, :lolcommit_path, :lolcommit_gif_path
 
     def initialize(attributes = {})
       attributes.each do |attr, val|
@@ -94,12 +91,7 @@ module Lolcommits
 
       def run_capture
         puts "*** Preserving this moment in history." unless capture_stealth
-        capturer = Platform.capturer_class(animate: !capture_image?).new(
-          capture_path: capture_path,
-          capture_device: capture_device,
-          capture_delay: capture_delay,
-          capture_duration: capture_duration
-        )
+        capturer = Platform.capturer_class(animate: !capture_image?).new(capture_path: capture_path, capture_device: capture_device, capture_delay: capture_delay, capture_duration: capture_duration)
         capturer.capture
       end
 
@@ -159,9 +151,7 @@ module Lolcommits
             c.gravity "center"
           end.write(lolcommit_path)
         else
-          system_call "ffmpeg -v quiet -nostats -i #{capture_path} -i #{overlay.path} \
-            -filter_complex overlay=0:0 \
-            -y #{lolcommit_path}"
+          system_call "ffmpeg -v quiet -nostats -i #{capture_path} -i #{overlay.path} -filter_complex overlay=0:0 -y #{lolcommit_path}"
         end
       end
 

@@ -129,15 +129,7 @@ class App
     capture_gif     = !(options[:animate] || ENV['LOLCOMMITS_ANIMATE']).nil?
     capture_video   = !(options[:video] || ENV['LOLCOMMITS_VIDEO']).nil?
 
-    capture_options = {
-      capture_delay: capture_delay,
-      capture_stealth: capture_stealth,
-      capture_device: capture_device,
-      capture_duration: capture_duration,
-      capture_gif: capture_gif,
-      capture_video: capture_video,
-      config: config
-    }
+    capture_options = { capture_delay: capture_delay, capture_stealth: capture_stealth, capture_device: capture_device, capture_duration: capture_duration, capture_gif: capture_gif, capture_video: capture_video, config: config }
 
     process_runner = ProcessRunner.new(config)
     process_runner.fork_me?(should_fork) do
